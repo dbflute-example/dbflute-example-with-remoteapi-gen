@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- main language (to avoid HTML validator) -->
+<head>
+    <meta charset="UTF-8" />
+    <title>remoteapigen lastadoc</title>
+    <style type="text/css">
+/* -------------------------------------------------
+                                             Core
+------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Verdana, "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", Meiryo, "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
+    font-size: 80%;
+    margin: 10px 5px 5px 15px;
+    background-color: #F9FCEB;
+}
+
+/* -------------------------------------------------
+                                     Whole Header
+------------------------------------------------- */
+h1 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    padding: 3px 0;
+    background-color: #882255;
+    color: #F9FCEB;
+    text-indent: 2em;
+    letter-spacing: 0.2em;
+}
+h2 {
+    font-size: 2.5em;
+    margin-top: 2.5em;
+    margin-bottom: 20px;
+    padding: 3px 0;
+    background-color: #9e4873;
+    color: #F9FCEB;
+    text-indent: 2em;
+    letter-spacing: 0.2em;
+}
+h3 {
+    margin: 2em 0 0.5em 0;
+    font-size: 1.8em;
+    border-left: 0.5em solid #882255;
+    background-color: #CFA7BB;
+    text-indent: 0.3em;
+    line-height: 1.5em;
+}
+h4 {
+    padding: 0 0 0 10px;
+    margin: 1em 10% 0 1em;
+    border-top: solid 1px #882255;
+    border-bottom: solid 1px #882255;
+    font-size: 1.4em;
+    color: #333333;
+}
+
+/* -------------------------------------------------
+                                     Whole Header
+------------------------------------------------- */
+.navilinkarea {
+    text-align: right;
+}
+.sisterlink {
+    margin-top: 0.6em;
+    font-size: 120%;
+}
+.sistersublink {
+    margin-top: 0.6em;
+    font-size: 85%;
+}
+.sisterneighborlink {
+    margin-top: 0.6em;
+    font-size: 100%;
+}
+
+/* -------------------------------------------------
+                                   Document Basic
+------------------------------------------------- */
+.doctitle {
+    font-size: 1.2em;
+    color: #AA7777;
+}
+.docsubtitle {
+    font-size: 1.0em;
+    color: #AA7777;
+}
+.docmainvalue {
+    font-size: 1.3em;
+    color: #221188;
+}
+.docsubvalue {
+    font-size: 1.1em;
+    color: #221188;
+}
+p.docsubitem {
+    padding: 0.2em 0 0 1.5em;
+}
+.docannotations {
+    color: #666666;
+}
+
+/* -------------------------------------------------
+                                     Table Layout
+------------------------------------------------- */
+/* table basic */
+table {
+    border-collapse:collapse;
+    margin: 0.3em 0 1em 0;
+}
+table, th {
+    border: 1px solid #555;
+}
+th {
+    background-color: #E4AAA4;
+    font-size: 0.8em;
+    padding: 0 0.2em 0 0.2em;
+}
+td {
+    border-bottom: 1px dotted #aaa;
+    border-left: 1px solid #555;
+    padding:2px;
+}
+.nestedbean {
+    margin: 0 0 0 1.5em;
+}
+.tablecomment {
+    font-size: 0.8em;
+    color: #3F7E5E;
+    padding:0.5em 0 0.1em 1em;
+    margin-bottom: 1em;
+}
+
+/* row and cell */
+.rowcell {
+    white-space: nowrap;
+}
+.rowcellnum {
+    text-align: right;
+    font-size: 0.5em;
+    color: #444;
+}
+.flgcell {
+    text-align: center;
+}
+
+/* inner table */
+table.child {
+    margin: 3px;
+}
+table.child th {
+    font-size: 0.7em;
+}
+table.child, table.child td, table.child th {
+    border-top: none;
+    border-left: none;
+    border-bottom: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+}
+
+/* -------------------------------------------------
+                                      Field Items
+------------------------------------------------- */
+.fieldcomment {
+    font-size: 0.9em;
+    color: #3F7E5E;
+}
+.fieldannotations {
+    font-size: 0.9em;
+    color: #666666;
+}
+.fieldpublicname {
+    color: #331100;
+}
+.fieldpropertyname {
+    font-size: 0.8em;
+    color: #444466;
+}
+.clsgroup {
+    font-size: 1.2em;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+/* -------------------------------------------------
+                                        MailFlute
+------------------------------------------------- */
+.mailtitle {
+    font-size: 1.5em;
+}
+
+/* -------------------------------------------------
+                                       Supplement
+------------------------------------------------- */
+/* page top */
+.pagetop {
+    text-align: right
+}
+    </style>
+</head>
+<body>
+<div style="position:fixed; width:95%"><div class="pagetop"><a href="#top">▲Page Top</a></div></div>
+<h1>lastadoc for remoteapigen</h1>
+<div class="navilinkarea">
+
+<p class="sisterneighborlink">
+    <a href="#lastadoc_action">to action(0)</a>
+    | <a href="#remoteapi">to remoteapi</a>
+<!-- df:markFreeGenDocNaviLink -->
+</p>
+</div>
+
+
+
+
+
+
+<span id="remoteapi"></span><h2 id="rempteapi-Petstore">rempteapi (Petstore)</h2>
+<table>
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>URL</th>
+        <th>Http Method</th>
+        <th>class#method</th>
+    </tr>
+    </thead>
+    <tbody id="rempteapi-$data.schema-list-body">
+    <tr>
+        <td class="rowcellnum">1</td>
+        <td class="rowcell"><a href="#.pet::post">/pet</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestPost()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">2</td>
+        <td class="rowcell"><a href="#.pet::put">/pet</a></td>
+        <td class="rowcell">put</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestPut()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">3</td>
+        <td class="rowcell"><a href="#.pet.findByStatus::get">/pet/findByStatus</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestFindbystatus()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">4</td>
+        <td class="rowcell"><a href="#.pet.findByTags::get">/pet/findByTags</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestFindbytags()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">5</td>
+        <td class="rowcell"><a href="#.pet._b_petId_e_::get">/pet/{petId}</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestGet()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">6</td>
+        <td class="rowcell"><a href="#.pet._b_petId_e_::post">/pet/{petId}</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestPost()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">7</td>
+        <td class="rowcell"><a href="#.pet._b_petId_e_::delete">/pet/{petId}</a></td>
+        <td class="rowcell">delete</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestDelete()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">8</td>
+        <td class="rowcell"><a href="#.pet._b_petId_e_.uploadImage::post">/pet/{petId}/uploadImage</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstorePetBhv#requestUploadimage()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">1</td>
+        <td class="rowcell"><a href="#.store.inventory::get">/store/inventory</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstoreStoreBhv#requestInventory()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">2</td>
+        <td class="rowcell"><a href="#.store.order::post">/store/order</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstoreStoreBhv#requestOrder()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">3</td>
+        <td class="rowcell"><a href="#.store.order._b_orderId_e_::get">/store/order/{orderId}</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstoreStoreBhv#requestOrderGet()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">4</td>
+        <td class="rowcell"><a href="#.store.order._b_orderId_e_::delete">/store/order/{orderId}</a></td>
+        <td class="rowcell">delete</td>
+        <td class="rowcell">RemotePetstoreStoreBhv#requestOrderDelete()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">1</td>
+        <td class="rowcell"><a href="#.user::post">/user</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstoreUserBhv#request()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">2</td>
+        <td class="rowcell"><a href="#.user.createWithArray::post">/user/createWithArray</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestCreatewitharray()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">3</td>
+        <td class="rowcell"><a href="#.user.createWithList::post">/user/createWithList</a></td>
+        <td class="rowcell">post</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestCreatewithlist()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">4</td>
+        <td class="rowcell"><a href="#.user.login::get">/user/login</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestLogin()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">5</td>
+        <td class="rowcell"><a href="#.user.logout::get">/user/logout</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestLogout()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">6</td>
+        <td class="rowcell"><a href="#.user._b_username_e_::get">/user/{username}</a></td>
+        <td class="rowcell">get</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestGet()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">7</td>
+        <td class="rowcell"><a href="#.user._b_username_e_::put">/user/{username}</a></td>
+        <td class="rowcell">put</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestPut()</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum">8</td>
+        <td class="rowcell"><a href="#.user._b_username_e_::delete">/user/{username}</a></td>
+        <td class="rowcell">delete</td>
+        <td class="rowcell">RemotePetstoreUserBhv#requestDelete()</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3 id=".pet::post">
+/pet (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestPost()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemotePetPostParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>category</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>photoUrls</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>tags</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet::put">
+/pet (put)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestPut()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemotePetPutParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>category</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>photoUrls</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>tags</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet.findByStatus::get">
+/pet/findByStatus (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestFindbystatus()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemotePetFindbystatusParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemotePetFindbystatusReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>category</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>photoUrls</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>tags</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet.findByTags::get">
+/pet/findByTags (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestFindbytags()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemotePetFindbytagsParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>tags</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemotePetFindbytagsReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>category</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>photoUrls</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>tags</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet._b_petId_e_::get">
+/pet/{petId} (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestGet()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemotePetGetReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>category</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>photoUrls</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>tags</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet._b_petId_e_::post">
+/pet/{petId} (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestPost()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemotePetPetidPostParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet._b_petId_e_::delete">
+/pet/{petId} (delete)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestDelete()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".pet._b_petId_e_.uploadImage::post">
+/pet/{petId}/uploadImage (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstorePetBhv#requestUploadimage()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemotePetUploadimageParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>additionalMetadata</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>file</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemotePetUploadimageReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>code</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>type</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>message</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".store.inventory::get">
+/store/inventory (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreStoreBhv#requestInventory()</span>
+</p>
+<span class="doctitle">Return as:</span> <span class="docsubvalue">java.util.Map&lt;String,&nbsp;Object&gt;</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+</table>
+
+<h3 id=".store.order::post">
+/store/order (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreStoreBhv#requestOrder()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemoteStoreOrderParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>quantity</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>shipDate</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>complete</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemoteStoreOrderReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>quantity</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>shipDate</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>complete</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".store.order._b_orderId_e_::get">
+/store/order/{orderId} (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreStoreBhv#requestOrderGet()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>orderId</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemoteStoreOrderGetReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>petId</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>quantity</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>shipDate</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>status</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>complete</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".store.order._b_orderId_e_::delete">
+/store/order/{orderId} (delete)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreStoreBhv#requestOrderDelete()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>orderId</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".user::post">
+/user (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#request()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemoteUserParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>firstName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>lastName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>email</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>password</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">7</td>
+        <td>phone</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">8</td>
+        <td>userStatus</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".user.createWithArray::post">
+/user/createWithArray (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestCreatewitharray()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemoteUserCreatewitharrayParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>firstName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>lastName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>email</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>password</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">7</td>
+        <td>phone</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">8</td>
+        <td>userStatus</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".user.createWithList::post">
+/user/createWithList (post)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestCreatewithlist()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemoteUserCreatewithlistParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>firstName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>lastName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>email</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>password</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">7</td>
+        <td>phone</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">8</td>
+        <td>userStatus</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".user.login::get">
+/user/login (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestLogin()</span>
+</p>
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemoteUserLoginParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>password</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">String</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+</table>
+
+<h3 id=".user.logout::get">
+/user/logout (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestLogout()</span>
+</p>
+<h3 id=".user._b_username_e_::get">
+/user/{username} (get)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestGet()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Return as:</span> <span class="docsubvalue">RemoteUserGetReturn</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>firstName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>lastName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>email</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>password</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">7</td>
+        <td>phone</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">8</td>
+        <td>userStatus</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".user._b_username_e_::put">
+/user/{username} (put)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestPut()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<span class="doctitle">Param as:</span> <span class="docsubvalue">RemoteUserPutParam</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>id</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">2</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">3</td>
+        <td>firstName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">4</td>
+        <td>lastName</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">5</td>
+        <td>email</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">6</td>
+        <td>password</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">7</td>
+        <td>phone</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">8</td>
+        <td>userStatus</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+<h3 id=".user._b_username_e_::delete">
+/user/{username} (delete)
+</h3>
+<p>
+<span class="doctitle">Request Method:</span> <span class="docmainvalue">RemotePetstoreUserBhv#requestDelete()</span>
+</p>
+<span class="doctitle">URL Parameter:</span>
+<table>
+    <thead>
+    <tr>
+        <th class="rownumhead">No.</th>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr>
+        <td class="rowcellnum" rowspan="$rowspan">1</td>
+        <td>username</td>
+        <td>TODO</td>
+    </tr>
+</table>
+
+
+<!-- df:markFreeGenDocBody -->
+</body>
+</html>
