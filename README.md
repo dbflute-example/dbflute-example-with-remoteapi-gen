@@ -8,6 +8,8 @@ example project for DBFlute with remoteapi-gen
 1. Download remoteapigen-freegen.zip from release tag
 2. extract it and locate it under your freegen directory  
 (if old version module exists, replace it)
+3. [How to use RemoteApiGen](dbflute_maihamadb/freegen/remoteapi/README.md)
+
 
 ```
 dbflute_[appdb]
@@ -45,4 +47,4 @@ freegen
  |  |-doc
  |  |-ControlFreeGenRemoteApiJava.js
  |  |-...
-```
+```  

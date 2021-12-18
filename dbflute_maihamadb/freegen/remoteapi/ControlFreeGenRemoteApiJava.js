@@ -380,7 +380,7 @@ function processBean(rule, remoteApiBeanList) {
     for (remoteApiBeanKey in uniqueRemoteApiBeanMap) {
         var remoteApiBean = uniqueRemoteApiBeanMap[remoteApiBeanKey];
         var path = remoteApiBean.package.replace(/\./g, '/') + '/' + remoteApiBean.className + '.java';
-        generate('./remoteapi/RemoteApiBean.vm', path, remoteApiBean, true);
+        generate('./remoteapi/RemoteApiBean.vm', path, remoteApiBean, remoteApiBean.definitionRemoteApiBean === null);
     }
 }
 
