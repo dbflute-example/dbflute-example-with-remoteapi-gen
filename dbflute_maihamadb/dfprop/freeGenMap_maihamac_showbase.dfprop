@@ -1,0 +1,16 @@
+ map:{
+    ; RemoteApiMaihamaShowbase = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../src/main
+            ; resourceType = SWAGGER
+            ; resourceFile = $$baseDir$$/resources/remoteapi/schema/remoteapi_schema_maihama-showbase.json
+        }
+        ; outputMap = map:{
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.docksidestage.remote
+        }
+        ; optionMap = map:{
+            ; ruleJsPath = ../src/main/resources/remoteapi/schema/remoteapi_schema_maihama-showbase_rule.js
+        }
+    }
+}

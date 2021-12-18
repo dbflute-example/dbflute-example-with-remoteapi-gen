@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//DBFLUTE//DTD LastaDi 1.0//EN"
+    "http://dbflute.org/meta/lastadi10.dtd">
+<!-- @author FreeGen -->
+<components namespace="remoteapi_petstore2-xxx-yyy">
+    <include path="lastaflute.xml"/>
+    <include condition="#exists('#path')" path="remoteapi/di/remoteapi_all_included.xml"/>
+    <include condition="#exists('#path')" path="remoteapi/di/remoteapi_petstore2-xxx-yyy_included.xml"/>
+
+    <!-- Remote API Behavior -->
+    <component name="remotePetstore2XxxPetBhv" class="org.docksidestage.remote.petstore2.xxx.yyy.pet.RemotePetstore2XxxPetBhv" />
+    <component name="remotePetstore2XxxStoreBhv" class="org.docksidestage.remote.petstore2.xxx.yyy.store.RemotePetstore2XxxStoreBhv" />
+    <component name="remotePetstore2XxxUserBhv" class="org.docksidestage.remote.petstore2.xxx.yyy.user.RemotePetstore2XxxUserBhv" />
+</components>

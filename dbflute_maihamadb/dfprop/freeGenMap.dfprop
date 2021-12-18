@@ -1,19 +1,8 @@
  map:{
-    # ==========================================================================
-    #                                                       Remote Api(Petstore)
-    #                                                       ====================
-    ; RemoteApiPetstore = map:{
-        ; resourceMap = map:{
-            ; baseDir = ../src/main
-            ; resourceType = SWAGGER
-            ; resourceFile = $$baseDir$$/resources/remoteapi/schema/remoteapi_schema_petstore.json
-        }
-        ; outputMap = map:{
-            ; outputDirectory = ../src/main/java
-            ; package = org.docksidestage.remote
-        }
-        ; tableMap = map:{
-            ; ruleJsPath = ../src/main/resources/remoteapi/schema/remoteapi_schema_petstore_rule.js
-        }
+    ; $$split$$ = map:{
+        ; petstore = dummy
+        ; maihamac_showbase = dummy
+        ; fortress = dummy
+        ; tricky = dummy
     }
 }

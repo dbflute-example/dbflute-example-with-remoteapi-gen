@@ -20,8 +20,10 @@ import javax.annotation.Resource;
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.mylasta.direction.RemoteapigenConfig;
 import org.lastaflute.core.json.JsonMappingOption;
+import org.lastaflute.remoteapi.mapping.LaVacantMappingPolicy;
 import org.lastaflute.remoteapi.receiver.LaJsonReceiver;
 import org.lastaflute.remoteapi.sender.body.LaJsonSender;
+import org.lastaflute.remoteapi.sender.query.LaQuerySender;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -53,8 +55,10 @@ public abstract class AbstractRemotePetstoreBhv extends org.lastaflute.remoteapi
     @Override
     protected void yourDefaultRule(FlutyRemoteApiRule rule) {
         JsonMappingOption mappingOption = new JsonMappingOption();
+        rule.sendQueryBy(new LaQuerySender(new LaVacantMappingPolicy()));
         rule.sendBodyBy(new LaJsonSender(requestManager, mappingOption));
         rule.receiveBodyBy(new LaJsonReceiver(requestManager, mappingOption));
+        rule.getValidatorOption().suppressParam().suppressReturn();
     }
 
     @Override

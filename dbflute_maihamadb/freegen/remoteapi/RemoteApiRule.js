@@ -70,7 +70,7 @@ var baseRule = {
 
     /**
      * Return schema package.
-     * @param {Api} api - API. (NotNull)
+     * @param {string} schema - schema. (NotNull)
      * @return {string} schema package. (NotNull)
      */
     schemaPackage: function(schema) {
