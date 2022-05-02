@@ -15,11 +15,20 @@
  */
 package org.docksidestage.remote.tricky.fieldcase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
+import org.dbflute.remoteapi.mock.supporter.MockFreedomResponse.MockRequestDeterminer;
+import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharGetParam;
+import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharGetReturn;
+import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharPostParam;
+import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharPostReturn;
+import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharPutParam;
+import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharPutReturn;
 import org.docksidestage.remote.tricky.fieldcase.noconv.RemoteFieldcaseNoconvParam;
 import org.docksidestage.remote.tricky.fieldcase.noconv.RemoteFieldcaseNoconvReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
@@ -57,12 +66,116 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("BONVO={}", returnBean.BONVO);
     }
 
+    public void test_requestNgcharGet() {
+        // ## Arrange ##
+        Consumer<RemoteFieldcaseNgcharGetParam> paramLambda = param -> {
+            param.seaid = 1;
+            param.landName = "land-Name";
+            param.onePiari = "1Piari";
+        };
+
+        // ## Act ##
+        RemoteFieldcaseNgcharGetReturn returnBean =
+                createBhv("{ \"hangar*id\": 1, \"oneman-name\": \"oneman-name\", \"1Piari\": \"1Piari\" }", request -> {
+                    //request.getParam().alwaysPresent(param -> {
+                    // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+                    //@SuppressWarnings("unchecked")
+                    //Map<String, Object> requestMap = this.requestManager.getJsonManager().fromJson(param, HashMap.class);
+                    //assertEquals("sea*id", 1, requestMap.get("sea*id"));
+                    //assertEquals("land-Name", "land-Name", requestMap.get("land-Name"));
+                    //assertEquals("1Piari", "1Piari", requestMap.get("1Piari"));
+                    //});
+                    return true;
+                }).requestNgcharGet(paramLambda);
+
+        // ## Assert ##
+        logger.debug("hangarid={}", returnBean.hangarid);
+        logger.debug("onemanname={}", returnBean.onemanname);
+        logger.debug("onePiari", returnBean.onePiari);
+
+        // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+        assertEquals("hangarid", 1, returnBean.hangarid);
+        assertEquals("onemanname", "oneman-name", returnBean.onemanname);
+        assertEquals("onePiari", "1Piari", returnBean.onePiari);
+    }
+
+    public void test_requestNgcharPost() {
+        // ## Arrange ##
+        Consumer<RemoteFieldcaseNgcharPostParam> paramLambda = param -> {
+            param.seaid = 1;
+            param.landName = "land-Name";
+            param.onePiari = "1Piari";
+        };
+
+        // ## Act ##
+        RemoteFieldcaseNgcharPostReturn returnBean =
+                createBhv("{ \"hangar*id\": 1, \"oneman-name\": \"oneman-name\", \"1Piari\": \"1Piari\" }", request -> {
+                    //request.getParam().alwaysPresent(param -> {
+                    // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+                    //@SuppressWarnings("unchecked")
+                    //Map<String, Object> requestMap = this.requestManager.getJsonManager().fromJson(param, HashMap.class);
+                    //assertEquals("sea*id", 1, requestMap.get("sea*id"));
+                    //assertEquals("land-Name", "land-Name", requestMap.get("land-Name"));
+                    //assertEquals("1Piari", "1Piari", requestMap.get("1Piari"));
+                    //});
+                    return true;
+                }).requestNgcharPost(paramLambda);
+
+        // ## Assert ##
+        logger.debug("hangarid={}", returnBean.hangarid);
+        logger.debug("onemanname={}", returnBean.onemanname);
+        logger.debug("onePiari", returnBean.onePiari);
+
+        // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+        assertEquals("hangarid", 1, returnBean.hangarid);
+        assertEquals("onemanname", "oneman-name", returnBean.onemanname);
+        assertEquals("onePiari", "1Piari", returnBean.onePiari);
+    }
+
+    public void test_requestNgcharPut() {
+        // ## Arrange ##
+        Consumer<RemoteFieldcaseNgcharPutParam> paramLambda = param -> {
+            param.seaid = 1;
+            param.landName = "land-Name";
+            param.onePiari = "1Piari";
+        };
+
+        // ## Act ##
+        RemoteFieldcaseNgcharPutReturn returnBean =
+                createBhv("{ \"hangar*id\": 1, \"oneman-name\": \"oneman-name\", \"1Piari\": \"1Piari\" }", request -> {
+                    request.getBody().alwaysPresent(body -> {
+                        // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> requestMap = this.requestManager.getJsonManager().fromJson(body, HashMap.class);
+                        System.out.println(requestMap);
+                        assertEquals("sea*id", 1.0, requestMap.get("sea*id"));
+                        assertEquals("land-Name", "land-Name", requestMap.get("land-Name"));
+                        assertEquals("1Piari", "1Piari", requestMap.get("1Piari"));
+                    });
+                    return true;
+                }).requestNgcharPut(paramLambda);
+
+        // ## Assert ##
+        logger.debug("hangarid={}", returnBean.hangarid);
+        logger.debug("onemanname={}", returnBean.onemanname);
+        logger.debug("onePiari", returnBean.onePiari);
+
+        // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+        assertEquals("hangarid", 1, returnBean.hangarid);
+        assertEquals("onemanname", "oneman-name", returnBean.onemanname);
+        assertEquals("onePiari", "1Piari", returnBean.onePiari);
+    }
+
     private RemoteTrickyFieldcaseBhv createBhv(String json) {
+        return createBhv(json, request -> true);
+    }
+
+    private RemoteTrickyFieldcaseBhv createBhv(String json, MockRequestDeterminer requestLambda) {
         MockHttpClient client = MockHttpClient.create(response -> {
             if (json == null) {
-                response.asJsonNoContent(request -> true);
+                response.asJsonNoContent(requestLambda);
             } else {
-                response.asJsonDirectly(json, request -> true);
+                response.asJsonDirectly(json, requestLambda);
             }
         });
         registerMock(client);

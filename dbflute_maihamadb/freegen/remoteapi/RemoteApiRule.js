@@ -338,17 +338,35 @@ var baseRule = {
     },
 
     /**
-     * Return field name.
+     * Return java field name.
      * @param {Api} api - API. (NotNull)
-     * @param {string} fieldName - field name. (NotNull)
-     * @return {string} field name. (NotNull)
+     * @param {string} jsonFieldName - json field name. (NotNull)
+     * @return {string} java field name. (NotNull)
      */
-    fieldName: function(api, bean, fieldName) {
+    fieldName: function(api, bean, jsonFieldName) {
         var fieldNaming = this.fieldNamingMapping()[bean.in];
         if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
-            return manager.initUncap(manager.camelize(fieldName));
+            return manager.initUncap(manager.camelize(jsonFieldName));
         }
-        return fieldName;
+        return jsonFieldName;
+    },
+
+    /**
+     * Return true for custom java field name.
+     * @param {Api} api - API. (NotNull)
+     * @param {string} fieldName - field name. (NotNull)
+     * @return {boolean} Return true for custom java field name. (NotNull)
+     */
+    isCustomFieldName: function(api, bean, jsonFieldName) {
+        var adjustedFieldName = this.fieldName(api, bean, jsonFieldName);
+        if (adjustedFieldName.equals(jsonFieldName)) {
+            return false;
+        }
+        var fieldNaming = this.fieldNamingMapping()[bean.in];        
+        if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
+            return !manager.decamelize(adjustedFieldName).toLowerCase().equals(jsonFieldName);
+        }
+        return true;
     },
 
     // ===================================================================================

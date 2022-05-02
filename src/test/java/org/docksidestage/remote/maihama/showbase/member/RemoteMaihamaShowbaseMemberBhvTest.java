@@ -76,7 +76,7 @@ public class RemoteMaihamaShowbaseMemberBhvTest extends UnitRemoteapigenTestCase
         };
 
         // ## Act ##
-        RemoteMemberAddRegisterReturn returnBean = createBhv("{}").requestAddRegister(paramLambda);
+        RemoteMemberAddRegisterReturn returnBean = createBhv("{ \"_purchaseCount\": 1 }").requestAddRegister(paramLambda);
 
         // ## Assert ##
         logger.debug("purchaseCount={}", returnBean.purchaseCount);
@@ -110,6 +110,9 @@ public class RemoteMaihamaShowbaseMemberBhvTest extends UnitRemoteapigenTestCase
         logger.debug("derivedMap={}", returnBean.derivedMap);
         logger.debug("undefinedClassificationSelectAllowed={}", returnBean.undefinedClassificationSelectAllowed);
         logger.debug("createdBySelect={}", returnBean.createdBySelect);
+
+        // p1us2er0 Check the mapping of customized fields. (2022/05/02)
+        assertEquals("purchaseCount", 1, returnBean.purchaseCount);
     }
 
     public void test_requestEdit() {
