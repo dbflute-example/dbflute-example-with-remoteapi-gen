@@ -353,6 +353,13 @@ var baseRule = {
 
     /**
      * Return true for custom java field name.
+     * If neither of the following is true, it is considered custom.
+     * 1. Swagger field name and java field name are an exact match.
+     * 2. Swagger field name and java field name are the simple conversion of camel case -> snake case.
+     *    Judgment of simple conversion of camel case-> snake case,
+     *    After camel case -> snake case, reverse conversion is done to match the original name (reversible).
+     *
+     * If it is determined to be custom, @SerializedName will be added for serialization / deserialization at the time of automatic generation.
      * @param {Api} api - API. (NotNull)
      * @param {string} fieldName - field name. (NotNull)
      * @return {boolean} Return true for custom java field name. (NotNull)

@@ -101,6 +101,12 @@
             "type": "string",
             "in": "query",
             "required": false
+          },
+          {
+            "name": "unchanged",
+            "type": "string",
+            "in": "query",
+            "required": false
           }
         ],
         "responses": {
@@ -137,6 +143,12 @@
           },
           {
             "name": "1Piari",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "unchanged",
             "type": "string",
             "in": "formData",
             "required": false
@@ -290,6 +302,9 @@
         },
         "1Piari": {
           "type": "string"
+        },
+        "unchanged": {
+          "type": "string"
         }
       }
     },
@@ -304,6 +319,9 @@
           "type": "string"
         },
         "1Piari": {
+          "type": "string"
+        },
+        "unchanged": {
           "type": "string"
         }
       }

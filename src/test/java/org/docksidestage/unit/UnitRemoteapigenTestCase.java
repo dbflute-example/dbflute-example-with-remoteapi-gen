@@ -15,7 +15,15 @@
  */
 package org.docksidestage.unit;
 
+import java.util.function.Supplier;
+
+import javax.annotation.Resource;
+
+import org.dbflute.remoteapi.FlutyRemoteBehavior;
+import org.dbflute.remoteapi.mock.MockHttpClient;
+import org.dbflute.remoteapi.mock.supporter.MockFreedomResponse.MockRequestDeterminer;
 import org.dbflute.utflute.lastaflute.WebContainerTestCase;
+import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
  * Use like this:
@@ -40,6 +48,12 @@ import org.dbflute.utflute.lastaflute.WebContainerTestCase;
 public abstract class UnitRemoteapigenTestCase extends WebContainerTestCase {
 
     // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    @Resource
+    private RequestManager requestManager;
+
+    // ===================================================================================
     //                                                                               Mock
     //                                                                              ======
     protected String derivedResopnsePath(Class<?> responseClass) {
@@ -52,5 +66,28 @@ public abstract class UnitRemoteapigenTestCase extends WebContainerTestCase {
 
     protected String derivedResopnsePath(Class<?> responseClass, String separator, String pathPart) {
         return responseClass.getName().replace(".", "/") + separator + pathPart;
+    }
+
+    protected <BHV extends FlutyRemoteBehavior> BHV createBhv(Supplier<BHV> newBhvLambda, Object returnBean) {
+        return createBhv(newBhvLambda, returnBean, request -> true);
+    }
+
+    protected <BHV extends FlutyRemoteBehavior> BHV createBhv(Supplier<BHV> newBhvLambda, Object returnBean,
+            MockRequestDeterminer requestLambda) {
+        MockHttpClient client = MockHttpClient.create(response -> {
+            if (returnBean == null) {
+                response.asJsonNoContent(requestLambda);
+            } else {
+                if (returnBean instanceof String) {
+                    response.asJsonDirectly((String) returnBean, requestLambda);
+                } else {
+                    response.asJsonDirectly(requestManager.getJsonManager().toJson(returnBean), requestLambda);
+                }
+            }
+        });
+        registerMock(client);
+        BHV bhv = newBhvLambda.get();
+        inject(bhv);
+        return bhv;
     }
 }

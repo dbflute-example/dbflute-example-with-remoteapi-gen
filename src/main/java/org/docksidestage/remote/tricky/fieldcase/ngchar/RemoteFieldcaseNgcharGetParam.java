@@ -37,6 +37,9 @@ public class RemoteFieldcaseNgcharGetParam {
     @SerializedName("1Piari")
     public String onePiari;
 
+    /** The property of unchanged. (NullAllowed) */
+    public String unchanged;
+
     @Override
     public String toString() {
         return Lato.string(this);
