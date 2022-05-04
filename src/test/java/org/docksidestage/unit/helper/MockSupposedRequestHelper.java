@@ -20,9 +20,9 @@ public class MockSupposedRequestHelper {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected RequestManager requestManager;
+    protected final RequestManager requestManager;
 
-    protected MockSupposedRequest request;
+    protected final MockSupposedRequest request;
 
     // ===================================================================================
     //                                                                         Constructor

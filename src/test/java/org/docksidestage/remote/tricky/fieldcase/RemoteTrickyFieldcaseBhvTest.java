@@ -57,7 +57,15 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Act ##
         RemoteFieldcaseNoconvReturn returnBean =
-                createBhv(() -> new RemoteTrickyFieldcaseBhv(requestManager), new RemoteFieldcaseNoconvReturn()).requestNoconv(paramLambda);
+                createMockRemoteBehavior(() -> new RemoteTrickyFieldcaseBhv(requestManager), new RemoteFieldcaseNoconvReturn(), request -> {
+                    new MockSupposedRequestHelper(requestManager, request).getQuery().alwaysPresent(query -> {
+                        assertEquals("sea_id", "1", query.get("sea_id"));
+                        assertEquals("landName", "landName", query.get("landName"));
+                        assertEquals("piari", "piari", query.get("piari"));
+                        assertEquals("BONVO", "BONVO", query.get("BONVO"));
+                    });
+                    return true;
+                }).requestNoconv(paramLambda);
 
         // ## Assert ##
         logger.debug("hangar_id={}", returnBean.hangar_id);
@@ -82,15 +90,16 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
         returnMap.put("unchanged", "unchanged");
 
         // ## Act ##
-        RemoteFieldcaseNgcharGetReturn returnBean = createBhv(() -> new RemoteTrickyFieldcaseBhv(requestManager), returnMap, request -> {
-            new MockSupposedRequestHelper(requestManager, request).getQuery().alwaysPresent(query -> {
-                assertEquals("sea*id", "1", query.get("sea*id"));
-                assertEquals("land-Name", "land-Name", query.get("land-Name"));
-                assertEquals("1Piari", "1Piari", query.get("1Piari"));
-                assertEquals("unchanged", "unchanged", query.get("unchanged"));
-            });
-            return true;
-        }).requestNgcharGet(paramLambda);
+        RemoteFieldcaseNgcharGetReturn returnBean =
+                createMockRemoteBehavior(() -> new RemoteTrickyFieldcaseBhv(requestManager), returnMap, request -> {
+                    new MockSupposedRequestHelper(requestManager, request).getQuery().alwaysPresent(query -> {
+                        assertEquals("sea*id", "1", query.get("sea*id"));
+                        assertEquals("land-Name", "land-Name", query.get("land-Name"));
+                        assertEquals("1Piari", "1Piari", query.get("1Piari"));
+                        assertEquals("unchanged", "unchanged", query.get("unchanged"));
+                    });
+                    return true;
+                }).requestNgcharGet(paramLambda);
 
         // ## Assert ##
         logger.debug("hangarid={}", returnBean.hangarid);
@@ -121,15 +130,16 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
         returnMap.put("unchanged", "unchanged");
 
         // ## Act ##
-        RemoteFieldcaseNgcharPostReturn returnBean = createBhv(() -> new RemoteTrickyFieldcaseBhv(requestManager), returnMap, request -> {
-            new MockSupposedRequestHelper(requestManager, request).getForm().alwaysPresent(form -> {
-                assertEquals("sea*id", "1", form.get("sea*id"));
-                assertEquals("land-Name", "land-Name", form.get("land-Name"));
-                assertEquals("1Piari", "1Piari", form.get("1Piari"));
-                assertEquals("unchanged", "unchanged", form.get("unchanged"));
-            });
-            return true;
-        }).requestNgcharPost(paramLambda);
+        RemoteFieldcaseNgcharPostReturn returnBean =
+                createMockRemoteBehavior(() -> new RemoteTrickyFieldcaseBhv(requestManager), returnMap, request -> {
+                    new MockSupposedRequestHelper(requestManager, request).getForm().alwaysPresent(form -> {
+                        assertEquals("sea*id", "1", form.get("sea*id"));
+                        assertEquals("land-Name", "land-Name", form.get("land-Name"));
+                        assertEquals("1Piari", "1Piari", form.get("1Piari"));
+                        assertEquals("unchanged", "unchanged", form.get("unchanged"));
+                    });
+                    return true;
+                }).requestNgcharPost(paramLambda);
 
         // ## Assert ##
         logger.debug("hangarid={}", returnBean.hangarid);
@@ -159,15 +169,16 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
         returnMap.put("unchanged", "unchanged");
 
         // ## Act ##
-        RemoteFieldcaseNgcharPutReturn returnBean = createBhv(() -> new RemoteTrickyFieldcaseBhv(requestManager), returnMap, request -> {
-            new MockSupposedRequestHelper(requestManager, request).getJsonBody().alwaysPresent(jsonBody -> {
-                assertEquals("sea*id", 1.0, jsonBody.get("sea*id"));
-                assertEquals("land-Name", "land-Name", jsonBody.get("land-Name"));
-                assertEquals("1Piari", "1Piari", jsonBody.get("1Piari"));
-                assertEquals("unchanged", "unchanged", jsonBody.get("unchanged"));
-            });
-            return true;
-        }).requestNgcharPut(paramLambda);
+        RemoteFieldcaseNgcharPutReturn returnBean =
+                createMockRemoteBehavior(() -> new RemoteTrickyFieldcaseBhv(requestManager), returnMap, request -> {
+                    new MockSupposedRequestHelper(requestManager, request).getJsonBody().alwaysPresent(jsonBody -> {
+                        assertEquals("sea*id", 1.0, jsonBody.get("sea*id"));
+                        assertEquals("land-Name", "land-Name", jsonBody.get("land-Name"));
+                        assertEquals("1Piari", "1Piari", jsonBody.get("1Piari"));
+                        assertEquals("unchanged", "unchanged", jsonBody.get("unchanged"));
+                    });
+                    return true;
+                }).requestNgcharPut(paramLambda);
 
         // ## Assert ##
         logger.debug("hangarid={}", returnBean.hangarid);
