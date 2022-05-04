@@ -346,8 +346,8 @@ var baseRule = {
      */
     fieldName: function(api, bean, jsonFieldName) {
         var fieldNaming = this.fieldNamingMapping()[bean.in];
-        #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
-        # In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
+        // #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
+        // In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
         if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
             return manager.initUncap(manager.camelize(jsonFieldName));
         }
@@ -374,8 +374,8 @@ var baseRule = {
             return false;
         }
         var fieldNaming = this.fieldNamingMapping()[bean.in];
-        #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
-        # In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
+        // #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
+        // In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
         if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
             return !manager.decamelize(adjustedFieldName).toLowerCase().equals(jsonFieldName);
         }
