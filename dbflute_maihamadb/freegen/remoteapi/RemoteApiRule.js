@@ -338,17 +338,48 @@ var baseRule = {
     },
 
     /**
-     * Return field name.
+     * Return java field name.
      * @param {Api} api - API. (NotNull)
-     * @param {string} fieldName - field name. (NotNull)
-     * @return {string} field name. (NotNull)
+     * @param {Object} bean - definition of bean where field is declared. (NotNull)
+     * @param {string} jsonFieldName - json field name. (NotNull)
+     * @return {string} java field name. (NotNull)
      */
-    fieldName: function(api, bean, fieldName) {
+    fieldName: function(api, bean, jsonFieldName) {
         var fieldNaming = this.fieldNamingMapping()[bean.in];
+        // #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
+        // In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
         if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
-            return manager.initUncap(manager.camelize(fieldName));
+            return manager.initUncap(manager.camelize(jsonFieldName));
         }
-        return fieldName;
+        return jsonFieldName;
+    },
+
+    /**
+     * Return true for custom java field name.
+     * If neither of the following is true, it is considered custom.
+     * 1. Swagger field name and java field name are an exact match.
+     * 2. Swagger field name and java field name are the simple conversion of camel case -> snake case.
+     *    Judgment of simple conversion of camel case-> snake case,
+     *    After camel case -> snake case, reverse conversion is done to match the original name (reversible).
+     *
+     * If it is determined to be custom, @SerializedName will be added for serialization / deserialization at the time of automatic generation.
+     * @param {Api} api - API. (NotNull)
+     * @param {Object} bean - definition of bean where field is declared. (NotNull)
+     * @param {string} jsonFieldName - json field name. (NotNull)
+     * @return {boolean} Return true for custom java field name. (NotNull)
+     */
+    isCustomFieldName: function(api, bean, jsonFieldName) {
+        var adjustedFieldName = this.fieldName(api, bean, jsonFieldName);
+        if (adjustedFieldName.equals(jsonFieldName)) {
+            return false;
+        }
+        var fieldNaming = this.fieldNamingMapping()[bean.in];
+        // #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
+        // In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
+        if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
+            return !manager.decamelize(adjustedFieldName).toLowerCase().equals(jsonFieldName);
+        }
+        return true;
     },
 
     // ===================================================================================

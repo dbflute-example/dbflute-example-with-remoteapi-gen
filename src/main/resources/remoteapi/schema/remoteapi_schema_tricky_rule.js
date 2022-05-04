@@ -16,6 +16,13 @@ remoteApiRule.fieldNamingMapping = function() {
   };
 }
 
+// test of #5 Derived from swagger field name to java field name (add @SerializedName) 
+// @Override
+remoteApiRule.fieldName = function(api, bean, jsonFieldName) {
+  customJsonFieldName = jsonFieldName.replace(/[*-]/, '').replace(/1/, 'one');
+  return baseRule.fieldName.bind(this)(api, bean, customJsonFieldName);
+}
+
 // test of suffix hell e.g. result result headache
 remoteApiRule.nestClassName = function(api, className) {
   // For example, remote side uses Spring Framework

@@ -21,23 +21,10 @@
 ${manager.allClassCopyright}package ${data.package};
 #set ($importList = [])
 #set($added = $importList.add('org.lastaflute.core.util.Lato'))
-#if (!$data.properties.isEmpty() && $data.in == 'xml')
-#set($added = $importList.add('javax.xml.bind.annotation.XmlElement'))
-#end
-#foreach($propertyEntry in $data.properties.entrySet())
-#set ($property = $propertyEntry.value)
-#if (${property.required})
-#if ($property.type == 'array')
-#set($added = $importList.add('javax.validation.constraints.NotNull'))
-#else
-#set($added = $importList.add('org.lastaflute.web.validation.Required'))
-#end
-#end
 #set ($tempDefinitionMap = {})
 #set ($put = $tempDefinitionMap.putAll($definitionMap))
-#analyzeImports($importList, $tempDefinitionMap, $property)
-#end
-#generateImports($importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList'))
+#analyzeImports($importList, $tempDefinitionMap, $data, $data.properties)
+#generateImports($importList, $data, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList'))
 
 /**
  * The bean class as ${data.beanPurposeType} for remote API of ${data.remoteApiExp}.
@@ -58,10 +45,27 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
     }
 }
 ## analyze imports.
-## @param class class (NotNull)
-## @param propertyEntry propertyEntry (NotNull)
+## @param importList importList (NotNull)
+## @param definitionMap definitionMap (NotNull)
+## @param data data (NotNull)
+## @param properties properties (NotNull)
 ## _/_/_/_/_/_/_/_/_/_/
-#macro(analyzeImports, $importList, $definitionMap, $property)
+#macro(analyzeImports, $importList, $definitionMap, $data, $properties)
+#set($serializedNameTargetList = ['query', 'formData', 'json'])
+#foreach($propertyEntry in $properties.entrySet())
+#set($property = $propertyEntry.value)
+#if ($serializedNameTargetList.contains($data.in) && ${scriptEngine.invokeMethod($rule, 'isCustomFieldName', $data.api, $data, $propertyEntry.key)})
+#set($added = $importList.add('com.google.gson.annotations.SerializedName'))
+#elseif ($data.in == 'xml')
+#set($added = $importList.add('javax.xml.bind.annotation.XmlElement'))
+#end
+#if (${property.required})
+#if ($property.type == 'array')
+#set($added = $importList.add('javax.validation.constraints.NotNull'))
+#else
+#set($added = $importList.add('org.lastaflute.web.validation.Required'))
+#end
+#end
 #set ($nestType = '')
 #if ($property.items && $property.items['$ref'])
 #set ($nestType = $generator.getClass().forName('java.net.URLDecoder').decode($property.items['$ref'].replace('#/definitions/', ''), 'UTF-8'))
@@ -76,6 +80,11 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #foreach($nestPropertyEntry in $definitionMap[$nestType].properties.entrySet())
 #set ($nestPropertyEntry.value.required = $definitionMap[$nestType].required.contains($nestPropertyEntry.key))
 #set ($nestProperty = $nestPropertyEntry.value)
+#if ($serializedNameTargetList.contains($data.in) && ${scriptEngine.invokeMethod($rule, 'isCustomFieldName', $data.api, $data, $nestPropertyEntry.key)})
+#set($added = $importList.add('com.google.gson.annotations.SerializedName'))
+#elseif ($data.in == 'xml')
+#set($added = $importList.add('javax.xml.bind.annotation.XmlElement'))
+#end
 #if (${nestProperty.required})
 #if ($nestProperty.type == 'array')
 #set($added = $importList.add('javax.validation.constraints.NotNull'))
@@ -87,12 +96,11 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #if ($definitionMap.containsKey($nestType))
 #set ($definition = $definitionMap[$nestType])
 #set ($remove = $definitionMap.remove($nestType))
-#foreach($nestPropertyEntry in $definition.properties.entrySet())
-#analyzeImports($importList, $definitionMap, $nestPropertyEntry.value)
-#end
+#analyzeImports($importList, $definitionMap, $data, $definition.properties)
 #end
 #end
 #set ($nestType = '')
+#end
 #end
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 ## generate property.
@@ -120,7 +128,10 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #else
 #generateIndent($nestList.size())/** The property of ${fieldName}. ${enumValueComment}#if (!${property.required})(NullAllowed) #end*/
 #end
-#if ($data.in == 'xml')
+#set($serializedNameTargetList = ['query', 'formData', 'json'])
+#if ($serializedNameTargetList.contains($data.in) && ${scriptEngine.invokeMethod($rule, 'isCustomFieldName', $data.api, $data, $propertyEntry.key)})
+#generateIndent($nestList.size())@SerializedName("$propertyEntry.key")
+#elseif ($data.in == 'xml')
 #generateIndent($nestList.size())@XmlElement(name = "$propertyEntry.key")
 #end
 #if (${property.required})

@@ -78,6 +78,126 @@
         ]
       }
     },
+    "/fieldcase/ngchar/": {
+      "get": {
+        "summary": "@author jflute",
+        "description": "contains ng characters.",
+        "parameters": [
+          {
+            "name": "sea*id",
+            "type": "integer",
+            "format": "int32",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "land-Name",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "1Piari",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "unchanged",
+            "type": "string",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.FieldCaseNgcharResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "@author jflute",
+        "description": "contains ng characters.",
+        "parameters": [
+          {
+            "name": "sea*id",
+            "type": "integer",
+            "format": "int32",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "land-Name",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "1Piari",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "unchanged",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.FieldCaseNgcharResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "put": {
+        "summary": "@author jflute",
+        "description": "contains ng characters.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.FieldCaseNgcharBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.FieldCaseNgcharResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/urlcharacter/hyphen-hyphen/": {
       "get": {
         "summary": "@author jflute",
@@ -166,6 +286,42 @@
           "type": "string"
         },
         "BONVO": {
+          "type": "string"
+        }
+      },
+    },
+    "org.docksidestage.remote.swagger.tricky.FieldCaseNgcharBody": {
+      "type": "object",
+      "properties": {
+        "sea*id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "land-Name": {
+          "type": "string"
+        },
+        "1Piari": {
+          "type": "string"
+        },
+        "unchanged": {
+          "type": "string"
+        }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.FieldCaseNgcharResult": {
+      "type": "object",
+      "properties": {
+        "hangar*id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "oneman-name": {
+          "type": "string"
+        },
+        "1Piari": {
+          "type": "string"
+        },
+        "unchanged": {
           "type": "string"
         }
       }
