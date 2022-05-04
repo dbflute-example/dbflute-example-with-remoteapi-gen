@@ -11,4 +11,5 @@
     <component name="remoteTrickyHellsuffixBhv" class="org.docksidestage.remote.tricky.hellsuffix.RemoteTrickyHellsuffixBhv" />
     <component name="remoteTrickyFieldcaseBhv" class="org.docksidestage.remote.tricky.fieldcase.RemoteTrickyFieldcaseBhv" />
     <component name="remoteTrickyUrlcharacterBhv" class="org.docksidestage.remote.tricky.urlcharacter.RemoteTrickyUrlcharacterBhv" />
+    <component name="remoteTrickySchemaallofBhv" class="org.docksidestage.remote.tricky.schemaallof.RemoteTrickySchemaallofBhv" />
 </components>

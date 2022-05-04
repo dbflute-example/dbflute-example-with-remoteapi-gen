@@ -227,6 +227,36 @@
           "application/json"
         ]
       }
+    },
+    "/schemaallof/simple/": {
+      "post": {
+        "summary": "@author jflute",
+        "description": "schema contains allOf",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaallofSimpleBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaallofSimpleResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -322,6 +352,51 @@
           "type": "string"
         },
         "unchanged": {
+          "type": "string"
+        }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.SchemaallofSimpleBody": {
+      "properties": {
+        "allofProperty": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaallofSimpleSeaId"
+            },
+            {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaallofSimpleLandName"
+            }
+          ]
+        }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.SchemaallofSimpleResult": {
+      "properties": {
+        "allofProperty": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaallofSimpleSeaId"
+            },
+            {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaallofSimpleLandName"
+            }
+          ]
+        }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.SchemaallofSimpleSeaId": {
+      "type": "object",
+      "properties": {
+        "seaId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.SchemaallofSimpleLandName": {
+      "type": "object",
+      "properties": {
+        "landName": {
           "type": "string"
         }
       }
