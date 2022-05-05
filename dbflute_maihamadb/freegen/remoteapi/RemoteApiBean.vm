@@ -13,19 +13,27 @@
 ## either express or implied. See the License for the specific language
 ## governing permissions and limitations under the License.
 ##
+##########################################################################################
+##### Ready for generation.
+##########################################################################################
+#set ($remoteApiLogic = $scriptEngine.get('remoteApiLogic'))
 #set ($rule = $scriptEngine.get('remoteApiRule'))
 #set ($typeMap = {})
 #set ($put = $typeMap.putAll($scriptEngine.invokeMethod($rule, 'typeMap')))
 #set ($definitionMap = {})
 #set ($definitionMap = $data.definitionMap)
+##
+##########################################################################################
+##### Copyright & package & import.
+##########################################################################################
 ${manager.allClassCopyright}package ${data.package};
 #set ($importList = [])
 #set($added = $importList.add('org.lastaflute.core.util.Lato'))
 #set ($tempDefinitionMap = {})
 #set ($put = $tempDefinitionMap.putAll($definitionMap))
 #analyzeImports($importList, $tempDefinitionMap, $data, $data.properties)
-#generateImports($importList, $data, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList'))
-
+$scriptEngine.invokeMethod($remoteApiLogic, 'importDeclaration', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList'))
+##
 /**
  * The bean class as ${data.beanPurposeType} for remote API of ${data.remoteApiExp}.
  * @author FreeGen
@@ -35,7 +43,6 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #foreach($propertyEntry in $data.properties.entrySet())
 #set($nestList = [])
 #generateProperty($data.className, $propertyEntry)
-#set($nestList = [])
 #end
 #set($nestTypeFullNameList = [])
 
@@ -122,23 +129,23 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #end
 
 #if ($scriptEngine.invokeMethod($rule, 'beanPropertyManualMappingDescription', $data.api, $class, $property))
-#generateIndent($nestList.size())/** The property of ${fieldName}. ${enumValueComment}($scriptEngine.invokeMethod($rule, 'beanPropertyManualMappingDescription', $data.api, $class, $property)) #if (!${property.required})(NullAllowed) #end*/
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())/** The property of ${fieldName}. ${enumValueComment}($scriptEngine.invokeMethod($rule, 'beanPropertyManualMappingDescription', $data.api, $class, $property)) #if (!${property.required})(NullAllowed) #end*/
 #elseif (${property.description})
-#generateIndent($nestList.size())/** The property of ${fieldName}. ${enumValueComment}(${property.description}) #if (!${property.required})(NullAllowed) #end*/
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())/** The property of ${fieldName}. ${enumValueComment}(${property.description}) #if (!${property.required})(NullAllowed) #end*/
 #else
-#generateIndent($nestList.size())/** The property of ${fieldName}. ${enumValueComment}#if (!${property.required})(NullAllowed) #end*/
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())/** The property of ${fieldName}. ${enumValueComment}#if (!${property.required})(NullAllowed) #end*/
 #end
 #set($serializedNameTargetList = ['query', 'formData', 'json'])
 #if ($serializedNameTargetList.contains($data.in) && ${scriptEngine.invokeMethod($rule, 'isCustomFieldName', $data.api, $data, $propertyEntry.key)})
-#generateIndent($nestList.size())@SerializedName("$propertyEntry.key")
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())@SerializedName("$propertyEntry.key")
 #elseif ($data.in == 'xml')
-#generateIndent($nestList.size())@XmlElement(name = "$propertyEntry.key")
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())@XmlElement(name = "$propertyEntry.key")
 #end
 #if (${property.required})
 #if ($property.type == 'array')
-#generateIndent($nestList.size())@NotNull
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())@NotNull
 #else
-#generateIndent($nestList.size())@Required
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())@Required
 #end
 #end
 #if ($property.type == 'array')
@@ -156,7 +163,7 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #end
 #adjustType($nestType)
 #set ($fieldClass = "${typeMap[$property.type]}<$adjustType>")
-#generateIndent($nestList.size())@javax.validation.Valid
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())@javax.validation.Valid
 #end
 #elseif ($scriptEngine.invokeMethod($rule, 'beanPropertyManualMappingClass', $data.api, $class, $property))
 #set ($fieldClass = $scriptEngine.invokeMethod($rule, 'beanPropertyManualMappingClass', $data.api, $class, $property))
@@ -172,12 +179,12 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #end
 #adjustType($nestType)
 #set ($fieldClass = $adjustType)
-#generateIndent($nestList.size())@javax.validation.Valid
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())@javax.validation.Valid
 #end
 #if ($fieldClass == '')
 #set ($fieldClass = ${typeMap['']})
 #end
-#generateIndent($nestList.size())public $fieldClass $fieldName;
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())public $fieldClass $fieldName;
 #generateNestType($nestType)
 #end
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
@@ -188,11 +195,11 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #if ($type && $type != '' && !$nestList.contains($type) && !($nestTypeFullNameList.contains($type) || $nestTypeFullNameList.contains("$type.join('_', $nestList)_$type")))
 #adjustType($type)
 
-#generateIndent($nestList.size())/**
-#generateIndent($nestList.size()) * The part class of ${adjustType}.
-#generateIndent($nestList.size()) * @author FreeGen
-#generateIndent($nestList.size()) */
-#generateIndent($nestList.size())public static class $adjustType {
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())/**
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size()) * The part class of ${adjustType}.
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size()) * @author FreeGen
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size()) */
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())public static class $adjustType {
 #set($added = $nestList.add($type))
 #set($added = $nestTypeFullNameList.add("$type.join('_', $nestList)"))
 #foreach($nestPropertyEntry in $definitionMap[$type].properties.entrySet())
@@ -200,7 +207,7 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #end
 #set($i = $nestList.size() - 1)
 #set($removed = $nestList.remove($i))
-#generateIndent($nestList.size())}
+$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())}
 #end
 #end
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/

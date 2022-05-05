@@ -15,9 +15,9 @@
  */
 package org.docksidestage.remote.maihama.showbase.member.add.register;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.lastaflute.core.util.Lato;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * The bean class as return for remote API of POST /member/add/register.
