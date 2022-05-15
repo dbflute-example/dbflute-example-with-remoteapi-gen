@@ -25,6 +25,7 @@
 ##### Copyright & package & import.
 ##########################################################################################
 ${manager.allClassCopyright}package ${data.package};
+
 #set ($importList = [])
 #set($added = $importList.add('org.lastaflute.web.servlet.request.RequestManager'))
 #set ($parameterFlg = false)
@@ -44,7 +45,13 @@ ${manager.allClassCopyright}package ${data.package};
 #set($added = $importList.add('org.dbflute.remoteapi.FlutyRemoteApiRule'))
 #end
 #set($added = $importList.add("${data.abstractBehavior.package}.${data.abstractBehavior.className}"))
-$scriptEngine.invokeMethod($remoteApiLogic, 'importDeclaration', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList'))
+#set ($optimizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'optimizeImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#foreach($optimizedImportClass in $optimizedImportClassList)
+#foreach($class in $optimizedImportClass)
+import ${class};
+#end
+
+#end
 ##
 /**
  * The base class as generation gap for remote API of ${data.remoteApiExp}.
