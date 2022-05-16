@@ -1,4 +1,8 @@
-// Based on ECMAScript5. Because Nashorn of java 8 is ECMAScript5.
+/**
+ * Defines the logical processing used when automatically generating Java code and configuration files in Velocity.
+ * This is because Velocity's processing is devoted to auto-generated output.
+ * Based on ECMAScript5. Because Nashorn of java 8 is ECMAScript5.
+ */
 // =======================================================================================
 //                                                                              Definition
 //                                                                              ==========
@@ -9,10 +13,12 @@ var remoteApiLogic = {
     //                                                                               Logic
     //                                                                               =====
     /**
-     * Return indent.
-     * indent has 4 spaces.
-     * @param {number} indentSize indent size.
-     * @return {string} indent. (NotNull)
+     * Returns the indent.
+     * This indent is used in the auto-generated Java code.
+     * Fixed indentation is written directly in the Velocity template, but is used when the indentation needs to be calculated.
+     * Fixed indentation of Velocity template It is unified with 4 spaces.
+     * @param {number} indentSize indent size. (NotNull)
+     * @return {string} indent. e.g. if size is 2, the string is 8 spaces. (NotNull)
      */
     indent: function(indentSize) {
         // #for_now I want to set the initial value of indent to 0 size. by p1us2er0 (2022/05/04)
@@ -28,10 +34,10 @@ var remoteApiLogic = {
     /**
      * Optimizes and returns the import class list.
      * Unique and sort import class list. And return the import class list separated by top package.
-     * @param {string[]} importClassList The list of import class(with package).
-     * @param {string} currentPackage Package name of the class to declare import.
-     * @param {string[]} importTopPackageOrderList The order list of top packages of import.
-     * @return {string[][]} import class list separated by top package. (NotNull)
+     * @param {string[]} importClassList The list of import class(with package). (NotNull, EmptyAllowed)
+     * @param {string} currentPackage Package name of the class to declare import. (NotNull, EmptyAllowed)
+     * @param {string[]} importTopPackageOrderList The order list of top packages of import. (NotNull, EmptyAllowed)
+     * @return {string[][]} import class list separated by top package. (NotNull, EmptyAllowed)
      */
     optimizeImportClassList: function(importClassList, currentPackage, importTopPackageOrderList) {
         // Unique importClass.

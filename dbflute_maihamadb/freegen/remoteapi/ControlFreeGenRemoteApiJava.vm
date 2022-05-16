@@ -25,6 +25,7 @@
 ##### This instance may change its substance depending on DBFlute's Script Engine search rule.
 ##### Initially, it was supposed to be Nashorn with Java built-in,
 ##### but since it will disappear after Java 15, there is a possibility that it is an alternative engine such as sai.
+##### $scriptEngine must be a class that implements ScriptEngine, Invocable.
 ##### The following is a class that handles ScriptEngine for FreeGen of DBFlute.
 ##### https://github.com/dbflute/dbflute-core/blob/develop/dbflute-engine/src/main/java/org/dbflute/logic/manage/freegen/table/json/engine/DfFrgJavaScriptJsonEngine.java
 #set ($scriptEngine = $manager.createJavaScriptEngine())
