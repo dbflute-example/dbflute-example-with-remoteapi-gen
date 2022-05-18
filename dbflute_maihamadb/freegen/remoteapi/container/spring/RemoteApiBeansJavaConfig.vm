@@ -29,10 +29,10 @@ ${manager.allClassCopyright}package ${data.package};
 #set($added = $importList.add('org.springframework.context.annotation.ComponentScan'))
 #set($added = $importList.add('org.springframework.context.annotation.Configuration'))
 #set($added = $importList.add('org.springframework.context.annotation.Import'))
-#set ($optimizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'optimizeImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
-#foreach($optimizedImportClass in $optimizedImportClassList)
-#foreach($class in $optimizedImportClass)
-import ${class};
+#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#foreach($categolizedImportClass in $categolizedImportClassList)
+#foreach($importClass in $categolizedImportClass)
+import ${importClass};
 #end
 
 #end

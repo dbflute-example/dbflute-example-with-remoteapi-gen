@@ -33,10 +33,10 @@ ${manager.allClassCopyright}package ${data.package};
 #set ($tempDefinitionMap = {})
 #set ($put = $tempDefinitionMap.putAll($definitionMap))
 #analyzeImports($importList, $tempDefinitionMap, $data, $data.properties)
-#set ($optimizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'optimizeImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
-#foreach($optimizedImportClass in $optimizedImportClassList)
-#foreach($class in $optimizedImportClass)
-import ${class};
+#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#foreach($categolizedImportClass in $categolizedImportClassList)
+#foreach($importClass in $categolizedImportClass)
+import ${importClass};
 #end
 
 #end

@@ -32,34 +32,42 @@ var remoteApiLogic = {
     },
 
     /**
-     * Optimizes and returns the import class list.
-     * Unique and sort import class list. And return the import class list separated by top package.
+     * Derive the import class list separated by categolized package.
+     * Unique and sort import class list. And return the import class list separated by categolized package.
      * @param {string[]} importClassList The list of import class(with package). (NotNull, EmptyAllowed)
      * @param {string} currentPackage Package name of the class to declare import. (NotNull, EmptyAllowed)
-     * @param {string[]} importTopPackageOrderList The order list of top packages of import. (NotNull, EmptyAllowed)
-     * @return {string[][]} import class list separated by top package. (NotNull, EmptyAllowed)
+     * @param {string[]} importCategolizedPackageOrderList The order list of categolized package of import. (NotNull, EmptyAllowed)
+     * @return {string[][]} import class list separated by categolized package. It is a two-dimensional array. (NotNull, EmptyAllowed)
+     *     <pre>
+     *     e.g.
+     *     importClassList = ["apppackage.xxx.Xxx", "apppackage.yyy.Yyy", "apppackage.zzzz.Zzz", "org.xxx.Xxx", "org.yyy.Yyy", "java.xxx.Xxx", "java.yyy.Yyy"]
+     *     currentPackage = "apppackage.xxx.Xxx"
+     *     importCategolizedPackageOrderList = ["java", "javax", "junit", "org", "com"],
+     *     the return value will be
+     *     [["java.xxx.Xxx", "java.yyy.Yyy"], ["org.xxx.Xxx", "org.xxx.Xxx"], ["apppackage.yyy.Yyy"], ["apppackage.zzzz.Zzz"]]
+     *     </pre>
      */
-    optimizeImportClassList: function(importClassList, currentPackage, importTopPackageOrderList) {
+    deriveCategolizedImportClassList: function(importClassList, currentPackage, importCategolizedPackageOrderList) {
         // Unique importClass.
         var uniqueImportClassList = new java.util.ArrayList(new java.util.HashSet(importClassList));
 
         // Sort importClass.
         uniqueImportClassList.sort(function(preImportClass, currentImportClass) {
-            // Sort at the top of the importClass package name.
-            // Use importTopPackageOrderList. e.g. java, javax, junit, org, com ...
-            preImportTopPackageOrderIndex = Number.MAX_VALUE;
-            currentImportTopPackageOrderIndex = Number.MAX_VALUE;
-            importTopPackageOrderList.forEach(function(importTopPackageOrder, importTopPackageOrderIndex) {
-                if (importTopPackageOrder === preImportClass.substring(0, preImportClass.indexOf('.'))) {
-                    preImportTopPackageOrderIndex = importTopPackageOrderIndex;
+            // Sort at the categolized of the importClass package name.
+            // Use importCategolizedPackageOrderList. e.g. java, javax, junit, org, com ...
+            preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            importCategolizedPackageOrderList.forEach(function(importCategolizedPackageOrder, importCategolizedPackageOrderIndex) {
+                if (importCategolizedPackageOrder === preImportClass.substring(0, preImportClass.indexOf('.'))) {
+                    preImportCategolizedPackageOrderIndex = importCategolizedPackageOrderIndex;
                 }
-                if (importTopPackageOrder === currentImportClass.substring(0, currentImportClass.indexOf('.'))) {
-                    currentImportTopPackageOrderIndex = importTopPackageOrderIndex;
+                if (importCategolizedPackageOrder === currentImportClass.substring(0, currentImportClass.indexOf('.'))) {
+                    currentImportCategolizedPackageOrderIndex = importCategolizedPackageOrderIndex;
                 }
             });
 
-            if (preImportTopPackageOrderIndex != currentImportTopPackageOrderIndex) {
-                return preImportTopPackageOrderIndex > currentImportTopPackageOrderIndex ? 1 : -1;
+            if (preImportCategolizedPackageOrderIndex != currentImportCategolizedPackageOrderIndex) {
+                return preImportCategolizedPackageOrderIndex > currentImportCategolizedPackageOrderIndex ? 1 : -1;
             }
 
             // Sort at the importClass package name.
@@ -78,22 +86,22 @@ var remoteApiLogic = {
         });
 
         // Assemble an import declaration.
-        var optimizedImportClassList = [];
-        var keepTopPackage = '';
+        var categolizedImportClassList = [];
+        var keepCategolizedPackage = '';
         uniqueImportClassList.forEach(function(importClass) {
             // If importClass is the same as currentPackage, skip. (Because no import declaration is required).
             if (importClass.substring(0, importClass.lastIndexOf('.')) === currentPackage) {
                 return;
             }
 
-            // If the top Package changes, insert a blank line.
-            if (importClass.substring(0, importClass.indexOf('.')) != keepTopPackage) {
-                keepTopPackage = importClass.substring(0, importClass.indexOf('.'));
-                optimizedImportClassList.push([]);
+            // If the categolized Package changes, insert a blank line.
+            if (importClass.substring(0, importClass.indexOf('.')) != keepCategolizedPackage) {
+                keepCategolizedPackage = importClass.substring(0, importClass.indexOf('.'));
+                categolizedImportClassList.push([]);
             }
-            optimizedImportClassList[optimizedImportClassList.length - 1].push(importClass);
+            categolizedImportClassList[categolizedImportClassList.length - 1].push(importClass);
         });
 
-        return optimizedImportClassList;
+        return categolizedImportClassList;
     }
 };

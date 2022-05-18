@@ -45,10 +45,10 @@ ${manager.allClassCopyright}package ${data.package};
 #set($added = $importList.add('org.dbflute.remoteapi.FlutyRemoteApiRule'))
 #end
 #set($added = $importList.add("${data.abstractBehavior.package}.${data.abstractBehavior.className}"))
-#set ($optimizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'optimizeImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
-#foreach($optimizedImportClass in $optimizedImportClassList)
-#foreach($class in $optimizedImportClass)
-import ${class};
+#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#foreach($categolizedImportClass in $categolizedImportClassList)
+#foreach($importClass in $categolizedImportClass)
+import ${importClass};
 #end
 
 #end
