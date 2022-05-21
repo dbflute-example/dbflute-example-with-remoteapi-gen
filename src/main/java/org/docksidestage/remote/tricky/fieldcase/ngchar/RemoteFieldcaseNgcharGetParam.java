@@ -15,9 +15,9 @@
  */
 package org.docksidestage.remote.tricky.fieldcase.ngchar;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.lastaflute.core.util.Lato;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * The bean class as param for remote API of GET /fieldcase/ngchar/.

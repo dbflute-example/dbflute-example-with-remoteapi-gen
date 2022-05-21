@@ -16,6 +16,7 @@ function process(requestList) {
             manager.makeDirectory(request.generateDirPath);
             var optionMap = request.optionMap;
             scriptEngine.eval('load("./freegen/' + genType + '/' + 'RemoteApiRule.js");');
+            scriptEngine.eval('load("./freegen/' + genType + '/' + 'RemoteApiLogic.js");');
             if (optionMap.ruleJsPath && optionMap.ruleJsPath != '') {
                 // load application rule settings if exists
                 scriptEngine.eval('load("' + optionMap.ruleJsPath + '");');
@@ -40,6 +41,7 @@ function process(requestList) {
         }
         var optionMap = request.optionMap;
         scriptEngine.eval('load("./freegen/' + genType + '/' + 'RemoteApiRule.js");');
+        scriptEngine.eval('load("./freegen/' + genType + '/' + 'RemoteApiLogic.js");');
         if (optionMap.ruleJsPath && optionMap.ruleJsPath != '') {
             // load application rule settings if exists
             scriptEngine.eval('load("' + optionMap.ruleJsPath + '");');
