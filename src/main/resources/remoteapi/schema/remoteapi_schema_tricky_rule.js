@@ -16,11 +16,17 @@ remoteApiRule.fieldNamingMapping = function() {
   };
 }
 
+// test of 
+// @Override
+remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
+  return ['fieldNotGenerated'].indexOf(jsonFieldName) === -1;
+}
+
 // test of #5 Derived from swagger field name to java field name (add @SerializedName) 
 // @Override
-remoteApiRule.fieldName = function(api, bean, jsonFieldName) {
+remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
   customJsonFieldName = jsonFieldName.replace(/[*-]/, '').replace(/1/, 'one');
-  return baseRule.fieldName.bind(this)(api, bean, customJsonFieldName);
+  return baseRule.fieldName.bind(this)(api, topLevelBean, customJsonFieldName);
 }
 
 // test of suffix hell e.g. result result headache

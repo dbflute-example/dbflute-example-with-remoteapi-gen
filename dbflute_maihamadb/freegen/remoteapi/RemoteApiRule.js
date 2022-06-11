@@ -46,6 +46,22 @@
  * @property {string} property.enum - Enum.(optional)
  */
 
+/**
+ * Top Level Bean Type.
+ * @typedef {Object} TopLevelBean
+ * @property {Api} api - API. (NotNull)
+ * @property {string} package -Package of this class. (NotNull)
+ * @property {string} className - Class Name of this class. (NotNull)
+ * @property {string} definitionKey - Definition key. (NotNull)
+ * @property {string} extendsClass - Extends class of this class. (NullAllowed)
+ * @property {string} implementsClasses - Implements Classes of this class. (NullAllowed)
+ * @property {Property[]} properties - Properties of this class. (NotNull)
+ * @property {string} beanPurposeType - bean purpose type of this class. e.g. param, return (NotNull)
+ * @property {string} remoteApiExp - The remote api url where this class is used. (NotNull)
+ * @property {Object} definitionMap - All schema definitions for remote api.
+ * @property {string} in - Type of this class. e.g. json, xml (NotNull)
+ */
+
 var baseRule = {
 
     // ===================================================================================
@@ -338,14 +354,25 @@ var baseRule = {
     },
 
     /**
+     * Returns true if the property is to be generated.
+     * @param {Api} api - API. (NotNull)
+     * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
+     * @param {string} jsonFieldName - json field name. (NotNull)
+     * @return {boolean} true if target. (NotNull)
+     */
+    targetField: function(api, topLevelBean, fieldName) {
+        return true;
+    },
+
+    /**
      * Return java field name.
      * @param {Api} api - API. (NotNull)
-     * @param {Object} bean - definition of bean where field is declared. (NotNull)
+     * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
      * @param {string} jsonFieldName - json field name. (NotNull)
      * @return {string} java field name. (NotNull)
      */
-    fieldName: function(api, bean, jsonFieldName) {
-        var fieldNaming = this.fieldNamingMapping()[bean.in];
+    fieldName: function(api, topLevelBean, jsonFieldName) {
+        var fieldNaming = this.fieldNamingMapping()[topLevelBean.in];
         // #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
         // In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
         if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {
@@ -364,16 +391,16 @@ var baseRule = {
      *
      * If it is determined to be custom, @SerializedName will be added for serialization / deserialization at the time of automatic generation.
      * @param {Api} api - API. (NotNull)
-     * @param {Object} bean - definition of bean where field is declared. (NotNull)
+     * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
      * @param {string} jsonFieldName - json field name. (NotNull)
      * @return {boolean} Return true for custom java field name. (NotNull)
      */
-    isCustomFieldName: function(api, bean, jsonFieldName) {
-        var adjustedFieldName = this.fieldName(api, bean, jsonFieldName);
+    isCustomFieldName: function(api, topLevelBean, jsonFieldName) {
+        var adjustedFieldName = this.fieldName(api, topLevelBean, jsonFieldName);
         if (adjustedFieldName.equals(jsonFieldName)) {
             return false;
         }
-        var fieldNaming = this.fieldNamingMapping()[bean.in];
+        var fieldNaming = this.fieldNamingMapping()[topLevelBean.in];
         // #for_now Add a branch when the types of FIELD_NAMING increase. I want to be able to solve it with a loop if possible by p1us2er0 (2022/05/04)
         // In addition, it is necessary to add conversion processing to the provided class of lasta-remoteapi.
         if (fieldNaming === this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE) {

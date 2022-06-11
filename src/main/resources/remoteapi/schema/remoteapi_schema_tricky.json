@@ -390,6 +390,10 @@
         "seaId": {
           "type": "integer",
           "format": "int32"
+        },
+        "fieldNotGenerated": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

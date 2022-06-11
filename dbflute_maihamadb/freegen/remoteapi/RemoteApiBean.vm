@@ -49,7 +49,9 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #set($nestTypeFullNameList = [])
 #foreach($propertyEntry in $data.properties.entrySet())
 #set($nestList = [])
+#if ($scriptEngine.invokeMethod($rule, 'targetField', $data.api, $data, $propertyEntry.key))
 #generateProperty($data.className, $propertyEntry)
+#end
 #end
 #set($nestTypeFullNameList = [])
 
@@ -210,7 +212,9 @@ $scriptEngine.invokeMethod($remoteApiLogic, 'indent', $nestList.size())public st
 #set($added = $nestList.add($type))
 #set($added = $nestTypeFullNameList.add("$type.join('_', $nestList)"))
 #foreach($nestPropertyEntry in $definitionMap[$type].properties.entrySet())
+#if ($scriptEngine.invokeMethod($rule, 'targetField', $data.api, $data, $nestPropertyEntry.key))
 #generateProperty($adjustType, $nestPropertyEntry)
+#end
 #end
 #set($i = $nestList.size() - 1)
 #set($removed = $nestList.remove($i))
