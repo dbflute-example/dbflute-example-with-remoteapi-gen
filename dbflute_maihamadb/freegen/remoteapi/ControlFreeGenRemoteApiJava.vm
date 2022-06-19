@@ -29,7 +29,6 @@
 ##### The following is a class that handles ScriptEngine for FreeGen of DBFlute.
 ##### https://github.com/dbflute/dbflute-core/blob/develop/dbflute-engine/src/main/java/org/dbflute/logic/manage/freegen/table/json/engine/DfFrgJavaScriptJsonEngine.java
 #set ($scriptEngine = $manager.createJavaScriptEngine())
-$scriptEngine.put('scriptEngine', $scriptEngine)
 #####
 ##### Set to use FreeGen objects when running javascirpt.
 $scriptEngine.put('generator', $generator)
