@@ -16,7 +16,7 @@ remoteApiRule.fieldNamingMapping = function() {
   };
 }
 
-// test of 
+// test of #9 Limit the generation target of property of bean of Param and return.
 // @Override
 remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
   return ['fieldNotGenerated'].indexOf(jsonFieldName) === -1;

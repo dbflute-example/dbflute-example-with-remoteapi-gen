@@ -48,13 +48,14 @@
 
 /**
  * Top Level Bean Type.
+ * Information on the top class of beans in param and return. That is, it is not the nested part class.
  * @typedef {Object} TopLevelBean
  * @property {Api} api - API. (NotNull)
- * @property {string} package -Package of this class. (NotNull)
- * @property {string} className - Class Name of this class. (NotNull)
- * @property {string} definitionKey - Definition key. (NotNull)
- * @property {string} extendsClass - Extends class of this class. (NullAllowed)
- * @property {string} implementsClasses - Implements Classes of this class. (NullAllowed)
+ * @property {string} package - Package of this class. (NotNull)
+ * @property {string} className - class name without package of this class.  (NotNull)
+ * @property {string} definitionKey - The definition key for the swagger specification. (NotNull)
+ * @property {string} extendsClass - Extends class with package of this class. (NullAllowed)
+ * @property {string} implementsClasses - Implements classes (Interface) with package of this class. (NullAllowed)
  * @property {Property[]} properties - Properties of this class. (NotNull)
  * @property {string} beanPurposeType - bean purpose type of this class. e.g. param, return (NotNull)
  * @property {string} remoteApiExp - The remote api url where this class is used. (NotNull)
@@ -142,9 +143,9 @@ var baseRule = {
     },
 
     /**
-     * Return java config class name for target container spring.
+     * Return java config class name without package for target container spring.
      * @param {string} schema - schema. (NotNull)
-     * @return {string} java config class name for target container spring. (NotNull)
+     * @return {string} java config class name without package for target container spring. (NotNull)
      */
     javaConfigClassName: function(schema) {
         return 'Remote' + schema + 'BeansJavaConfig';
@@ -163,7 +164,7 @@ var baseRule = {
     frameworkBehaviorClass: 'org.lastaflute.remoteapi.LastaRemoteBehavior',
 
     /**
-     * Return abstract behavior class name.
+     * Return abstract behavior class name without package.
      * @param {string} schema - schema. (NotNull)
      * @return {string} abstract behavior class name. (NotNull)
      */
@@ -181,18 +182,18 @@ var baseRule = {
     },
 
     /**
-     * Return bsBehavior class name.
+     * Return bsBehavior class name without package.
      * @param {Api} api - API. (NotNull)
-     * @return {string} bsBehavior class name. (NotNull)
+     * @return {string} bsBehavior class name without package. (NotNull)
      */
     bsBehaviorClassName: function(api) {
         return 'BsRemote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
     },
 
     /**
-     * Return exBehavior class name.
+     * Return exBehavior class name without package.
      * @param {Api} api - API. (NotNull)
-     * @return {string} exBehavior class name. (NotNull)
+     * @return {string} exBehavior class name without package. (NotNull)
      */
     exBehaviorClassName: function(api) {
         return 'Remote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
@@ -235,18 +236,18 @@ var baseRule = {
     },
 
     /**
-     * Return filterd definition key.
+     * Return filterd definition key for the swagger specification.
      * e.g. Filter common header pattern class.
-     * @param {string} definitionKey - definition key. (NotNull)
-     * @return {string} filterd definition key. (NotNull)
+     * @param {string} definitionKey - The definition key for the swagger specification. (NotNull)
+     * @return {string} filterd definition key for the swagger specification. (NotNull)
      */
     definitionKey: function(definitionKey) { return definitionKey; },
 
     /**
-     * Returns definition key before filtering from the filtered definition key.
+     * Returns definition key for the swagger specification before filtering from the filtered definition key for the swagger specification.
      * e.g. Restore the class of the filtered common header pattern.
-     * @param {string} definitionKey - filterd definition key. (NotNull)
-     * @return {string} definition key before filtering from the filtered definition key. (NotNull)
+     * @param {string} definitionKey - filterd definition key for the swagger specification. (NotNull)
+     * @return {string} definition key for the swagger specification before filtering from the filtered definition key for the swagger specification. (NotNull)
      */
     unDefinitionKey: function(definitionKey) { return definitionKey; },
 
@@ -255,7 +256,7 @@ var baseRule = {
     /**
      * Return filtered bean definition subPackage.
      * @param {Request} request - Request. (NotNull)
-     * @param {string} definitionKey - definition key. (NotNull)
+     * @param {string} definitionKey - The definition key for the swagger specification. (NotNull)
      * @return {string} filtered bean subPackage. (NotNull)
      */
     beanExtendsDefinitionSubPackage: function(request, definitionKey) {
@@ -263,20 +264,20 @@ var baseRule = {
     },
 
     /**
-     * Return bean definition class name.
+     * Return bean definition class name without package.
      * @param {Request} request - Request. (NotNull)
-     * @param {string} definitionKey - definition key. (NotNull)
-     * @return {string} bean definition class name. (NotNull)
+     * @param {string} definitionKey - The definition key for the swagger specification. (NotNull)
+     * @return {string} bean definition class name without package. (NotNull)
      */
     beanExtendsDefinitionClassName: function(request, definitionKey) {
         return definitionKey.replace(/.*\./g, '').replace(/(<|>)/g, '') + 'Definition';
     },
 
     /**
-     * Return bean class name.
+     * Return bean class name without package.
      * @param {Api} api - API. (NotNull)
      * @param {boolean} detail - detail. (NotNull)
-     * @return {string} bean class name. (NotNull)
+     * @return {string} bean class name without package. (NotNull)
      */
     beanClassName: function(api, detail) {
         var namePart = detail ? api.url.replace(/(_|-|^\/|\/$|\{|\})/g, '').replace(/\//g, '_').toLowerCase(): this.subPackage(api);
@@ -284,73 +285,73 @@ var baseRule = {
     },
 
     /**
-     * Return param extends class.
+     * Return param extends class with package.
      * @param {Api} api - API. (NotNull)
      * @param {Object} properties - properties. (NotNull)
-     * @return {string} param extends class. (NullAllowed)
+     * @return {string} param extends class with package. (NullAllowed)
      */
     paramExtendsClass: function(api, properties) {
         return null;
     },
 
     /**
-     * Return param implements classes.
+     * Return param implements classes (Interface) with package.
      * @param {Api} api - API. (NotNull)
      * @param {Object} properties - properties. (NotNull)
-     * @return {string} param implements classes. (NullAllowed)
+     * @return {string} param Implements classes (Interface) with package. (NullAllowed)
      */
     paramImplementsClasses: function(api, properties) {
         return null;
     },
 
     /**
-     * Return param class name.
+     * Return param class name without package.
      * @param {Api} api - API. (NotNull)
      * @param {boolean} detail - detail. (NotNull)
-     * @return {string} param class name. (NotNull)
+     * @return {string} param class name without package. (NotNull)
      */
     paramClassName: function(api, detail) {
         return this.beanClassName(api, detail) + 'Param';
     },
 
     /**
-     * Return return extends class.
+     * Return return extends class with package.
      * @param {Api} api - API. (NotNull)
      * @param {Object} properties - properties. (NotNull)
-     * @return {string} return extends class. (NullAllowed)
+     * @return {string} return extends class with package. (NullAllowed)
      */
     returnExtendsClass: function(api, properties) {
         return null;
     },
 
     /**
-     * Return return implements classes.
+     * Return return implements classes (Interface) with package.
      * @param {Api} api - API. (NotNull)
      * @param {Object} properties - properties. (NotNull)
-     * @return {string} return implements classes. (NullAllowed)
+     * @return {string} return implements classes (Interface) with package. (NullAllowed)
      */
     returnImplementsClasses: function(api, properties) {
         return null;
     },
 
     /**
-     * Return returnClassName.
+     * Return returnClassName without package.
      * @param {Api} api - API. (NotNull)
      * @param {boolean} detail - detail. (NotNull)
-     * @return {string} returnClassName. (NotNull)
+     * @return {string} return class name without package. (NotNull)
      */
     returnClassName: function(api, detail) {
         return this.beanClassName(api, detail) + 'Return';
     },
 
     /**
-     * Return nest class name.
+     * Return nest class name without package.
      * @param {Api} api - API. (NotNull)
-     * @param {string} className - class name. (NotNull)
-     * @return {string} nest class name. (NotNull)
+     * @param {string} nestClassName - Nest class name without package. (NotNull)
+     * @return {string} Nest class name without package. (NotNull)
      */
-    nestClassName: function(api, className) {
-        return className.replace(/(Part|Result|Model|Bean)$/, '') + 'Part';
+    nestClassName: function(api, nestClassName) {
+        return nestClassName.replace(/(Part|Result|Model|Bean)$/, '') + 'Part';
     },
 
     /**
