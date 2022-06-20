@@ -60,12 +60,14 @@ public class RemoteTrickySchemaallofBhvTest extends UnitRemoteapigenTestCase {
                 }).requestSimple(paramLambda);
 
         // ## Assert ##
-        logger.debug("allofProperty.allofProperty={}", returnBean.allofProperty.seaId);
+        logger.debug("allofProperty.allofProperty.seaId={}", returnBean.allofProperty.seaId);
 
-        assertEquals("allofProperty.allofProperty", ((Map<?, ?>) returnMap.get("allofProperty")).get("seaId"),
+        assertEquals("allofProperty.allofProperty.seaId", ((Map<?, ?>) returnMap.get("allofProperty")).get("seaId"),
                 returnBean.allofProperty.seaId);
 
         // p1us2er0 #9 Limit the generation target of property of bean of Param and return. (2022/06/19)
+        assertNotNull(DfReflectionUtil.getPublicField(RemoteSchemaallofSimpleParam.SchemaallofSimpleSeaIdPart.class, "seaId"));
+        assertNotNull(DfReflectionUtil.getPublicField(RemoteSchemaallofSimpleReturn.SchemaallofSimpleSeaIdPart.class, "seaId"));
         assertNull(DfReflectionUtil.getPublicField(RemoteSchemaallofSimpleParam.SchemaallofSimpleSeaIdPart.class, "fieldNotGenerated"));
         assertNull(DfReflectionUtil.getPublicField(RemoteSchemaallofSimpleReturn.SchemaallofSimpleSeaIdPart.class, "fieldNotGenerated"));
     }

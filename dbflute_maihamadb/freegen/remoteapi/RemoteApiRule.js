@@ -49,6 +49,10 @@
 /**
  * Top Level Bean Type.
  * Information on the top class of beans in param and return. That is, it is not the nested part class.
+ * About remoteApiExp.
+ * Used in the description of javadoc.
+ * The values that can be taken differ for each automatically generated class.
+ * For Top Level Beans, the URL of the remote API on which this class is used is set.
  * @typedef {Object} TopLevelBean
  * @property {Api} api - API. (NotNull)
  * @property {string} package - Package of this class. (NotNull)
@@ -58,7 +62,7 @@
  * @property {string} implementsClasses - Implements classes (Interface) with package of this class. (NullAllowed)
  * @property {Property[]} properties - Properties of this class. (NotNull)
  * @property {string} beanPurposeType - bean purpose type of this class. e.g. param, return (NotNull)
- * @property {string} remoteApiExp - The remote api url where this class is used. (NotNull)
+ * @property {string} remoteApiExp - remote api expression. See the description of the Top Level Bean itself for details. (NotNull)
  * @property {Object} definitionMap - All schema definitions for remote api.
  * @property {string} in - Type of this class. e.g. json, xml (NotNull)
  */
