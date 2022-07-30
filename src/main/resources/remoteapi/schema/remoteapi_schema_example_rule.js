@@ -48,7 +48,7 @@ remoteApiRule.subPackage = function(api) {
 //                                                                                Behavior
 //                                                                                ========
 // Bhvクラスを自動生成しない。Param/Returnクラスのみを利用したい場合。
-remoteApiRule.remoteApiRule.behaviorClassGeneration = true;
+remoteApiRule.behaviorClassGeneration = false;
 
 // Bhvクラスのメソッドを自動生成しない。メソッドを手動で作成したい場合。
 remoteApiRule.behaviorMethodGeneration = true;
@@ -68,6 +68,18 @@ remoteApiRule.behaviorSubPackage = function(api) {
 remoteApiRule.behaviorSubPackage = function(api) {
     return this.subPackage(api).replace(/^([^.]*)\.(.+)/, '$1.$2');
 };
+
+// Bhvクラスのリクエストメソッドに常にHTTPメソッド(Get、Post etc.)を付与する。
+remoteApiRule.behaviorRequestMethodName = function(api) {
+    var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
+    return 'request' + manager.initCap(methodPart) + (api.httpMethod ? manager.initCap(api.httpMethod) : '');
+}
+
+// Bhvクラスのルールメソッドに常にHTTPメソッド(Get、Post etc.)を付与する。
+remoteApiRule.behaviorRuleMethodName = function(api) {
+    var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
+    return 'ruleOf' + manager.initCap(methodPart) + (api.httpMethod ? manager.initCap(api.httpMethod) : '');
+}
 
 // =======================================================================================
 //                                                                            Param/Return

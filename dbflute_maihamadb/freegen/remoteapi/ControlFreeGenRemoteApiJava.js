@@ -4,6 +4,7 @@ var srcPathList = [];
 /**
  * process.
  * @param {Request[]} requestList - requestList (NotNull)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - freeGen request settings list. (NotNull, EmptyAllowed)
  */
 function process(requestList) {
     for each (var request in requestList) {
@@ -57,7 +58,7 @@ function process(requestList) {
 
 /**
  * process hull.
- * @param {Request} request - request (NotNull)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
  */
 function processHull(request) {
     var rule = remoteApiRule;
@@ -232,7 +233,7 @@ function processHull(request) {
                         }
                     }
                 }
-                returnBean.in = api.produces.indexOf('application/xml') !== -1 ? 'xml' : 'json';
+                returnBean.in = api.produces && api.produces.indexOf('application/xml') !== -1 ? 'xml' : 'json';
             }
         }
         keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, returnBean, returnBeanArray, exBehaviorMap);
@@ -285,7 +286,7 @@ function processHull(request) {
 
 /**
  * Keep information of bean.
- * @param {Rule} rule - rrule. (NotNull)
+ * @param {Rule} rule - rule. (NotNull)
  * @param {string} beanPurposeType - The bean role type. e.g. param, return (NotNull)
  * @param {Api} api - The information of api. (NotNull)
  * @param {Properties} properties - The information of property for the bean. (NotNull)
@@ -390,7 +391,7 @@ function processBean(rule, remoteApiBeanList) {
  * Process behavior. (generating class)
  * Also generate DI xml.
  * @param {Rule} rule - rule. (NotNull)
- * @param {Request} request - request (NotNull)
+  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
  * @param {ExBehaviorMap} exBehaviorMap - The map of behavior information. (NotNull)
  */
 function processBhv(rule, request, exBehaviorMap) {
@@ -447,7 +448,7 @@ function processBhv(rule, request, exBehaviorMap) {
 /**
  * Process doc.
  * @param {Rule} rule - rule. (NotNull)
- * @param {Request} request - request (NotNull)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
  * @param {ExBehaviorMap} exBehaviorMap - The map of behavior information. (NotNull)
  */
 function processDoc(rule, request, exBehaviorMap) {
@@ -481,11 +482,11 @@ function processDoc(rule, request, exBehaviorMap) {
 //                                                                              Common
 //                                                                              ======
 /**
- * generate file.
+ * Generate files such as java and html from vm files and meta data.
  * @param {string} src - src (NotNull)
  * @param {string} dest - dest (NotNull)
- * @param {map} data - data (NotNull)
- * @param {boolean} overwite - overwite (NotNull)
+ * @param {map} data - metadata for generation (NotNull)
+ * @param {boolean} overwite - true to overwrite even if the file already exists (NotNull)
  */
 function generate(src, dest, data, overwite) {
     if (dest === null) {
@@ -500,6 +501,13 @@ function generate(src, dest, data, overwite) {
     return '';
 }
 
+/**
+ * Clean up generate files. Delete unnecessary files.
+ * @param {Rule} rule - rule. (NotNull)
+ * @param {Request} request - request (NotNull)
+ * @param {string} genDir - generate directory (NotNull)
+ * @param {string[]} srcPathList - generate folder list for this time (NotNull)
+ */
 function clean(rule, request, genDir, srcPathList) {
     var generateAbsolutePathList = [];
     for (var srcPathIndex in srcPathList) {
@@ -516,6 +524,10 @@ function clean(rule, request, genDir, srcPathList) {
     }
 }
 
+/**
+ * Get files recursively from a directory.
+ * @param {string} dir - directory (NotNull)
+ */
 function listFiles(dir) {
     var list = [];
     var fileList = dir.listFiles();
