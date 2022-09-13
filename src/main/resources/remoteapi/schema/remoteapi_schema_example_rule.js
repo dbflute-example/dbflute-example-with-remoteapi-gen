@@ -29,6 +29,15 @@ remoteApiRule.target = function(api) {
 };
 
 // 自動生成対象から除外する(Content-Typeで指定)
+remoteApiRule.target = function(api) {
+    if (!baseRule.target(api)) {
+        return false;
+    }
+    var contentTypes = [];
+    Array.prototype.push.apply(contentTypes, api.consumes ? api.consumes: []);
+    Array.prototype.push.apply(contentTypes, api.produces ? api.produces: []);
+    return contentTypes.indexOf('application/json') !== -1 || (contentTypes.indexOf('application/xml') !== -1);
+};
 
 // 自動生成時のパッケージからURLの一部(バージョン番号など)を除去
 remoteApiRule.subPackage = function(api) {
@@ -38,26 +47,72 @@ remoteApiRule.subPackage = function(api) {
 // =======================================================================================
 //                                                                                Behavior
 //                                                                                ========
+// Bhvクラスを自動生成しない。Param/Returnクラスのみを利用したい場合。
+remoteApiRule.remoteApiRule.behaviorClassGeneration = true;
+
+// Bhvクラスのメソッドを自動生成しない。メソッドを手動で作成したい場合。
+remoteApiRule.behaviorMethodGeneration = true;
+
+// Bhvクラスのメソッドをpublicではなく、protectedにする。Gapクラスで利用するものだけpublicにしたい場合。
+remoteApiRule.behaviorMethodAccessModifier = 'protected';
+
+// org.lastaflute.remoteapi.LastaRemoteBehaviorを継承した独自クラスを設定する。複数のremoteApiがあり、複数のremoteApiにまたがる拡張処理がある場合。
+remoteApiRule.frameworkBehaviorClass = 'xxx.yyy.remoteapi.MyProjectRemoteBehavior';
+
 // Bhvクラスのサブパッケージを分けずにフラットにする。
 remoteApiRule.behaviorSubPackage = function(api) {
     return '';
 };
 
+// Bhvクラスのサブパッケージを細かく分ける。
+remoteApiRule.behaviorSubPackage = function(api) {
+    return this.subPackage(api).replace(/^([^.]*)\.(.+)/, '$1.$2');
+};
+
 // =======================================================================================
 //                                                                            Param/Return
 //                                                                            ============
-// 自動生成するParam/Returnクラスの親Definitionクラスを生成します。
+// Bhvクラスのサブパッケージを分けずにフラットにする。
+remoteApiRule.beanSubPackage = function(api) {
+    return '';
+};
+
+// 自動生成するParam/Returnクラスの親Definitionクラスを生成する。
 remoteApiRule.beanExtendsDefinitionGeneration = true;
+
+// 自動生成するParamクラスにextendsするクラスを指定する。
+remoteApiRule.paramExtendsClass = function(api, properties) {
+    // api、propertiesの内容によって変えることも可能
+    return 'xxx.yyy.zzz.AbcParam';
+};
 
 // 自動生成するParamクラスにimplementsするインターフェースを指定する。
 remoteApiRule.paramImplementsClasses = function(api, properties) {
+    // api、propertiesの内容によって変えることも可能
+    return 'xxx.yyy.zzz.AbcParam';
+};
+
+// 自動生成するParamクラスのSuffixを変更する。
+remoteApiRule.paramClassName = function(api, detail) {
+    return baseRule.paramClassName(api).replace(/Param$/g, 'Xxx');
+},
+
+// 自動生成するReturnクラスにextendsするクラスを指定する。
+remoteApiRule.returnExtendsClass = function(api, properties) {
+    // api、propertiesの内容によって変えることも可能
     return 'xxx.yyy.zzz.AbcParam';
 };
 
 // 自動生成するReturnクラスにimplementsするインターフェースを指定する。
 remoteApiRule.returnImplementsClasses = function(api, properties) {
+    // api、propertiesの内容によって変えることも可能
     return 'xxx.yyy.zzz.AbcReturn';
 };
+
+// 自動生成するReturnクラスのSuffixを変更する。
+remoteApiRule.returnClassName = function(api, detail) {
+    return baseRule.returnClassName(api).replace(/Return$/g, 'Xxx');
+},
 
 // 自動生成するParam/Returnクラスのネストクラスの名前を調整する。
 remoteApiRule.nestClassName = function(api, className) {
@@ -68,6 +123,11 @@ remoteApiRule.nestClassName = function(api, className) {
     // return className.replace(/(Part|Result|Model|Bean)$/, '') + 'Part';
 };
 
+// 自動生成するParam/Returnクラスのフィールドを調整する。
+remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
+    return ['fieldNotGenerated'].indexOf(jsonFieldName) === -1;
+}
+
 // =======================================================================================
 //                                                                                  Option
 //                                                                                  ======
@@ -77,7 +137,7 @@ remoteApiRule.importOrderList = function() {
 },
 
 // リクエストやレスポンスの各フィールド名を調整する。
-// デフォルトは、小文字スネークケースからキャメルケースに変換して自動生成します。
+// デフォルトは、小文字スネークケースからキャメルケースに変換して自動生成する。
 // 変換しないようにする場合は、this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKEをnullにしてください。
 remoteApiRule.fieldNamingMapping = function() {
     return {
