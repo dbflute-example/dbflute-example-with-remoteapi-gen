@@ -296,5 +296,200 @@ var remoteApiLogic = {
         });
 
         return behaviorMethodList;
+    },
+
+    /**
+     * Derive the bean import list.
+     * @param {Object} rule remote api rule. (NotNull)
+     * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
+     * @param {Object} properties properties. (NotNull)
+     * @param {Object} importList bean import list. (NotNull)
+     * @param {Object} definitionMap All schema definitions for remote api. (NotNull)
+     */
+    deriveBeanImportList: function(rule, topLevelBean, properties, importList, definitionMap) {
+        if (properties.size() === 0) {
+            return;
+        }
+
+        var serializedNameTargetList = ['query', 'formData', 'json'];
+        properties.entrySet().forEach(function(propertyEntry) {
+            var property = propertyEntry.value;
+            if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, propertyEntry.key)) {
+                importList.add('com.google.gson.annotations.SerializedName');
+            } else if (topLevelBean.in === 'xml') {
+                importList.add('javax.xml.bind.annotation.XmlElement');
+            }
+
+            if (property.required) {
+                importList.add(property.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
+            }
+
+            var nestType = null;
+            if (property.items && property.items['$ref']) {
+                nestType = java.net.URLDecoder.decode(property.items['$ref'].replace('#/definitions/', ''), 'UTF-8');
+            } else if (property.items && property.items.allOf && property.items.allOf[0]['$ref']) {
+                nestType = java.net.URLDecoder.decode(property.items.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
+            } else if (property['$ref']) {
+                nestType = java.net.URLDecoder.decode(property['$ref'].replace('#/definitions/', ''), 'UTF-8');
+            } else if (property.allOf && property.allOf[0]['$ref']) {
+                nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
+            }
+
+            if (nestType && definitionMap[nestType] && definitionMap[nestType].properties.size() !== 0) {
+                definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
+                    nestPropertyEntry.value.required = definitionMap[nestType].required && definitionMap[nestType].required.contains(nestPropertyEntry.key);
+                    var nestProperty = nestPropertyEntry.value;
+                    if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                        importList.add('com.google.gson.annotations.SerializedName');
+                    } else if (topLevelBean.in === 'xml') {
+                        importList.add('javax.xml.bind.annotation.XmlElement');
+                    }
+
+                    if (nestProperty.required) {
+                        importList.add(nestProperty.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
+                    }
+                });
+
+                if (definitionMap.containsKey(nestType)) {
+                    var definition = definitionMap[nestType];
+                    definitionMap.remove(nestType);
+                    remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importList, definitionMap);
+                }
+            }
+        });
+    },
+
+    /**
+     * Derive the bean property.
+     * @param {Object} rule remote api rule. (NotNull)
+     * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
+     * @param {Object} clazz top level bean class or nest bean class. (NotNull)
+     * @param {Object} propertyEntry top level bean class or nest bean class property entry. (NotNull)
+     * @param {Object} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)
+     * @param {Object} nestTypeList nest type list to avoid auto-generating duplicates. (NotNull)
+     */
+    deriveBeanProperty: function(rule, topLevelBean, clazz, propertyEntry, nestTypeFullNameList, nestTypeList) {
+        if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
+            return;
+        }
+    
+        var propertyInfo = {
+            fieldName: rule.fieldName(topLevelBean.api, topLevelBean, propertyEntry.key),
+            annotationList: [],
+            javadocComment: null,
+            fieldClass: null,
+            nestType: null,
+        };
+
+        var property = propertyEntry.value;
+        // TODO p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
+        property.name = propertyInfo.fieldName;
+
+        // javadoc comment
+        var enumValueComment = '';
+        if (property.enum) {
+            enumValueComment = '(enumValue=' + property.enum + ') ';
+        } else if (property.items && property.items.enum) {
+            enumValueComment = '(enumValue=' + property.items.enum + ') ';
+        }
+        
+        var description = property.description;
+        if (rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property)) {
+            description = rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property);
+        }
+        propertyInfo.javadocComment = '/** The property of ' + propertyInfo.fieldName + '. ' + enumValueComment + (property.description ? '(' + property.description + ') ' : '') + (property.required ? '' : '(NullAllowed) ') + '*/';
+
+        // annotation
+        var serializedNameTargetList = ['query', 'formData', 'json'];
+        if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, propertyEntry.key)) {
+            propertyInfo.annotationList.push('@SerializedName("' + propertyEntry.key + '")');
+        } else if (topLevelBean.in == 'xml') {
+            propertyInfo.annotationList.push('@XmlElement(name = "' + propertyEntry.key + '")');
+        }
+        if (property.required) {
+            propertyInfo.annotationList.push(property.type == 'array' ? '@NotNull' : '@Required');
+        }
+        
+        // field class
+        var adjustNestType = function(rule, topLevelBean, nestType) {
+            var index = nestType.lastIndexOf('.');
+            if (index != -1) {
+                nestType = nestType.substring(index + 1);
+            }
+            return rule.nestClassName(topLevelBean.api, nestType.replaceAll('^.*\\$', ''));
+        };
+
+        var nestType = '';
+        var typeMap = rule.typeMap();
+        if (property.type == 'array') {
+            if (rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property)) {
+                propertyInfo.fieldClass = typeMap[property.type] + '<' + rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property) + '>';
+            } else if (typeMap[property.items.format]) {
+                propertyInfo.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.format] + '>';
+            } else if (typeMap[property.items.type]) {
+                propertyInfo.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.type] + '>';
+            } else if (property.items['$ref'] || (property.items && property.items.allOf[0]['$ref'])) {
+                if (property.items['$ref']) {
+                    nestType = java.net.URLDecoder.decode(property.items['$ref'].replace('#/definitions/', ''), 'UTF-8');
+                } else if (property.items && property.items.allOf[0]['$ref']) {
+                    nestType = java.net.URLDecoder.decode(property.items.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
+                }
+
+                propertyInfo.fieldClass = typeMap[property.type] + '<' + adjustNestType(rule, topLevelBean, nestType) + '>';
+                propertyInfo.annotationList.push('@javax.validation.Valid');
+            }
+        } else if (rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property)) {
+            propertyInfo.fieldClass = rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property);
+        } else if (typeMap[property.format]) {
+            propertyInfo.fieldClass = typeMap[property.format];
+        } else if (typeMap[property.type]) {
+            propertyInfo.fieldClass = typeMap[property.type];
+        } else if (property['$ref'] || property.allOf[0]['$ref']) {
+            if (property['$ref']) {
+                nestType = java.net.URLDecoder.decode(property['$ref'].replace('#/definitions/', ''), 'UTF-8');
+            } else if (property.allOf[0]['$ref']) {
+                nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
+            }
+            
+            propertyInfo.fieldClass = adjustNestType(rule, topLevelBean, nestType);
+            propertyInfo.annotationList.push('@javax.validation.Valid');
+        }
+
+        if (propertyInfo.fieldClass == '') {
+            propertyInfo.fieldClass = typeMap[''];
+        }
+
+        var deriveNestType = function(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList) {
+            if (!nestType
+                    || nestTypeList.contains(nestType)
+                    || nestTypeFullNameList.contains(nestType)
+                    || nestTypeFullNameList.contains(java.lang.String.join('_', nestTypeList) + '_' + nestType)) {
+                return null;
+            }
+    
+            nestTypeList.add(nestType);
+            nestTypeFullNameList.add(java.lang.String.join('_', nestTypeList));
+    
+            var nestTypeInfo = {
+                nestType: adjustNestType(rule, topLevelBean, nestType),
+                propertyList: [],
+            };
+    
+            if (topLevelBean.definitionMap[nestType] && topLevelBean.definitionMap[nestType].properties.size() !== 0) {
+                topLevelBean.definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
+                    if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                        nestTypeInfo.propertyList.push(remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList));
+                    }
+                });
+            }
+    
+            nestTypeList.remove(nestTypeList.size() - 1);
+    
+            return nestTypeInfo;
+        };
+
+        propertyInfo.nestType = deriveNestType(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList);
+
+        return propertyInfo;
     }
 };
