@@ -63,27 +63,29 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_//_/_/_/_/_/_/
 ## generate bean property.
 ## @param property generate bean property information. (NotNull)
-## @param indent generate property indent. (NotNull)
+## @param indentSize indent size. (NotNull)
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_//_/_/_/_/_/_/
-#macro(generateBeanProperty, $property, $indent)
+#macro(generateBeanProperty, $property, $indentSize)
 
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent)${property.javadocComment}
+#set($indent = $scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indentSize))
+${indent}${property.javadocComment}
 #foreach($annotation in $property.annotationList)
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent)${annotation}
+${indent}${annotation}
 #end
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent)public ${property.fieldClass} ${property.fieldName};
+${indent}public ${property.fieldClass} ${property.fieldName};
 #if ($property.nestType)
 
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent)/**
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent) * The part class of ${property.nestType.nestType}.
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent) * @author FreeGen
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent) */
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent)public static class ${property.nestType.nestType} {
+${indent}/**
+${indent} * The part class of ${property.nestType.nestType}.
+${indent} * @author FreeGen
+${indent} */
+${indent}public static class ${property.nestType.nestType} {
 #foreach($nestProperty in $property.nestType.propertyList)
-#set ($indentNest = $indent + 1)
-#generateBeanProperty($nestProperty, $indentNest)
-#set ($indentNest = $indent - 1)
+#set ($indentSizeNest = $indentSize + 1)
+#generateBeanProperty($nestProperty, $indentSizeNest)
+#set ($indentSizeNest = $indentSize - 1)
 #end
-$scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indent)}
+#set($indent = $scriptEngine.invokeMethod($remoteApiLogic, 'indent', $indentSize))
+${indent}}
 #end
 #end
