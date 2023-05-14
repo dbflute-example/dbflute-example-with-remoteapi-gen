@@ -418,6 +418,11 @@ function processBhv(rule, request, exBehaviorMap) {
 
         path = exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + '.java';
         generate('./remoteapi/RemoteApiExBehavior.vm', path, exBehavior, false);
+
+        if (java.lang.System.getenv("FREE_GEN_REMOTEAPI_TEST") === 'true') {        
+            path = '../../test/java/' + exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + 'Test.java';
+            generate('./remoteapi/RemoteApiExBehaviorTest.vm', path, exBehavior, false);
+        }
     }
 
     var container = new java.util.LinkedHashMap();
