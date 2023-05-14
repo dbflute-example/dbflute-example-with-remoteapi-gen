@@ -432,10 +432,6 @@ function processBhv(rule, request, exBehaviorMap) {
         var path = rule.diXmlPath(schema, request.resourceFile);
         generate('./remoteapi/container/lastadi/RemoteApiDiXml.vm', path, container, true);
     }
-    if (manager.isTargetContainerSeasar()) {
-        var path = rule.diconPath(schema, request.resourceFile);
-        generate('./remoteapi/container/seasar/RemoteApiDicon.vm', path, container, true);
-    }
     if (manager.isTargetContainerSpring()) {
         var javaConfigClass = new java.util.LinkedHashMap();
         javaConfigClass.package = request.package + '.' + schemaPackage;

@@ -138,15 +138,6 @@ var baseRule = {
     },
 
     /**
-     * Return dicon path for target container seasar.
-     * @param {string} schema - schema. (NotNull)
-     * @return {string} dicon path for target container seasar. (NotNull)
-     */
-    diconPath: function(schema, resourceFilePath) {
-        return '../resources/remoteapi/di/remoteapi_' + this.schemaPackage(schema).replace(/\./g, '-') + '.dicon';
-    },
-
-    /**
      * Return java config class name without package for target container spring.
      * @param {string} schema - schema. (NotNull)
      * @return {string} java config class name without package for target container spring. (NotNull)
