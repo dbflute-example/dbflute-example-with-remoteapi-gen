@@ -44,6 +44,11 @@ remoteApiRule.subPackage = function(api) {
     return baseRule.subPackage(api).replace(/\.v1/g, '');
 };
 
+// URLに記号など特殊文字がある場合に除去
+remoteApiRule.subPackage = function(api) {
+    return baseRule.subPackage(api).replace(/#/g, '');
+};
+
 // =======================================================================================
 //                                                                                Behavior
 //                                                                                ========

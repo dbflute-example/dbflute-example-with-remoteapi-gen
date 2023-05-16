@@ -137,7 +137,7 @@ var baseRule = {
      * @return {string} the java sub package of the remote api. (NotNull, NotEmpty)
      */
     subPackage: function(api) {
-        return api.url.replace(/(_|-|^\/|\/$)/g, '').replace(/\/\{.*?\}/g, '').replace(/\..+$/g, '').replace(/\//g, '.').toLowerCase();
+        return api.url.replace(/(_|-|\.|^\/|\/$)/g, '').replace(/\/\{.*?\}/g, '').replace(/\//g, '.').toLowerCase();
     },
 
     // ===================================================================================

@@ -80,8 +80,8 @@ public abstract class BsRemoteTrickyUrlcharacterBhv extends AbstractRemoteTricky
      * httpMethod: GET
      * </pre>
      */
-    public void requestDot() {
-        doRequestDot(rule -> {});
+    public void requestDotdot() {
+        doRequestDotdot(rule -> {});
     }
 
     /**
@@ -92,15 +92,114 @@ public abstract class BsRemoteTrickyUrlcharacterBhv extends AbstractRemoteTricky
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      */
-    protected void doRequestDot(Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected void doRequestDotdot(Consumer<FlutyRemoteApiRule> ruleLambda) {
         doRequestGet(void.class, "/urlcharacter/dot.dot/", noMoreUrl(), noQuery(), rule -> {
-            ruleOfDot(rule);
+            ruleOfDotdot(rule);
             ruleLambda.accept(rule);
         });
     }
 
     /**
      * Set up method-level rule of /urlcharacter/dot.dot/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfDotdot(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /urlcharacter/dot.dot.dot/. (auto-generated method)<br>
+     * <pre>
+     * url: /urlcharacter/dot.dot.dot/
+     * httpMethod: GET
+     * </pre>
+     */
+    public void requestDotdotdot() {
+        doRequestDotdotdot(rule -> {});
+    }
+
+    /**
+     * Request remote call to /urlcharacter/dot.dot.dot/. (auto-generated method)<br>
+     * <pre>
+     * url: /urlcharacter/dot.dot.dot/
+     * httpMethod: GET
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     */
+    protected void doRequestDotdotdot(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        doRequestGet(void.class, "/urlcharacter/dot.dot.dot/", noMoreUrl(), noQuery(), rule -> {
+            ruleOfDotdotdot(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /urlcharacter/dot.dot.dot/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfDotdotdot(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /urlcharacter/file.pdf. (auto-generated method)<br>
+     * <pre>
+     * url: /urlcharacter/file.pdf
+     * httpMethod: GET
+     * </pre>
+     */
+    public void requestFilepdf() {
+        doRequestFilepdf(rule -> {});
+    }
+
+    /**
+     * Request remote call to /urlcharacter/file.pdf. (auto-generated method)<br>
+     * <pre>
+     * url: /urlcharacter/file.pdf
+     * httpMethod: GET
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     */
+    protected void doRequestFilepdf(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        doRequestGet(void.class, "/urlcharacter/file.pdf", noMoreUrl(), noQuery(), rule -> {
+            ruleOfFilepdf(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /urlcharacter/file.pdf.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfFilepdf(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /url.character/dot. (auto-generated method)<br>
+     * <pre>
+     * url: /url.character/dot
+     * httpMethod: GET
+     * </pre>
+     */
+    public void requestDot() {
+        doRequestDot(rule -> {});
+    }
+
+    /**
+     * Request remote call to /url.character/dot. (auto-generated method)<br>
+     * <pre>
+     * url: /url.character/dot
+     * httpMethod: GET
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     */
+    protected void doRequestDot(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        doRequestGet(void.class, "/url.character/dot", noMoreUrl(), noQuery(), rule -> {
+            ruleOfDot(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /url.character/dot.<br>
      * @param rule The rule that class default rule is already set. (NotNull)
      */
     protected void ruleOfDot(FlutyRemoteApiRule rule) {

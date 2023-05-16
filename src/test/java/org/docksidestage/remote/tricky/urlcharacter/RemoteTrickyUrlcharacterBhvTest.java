@@ -14,7 +14,6 @@
  * governing permissions and limitations under the License.
  */
 package org.docksidestage.remote.tricky.urlcharacter;
-
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
@@ -33,6 +32,21 @@ public class RemoteTrickyUrlcharacterBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestHyphenhyphen() {
         // ## Act ##
         createBhv(null).requestHyphenhyphen();
+    }
+
+    public void test_requestDotdot() {
+        // ## Act ##
+        createBhv(null).requestDotdot();
+    }
+
+    public void test_requestDotdotdot() {
+        // ## Act ##
+        createBhv(null).requestDotdotdot();
+    }
+
+    public void test_requestFilepdf() {
+        // ## Act ##
+        createBhv(null).requestFilepdf();
     }
 
     public void test_requestDot() {
