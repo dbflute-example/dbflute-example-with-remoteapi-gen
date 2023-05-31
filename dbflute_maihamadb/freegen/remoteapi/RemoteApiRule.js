@@ -137,6 +137,9 @@ var baseRule = {
      * @return {string} the java sub package of the remote api. (NotNull, NotEmpty)
      */
     subPackage: function(api) {
+        // 1. Remove symbols that cannot be used in java package name. And remove leading and trailing slashes.
+        // 2. Remove path variable.
+        // 3. Replace slashes with dots.
         return api.url.replace(/(_|-|\.|^\/|\/$)/g, '').replace(/\/\{.*?\}/g, '').replace(/\//g, '.').toLowerCase();
     },
 
