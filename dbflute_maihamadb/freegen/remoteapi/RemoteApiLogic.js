@@ -66,12 +66,12 @@ var remoteApiLogic = {
     },
 
     /**
-     * Derive the import class list separated by categolized package.
-     * Unique and sort import class list. And return the import class list separated by categolized package.
-     * @param {string[]} importClassList The list of import class(with package). (NotNull, EmptyAllowed)
+     * Derive the java import class list separated by categolized package.
+     * Unique and sort java import class list. And return the java import class list separated by categolized package.
+     * @param {string[]} importClassList The list of java import class(with package). (NotNull, EmptyAllowed)
      * @param {string} currentPackage Package name of the class to declare import. (NotNull, EmptyAllowed)
-     * @param {string[]} importCategolizedPackageOrderList The order list of categolized package of import. (NotNull, EmptyAllowed)
-     * @return {string[][]} import class list separated by categolized package. It is a two-dimensional array. (NotNull, EmptyAllowed)
+     * @param {string[]} importCategolizedPackageOrderList The order list of categolized java package of import. (NotNull, EmptyAllowed)
+     * @return {string[][]} java import class list separated by categolized package. It is a two-dimensional array. (NotNull, EmptyAllowed)
      *     <pre>
      *     e.g.
      *     importClassList = ["apppackage.xxx.Xxx", "apppackage.yyy.Yyy", "apppackage.zzzz.Zzz", "org.xxx.Xxx", "org.yyy.Yyy", "java.xxx.Xxx", "java.yyy.Yyy"]

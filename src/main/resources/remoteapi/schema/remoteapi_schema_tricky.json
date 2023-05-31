@@ -257,9 +257,34 @@
           "application/json"
         ]
       }
+    },
+    "/definition/less/": {
+      "get": {
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.simpleResult"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "org.docksidestage.remote.swagger.tricky.simpleResult": {
+      "type": "object",
+      "required": [
+        "simple"
+      ],
+      "properties": {
+        "simple": {
+          "type": "string"
+        }
+      }
+    },
     "org.docksidestage.app.web.wx.remogen.bean.suffix.hell.HellSuffixResult$ReservedSuffixJustPart$ReservedSuffixJustResult": {
       "type": "object",
       "required": [
