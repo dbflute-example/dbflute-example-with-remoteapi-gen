@@ -303,7 +303,7 @@ var remoteApiLogic = {
      * @param {Object} rule remote api rule. (NotNull)
      * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
      * @param {Object} properties properties. (NotNull)
-     * @param {Object} importList bean import list. (NotNull)
+     * @param {Object} importList bean java package (FQCN) list. (NotNull)
      * @param {Object} definitionMap All schema definitions for remote api. (NotNull)
      */
     deriveBeanImportList: function(rule, topLevelBean, properties, importList, definitionMap) {
@@ -335,25 +335,27 @@ var remoteApiLogic = {
                 nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
             }
 
-            if (nestType && definitionMap[nestType] && definitionMap[nestType].properties.size() !== 0) {
-                definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
-                    nestPropertyEntry.value.required = definitionMap[nestType].required && definitionMap[nestType].required.contains(nestPropertyEntry.key);
-                    var nestProperty = nestPropertyEntry.value;
-                    if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
-                        importList.add('com.google.gson.annotations.SerializedName');
-                    } else if (topLevelBean.in === 'xml') {
-                        importList.add('javax.xml.bind.annotation.XmlElement');
+            if (nestType && definitionMap[nestType]) {
+                if (definitionMap[nestType].properties && definitionMap[nestType].properties.size() !== 0) {
+                    definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
+                        nestPropertyEntry.value.required = definitionMap[nestType].required && definitionMap[nestType].required.contains(nestPropertyEntry.key);
+                        var nestProperty = nestPropertyEntry.value;
+                        if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                            importList.add('com.google.gson.annotations.SerializedName');
+                        } else if (topLevelBean.in === 'xml') {
+                            importList.add('javax.xml.bind.annotation.XmlElement');
+                        }
+    
+                        if (nestProperty.required) {
+                            importList.add(nestProperty.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
+                        }
+                    });
+    
+                    if (definitionMap.containsKey(nestType)) {
+                        var definition = definitionMap[nestType];
+                        definitionMap.remove(nestType);
+                        remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importList, definitionMap);
                     }
-
-                    if (nestProperty.required) {
-                        importList.add(nestProperty.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
-                    }
-                });
-
-                if (definitionMap.containsKey(nestType)) {
-                    var definition = definitionMap[nestType];
-                    definitionMap.remove(nestType);
-                    remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importList, definitionMap);
                 }
             }
         });
@@ -475,7 +477,9 @@ var remoteApiLogic = {
                 propertyList: [],
             };
     
-            if (topLevelBean.definitionMap[nestType] && topLevelBean.definitionMap[nestType].properties.size() !== 0) {
+            if (topLevelBean.definitionMap[nestType]
+                    && topLevelBean.definitionMap[nestType].properties
+                    && topLevelBean.definitionMap[nestType].properties.size() !== 0) {
                 topLevelBean.definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
                     if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
                         nestTypeInfo.propertyList.push(remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList));

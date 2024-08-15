@@ -316,6 +316,20 @@
           }
         }
       }
+    },
+    "/definition/refschema/": {
+      "get": {
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.SchemaRef"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -474,6 +488,19 @@
           "type": "string"
         }
       }
+    },
+    "org.docksidestage.remote.swagger.tricky.SchemaRef": {
+      "type": "object",
+      "properties": {
+        "localDateTime": {
+            "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.LocalDateTime"
+        }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.LocalDateTime": {
+      "example": "2022-03-10T12:15:50",
+      "format": "date-time",
+      "type": "string"
     }
   }
 }

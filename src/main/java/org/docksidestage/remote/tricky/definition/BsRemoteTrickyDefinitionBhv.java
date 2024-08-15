@@ -20,6 +20,7 @@ import java.util.function.Consumer;
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.tricky.AbstractRemoteTrickyBhv;
 import org.docksidestage.remote.tricky.definition.less.RemoteDefinitionLessPostReturn;
+import org.docksidestage.remote.tricky.definition.refschema.RemoteDefinitionRefschemaPostReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -107,5 +108,73 @@ public abstract class BsRemoteTrickyDefinitionBhv extends AbstractRemoteTrickyBh
      * @param rule The rule that class default rule is already set. (NotNull)
      */
     protected void ruleOfLessPost(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /definition/refschema/. (auto-generated method)<br>
+     * <pre>
+     * url: /definition/refschema/
+     * httpMethod: GET
+     * </pre>
+     */
+    public void requestRefschemaGet() {
+        doRequestRefschemaGet(rule -> {});
+    }
+
+    /**
+     * Request remote call to /definition/refschema/. (auto-generated method)<br>
+     * <pre>
+     * url: /definition/refschema/
+     * httpMethod: GET
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     */
+    protected void doRequestRefschemaGet(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        doRequestGet(void.class, "/definition/refschema/", noMoreUrl(), noQuery(), rule -> {
+            ruleOfRefschemaGet(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /definition/refschema/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfRefschemaGet(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /definition/refschema/. (auto-generated method)<br>
+     * <pre>
+     * url: /definition/refschema/
+     * httpMethod: POST
+     * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteDefinitionRefschemaPostReturn requestRefschemaPost() {
+        return doRequestRefschemaPost(rule -> {});
+    }
+
+    /**
+     * Request remote call to /definition/refschema/. (auto-generated method)<br>
+     * <pre>
+     * url: /definition/refschema/
+     * httpMethod: POST
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteDefinitionRefschemaPostReturn doRequestRefschemaPost(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestPost(RemoteDefinitionRefschemaPostReturn.class, "/definition/refschema/", noMoreUrl(), noRequestBody(), rule -> {
+            ruleOfRefschemaPost(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /definition/refschema/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfRefschemaPost(FlutyRemoteApiRule rule) {
     }
 }

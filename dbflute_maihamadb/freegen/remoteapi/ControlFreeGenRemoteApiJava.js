@@ -2,7 +2,10 @@ var genType = 'remoteapi';
 var srcPathList = [];
 
 /**
- * process.
+ * Beginning of processing.
+ * Target data whose ResourceType is Open API (Swagger) for requestList of Freegen.
+ * Load Freegen's OpenAPI javascript file. Also, if there is Rule.js of this schema, load it.
+ * After that, the automatic generation process is performed.
  * @param {Request[]} requestList - requestList (NotNull)
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - freeGen request settings list. (NotNull, EmptyAllowed)
  */
@@ -36,6 +39,8 @@ function process(requestList) {
             throw e;
         }
     }
+
+    // Delete unnecessary resources after automatic generation.    
     for each (var request in requestList) {
         if (!request.isResourceTypeSwagger()) {
             continue;
@@ -57,7 +62,9 @@ function process(requestList) {
 }
 
 /**
- * process hull.
+ * Processing for each schema.
+ * Read the Open API spec file.
+ * Generate Behavior, Param and Return classes from that information.
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
  */
 function processHull(request) {
@@ -71,7 +78,7 @@ function processHull(request) {
     var schemaPackage = rule.schemaPackage(schema);
 
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-    // swagger.json's key
+    // Open API spec file.json's key
     // _/_/_/_/_/_/_/_/_/_/
     var optionMap = request.optionMap;
     var pathMap = optionMap.jsonMap['paths'];
