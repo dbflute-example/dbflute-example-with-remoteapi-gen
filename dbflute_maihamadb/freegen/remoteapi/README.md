@@ -118,7 +118,7 @@ remotePetstorePetBhv.requestPost(param -> {
 });
 ```
 
-## experimental
+## Contributing Guide
  
 - Generate test code.
 
@@ -126,6 +126,16 @@ remotePetstorePetBhv.requestPost(param -> {
   export FREE_GEN_REMOTEAPI_TEST=true
   sh manage.sh 12
   ```
+
+  1. If you run the program with the environment variable FREE_GEN_REMOTEAPI_TEST=true,
+     test code for the automatically generated classes will be automatically generated.
+
+  2. When you add or modify a feature or change the settings of RemoteApiGen itself,
+     you can automatically generate it with TEST=false to check that there are no regression compilation errors and that the expected changes have occurred resulting in compilation errors.
+
+  3. Currently, existing test files are not overwritten, so delete the entire remote package in src/test/java and automatically generate test code.
+
+  4. If there are no problems with compilation or execution, commit the automatically generated tests.
 
 ## Supported remote api product
 - [lasta-remoteapi](https://github.com/lastaflute/lasta-remoteapi)
