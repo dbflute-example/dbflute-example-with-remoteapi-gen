@@ -26,12 +26,12 @@
 ##########################################################################################
 ${manager.allClassCopyright}package ${data.package};
 
-#set ($importList = [])
-#set($added = $importList.add('org.lastaflute.core.util.Lato'))
+#set ($importClassList = [])
+#set($added = $importClassList.add('org.lastaflute.core.util.Lato'))
 #set ($tempDefinitionMap = {})
 #set ($put = $tempDefinitionMap.putAll($definitionMap))
-#set ($dummy = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveBeanImportList', $rule, $data, $data.properties, $importList, $tempDefinitionMap))
-#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#set ($dummy = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveBeanImportList', $rule, $data, $data.properties, $importClassList, $tempDefinitionMap))
+#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importClassList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
 #foreach($categolizedImportClass in $categolizedImportClassList)
 #foreach($importClass in $categolizedImportClass)
 import ${importClass};

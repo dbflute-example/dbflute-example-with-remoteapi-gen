@@ -26,33 +26,33 @@
 ##########################################################################################
 ${manager.allClassCopyright}package ${data.package};
 
-#set ($importList = [])
-#set($added = $importList.add('org.lastaflute.web.servlet.request.RequestManager'))
+#set ($importClassList = [])
+#set($added = $importClassList.add('org.lastaflute.web.servlet.request.RequestManager'))
 #set ($parameterFlg = false)
 #set ($returnFlg = false)
 #if ($rule['behaviorMethodGeneration'])
 #foreach($method in $data.bsBehavior.methodList)
 #if (${method.paramBean.className} && ${method.paramBean.className} != '')
-#set($added = $importList.add("${method.paramBean.package}.${method.paramBean.className}"))
+#set($added = $importClassList.add("${method.paramBean.package}.${method.paramBean.className}"))
 #set ($parameterFlg = true)
 #end
 #if (${method.returnBean.package} && ${method.returnBean.package} != '' && ${method.returnBean.className} && ${method.returnBean.className} != '')
-#set($added = $importList.add("${method.returnBean.package}.${method.returnBean.className}"))
+#set($added = $importClassList.add("${method.returnBean.package}.${method.returnBean.className}"))
 #set ($returnFlg = true)
 #end
 #end
 #end
 #if ($parameterFlg)
-#set($added = $importList.add('java.util.function.Consumer'))
+#set($added = $importClassList.add('java.util.function.Consumer'))
 #end
-#set($added = $importList.add("org.docksidestage.unit.UnitRemoteapigenTestCase"))
-#set($added = $importList.add("javax.annotation.Resource"))
+#set($added = $importClassList.add("org.docksidestage.unit.UnitRemoteapigenTestCase"))
+#set($added = $importClassList.add("javax.annotation.Resource"))
 #if ($returnFlg)
-#set($added = $importList.add("org.slf4j.Logger"))
-#set($added = $importList.add("org.slf4j.LoggerFactory"))
+#set($added = $importClassList.add("org.slf4j.Logger"))
+#set($added = $importClassList.add("org.slf4j.LoggerFactory"))
 #end
-#set($added = $importList.add("org.dbflute.remoteapi.mock.MockHttpClient"))
-#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#set($added = $importClassList.add("org.dbflute.remoteapi.mock.MockHttpClient"))
+#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importClassList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
 #foreach($categolizedImportClass in $categolizedImportClassList)
 #foreach($importClass in $categolizedImportClass)
 import ${importClass};

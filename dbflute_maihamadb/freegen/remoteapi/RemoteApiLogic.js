@@ -68,7 +68,7 @@ var remoteApiLogic = {
     /**
      * Derive the java import class list separated by categolized package.
      * Unique and sort java import class list. And return the java import class list separated by categolized package.
-     * @param {string[]} importClassList The list of java import class(with package). (NotNull, EmptyAllowed)
+     * @param {string[]} importClassList The list of java import class(with package)(FQDN). (NotNull, EmptyAllowed)
      * @param {string} currentPackage Package name of the class to declare import. (NotNull, EmptyAllowed)
      * @param {string[]} importCategolizedPackageOrderList The order list of categolized java package of import. (NotNull, EmptyAllowed)
      * @return {string[][]} java import class list separated by categolized package. It is a two-dimensional array. (NotNull, EmptyAllowed)
@@ -141,7 +141,7 @@ var remoteApiLogic = {
 
     /**
      * Derive the behavior method list.
-     * @param {Object} rule remote api rule. (NotNull)
+     * @param {Object} rule remote api rule. (NotNull) @js-instance
      * @param {Method[]} methodList The list of The method information. (NotNull, EmptyAllowed)
      * @return {BehaviorMethod[]} The list of behavior method information. (NotNull, EmptyAllowed)
      */
@@ -194,22 +194,19 @@ var remoteApiLogic = {
                 } else if (typeMap[pathVariable.type]) {
                     pathVariableClass = typeMap[pathVariable.type];
                 }
-
-                // TODO p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
                 pathVariable.name = pathVariableName;
                 var enumValueComment = '';
-                var nestType = '';
                 if (pathVariable.enum) {
                     enumValueComment = '(enumValue=' + pathVariable.enum + ') ';
                 } else if (pathVariable.items && pathVariable.items.enum) {
                     enumValueComment = '(enumValue=' + pathVariable.items.enum + ') ';
                 }
 
-                var pathVariableDescription = rule.pathVariableManualMappingDescription(method.api, pathVariable);
-                if (!pathVariableDescription) {
-                    pathVariableDescription = pathVariable.description;
+                var description = rule.pathVariableManualMappingDescription(method.api, pathVariable);
+                if (!description) {
+                    description = pathVariable.description;
                 }
-                behaviorMethod.parameterList.push({ 'name': pathVariableName, 'class': pathVariableClass, 'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment + (pathVariableDescription ? '(' + pathVariableDescription + ') ' : '') + '(NotNull)'});
+                behaviorMethod.parameterList.push({ 'name': pathVariableName, 'class': pathVariableClass, 'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment + (description ? '(' + description + ') ' : '') + '(NotNull)'});
 
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + pathVariableClass + ' ' + pathVariableName + ', ';
                 behaviorMethod.moreUrl = behaviorMethod.moreUrl + pathVariableName + ', ';
@@ -300,13 +297,19 @@ var remoteApiLogic = {
 
     /**
      * Derive the bean import list.
-     * @param {Object} rule remote api rule. (NotNull)
+     * @param {Object} rule remote api rule. (NotNull) @js-instance
      * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
-     * @param {Object} properties properties. (NotNull)
-     * @param {Object} importList bean java package (FQCN) list. (NotNull)
-     * @param {Object} definitionMap All schema definitions for remote api. (NotNull)
+     * @param {Object} properties Properties of the bean class for the request and response.
+     * 　　　　　　　　　　　　　　　　This information is processed using rule.js etc. based on the `parameters` and `responses` attributes
+     *                            in the openapi schema file of the resourceFile of freeGenMap.dfprop. (NotNull).
+     * @param {string[]} importClassList The list of java import class(with package)(FQDN). (NotNull)
+     * @param {Object} definitionMap `definitions` attribute in the openapi schema file of the resourceFile in freeGenMap.dfprop. (NotNull)
+     *     <pre>
+     *     e.g.
+     *     importClassList = ["apppackage.xxx.Xxx", "apppackage.yyy.Yyy", "apppackage.zzzz.Zzz", "org.xxx.Xxx", "org.yyy.Yyy", "java.xxx.Xxx", "java.yyy.Yyy"]
+     *     </pre>
      */
-    deriveBeanImportList: function(rule, topLevelBean, properties, importList, definitionMap) {
+    deriveBeanImportList: function(rule, topLevelBean, properties, importClassList, definitionMap) {
         if (properties.size() === 0) {
             return;
         }
@@ -315,13 +318,13 @@ var remoteApiLogic = {
         properties.entrySet().forEach(function(propertyEntry) {
             var property = propertyEntry.value;
             if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, propertyEntry.key)) {
-                importList.add('com.google.gson.annotations.SerializedName');
+                importClassList.add('com.google.gson.annotations.SerializedName');
             } else if (topLevelBean.in === 'xml') {
-                importList.add('javax.xml.bind.annotation.XmlElement');
+                importClassList.add('javax.xml.bind.annotation.XmlElement');
             }
 
             if (property.required) {
-                importList.add(property.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
+                importClassList.add(property.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
             }
 
             var nestType = null;
@@ -341,20 +344,20 @@ var remoteApiLogic = {
                         nestPropertyEntry.value.required = definitionMap[nestType].required && definitionMap[nestType].required.contains(nestPropertyEntry.key);
                         var nestProperty = nestPropertyEntry.value;
                         if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
-                            importList.add('com.google.gson.annotations.SerializedName');
+                            importClassList.add('com.google.gson.annotations.SerializedName');
                         } else if (topLevelBean.in === 'xml') {
-                            importList.add('javax.xml.bind.annotation.XmlElement');
+                            importClassList.add('javax.xml.bind.annotation.XmlElement');
                         }
     
                         if (nestProperty.required) {
-                            importList.add(nestProperty.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
+                            importClassList.add(nestProperty.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
                         }
                     });
     
                     if (definitionMap.containsKey(nestType)) {
                         var definition = definitionMap[nestType];
                         definitionMap.remove(nestType);
-                        remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importList, definitionMap);
+                        remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importClassList, definitionMap);
                     }
                 }
             }
@@ -363,7 +366,7 @@ var remoteApiLogic = {
 
     /**
      * Derive the bean property.
-     * @param {Object} rule remote api rule. (NotNull)
+     * @param {Object} rule remote api rule. (NotNull) @js-instance
      * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
      * @param {Object} clazz top level bean class or nest bean class. (NotNull)
      * @param {Object} propertyEntry top level bean class or nest bean class property entry. (NotNull)
@@ -384,7 +387,6 @@ var remoteApiLogic = {
         };
 
         var property = propertyEntry.value;
-        // TODO p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
         property.name = propertyInfo.fieldName;
 
         // javadoc comment
@@ -395,11 +397,12 @@ var remoteApiLogic = {
             enumValueComment = '(enumValue=' + property.items.enum + ') ';
         }
         
-        var description = property.description;
-        if (rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property)) {
-            description = rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property);
+        var description = rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property);
+        if (!description) {
+            description = property.description;
         }
-        propertyInfo.javadocComment = '/** The property of ' + propertyInfo.fieldName + '. ' + enumValueComment + (property.description ? '(' + property.description + ') ' : '') + (property.required ? '' : '(NullAllowed) ') + '*/';
+
+        propertyInfo.javadocComment = '/** The property of ' + propertyInfo.fieldName + '. ' + enumValueComment + (description ? '(' + description+ ') ' : '') + (property.required ? '' : '(NullAllowed) ') + '*/';
 
         // annotation
         var serializedNameTargetList = ['query', 'formData', 'json'];

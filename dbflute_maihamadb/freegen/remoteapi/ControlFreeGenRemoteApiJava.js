@@ -3,9 +3,11 @@ var srcPathList = [];
 
 /**
  * Beginning of processing.
- * Target data whose ResourceType is Open API (Swagger) for requestList of Freegen.
- * Load Freegen's OpenAPI javascript file. Also, if there is Rule.js of this schema, load it.
+ * The ResourceType of Freegen's requestList targets Open API (Swagger) data.
+ * For each request, Freegen's OpenAPI javascript files (RemoteApiRule.js and RemoteApiLogic.js) are loaded.
+ *  In addition, if there is a Rule.js for this request, it is loaded additionally.
  * After that, the automatic generation process is performed.
+ * After automatic generation, the file that was automatically generated last time is deleted.
  * @param {Request[]} requestList - requestList (NotNull)
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - freeGen request settings list. (NotNull, EmptyAllowed)
  */
@@ -62,9 +64,10 @@ function process(requestList) {
 }
 
 /**
- * Processing for each schema.
- * Read the Open API spec file.
- * Generate Behavior, Param and Return classes from that information.
+ * Process each schema.
+ * Read the Open API specification file.
+ * Process the Open API paths and definitions for automatic generation.
+ * Once processed, use the information to generate Behavior, Param, and Return classes.
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
  */
 function processHull(request) {

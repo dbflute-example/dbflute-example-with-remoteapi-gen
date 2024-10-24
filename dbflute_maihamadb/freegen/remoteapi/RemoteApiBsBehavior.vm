@@ -24,22 +24,22 @@
 ##########################################################################################
 ${manager.allClassCopyright}package ${data.package};
 
-#set ($importList = [])
-#set($added = $importList.add('org.lastaflute.web.servlet.request.RequestManager'))
-#set($added = $importList.add("${data.abstractBehavior.package}.${data.abstractBehavior.className}"))
+#set ($importClassList = [])
+#set($added = $importClassList.add('org.lastaflute.web.servlet.request.RequestManager'))
+#set($added = $importClassList.add("${data.abstractBehavior.package}.${data.abstractBehavior.className}"))
 #if ($rule['behaviorMethodGeneration'])
-#set($added = $importList.add('java.util.function.Consumer'))
-#set($added = $importList.add('org.dbflute.remoteapi.FlutyRemoteApiRule'))
+#set($added = $importClassList.add('java.util.function.Consumer'))
+#set($added = $importClassList.add('org.dbflute.remoteapi.FlutyRemoteApiRule'))
 #foreach($method in $data.methodList)
 #if (${method.paramBean.className})
-#set($added = $importList.add("${method.paramBean.package}.${method.paramBean.className}"))
+#set($added = $importClassList.add("${method.paramBean.package}.${method.paramBean.className}"))
 #end
 #if (${method.returnBean.package} && ${method.returnBean.className})
-#set($added = $importList.add("${method.returnBean.package}.${method.returnBean.className}"))
+#set($added = $importClassList.add("${method.returnBean.package}.${method.returnBean.className}"))
 #end
 #end
 #end
-#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
+#set ($categolizedImportClassList = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveCategolizedImportClassList', $importClassList, $data.package, $scriptEngine.invokeMethod($rule, 'importOrderList')))
 #foreach($categolizedImportClass in $categolizedImportClassList)
 #foreach($importClass in $categolizedImportClass)
 import ${importClass};
