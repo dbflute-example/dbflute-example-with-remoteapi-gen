@@ -20,8 +20,11 @@
 
 		<!-- Partner Library -->
 		<slf4j.version>1.7.12</slf4j.version>
-		<logback.version>1.2.3</logback.version>
+		<logback.version>1.2.13</logback.version>
 		<servlet.version>3.1.0</servlet.version>
+
+		<!-- GoodNeighbor Library -->
+		<eclipse.collections.version>9.2.0</eclipse.collections.version>
 
 		<!-- Testing -->
 		<junit.version>4.8.2</junit.version> <!-- is latest version without hamcrest -->
@@ -236,6 +239,12 @@
 		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 		<!--                                                          GoodNeighbor Library -->
 		<!--                                                           = = = = = = = = = = -->
+		<!-- eclipse collections -->
+		<dependency>
+			<groupId>org.eclipse.collections</groupId>
+			<artifactId>eclipse-collections</artifactId>
+			<version>${eclipse.collections.version}</version>
+		</dependency>
 
 		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 		<!--                                                                       Testing -->

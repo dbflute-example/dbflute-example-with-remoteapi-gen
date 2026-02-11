@@ -15,7 +15,15 @@
  */
 package org.docksidestage.unit;
 
+import java.util.function.Supplier;
+
+import javax.annotation.Resource;
+
+import org.dbflute.remoteapi.FlutyRemoteBehavior;
+import org.dbflute.remoteapi.mock.MockHttpClient;
+import org.dbflute.remoteapi.mock.supporter.MockFreedomResponse.MockRequestDeterminer;
 import org.dbflute.utflute.lastaflute.WebContainerTestCase;
+import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
  * Use like this:
@@ -40,6 +48,12 @@ import org.dbflute.utflute.lastaflute.WebContainerTestCase;
 public abstract class UnitRemoteapigenTestCase extends WebContainerTestCase {
 
     // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    @Resource
+    private RequestManager requestManager;
+
+    // ===================================================================================
     //                                                                               Mock
     //                                                                              ======
     protected String derivedResopnsePath(Class<?> responseClass) {
@@ -52,5 +66,39 @@ public abstract class UnitRemoteapigenTestCase extends WebContainerTestCase {
 
     protected String derivedResopnsePath(Class<?> responseClass, String separator, String pathPart) {
         return responseClass.getName().replace(".", "/") + separator + pathPart;
+    }
+
+    /**
+     * create Mock Remote Behavior.
+     * <pre>
+     * e.g.
+     * RemoteAbcDefReturn returnBean = createMockRemoteBehavior(() -> new RemoteAbcBhv(requestManager), response, request -> {
+     *     // assert request 
+     *     return true;
+     * }).requestNoconv(paramLambda);
+     * </pre>
+     * @param <BEHAVIOR> The remote behavior to create
+     * @param newBehaviorLambda The callback for create remote behavior. (NotNull)
+     * @param response The response returned by the method call of the created remote behavior. (NullAllowed)
+     * @param requestLambda The callback for determination of corresponding request. (NotNull)
+     * @return The Created remote behavior. (NotNull)
+     */
+    protected <BEHAVIOR extends FlutyRemoteBehavior> BEHAVIOR createMockRemoteBehavior(Supplier<BEHAVIOR> newBehaviorLambda,
+            Object resopnse, MockRequestDeterminer requestLambda) {
+        MockHttpClient client = MockHttpClient.create(response -> {
+            if (resopnse == null) {
+                response.asJsonNoContent(requestLambda);
+            } else {
+                if (resopnse instanceof String) {
+                    response.asJsonDirectly((String) resopnse, requestLambda);
+                } else {
+                    response.asJsonDirectly(requestManager.getJsonManager().toJson(resopnse), requestLambda);
+                }
+            }
+        });
+        registerMock(client);
+        BEHAVIOR behavior = newBehaviorLambda.get();
+        inject(behavior);
+        return behavior;
     }
 }
