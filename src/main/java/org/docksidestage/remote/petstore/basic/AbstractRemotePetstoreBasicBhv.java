@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.maihama.showbase;
+package org.docksidestage.remote.petstore.basic;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +30,7 @@ import org.lastaflute.remoteapi.sender.query.LaQuerySender;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
- * The base class of all remote API behaviors as RemoteApiMaihamaShowbase.
+ * The base class of all remote API behaviors as RemoteApiPetstoreBasic.
  * <p>
  * You can implement your original methods here.
  * This class remains when re-generating.
@@ -39,7 +39,7 @@ import org.lastaflute.web.servlet.request.RequestManager;
  * @author p1us2er0
  * @author jflute
  */
-public abstract class AbstractRemoteMaihamaShowbaseBhv extends org.lastaflute.remoteapi.LastaRemoteBehavior {
+public abstract class AbstractRemotePetstoreBasicBhv extends org.lastaflute.remoteapi.LastaRemoteBehavior {
 
     // ===================================================================================
     //                                                                         Constructor
@@ -47,7 +47,7 @@ public abstract class AbstractRemoteMaihamaShowbaseBhv extends org.lastaflute.re
     /**
      * @param requestManager The manager of request, LastaFlute component. (NotNull)
      */
-    public AbstractRemoteMaihamaShowbaseBhv(RequestManager requestManager) {
+    public AbstractRemotePetstoreBasicBhv(RequestManager requestManager) {
         super(requestManager);
     }
 
@@ -56,6 +56,7 @@ public abstract class AbstractRemoteMaihamaShowbaseBhv extends org.lastaflute.re
     //                                                                          ==========
     @Override
     protected void yourDefaultRule(FlutyRemoteApiRule rule) {
+        // done you #changed set your common default rule here
         JsonMappingOption mappingOption = new JsonMappingOption().yourCollections(prepareYourCollections());
         rule.sendQueryBy(new LaQuerySender(new LaVacantMappingPolicy()));
         rule.sendBodyBy(new LaJsonSender(requestManager, mappingOption));
@@ -73,6 +74,7 @@ public abstract class AbstractRemoteMaihamaShowbaseBhv extends org.lastaflute.re
 
     @Override
     protected String getUrlBase() {
-        return "http://localhost:8098/showbase";
+        // done you #changed set base URL for the remote api here
+        return "http://localhost:8098/petstore/basic"; // dummy
     }
 }

@@ -36,6 +36,8 @@ import org.lastaflute.web.servlet.request.RequestManager;
  * This class remains when re-generating.
  * </p>
  * @author FreeGen
+ * @author p1us2er0
+ * @author jflute
  */
 public abstract class AbstractRemoteFortressBhv extends org.lastaflute.remoteapi.LastaRemoteBehavior {
 
@@ -58,6 +60,8 @@ public abstract class AbstractRemoteFortressBhv extends org.lastaflute.remoteapi
         rule.sendQueryBy(new LaQuerySender(new LaVacantMappingPolicy()));
         rule.sendBodyBy(new LaJsonSender(requestManager, mappingOption));
         rule.receiveBodyBy(new LaJsonReceiver(requestManager, mappingOption));
+
+        // #for_now jflute UnitTestを気軽にやるためにValidationはオフに (2026/03/07)
         rule.getValidatorOption().suppressParam().suppressReturn();
     }
 

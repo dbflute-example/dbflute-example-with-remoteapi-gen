@@ -302,11 +302,14 @@ var remoteApiLogic = {
      * Derive the bean import list.
      * @param {Object} rule remote api rule. (NotNull)
      * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
-     * @param {Object} properties properties. (NotNull)
+     * @param {Object} properties API仕様の "properties" に相当するオブジェクト (NotNull)
      * @param {Object} importList bean import list. (NotNull)
      * @param {Object} definitionMap All schema definitions for remote api. (NotNull)
      */
     deriveBeanImportList: function(rule, topLevelBean, properties, importList, definitionMap) {
+        if (!properties.size) { // size() で not function というエラーが出るケースがあったので (2026/03/07)
+            return;
+        }
         if (properties.size() === 0) {
             return;
         }

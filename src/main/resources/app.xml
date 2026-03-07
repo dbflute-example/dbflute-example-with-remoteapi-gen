@@ -3,5 +3,10 @@
 <components>
     <include path="convention.xml"/>
     <include path="lastaflute.xml"/>
-    <include path="remoteapi/di/remoteapi_petstore.xml"/>
+
+    <include path="remoteapi/di/remoteapi_fortress.xml"/>
+    <include path="remoteapi/di/remoteapi_maihama-showbase.xml"/>
+    <include path="remoteapi/di/remoteapi_petstore-basic.xml"/>
+    <include path="remoteapi/di/remoteapi_petstore-defetc-sea-land.xml"/>
+    <include path="remoteapi/di/remoteapi_tricky.xml"/>
 </components>

@@ -1,8 +1,23 @@
  map:{
     ; $$split$$ = map:{
-        ; petstore = dummy
-        ; maihamac_showbase = dummy
+        # _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+        # ファイル一覧と一致させやすいようにアルファベット順で並べる (2026/03/07)
+        # _/_/_/_/_/_/_/_/
+
+        # to lastaflute-test-fortress
+        # 色々なパターンがあるAPI (RemoteApiGenとしてもメインの色々なケースを試す環境)
         ; fortress = dummy
+
+        # to maimaha-showbase
+        # RESTful API (を試す環境)
+        ; maihama_showbase = dummy
+
+        # to petstore
+        # swaggerのお約束exampleのAPI (standardが通るかどうか試す環境)
+        ; petstore = dummy
+
+        # to tricky manual API
+        # 手動でトリッキーな状況を試す環境。(fortressでもやりづらいケースとか)
         ; tricky = dummy
     }
 }
