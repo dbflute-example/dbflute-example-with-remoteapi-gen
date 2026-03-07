@@ -1,12 +1,30 @@
-var genType = 'remoteapi';
-var srcPathList = [];
 
+// 自動生成種別、ログやディレクトリ名などで利用
+var genType = 'remoteapi';
+
+// 自動生成ファイルのパス一覧、自動生成処理ごとに保持して溜めていく、freegenディレクトリからの相対パス
+var destFilePathList = [];
+
+
+// =======================================================================================
+//                                                                              Controller
+//                                                                              ==========
 /**
- * process.
- * @param {Request[]} requestList - requestList (NotNull)
- * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - freeGen request settings list. (NotNull, EmptyAllowed)
+ * ルートの入り口関数。ControlVMからすぐに呼ばれる想定。ここから自動生成の旅が始まる。
+ * 
+ * 1. dfpropに定義されているFreeGenリエクストたちループ
+ *  1-1. rule.jsを読み込む
+ *  1-2. メタデータをオブジェクト化
+ *  1-3. Velocityでクラス自動生成
+ * 
+ * 2. もっかいループ
+ *  2-1. rule.jsを読み込む // #hope jflute もっかい読むの回避できないかな？ (2026/03/08)
+ *  2-2. 古いファイルを削除
+ * 
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - the list of freeGen requests. (NotNull, EmptyAllowed)
  */
 function process(requestList) {
+    // それぞれのリクエストごとに自動生成
     for each (var request in requestList) {
         if (!request.isResourceTypeSwagger()) {
             continue;
@@ -36,6 +54,8 @@ function process(requestList) {
             throw e;
         }
     }
+
+    // 不要なファイルを削除
     for each (var request in requestList) {
         if (!request.isResourceTypeSwagger()) {
             continue;
@@ -51,14 +71,14 @@ function process(requestList) {
         var schema = rule.schema(request);
         var schemaPackage = rule.schemaPackage(schema);
         var package = request.package + '.' + schemaPackage;
-        clean(rule, request, package.replace(/\./g, '/'), srcPathList);
-        clean(rule, request, '../resources/' + genType + '/di', srcPathList);
+        clean(rule, request, package.replace(/\./g, '/'), destFilePathList);
+        clean(rule, request, '../resources/' + genType + '/di', destFilePathList);
     }
 }
 
 /**
- * process hull.
- * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
+ * FreeGenリクエスト一つに対する処理。
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
  */
 function processHull(request) {
     var rule = remoteApiRule;
@@ -67,7 +87,7 @@ function processHull(request) {
     var typeMap = rule.typeMap();
 
     // schema name is from part of FreeGen request name e.g. RemoteApiSeaLand => SeaLand
-    var schema = rule.schema(request);;
+    var schema = rule.schema(request);
     var schemaPackage = rule.schemaPackage(schema);
 
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
@@ -77,10 +97,12 @@ function processHull(request) {
     var pathMap = optionMap.jsonMap['paths'];
     var definitionMap = optionMap.jsonMap['definitions'];
 
-    var apiList = [];
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+	// APIオブジェクト一覧の作成。
+	//
     // loop paths's elements, per one API URL: e.g. /sea/land
     // _/_/_/_/_/_/_/_/_/_/
+    var apiList = [];
     for (var pathKey in pathMap) {
         var path = pathMap[pathKey];
         var commonParameters = pathMap[pathKey].parameters;
@@ -107,6 +129,7 @@ function processHull(request) {
             }
         }
     }
+	// 横断的に multipleHttpMethod の判定
     for (var apiIndex in apiList) {
         var api = apiList[apiIndex];
         for (var comparisonApiIndex in apiList) {
@@ -118,16 +141,17 @@ function processHull(request) {
         }
     }
 
-    var remoteApiBeanList = [];
-    var exBehaviorMap = new java.util.LinkedHashMap();
-    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-    // loop api
+    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+	// APIごとに remoteApiBean (e.g. Param, Return) や Behavior のメタデータをセットアップ。
     // _/_/_/_/_/_/_/_/_/_/
+    var remoteApiBeanList = []; // all beans (e.g. Param, Return) in the current request, Array<Map>
+    var exBehaviorMap = new java.util.LinkedHashMap(); // all behaviors in the current request
     for (apiIndex in apiList) {
         var api = apiList[apiIndex];
+
         // +------------------------+
         // |                        |
-        // | Generate 'Param' beans |
+        // | Prepare 'Param' beans  |
         // |                        |
         // +------------------------+
         var pathVariables = new java.util.LinkedHashMap();
@@ -187,7 +211,7 @@ function processHull(request) {
 
         // +-------------------------+
         // |                         |
-        // | Generate 'Return' beans |
+        // | Prepare 'Return' beans  |
         // |                         |
         // +-------------------------+
         var returnProperties = new java.util.LinkedHashMap();
@@ -213,6 +237,8 @@ function processHull(request) {
                     returnBean.className = typeMap[responseSchema.type];
                     returnBean.array = array;
                 } else {
+                    // e.g. "#/definitions/org.docksidestage.app.web.ballet.dancers.BalletDancersResult"
+					//  definitionKey is "org.docksidestage.app.web.ballet.dancers.BalletDancersResult"
                     var definitionKey = java.net.URLDecoder.decode(responseSchema['$ref'].replace('#/definitions/', ''), "UTF-8");
                     definitionKey = rule.definitionKey(definitionKey);
                     var definition = definitionMap[definitionKey];
@@ -235,9 +261,10 @@ function processHull(request) {
                 }
                 returnBean.in = api.produces && api.produces.indexOf('application/xml') !== -1 ? 'xml' : 'json';
             }
-        }
+        } // end of responses loop
+
         keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, returnBean, returnBeanArray, exBehaviorMap);
-    }
+    } // end of apiList loop
 
     if (rule['beanExtendsDefinitionGeneration']) {
         for each (var remoteApiBean in remoteApiBeanList) {
@@ -279,19 +306,25 @@ function processHull(request) {
         }
     }
 
-    processBean(rule, remoteApiBeanList);
-    processBhv(rule, request, exBehaviorMap);
-    processDoc(rule, request, exBehaviorMap);
+	// +-------------------------+
+	// |                         |
+	// | Generate class files    |
+	// |                         |
+	// +-------------------------+
+    generateBean(rule, remoteApiBeanList);
+    generateBhv(rule, request, exBehaviorMap);
+    generateDoc(rule, request, exBehaviorMap);
 }
 
 /**
- * Keep information of bean.
- * @param {Rule} rule - rule. (NotNull)
+ * Create information of remoteApi bean. (e.g. Param, Return)
+ * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
  * @param {string} beanPurposeType - The bean role type. e.g. param, return (NotNull)
  * @param {Api} api - The information of api. (NotNull)
- * @param {Properties} properties - The information of property for the bean. (NotNull)
- * @param {DefinitionMap} definitionMap - The information of definition map. (NotNull)
- * @param {string} definitionKey - definition key (NotNull)
+ * @param {Map} properties - The information of property for the bean. (NotNull)
+ * @param {Map} definitionMap - The information of definition map. (NotNull)
+ * @param {string} definitionKey - The identifier of the definition e.g. org.docksidesta...cers.BalletDancersResult (NotNull)
+ * @returns The map of the remoteApi bean information. e.g. className, properties (NotNull)
  */
 function createBean(rule, beanPurposeType, api, properties, definitionMap, definitionKey) {
     var schemaPackage = rule.schemaPackage(api.schema);
@@ -317,14 +350,14 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
 
 /**
  * Keep information of behavior.
- * @param {Rule} rule - rule. (NotNull)
- * @param {Api} api - The information of api. (NotNull)
- * @param {PathVariables} pathVariables - The array of path variables. (NotNull)
- * @param {ParamBean} paramBean - The information of param bean. (NotNull)
+ * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {Map} api - The information of api, having "schema", "url", ... (NotNull)
+ * @param {Map} pathVariables - The array of path variables. (NotNull)
+ * @param {Map} paramBean - The information of param bean. (NotNull)
  * @param {boolean} paramBeanArray - true if param bean is array. (NotNull)
- * @param {ReturnBean} returnBean - The information of return bean. (NotNull)
+ * @param {Map} returnBean - The information of return bean. (NotNull)
  * @param {boolean} returnBeanArray - true if return bean is array. (NotNull)
- * @param {ExBehaviorMap} exBehaviorMap - The map of behavior information. (NotNull)
+ * @param {Map} exBehaviorMap - The map of behavior information, contains bsBehavior. (NotNull)
  */
 function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, returnBean, returnBeanArray, exBehaviorMap) {
     var schemaPackage = rule.schemaPackage(api.schema);
@@ -351,12 +384,15 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
     exBehaviorMap[package + '.' + className].bsBehavior.methodList.push({ 'api': api, 'pathVariables': pathVariables, 'paramBean': paramBean, 'paramBeanArray': paramBeanArray, 'returnBean': returnBean, 'returnBeanArray': returnBeanArray });
 }
 
+// =======================================================================================
+//                                                                               Generator
+//                                                                               =========
 /**
  * Process bean. (generating class)
- * @param {Rule} rule - rule. (NotNull)
- * @param {RemoteApiBeanList} remoteApiBeanList - remoteApiBeanList. (NotNull)
+ * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {Array<Map>} remoteApiBeanList - The map list of all remoteApiBeans in the request. (NotNull)
  */
-function processBean(rule, remoteApiBeanList) {
+function generateBean(rule, remoteApiBeanList) {
     var sortRemoteApiBeanMap = new java.util.TreeMap();
     for (remoteApiBeanListIndex in remoteApiBeanList) {
         var remoteApiBean = remoteApiBeanList[remoteApiBeanListIndex];
@@ -388,13 +424,12 @@ function processBean(rule, remoteApiBeanList) {
 }
 
 /**
- * Process behavior. (generating class)
- * Also generate DI xml.
- * @param {Rule} rule - rule. (NotNull)
-  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
- * @param {ExBehaviorMap} exBehaviorMap - The map of behavior information. (NotNull)
+ * Generate behavior class, also DI xml.
+ * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
+ * @param {Map} exBehaviorMap - The map of behavior information. (NotNull)
  */
-function processBhv(rule, request, exBehaviorMap) {
+function generateBhv(rule, request, exBehaviorMap) {
     if (!rule['behaviorClassGeneration']) {
         return [];
     }
@@ -420,6 +455,7 @@ function processBhv(rule, request, exBehaviorMap) {
         path = exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + '.java';
         generate('./remoteapi/RemoteApiExBehavior.vm', path, exBehavior, false);
 
+        // #for_now jflute 環境変数技のままで良いのか？シークレットだからこれでいい？いや、ruleにしたい？ (2026/03/08)
         if (java.lang.System.getenv("FREE_GEN_REMOTEAPI_TEST") === 'true') {        
             path = '../../test/java/' + exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + 'Test.java';
             generate('./remoteapi/RemoteApiExBehaviorTest.vm', path, exBehavior, false);
@@ -446,12 +482,12 @@ function processBhv(rule, request, exBehaviorMap) {
 }
 
 /**
- * Process doc.
- * @param {Rule} rule - rule. (NotNull)
- * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
- * @param {ExBehaviorMap} exBehaviorMap - The map of behavior information. (NotNull)
+ * Generate document of generated remoteApi classes on LastaDoc.
+ * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
+ * @param {Map} exBehaviorMap - The map of behavior information. (NotNull)
  */
-function processDoc(rule, request, exBehaviorMap) {
+function generateDoc(rule, request, exBehaviorMap) {
     if (!rule['docGeneration']) {
         return;
     }
@@ -478,21 +514,22 @@ function processDoc(rule, request, exBehaviorMap) {
     }
 }
 
-// ===================================================================================
-//                                                                              Common
-//                                                                              ======
+// =======================================================================================
+//                                                                            Assist Logic
+//                                                                            ============
 /**
  * Generate files such as java and html from vm files and meta data.
- * @param {string} src - src (NotNull)
- * @param {string} dest - dest (NotNull)
- * @param {map} data - metadata for generation (NotNull)
+ * @param {string} src - The relative path (from freegen directory) of source template file. (NotNull)
+ * @param {string} dest - The relative path (from freegen directory) of destination generated class file. (NotNull)
+ * @param {Map} data - metadata for generation, e.g. remoteApiBean, exBehavior, ... (NotNull)
  * @param {boolean} overwite - true to overwrite even if the file already exists (NotNull)
+ * @returns String generated output from velocity. (NotNull)
  */
 function generate(src, dest, data, overwite) {
     if (dest === null) {
         return generator.parse(src, dest, 'data', data);
     }
-    srcPathList.push(dest);
+    destFilePathList.push(dest);
     if (!java.nio.file.Files.exists(java.nio.file.Paths.get(generator.outputPath, dest)) || overwite) {
         manager.makeDirectory(dest);
         print('generate("' + dest + '")');
@@ -503,15 +540,15 @@ function generate(src, dest, data, overwite) {
 
 /**
  * Clean up generate files. Delete unnecessary files.
- * @param {Rule} rule - rule. (NotNull)
- * @param {Request} request - request (NotNull)
+ * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
  * @param {string} genDir - generate directory (NotNull)
- * @param {string[]} srcPathList - generate folder list for this time (NotNull)
+ * @param {string[]} destFilePathList - The list of destination generated file path. (NotNull)
  */
-function clean(rule, request, genDir, srcPathList) {
+function clean(rule, request, genDir, destFilePathList) {
     var generateAbsolutePathList = [];
-    for (var srcPathIndex in srcPathList) {
-        generateAbsolutePathList.push(new java.io.File(generator.outputPath, srcPathList[srcPathIndex]).getAbsolutePath());
+    for (var srcPathIndex in destFilePathList) {
+        generateAbsolutePathList.push(new java.io.File(generator.outputPath, destFilePathList[srcPathIndex]).getAbsolutePath());
     }
     var list = listFiles(new java.io.File(generator.outputPath, genDir));
     for (var index in list) {
