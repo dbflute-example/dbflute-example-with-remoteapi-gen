@@ -1,5 +1,5 @@
 ##
-## Copyright 2014-2021 the original author or authors.
+## Copyright 2014-2026 the original author or authors.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -62,9 +62,10 @@ import ${myDBMetaPackageName}.*;
 import ${glPackageCB}.*;
 
 /**
- * The behavior of ${table.basicInfoDispString}. <br>
+ * The behavior of ${table.basicInfoDispString}.
+#if ($table.isGenerateTableDetailJavaDoc())
  * <pre>
- * [primary key]
+ * [primary-key]
  *     ${table.primaryKeyNameCommaString}
  *
  * [column]
@@ -90,7 +91,18 @@ import ${glPackageCB}.*;
  *
  * [referrer property]
  *     ${table.referrerPropertyNameCommaString}
+ *
+ * [get/set template]
+ * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+#foreach ($col in $table.columns)
+ * ${col.javaNative} ${col.uncapitalisedJavaName} = entity.get${col.javaName}();
+#end
+#foreach ($col in $table.columns)
+ * entity.set${col.javaName}(${col.uncapitalisedJavaName});
+#end
+ * = = = = = = = = = =/
  * </pre>
+#end
  * @author ${database.classAuthor}
  */
 public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassName}<${myExtendedObjectClassName}, ${myConditionBeanClassName}> {
@@ -214,7 +226,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
 #else
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
 #end
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
@@ -273,7 +285,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
 #else
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
 #end
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
@@ -353,7 +365,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
 #else
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
 #end
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
@@ -413,7 +425,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
      * Select the entity by the unique-key value.
      * ${uq.argsJavaDocString}
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
 #if ($table.isDeprecatedSelectByPKUQ())
@@ -1030,6 +1042,11 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         doInsertOrUpdateNonstrict(${myEntityVariableName}, null, null);
     }
 #end
+#if ($database.isInsertOrUpdateCountPreCheck())
+
+    @Override
+    protected boolean isInsertOrUpdateCountPreCheck() { return true; }
+#end
 
     /**
 #if ($table.hasOptimisticLock())
@@ -1428,7 +1445,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(${myEntityVariableName}, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
@@ -1817,6 +1834,12 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
 #end
 #if ($database.isZeroUpdateCheckExistenceForPassing())
 
+    // ===================================================================================
+    //                                                                 Delegate to Command
+    //                                                                 ===================
+    // -----------------------------------------------------
+    //                                         Entity Update
+    //                                         -------------
     @Override
     protected int delegateUpdate(Entity entity, UpdateOption<? extends ConditionBean> option) {
         // ignore optimistic lock failure because optimistic lock column is
@@ -1921,51 +1944,46 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
         return doOutsideSql();
     }
 #end
-#if ($table.isDatetimePrecisionTruncationOfUpdatedEntity())
+#if ($table.hasBehaviorFilterBeforeColumn() || $table.isDatetimePrecisionTruncationOfUpdatedEntity())
+## may be only-one-side empty override but no big problem so no case here
 
     // ===================================================================================
     //                                                           Framework Filter Override
     //                                                           =========================
     @Override
-    protected void frameworkFilterEntityOfInsert(Entity entity, org.dbflute.optional.OptionalThing<InsertOption<? extends ConditionBean>> option) {
-        super.frameworkFilterEntityOfInsert(entity, option);
-        new DateUpdateAdjuster().truncatePrecisionOfEntityProperty(entity);
-    }
-#if ($table.isWritable())
-
-    @Override
-    protected void frameworkFilterEntityOfUpdate(Entity entity, org.dbflute.optional.OptionalThing<UpdateOption<? extends ConditionBean>> option) {
-        super.frameworkFilterEntityOfUpdate(entity, option);
-        new DateUpdateAdjuster().truncatePrecisionOfEntityProperty(entity);
-    }
-#end
-#end
-#if ($table.hasBehaviorFilterBeforeColumn())
-
-    // ===================================================================================
-    //                                                                     Filter Override
-    //                                                                     ===============
+    protected void frameworkFilterEntityOfInsert(Entity tgt, org.dbflute.optional.OptionalThing<InsertOption<? extends ConditionBean>> op) {
+        super.frameworkFilterEntityOfInsert(tgt, op);
 #if ($table.hasBehaviorFilterBeforeInsertColumn())
-    @Override
-    protected void filterEntityOfInsert(Entity tgt, org.dbflute.optional.OptionalThing<InsertOption<? extends ConditionBean>> op) {
-        super.filterEntityOfInsert(tgt, op);
-        ${myExtendedObjectClassName} et = downcast(tgt);
+        ${myExtendedObjectClassName} entity = downcast(tgt);
 #foreach ($column in $table.behaviorFilterBeforeInsertColumnList)
-        et.set${column.javaName}(${column.behaviorFilterBeforeInsertColumnExpression});
+        entity.set${column.javaName}(${column.behaviorFilterBeforeInsertColumnExpression});
+#end
+#end
+#if ($table.isDatetimePrecisionTruncationOfUpdatedEntity())
+        xcreateDateUpdateAdjuster().truncatePrecisionOfEntityProperty(tgt);
 #end
     }
-#end
 #if ($table.isWritable())
-#if ($table.hasBehaviorFilterBeforeUpdateColumn())
+
     @Override
-    protected void filterEntityOfUpdate(Entity tgt, org.dbflute.optional.OptionalThing<UpdateOption<? extends ConditionBean>> op) {
-        super.filterEntityOfUpdate(tgt, op);
-        ${myExtendedObjectClassName} et = downcast(tgt);
+    protected void frameworkFilterEntityOfUpdate(Entity tgt, org.dbflute.optional.OptionalThing<UpdateOption<? extends ConditionBean>> op) {
+        super.frameworkFilterEntityOfUpdate(tgt, op);
+#if ($table.hasBehaviorFilterBeforeUpdateColumn())
+        ${myExtendedObjectClassName} entity = downcast(tgt);
 #foreach ($column in $table.behaviorFilterBeforeUpdateColumnList)
-        et.set${column.javaName}(${column.behaviorFilterBeforeUpdateColumnExpression});
+        entity.set${column.javaName}(${column.behaviorFilterBeforeUpdateColumnExpression});
+#end
+#end
+#if ($table.isDatetimePrecisionTruncationOfUpdatedEntity())
+        xcreateDateUpdateAdjuster().truncatePrecisionOfEntityProperty(tgt);
 #end
     }
 #end
+#if ($table.isDatetimePrecisionTruncationOfUpdatedEntity())
+
+    protected DateUpdateAdjuster xcreateDateUpdateAdjuster() {
+        return new DateUpdateAdjuster();
+    }
 #end
 #end
 
@@ -1996,20 +2014,23 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     //                                                                            Accessor
     //                                                                            ========
     @Override
-    @javax.annotation.Resource(name="${database.behaviorCommandInvokerComponentName}")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.behaviorCommandInvokerComponentName}")
     public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
         super.setBehaviorCommandInvoker(behaviorCommandInvoker);
     }
 
     @Override
-    @javax.annotation.Resource(name="${database.behaviorSelectorComponentName}")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.behaviorSelectorComponentName}")
     public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
         super.setBehaviorSelector(behaviorSelector);
     }
 #if ($table.isWritable())
 
     @Override
-    @javax.annotation.Resource(name="${database.commonColumnAutoSetupperComponentName}")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.commonColumnAutoSetupperComponentName}")
     public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
         super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
     }
