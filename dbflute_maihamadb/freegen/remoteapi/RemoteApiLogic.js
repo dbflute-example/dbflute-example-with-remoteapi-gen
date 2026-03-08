@@ -364,18 +364,20 @@ var remoteApiLogic = {
 
     /**
      * Derive the bean property.
-     * @param {Object} rule remote api rule. (NotNull)
+     * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean definition of bean where field is declared. (NotNull)
      * @param {Object} clazz top level bean class or nest bean class. (NotNull)
-     * @param {Object} propertyEntry top level bean class or nest bean class property entry. (NotNull)
-     * @param {Object} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)
-     * @param {Object} nestTypeList nest type list to avoid auto-generating duplicates. (NotNull)
+     * @param {Object} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
+     * @param {List<String>} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)
+     * @param {List<String>} nestTypeList nest type list to avoid auto-generating duplicates. (NotNull)
+     * @return {Object} The metadata of the property, having e.g. fieldName, fieldClass. (NotNull, EmptyAllowed: if no target)
      */
     deriveBeanProperty: function(rule, topLevelBean, clazz, propertyEntry, nestTypeFullNameList, nestTypeList) {
         if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
-            return;
+            // #for_now jflute nullだとvm側でうまく判定できなかったので、fieldName の有無などで判定してもらう (2026/03/09)
+            return {};
         }
-    
+
         var propertyInfo = {
             fieldName: rule.fieldName(topLevelBean.api, topLevelBean, propertyEntry.key),
             annotationList: [],
@@ -383,7 +385,7 @@ var remoteApiLogic = {
             fieldClass: null,
             nestType: null,
         };
-
+    
         var property = propertyEntry.value;
         // TODO p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
         property.name = propertyInfo.fieldName;

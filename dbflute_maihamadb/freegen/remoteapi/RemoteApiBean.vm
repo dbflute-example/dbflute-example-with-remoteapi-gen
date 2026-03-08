@@ -52,7 +52,10 @@ public class ${data.className}#if ($data.extendsClass && $data.extendsClass != '
 #set($nestTypeFullNameList = [])
 #foreach($propertyEntry in $data.properties.entrySet())
 #set($property = $scriptEngine.invokeMethod($remoteApiLogic, 'deriveBeanProperty', $rule, $data, $data.className, $propertyEntry, $nestTypeFullNameList, []))
+## the property may be out of target e.g. rule.targetField() 
+#if ($property.fieldName)
 #generateBeanProperty($property, 0)
+#end
 #end
 
     @Override
