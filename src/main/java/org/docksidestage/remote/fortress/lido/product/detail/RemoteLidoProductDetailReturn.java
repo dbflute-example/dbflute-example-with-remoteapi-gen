@@ -36,10 +36,6 @@ public class RemoteLidoProductDetailReturn extends org.docksidestage.bizfw.remot
     @Required
     public String categoryName;
 
-    /** The property of regularPrice. */
-    @Required
-    public Integer regularPrice;
-
     /** The property of productHandleCode. */
     @Required
     public String productHandleCode;

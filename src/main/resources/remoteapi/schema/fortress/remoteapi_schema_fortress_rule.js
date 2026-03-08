@@ -84,6 +84,28 @@ remoteApiRule.returnExtendsClass = function(api, properties) {
 
 
 
+// test: 対象フィールドを絞ったケース
+// @Override
+remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
+    var targetFieldClasses = {
+        RemoteLidoProductDetailReturn: [
+            'product_id',
+            'product_name',
+            'category_name',
+            // test: 定価を除外してみる (2026/03/07)
+            //'regular_price',
+            'product_handle_code',
+        ],
+    };
+    var targetFields = targetFieldClasses[topLevelBean.className]
+    if (targetFields) { // 絞り対象のクラスだったら
+        return targetFields.indexOf(jsonFieldName) >= 0; // 指定されているものだけtrue
+    }
+    return true; // デフォルトではすべて対象
+}
+
+
+
 // =======================================================================================
 //                                                                                  Option
 //                                                                                  ======

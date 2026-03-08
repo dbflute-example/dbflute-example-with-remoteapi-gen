@@ -169,7 +169,8 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("productId={}", returnBean.productId);
         logger.debug("productName={}", returnBean.productName);
         logger.debug("categoryName={}", returnBean.categoryName);
-        logger.debug("regularPrice={}", returnBean.regularPrice);
+        // targetFieldのテストで定価を対象外にしたため (2026/03/09)
+        //logger.debug("regularPrice={}", returnBean.regularPrice);
         logger.debug("productHandleCode={}", returnBean.productHandleCode);
     }
 
