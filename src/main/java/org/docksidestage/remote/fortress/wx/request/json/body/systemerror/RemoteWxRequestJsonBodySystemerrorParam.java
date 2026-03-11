@@ -15,6 +15,8 @@
  */
 package org.docksidestage.remote.fortress.wx.request.json.body.systemerror;
 
+import javax.validation.constraints.NotNull;
+
 import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
@@ -27,7 +29,12 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
     /** The property of sea. (NullAllowed) */
     public String sea;
 
-    /** The property of land. (NullAllowed) */
+    /** The property of seaDockside. */
+    @Required
+    public String seaDockside;
+
+    /** The property of land. */
+    @Required
     public Integer land;
 
     /** The property of piari. (NullAllowed) */
@@ -40,7 +47,8 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
     @Required
     public Boolean dstore;
 
-    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) (NullAllowed) */
+    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) */
+    @Required
     public String amba;
 
     /** The property of miraco. (NullAllowed) */
@@ -70,24 +78,10 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
 
             /** The property of hotelEntranceView. (NullAllowed) */
             public String hotelEntranceView;
-        }
 
-        /** The property of veneziaList. (NullAllowed) */
-        @javax.validation.Valid
-        public org.eclipse.collections.api.list.ImmutableList<VeneziaPart> veneziaList;
-
-        /**
-         * The part class of VeneziaPart.
-         * @author FreeGen
-         */
-        public static class VeneziaPart {
-
-            /** The property of canalView. (NullAllowed) */
-            public String canalView;
-
-            /** The property of riverView. */
+            /** The property of nannimoView. */
             @Required
-            public String riverView;
+            public String nannimoView;
         }
     }
 

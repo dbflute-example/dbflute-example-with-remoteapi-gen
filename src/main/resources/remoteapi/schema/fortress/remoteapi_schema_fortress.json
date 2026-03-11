@@ -18292,6 +18292,7 @@
     "org.docksidestage.app.web.wx.request.json.WxRequestJsonBodyBody$ToscanaPart": {
       "type": "object",
       "required": [
+        "nannimo_view",
         "park_entrance_view"
       ],
       "properties": {
@@ -18299,6 +18300,9 @@
           "type": "string"
         },
         "hotel_entrance_view": {
+          "type": "string"
+        },
+        "nannimo_view": {
           "type": "string"
         }
       }
@@ -18320,7 +18324,8 @@
     "org.docksidestage.app.web.wx.request.json.WxRequestJsonBodyBody$MiracoPart": {
       "type": "object",
       "required": [
-        "toscana"
+        "toscana",
+        "venezia_list"
       ],
       "properties": {
         "toscana": {
@@ -18351,11 +18356,31 @@
     "org.docksidestage.app.web.wx.request.json.WxRequestJsonBodyBody": {
       "type": "object",
       "required": [
-        "dstore"
+        "amba",
+        "dstore",
+        "land",
+        "sea_dockside",
+        "sea_hangar",
+        "sea_magiclamp"
       ],
       "properties": {
         "sea": {
           "type": "string"
+        },
+        "sea_dockside": {
+          "type": "string"
+        },
+        "sea_hangar": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sea_magiclamp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "land": {
           "type": "integer",

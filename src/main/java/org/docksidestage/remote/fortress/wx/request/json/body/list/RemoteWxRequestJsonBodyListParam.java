@@ -15,6 +15,8 @@
  */
 package org.docksidestage.remote.fortress.wx.request.json.body.list;
 
+import javax.validation.constraints.NotNull;
+
 import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
@@ -27,7 +29,20 @@ public class RemoteWxRequestJsonBodyListParam {
     /** The property of sea. (NullAllowed) */
     public String sea;
 
-    /** The property of land. (NullAllowed) */
+    /** The property of seaDockside. */
+    @Required
+    public String seaDockside;
+
+    /** The property of seaHangar. */
+    @NotNull
+    public org.eclipse.collections.api.list.ImmutableList<String> seaHangar;
+
+    /** The property of seaMagiclamp. */
+    @NotNull
+    public org.eclipse.collections.api.list.ImmutableList<String> seaMagiclamp;
+
+    /** The property of land. */
+    @Required
     public Integer land;
 
     /** The property of piari. (NullAllowed) */
@@ -40,7 +55,8 @@ public class RemoteWxRequestJsonBodyListParam {
     @Required
     public Boolean dstore;
 
-    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) (NullAllowed) */
+    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) */
+    @Required
     public String amba;
 
     /** The property of miraco. (NullAllowed) */
@@ -70,9 +86,14 @@ public class RemoteWxRequestJsonBodyListParam {
 
             /** The property of hotelEntranceView. (NullAllowed) */
             public String hotelEntranceView;
+
+            /** The property of nannimoView. */
+            @Required
+            public String nannimoView;
         }
 
-        /** The property of veneziaList. (NullAllowed) */
+        /** The property of veneziaList. */
+        @NotNull
         @javax.validation.Valid
         public org.eclipse.collections.api.list.ImmutableList<VeneziaPart> veneziaList;
 

@@ -1517,20 +1517,21 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestRequestJsonBodyClienterror() {
         // ## Arrange ##
         Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda = param -> {
+            // targetField() で @Required のものを除外している (2026/03/11)
             param.sea = "sea";
-            param.land = 1;
+            //param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
-            param.dstore = Boolean.TRUE;
-            param.amba = "amba";
+            //param.dstore = Boolean.TRUE;
+            //param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
             param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
-            param.miraco.toscana = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.ToscanaPart();
-            param.miraco.toscana.parkEntranceView = "sea";
-            param.miraco.toscana.hotelEntranceView = "sea";
+            //param.miraco.toscana = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.ToscanaPart();
+            //param.miraco.toscana.parkEntranceView = "sea";
+            //param.miraco.toscana.hotelEntranceView = "sea";
             param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.VeneziaPart());
             param.miraco.veneziaList.get(0).canalView = "sea";
-            param.miraco.veneziaList.get(0).riverView = "sea";
+            //param.miraco.veneziaList.get(0).riverView = "sea";
             param.dohotel = new RemoteWxRequestJsonBodyClienterrorParam.DohotelPart();
             param.dohotel.formatBodying = "formatBodying";
         };
@@ -1556,9 +1557,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.miraco.toscana = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.ToscanaPart();
             param.miraco.toscana.parkEntranceView = "sea";
             param.miraco.toscana.hotelEntranceView = "sea";
-            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.VeneziaPart());
-            param.miraco.veneziaList.get(0).canalView = "sea";
-            param.miraco.veneziaList.get(0).riverView = "sea";
+            // targetFieldのテストで除外している (2026/03/12)
+            //param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.VeneziaPart());
+            //param.miraco.veneziaList.get(0).canalView = "sea";
+            //param.miraco.veneziaList.get(0).riverView = "sea";
             param.dohotel = new RemoteWxRequestJsonBodySystemerrorParam.DohotelPart();
             param.dohotel.formatBodying = "formatBodying";
         };
