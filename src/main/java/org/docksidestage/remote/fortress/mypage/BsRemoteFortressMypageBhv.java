@@ -46,9 +46,10 @@ public abstract class BsRemoteFortressMypageBhv extends AbstractRemoteFortressBh
      * url: /mypage/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request() {
-        doRequest(rule -> {});
+    public String request() {
+        return doRequest(rule -> {});
     }
 
     /**
@@ -58,9 +59,10 @@ public abstract class BsRemoteFortressMypageBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/mypage/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/mypage/", noMoreUrl(), noQuery(), rule -> {
             ruleOf(rule);
             ruleLambda.accept(rule);
         });

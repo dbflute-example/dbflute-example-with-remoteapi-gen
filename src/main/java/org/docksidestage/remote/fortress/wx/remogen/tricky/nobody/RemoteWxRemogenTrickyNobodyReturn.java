@@ -16,6 +16,7 @@
 package org.docksidestage.remote.fortress.wx.remogen.tricky.nobody;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as return for remote API of GET /wx/remogen/tricky/nobody.
@@ -23,7 +24,8 @@ import org.lastaflute.core.util.Lato;
  */
 public class RemoteWxRemogenTrickyNobodyReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
-    /** The property of key. (NullAllowed) */
+    /** The property of key. */
+    @Required
     public String key;
 
     /** The property of value. (NullAllowed) */

@@ -16,6 +16,7 @@
 package org.docksidestage.remote.fortress.wx.remogen.method;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of POST /wx/remogen/method/.
@@ -23,7 +24,8 @@ import org.lastaflute.core.util.Lato;
  */
 public class RemoteWxRemogenMethodPostParam {
 
-    /** The property of sea. (NullAllowed) */
+    /** The property of sea. */
+    @Required
     public String sea;
 
     /** The property of land. (NullAllowed) */

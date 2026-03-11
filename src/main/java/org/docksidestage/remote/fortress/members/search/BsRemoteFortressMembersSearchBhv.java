@@ -48,9 +48,10 @@ public abstract class BsRemoteFortressMembersSearchBhv extends AbstractRemoteFor
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteMembersSearchParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestGet(Consumer<RemoteMembersSearchParam> paramLambda) {
-        doRequestGet(paramLambda, rule -> {});
+    public String requestGet(Consumer<RemoteMembersSearchParam> paramLambda) {
+        return doRequestGet(paramLambda, rule -> {});
     }
 
     /**
@@ -61,11 +62,12 @@ public abstract class BsRemoteFortressMembersSearchBhv extends AbstractRemoteFor
      * </pre>
      * @param paramLambda The callback for RemoteMembersSearchParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestGet(Consumer<RemoteMembersSearchParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestGet(Consumer<RemoteMembersSearchParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMembersSearchParam param = new RemoteMembersSearchParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/members/search", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/members/search", noMoreUrl(), query(param), rule -> {
             ruleOfGet(rule);
             ruleLambda.accept(rule);
         });

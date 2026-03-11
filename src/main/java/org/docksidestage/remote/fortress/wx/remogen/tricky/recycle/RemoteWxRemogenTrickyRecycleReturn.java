@@ -67,7 +67,8 @@ public class RemoteWxRemogenTrickyRecycleReturn extends org.docksidestage.bizfw.
          */
         public static class ThemeColorPart {
 
-            /** The property of colorName. (NullAllowed) */
+            /** The property of colorName. */
+            @Required
             public String colorName;
 
             /** The property of rgb. (NullAllowed) */
@@ -200,7 +201,8 @@ public class RemoteWxRemogenTrickyRecycleReturn extends org.docksidestage.bizfw.
          */
         public static class ThemeColorPart {
 
-            /** The property of colorName. (NullAllowed) */
+            /** The property of colorName. */
+            @Required
             public String colorName;
 
             /** The property of rgb. (NullAllowed) */

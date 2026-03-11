@@ -1314,7 +1314,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
-            param.dstore = Boolean.TRUE;
+            param.dstore = "sea";
+            param.amba = Boolean.TRUE;
         };
 
         // ## Act ##

@@ -23,13 +23,13 @@ import org.lastaflute.core.util.Lato;
  */
 public class RemoteProductListParam {
 
-    /** The property of productName. (NullAllowed) */
+    /** The property of productName. (商品名のキーワード条件値 (NullAllowed: 非必須)) (NullAllowed) */
     public String productName;
 
-    /** The property of productStatus. (enumValue=[ONS, PST, SST]) ( * `ONS` - OnSaleProduction. * `PST` - ProductionStop. * `SST` - SaleStop. :: fromCls(CDef$ProductStatus)) (NullAllowed) */
+    /** The property of productStatus. (enumValue=[ONS, PST, SST]) (商品種別の条件値 (NullAllowed: 非必須): * `ONS` - OnSaleProduction. * `PST` - ProductionStop. * `SST` - SaleStop. :: fromCls(CDef$ProductStatus)) (NullAllowed) */
     public org.docksidestage.dbflute.allcommon.CDef.ProductStatus productStatus;
 
-    /** The property of purchaseMemberName. (NullAllowed) */
+    /** The property of purchaseMemberName. (その商品を購入した会員の名前のキーワード条件値 (NullAllowed: 非必須)) (NullAllowed) */
     public String purchaseMemberName;
 
     @Override

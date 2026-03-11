@@ -49,9 +49,10 @@ public abstract class BsRemoteFortressProductBhv extends AbstractRemoteFortressB
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestDetail(Integer productId) {
-        doRequestDetail(productId, rule -> {});
+    public String requestDetail(Integer productId) {
+        return doRequestDetail(productId, rule -> {});
     }
 
     /**
@@ -62,9 +63,10 @@ public abstract class BsRemoteFortressProductBhv extends AbstractRemoteFortressB
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestDetail(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/product/detail/{productId}", moreUrl(productId), noQuery(), rule -> {
+    protected String doRequestDetail(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/product/detail/{productId}", moreUrl(productId), noQuery(), rule -> {
             ruleOfDetailProductId(rule);
             ruleLambda.accept(rule);
         });
@@ -84,9 +86,10 @@ public abstract class BsRemoteFortressProductBhv extends AbstractRemoteFortressB
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteProductListParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestList(Consumer<RemoteProductListParam> paramLambda) {
-        doRequestList(paramLambda, rule -> {});
+    public String requestList(Consumer<RemoteProductListParam> paramLambda) {
+        return doRequestList(paramLambda, rule -> {});
     }
 
     /**
@@ -97,11 +100,12 @@ public abstract class BsRemoteFortressProductBhv extends AbstractRemoteFortressB
      * </pre>
      * @param paramLambda The callback for RemoteProductListParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestList(Consumer<RemoteProductListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestList(Consumer<RemoteProductListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteProductListParam param = new RemoteProductListParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/product/list", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/product/list", noMoreUrl(), query(param), rule -> {
             ruleOfList(rule);
             ruleLambda.accept(rule);
         });
@@ -120,11 +124,12 @@ public abstract class BsRemoteFortressProductBhv extends AbstractRemoteFortressB
      * url: /product/list/{pageNumber}
      * httpMethod: GET
      * </pre>
-     * @param pageNumber The value of path variable for pageNumber. (NotNull)
+     * @param pageNumber The value of path variable for pageNumber. (ページングの表示対象ページ番号) (NotNull)
      * @param paramLambda The callback for RemoteProductListPagenumberParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestList(Integer pageNumber, Consumer<RemoteProductListPagenumberParam> paramLambda) {
-        doRequestList(pageNumber, paramLambda, rule -> {});
+    public String requestList(Integer pageNumber, Consumer<RemoteProductListPagenumberParam> paramLambda) {
+        return doRequestList(pageNumber, paramLambda, rule -> {});
     }
 
     /**
@@ -133,14 +138,15 @@ public abstract class BsRemoteFortressProductBhv extends AbstractRemoteFortressB
      * url: /product/list/{pageNumber}
      * httpMethod: GET
      * </pre>
-     * @param pageNumber The value of path variable for pageNumber. (NotNull)
+     * @param pageNumber The value of path variable for pageNumber. (ページングの表示対象ページ番号) (NotNull)
      * @param paramLambda The callback for RemoteProductListPagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestList(Integer pageNumber, Consumer<RemoteProductListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestList(Integer pageNumber, Consumer<RemoteProductListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteProductListPagenumberParam param = new RemoteProductListPagenumberParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/product/list/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
+        return doRequestGet(String.class, "/product/list/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
             ruleOfListPageNumber(rule);
             ruleLambda.accept(rule);
         });

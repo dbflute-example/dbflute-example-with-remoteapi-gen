@@ -16,6 +16,7 @@
 package org.docksidestage.remote.fortress.wx.remogen.method.samename;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of GET /wx/remogen/method/samename.
@@ -26,7 +27,8 @@ public class RemoteWxRemogenMethodSamenameGetParam {
     /** The property of sea. (NullAllowed) */
     public String sea;
 
-    /** The property of land. (NullAllowed) */
+    /** The property of land. */
+    @Required
     public Integer land;
 
     /** The property of iamForm. (NullAllowed) */
