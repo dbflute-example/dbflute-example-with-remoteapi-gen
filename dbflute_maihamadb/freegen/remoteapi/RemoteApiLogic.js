@@ -285,13 +285,13 @@ var remoteApiLogic = {
     // ===================================================================================
     //                                                                RemoteApiBean Import
     //                                                                ====================
-    // #for_now jflute topLevelBean という名前よりも propertyLevelBean, currentLevelBean とかの方が良いような？ (2026/03/11)
-    // 一番上というよりかは、その properties を定義している Bean であって、絶対的にtopというわけではない。
-    // properties の中のネストした bean に比べて top という相対的な意味合いのtopというニュアンスではある。
+    // #hope jflute topLevelBean, ネスト呼び出しの時もtop(root)のbeanが引数で指定されるが... (2026/03/11)
+    // rule.js内ではネストのbeanも区別したいので、topとcurrentを両方入れる、もしくは、stackでチェーン渡しするかしたいところ。
+    // そして、rule.js の targetField も刷新したいところ。ただし、互換性のために別関数を用意することにはなる。
     /**
      * Derive the bean import list for the specified properties.
      * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
-     * @param {Map<String, Object>} topLevelBean そのプロパティたち(properties)を定義しているbean, nestBeanに比べてtopというニュアンス (NotNull)
+     * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
      * @param {Map<String, Object>} properties API仕様の "properties" に相当するオブジェクト (NotNull)
      * @param {List<String>} importList The mutable list of import statement, added by this. (NotNull)
      * @param {Map<String, Object>} definitionMap The mutable map of all schema definitions for remote api. (NotNull)
@@ -373,7 +373,7 @@ var remoteApiLogic = {
     /**
      * Derive the bean property metadata for the specified property.
      * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
-     * @param {Map<String, Object>} topLevelBean そのプロパティを定義しているbean, nestBeanに比べてtopというニュアンス (NotNull)
+     * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
      * @param {Object} clazz top level bean class or nest bean class. (NotNull)
      * @param {Object} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
      * @param {List<String>} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)

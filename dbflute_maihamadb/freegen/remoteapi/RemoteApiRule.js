@@ -315,8 +315,8 @@ var baseRule = {
     /**
      * Return true if the property is to be generated.
      * @param {Api} api - API. (NotNull)
-     * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
-     * @param {string} jsonFieldName - json field name. (NotNull)
+     * @param {TopLevelBean} topLevelBean - top-level (root) bean of the field, same when nest field. (NotNull)
+     * @param {string} jsonFieldName - The plain field name on json. (NotNull)
      * @return {boolean} true if target. (NotNull)
      */
     targetField: function(api, topLevelBean, fieldName) {
