@@ -184,6 +184,7 @@ import org.docksidestage.remote.fortress.wx.validator.listjson.RemoteWxValidator
 import org.docksidestage.remote.fortress.wx.validator.wholejson.RemoteWxValidatorWholejsonParam;
 import org.docksidestage.remote.fortress.wx.validator.wholejson.RemoteWxValidatorWholejsonReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
+import org.eclipse.collections.api.factory.Lists;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1466,9 +1467,14 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodyParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco.toscana = new RemoteWxRequestJsonBodyParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodyParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
@@ -1490,9 +1496,15 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyListParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodyListParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco = new RemoteWxRequestJsonBodyListParam.MiracoPart();
+            param.miraco.toscana = new RemoteWxRequestJsonBodyListParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyListParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodyListParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
@@ -1512,9 +1524,15 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodyClienterrorParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
+            param.miraco.toscana = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodyClienterrorParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
@@ -1534,9 +1552,15 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodySystemerrorParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart();
+            param.miraco.toscana = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodySystemerrorParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##

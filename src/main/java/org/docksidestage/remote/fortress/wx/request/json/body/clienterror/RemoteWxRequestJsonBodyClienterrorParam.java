@@ -16,6 +16,7 @@
 package org.docksidestage.remote.fortress.wx.request.json.body.clienterror;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of POST /wx/request/json/body/clienterror.
@@ -35,7 +36,8 @@ public class RemoteWxRequestJsonBodyClienterrorParam {
     /** The property of bonvo. (NullAllowed) */
     public java.time.LocalDateTime bonvo;
 
-    /** The property of dstore. (NullAllowed) */
+    /** The property of dstore. */
+    @Required
     public Boolean dstore;
 
     /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) (NullAllowed) */
@@ -51,19 +53,53 @@ public class RemoteWxRequestJsonBodyClienterrorParam {
      */
     public static class MiracoPart {
 
-        /** The property of sta. (NullAllowed) */
-        public String sta;
+        /** The property of toscana. */
+        @Required
+        @javax.validation.Valid
+        public ToscanaPart toscana;
+
+        /**
+         * The part class of ToscanaPart.
+         * @author FreeGen
+         */
+        public static class ToscanaPart {
+
+            /** The property of parkEntranceView. */
+            @Required
+            public String parkEntranceView;
+
+            /** The property of hotelEntranceView. (NullAllowed) */
+            public String hotelEntranceView;
+        }
+
+        /** The property of veneziaList. (NullAllowed) */
+        @javax.validation.Valid
+        public org.eclipse.collections.api.list.ImmutableList<VeneziaPart> veneziaList;
+
+        /**
+         * The part class of VeneziaPart.
+         * @author FreeGen
+         */
+        public static class VeneziaPart {
+
+            /** The property of canalView. (NullAllowed) */
+            public String canalView;
+
+            /** The property of riverView. */
+            @Required
+            public String riverView;
+        }
     }
 
-    /** The property of white. (NullAllowed) */
+    /** The property of dohotel. (NullAllowed) */
     @javax.validation.Valid
-    public WhitePart white;
+    public DohotelPart dohotel;
 
     /**
-     * The part class of WhitePart.
+     * The part class of DohotelPart.
      * @author FreeGen
      */
-    public static class WhitePart {
+    public static class DohotelPart {
 
         /** The property of formatBodying. (enumValue=[SEA, LAN]) ( * `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
         public String formatBodying;
