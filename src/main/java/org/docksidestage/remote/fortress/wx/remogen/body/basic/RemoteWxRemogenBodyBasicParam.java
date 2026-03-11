@@ -24,10 +24,6 @@ import org.lastaflute.web.validation.Required;
  */
 public class RemoteWxRemogenBodyBasicParam {
 
-    /** The property of sea. */
-    @Required
-    public String sea;
-
     /** The property of land. (NullAllowed) */
     public Integer land;
 
@@ -39,10 +35,6 @@ public class RemoteWxRemogenBodyBasicParam {
 
     /** The property of dstore. (NullAllowed) */
     public String dstore;
-
-    /** The property of amba. */
-    @Required
-    public Boolean amba;
 
     /** The property of miraco. (NullAllowed) */
     public String miraco;

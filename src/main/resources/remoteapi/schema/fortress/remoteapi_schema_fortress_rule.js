@@ -96,6 +96,28 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
             //'regular_price',
             'product_handle_code',
         ],
+        RemoteWxRemogenBodyBasicParam: [
+            // test: requiredのものを除外してみる。するとimport文のRequiredが消えて欲しい (2026/03/11)
+            //'sea',
+            'land',
+            'piari',
+            'bonvo',
+            'dstore',
+            //'amba',
+            'miraco',
+            'dohotel',
+        ],
+        RemoteWxRemogenBodyListParam: [
+            // test: requiredのものを一部だけ除外してみる。import文のRequiredが残って欲しい (2026/03/11)
+            //'sea',
+            'land',
+            'piari',
+            'bonvo',
+            'dstore',
+            'amba',
+            'miraco',
+            'dohotel',
+        ],
     };
     var targetFields = targetFieldClasses[topLevelBean.className]
     if (targetFields) { // 絞り対象のクラスだったら

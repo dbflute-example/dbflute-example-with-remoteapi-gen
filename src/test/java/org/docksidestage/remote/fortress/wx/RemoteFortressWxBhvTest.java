@@ -429,12 +429,14 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestRemogenBodyBasic() {
         // ## Arrange ##
         Consumer<RemoteWxRemogenBodyBasicParam> paramLambda = param -> {
-            param.sea = "sea";
+            // rule.js にて対象外フィールドに (2026/03/11)
+            //param.sea = "sea";
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.amba = Boolean.TRUE;
+            // rule.js にて対象外フィールドに (2026/03/11)
+            //param.amba = Boolean.TRUE;
             param.miraco = "miraco";
             param.dohotel = 1L;
         };
@@ -448,7 +450,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList =
                 org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRemogenBodyListParam> paramLambda = param -> {
-            param.sea = "sea";
+            // rule.js にて対象外フィールドに (2026/03/11)
+            //param.sea = "sea";
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
