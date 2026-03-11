@@ -98,8 +98,8 @@ function processHull(request) {
     var definitionMap = optionMap.jsonMap['definitions'];
 
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-	// APIオブジェクト一覧の作成。
-	//
+    // APIオブジェクト一覧の作成。
+    //
     // loop paths's elements, per one API URL: e.g. /sea/land
     // _/_/_/_/_/_/_/_/_/_/
     var apiList = [];
@@ -129,7 +129,7 @@ function processHull(request) {
             }
         }
     }
-	// 横断的に multipleHttpMethod の判定
+    // 横断的に multipleHttpMethod の判定
     for (var apiIndex in apiList) {
         var api = apiList[apiIndex];
         for (var comparisonApiIndex in apiList) {
@@ -142,7 +142,7 @@ function processHull(request) {
     }
 
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-	// APIごとに remoteApiBean (e.g. Param, Return) や Behavior のメタデータをセットアップ。
+    // APIごとに remoteApiBean (e.g. Param, Return) や Behavior のメタデータをセットアップ。
     // _/_/_/_/_/_/_/_/_/_/
     var remoteApiBeanList = []; // all beans (e.g. Param, Return) in the current request, Array<Map>
     var exBehaviorMap = new java.util.LinkedHashMap(); // all behaviors in the current request
@@ -180,6 +180,16 @@ function processHull(request) {
                     definitionKey = java.net.URLDecoder.decode(parameter.schema['$ref'].replace('#/definitions/', ''), "UTF-8");
                 }
                 bodyProperties = definitionMap[rule.definitionKey(definitionKey)].properties;
+                if (bodyProperties === null) {
+                    // dummy object for no properties case (2026/03/11)
+                    // e.g. 
+                    //  "org.docksidestage.app.web.wx.lastadoc.WxLastadocEmptyBody": {
+                    //    "type": "object"
+                    //    // no properties here
+                    //    //"properties": {
+                    //  },
+                    bodyProperties = new java.util.LinkedHashMap()
+                }
                 for (bodyPropertyKey in bodyProperties) {
                     var required = definitionMap[rule.definitionKey(definitionKey)].required;
                     if (required) {
@@ -238,7 +248,7 @@ function processHull(request) {
                     returnBean.array = array;
                 } else {
                     // e.g. "#/definitions/org.docksidestage.app.web.ballet.dancers.BalletDancersResult"
-					//  definitionKey is "org.docksidestage.app.web.ballet.dancers.BalletDancersResult"
+                    //  definitionKey is "org.docksidestage.app.web.ballet.dancers.BalletDancersResult"
                     var definitionKey = java.net.URLDecoder.decode(responseSchema['$ref'].replace('#/definitions/', ''), "UTF-8");
                     definitionKey = rule.definitionKey(definitionKey);
                     var definition = definitionMap[definitionKey];
@@ -306,11 +316,11 @@ function processHull(request) {
         }
     }
 
-	// +-------------------------+
-	// |                         |
-	// | Generate class files    |
-	// |                         |
-	// +-------------------------+
+    // +-------------------------+
+    // |                         |
+    // | Generate class files    |
+    // |                         |
+    // +-------------------------+
     generateBean(rule, remoteApiBeanList);
     generateBhv(rule, request, exBehaviorMap);
     generateDoc(rule, request, exBehaviorMap);

@@ -338,9 +338,24 @@ var remoteApiLogic = {
                 nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
             }
 
-            if (nestType && definitionMap[nestType] && definitionMap[nestType].properties.size() !== 0) {
-                definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
-                    nestPropertyEntry.value.required = definitionMap[nestType].required && definitionMap[nestType].required.contains(nestPropertyEntry.key);
+            if (!nestType) {
+                return;
+            }
+            var nestDefinition = definitionMap[nestType];
+            if (!nestDefinition) {
+                return;
+            }
+            var nestProperties = nestDefinition.properties;
+            if (!nestProperties) { // no properties case
+                // e.g.
+                //  "org.docksidestage.app.web.wx.remogen.bean.suffix.NoSuffixCompletely$ResortPark": {
+                //    "type": "object"
+                //  },
+                return;
+            }
+            if (nestProperties.size() !== 0) {
+                nestProperties.entrySet().forEach(function(nestPropertyEntry) {
+                    nestPropertyEntry.value.required = nestDefinition.required && nestDefinition.required.contains(nestPropertyEntry.key);
                     var nestProperty = nestPropertyEntry.value;
                     if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
                         importList.add('com.google.gson.annotations.SerializedName');
@@ -479,13 +494,17 @@ var remoteApiLogic = {
                 nestType: adjustNestType(rule, topLevelBean, nestType),
                 propertyList: [],
             };
-    
-            if (topLevelBean.definitionMap[nestType] && topLevelBean.definitionMap[nestType].properties.size() !== 0) {
-                topLevelBean.definitionMap[nestType].properties.entrySet().forEach(function(nestPropertyEntry) {
-                    if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
-                        nestTypeInfo.propertyList.push(remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList));
-                    }
-                });
+
+            var nestDefinition = topLevelBean.definitionMap[nestType];
+            if (nestDefinition) {
+                var nestProperties = nestDefinition.properties; // may be no properties case
+                if (nestProperties && nestProperties.size() !== 0) {
+                    nestProperties.entrySet().forEach(function(nestPropertyEntry) {
+                        if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                            nestTypeInfo.propertyList.push(remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList));
+                        }
+                    });
+                }
             }
     
             nestTypeList.remove(nestTypeList.size() - 1);
