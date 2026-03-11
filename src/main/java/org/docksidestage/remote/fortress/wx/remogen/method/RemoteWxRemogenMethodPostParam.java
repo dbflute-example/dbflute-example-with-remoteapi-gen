@@ -40,8 +40,15 @@ public class RemoteWxRemogenMethodPostParam {
     /** The property of dstore. (NullAllowed) */
     public String dstore;
 
-    /** The property of iamBody. (NullAllowed) */
-    public String iamBody;
+    /** The property of amba. */
+    @Required
+    public Boolean amba;
+
+    /** The property of miraco. (NullAllowed) */
+    public String miraco;
+
+    /** The property of dohotel. (NullAllowed) */
+    public Long dohotel;
 
     @Override
     public String toString() {

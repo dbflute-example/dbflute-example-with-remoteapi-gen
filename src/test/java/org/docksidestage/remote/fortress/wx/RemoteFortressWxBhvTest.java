@@ -434,7 +434,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -451,7 +453,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -530,7 +534,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -601,7 +607,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -638,7 +646,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##

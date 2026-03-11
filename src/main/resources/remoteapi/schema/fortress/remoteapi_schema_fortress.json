@@ -17310,6 +17310,7 @@
     "org.docksidestage.app.web.wx.remogen.bean.simple.SuperSimpleBody": {
       "type": "object",
       "required": [
+        "amba",
         "sea"
       ],
       "properties": {
@@ -17334,8 +17335,15 @@
           "type": "string",
           "example": "00:00:00.000"
         },
-        "iam_body": {
+        "amba": {
+          "type": "boolean"
+        },
+        "miraco": {
           "type": "string"
+        },
+        "dohotel": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
