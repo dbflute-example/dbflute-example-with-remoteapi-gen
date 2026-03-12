@@ -179,7 +179,7 @@ var remoteApiLogic = {
                     pathVariableClass = typeMap[pathVariable.type];
                 }
 
-                // TODO p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
+                // #thinking p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
                 pathVariable.name = pathVariableName;
                 var enumValueComment = '';
                 var nestType = '';
@@ -285,9 +285,12 @@ var remoteApiLogic = {
     // ===================================================================================
     //                                                                RemoteApiBean Import
     //                                                                ====================
+    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
     // #hope jflute topLevelBean, ネスト呼び出しの時もtop(root)のbeanが引数で指定されるが... (2026/03/11)
     // rule.js内ではネストのbeanも区別したいので、topとcurrentを両方入れる、もしくは、stackでチェーン渡しするかしたいところ。
     // そして、rule.js の targetField も刷新したいところ。ただし、互換性のために別関数を用意することにはなる。
+    // _/_/_/_/_/_/_/_/
+    // {TopLevelBean} の定義は、RemoteApiRule.js にて。
     /**
      * Derive the bean import list for the specified properties.
      * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
@@ -303,9 +306,16 @@ var remoteApiLogic = {
         if (properties.size() === 0) {
             return;
         }
+        // #thinking jflute topLevelBean=PetDefinition のときだけ topLevelBean.api が null になるのなぜ？(しかもdefetcだけ) (2026/03/12)
+        //if (!topLevelBean.api) {
+        //    print('@@@1 topLevelBean=' + topLevelBean.className);
+        //}
 
         var serializedNameTargetList = ['query', 'formData', 'json'];
         properties.entrySet().forEach(function(propertyEntry) {
+            if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
+                return; // to avoid unused import statement (2026/03/12)
+            }
             var property = propertyEntry.value;
             if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, propertyEntry.key)) {
                 importList.add('com.google.gson.annotations.SerializedName');
@@ -345,7 +355,12 @@ var remoteApiLogic = {
             }
             if (nestProperties.size() !== 0) {
                 nestProperties.entrySet().forEach(function(nestPropertyEntry) {
+                    // #thinking jflute このrequiredの導出/反映、その後の処理に影響してるだろうか？ (2026/03/12)
+                    // #for_now jflute targetField()でスキップで良いか迷ったので、ひとまずtargetField()は後にした (2026/03/12)
                     nestPropertyEntry.value.required = nestDefinition.required && nestDefinition.required.contains(nestPropertyEntry.key);
+                    if (!rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                        return; // to avoid unused import statement (2026/03/12)
+                    }
                     var nestProperty = nestPropertyEntry.value;
                     if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
                         importList.add('com.google.gson.annotations.SerializedName');
@@ -361,6 +376,8 @@ var remoteApiLogic = {
                 if (definitionMap.containsKey(nestType)) {
                     var definition = definitionMap[nestType];
                     definitionMap.remove(nestType);
+
+                    // recursive call
                     remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importList, definitionMap);
                 }
             }
@@ -395,7 +412,7 @@ var remoteApiLogic = {
         };
     
         var property = propertyEntry.value;
-        // TODO p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
+        // #thinking p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
         property.name = propertyInfo.fieldName;
 
         // javadoc comment
