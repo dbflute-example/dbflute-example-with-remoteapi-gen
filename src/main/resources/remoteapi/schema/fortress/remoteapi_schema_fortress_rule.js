@@ -133,7 +133,8 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
             //'amba',
             'miraco',
             //'toscana',
-            //'park_entrance_view',
+            // test: toscanaが除外されているので park_entrance_view の required は評価されないはず
+            'park_entrance_view',
             'hotel_entrance_view',
             //'nannimo_view',
             'venezia_list',

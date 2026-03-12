@@ -18,7 +18,6 @@ package org.docksidestage.remote.fortress.wx.request.json.body.clienterror;
 import javax.validation.constraints.NotNull;
 
 import org.lastaflute.core.util.Lato;
-import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of POST /wx/request/json/body/clienterror.

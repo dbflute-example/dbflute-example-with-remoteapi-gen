@@ -16,7 +16,6 @@
 package org.docksidestage.remote.fortress.wx.remogen.body.basic;
 
 import org.lastaflute.core.util.Lato;
-import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of POST /wx/remogen/body/basic.
