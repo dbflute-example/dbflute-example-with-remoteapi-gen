@@ -377,7 +377,7 @@ var remoteApiLogic = {
                     var definition = definitionMap[nestType];
                     definitionMap.remove(nestType);
 
-                    // recursive call
+                    // recursive call here
                     remoteApiLogic.deriveBeanImportList(rule, topLevelBean, definition.properties, importList, definitionMap);
                 }
             }
@@ -387,6 +387,7 @@ var remoteApiLogic = {
     // ===================================================================================
     //                                                              RemoteApiBean Property
     //                                                              ======================
+    // #hope jflute 戻り値のpropertyInfoをtypedef宣言して明示的なデータ型にしたい (2026/03/13)
     /**
      * Derive the bean property metadata for the specified property.
      * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
@@ -439,7 +440,7 @@ var remoteApiLogic = {
         if (property.required) {
             propertyInfo.annotationList.push(property.type == 'array' ? '@NotNull' : '@Required');
         }
-        
+
         // field class
         var adjustNestType = function(rule, topLevelBean, nestType) {
             var index = nestType.lastIndexOf('.');
@@ -480,7 +481,6 @@ var remoteApiLogic = {
             } else if (property.allOf[0]['$ref']) {
                 nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
             }
-            
             propertyInfo.fieldClass = adjustNestType(rule, topLevelBean, nestType);
             propertyInfo.annotationList.push('@javax.validation.Valid');
         }
@@ -489,6 +489,7 @@ var remoteApiLogic = {
             propertyInfo.fieldClass = typeMap[''];
         }
 
+        // @return The information of nest type, having e.g. nestType, propertyList. (NullAllowed: when no nest)
         var deriveNestType = function(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList) {
             if (!nestType
                     || nestTypeList.contains(nestType)
@@ -511,17 +512,16 @@ var remoteApiLogic = {
                 if (nestProperties && nestProperties.size() !== 0) {
                     nestProperties.entrySet().forEach(function(nestPropertyEntry) {
                         if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
-                            nestTypeInfo.propertyList.push(remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList));
+                            // recursive call here
+                            var nestPropertyInfo = remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList);
+                            nestTypeInfo.propertyList.push(nestPropertyInfo);
                         }
                     });
                 }
             }
-    
             nestTypeList.remove(nestTypeList.size() - 1);
-    
             return nestTypeInfo;
         };
-
         propertyInfo.nestType = deriveNestType(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList);
 
         return propertyInfo;
