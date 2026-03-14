@@ -155,7 +155,7 @@ function processHull(request) {
         // |                        |
         // +------------------------+
         var pathVariables = new java.util.LinkedHashMap(); // #{PathVariable}
-        var queryProperties = new java.util.LinkedHashMap(); // #{Property}
+        var queryProperties = new java.util.LinkedHashMap(); // #{BeanProperty}
         var formDataProperties = new java.util.LinkedHashMap(); // me too
         var bodyProperties = new java.util.LinkedHashMap(); // me too
         var paramBean = new java.util.LinkedHashMap();
@@ -326,13 +326,13 @@ function processHull(request) {
     generateDoc(rule, request, exBehaviorMap);
 }
 
-// {Api}, {Property}, {TopLevelBean} types are defined on RemoteApiRule.js
+// {Api}, {BeanProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
 /**
  * Create information of remoteApi bean. (e.g. Param, Return)
  * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull)
  * @param {Api} api - The API object corresponding to the bean. (NotNull)
- * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+ * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
  * @param {Map<String, Object>} definitionMap - The map of all definitions containing other bean's. (NotNull)
  * @param {string} definitionKey - The identifier of the definition e.g. org.docksidestage.app.web.lido.product.ProductSearchBody (NotNull)
  * @return {TopLevelBean} The map of the remoteApi bean information. e.g. className, properties (NotNull)

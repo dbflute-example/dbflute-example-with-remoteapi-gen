@@ -15,7 +15,7 @@
  * @typedef {Object} Api
  * @property {string} schema - The schema of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
  * @property {string} package - The base package of output classes e.g. org.docksidestage.remote (NotNull, NotEmpty)
- * @property {string} url - The relative path of the remote api. e.g. /ballet-dancers/ (NotNull, NotEmpty)
+ * @property {string} url - The relative path of the remote api. e.g. /lido/product/list, /lido/product/list/{pageNumber} (NotNull, NotEmpty)
  * @property {string} httpMethod - The http method of the remote api. e.g. get (NotNull, NotEmpty)
  * @property {string[]} consumes - The consumes of the remote api. e.g. ["application/json"] (NotNull, EmptyAllowed)
  * @property {string[]} produces - The produces of the remote api. e.g. ["application/json"] (NotNull, EmptyAllowed)
@@ -51,7 +51,7 @@
  */
 
 /**
- * Property (query、formData、body field) Type.
+ * BeanProperty (query、formData、body field) Type.
  * It means e.g. "parameters": [ { "name": "productId", "type": "integer", ... } ]
  * swagger.json の形そのまま。
  * 
@@ -61,10 +61,10 @@
  *   <li>https://swagger.io/specification/v2/#data-types</li>
  * </ul>
  * 
- * #hope jflute PropertyItem や Schema も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
- * searched by #{Property}
+ * #hope jflute BeanPropertyItem や BeanSchema も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
+ * searched by #{BeanProperty}
  * 
- * @typedef {Object} Property
+ * @typedef {Object} BeanProperty
  * @property {string} name - name of property(query、formData、body field). (NotNull, NotEmpty)
  * @property {string} in - The location expression of the property. e.g. query, body. (NotNull, NotEmpty)
  * @property {boolean} required - true if the parameter is required. (NotNull)
@@ -73,7 +73,7 @@
  * @property {string} format - data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
  * @property {string} default - default value of the property. (NullAllowed)
  * @property {Array<PropertyItem>} items - The elements in the array, required if type is "array". (NullAllowed)
- * @property {Schema} schema - schema object for the property, having "$ref". (NullAllowed)
+ * @property {BeanSchema} schema - schema object of nest class for the property, having "$ref". (NullAllowed)
  * @property {string} enum - lists possible values. (NullAllowed)
  */
 
@@ -97,7 +97,7 @@
  * @property {string} definitionKey - The key identifying definition of the bean on the swagger specification. (NotNull, NotEmpty)
  * @property {string} extendsClass - The extends-class with package of this class. (NullAllowed)
  * @property {string} implementsClasses - The implements-classes (interface) with package of this class. (NullAllowed)
- * @property {Property[]} properties - The properties of this class. (NotNull, EmptyAllowed)
+ * @property {BeanProperty[]} properties - The properties of this bean class. (NotNull, EmptyAllowed)
  * @property {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull, NotEmpty)
  * @property {string} remoteApiExp - The expression of the remote api. See the description of the TopLevelBean itself for details. (NotNull, NotEmpty)
  * @property {Object} definitionMap - The map of all definitions containing other bean's. (NotNull)
@@ -285,7 +285,7 @@ var baseRule = {
     /**
      * Derive param extends-class (parent class) with package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. org.docksidestage.remote.AbstractSea (NullAllowed: then no extending)
      */
     paramExtendsClass: function(api, properties) {
@@ -296,7 +296,7 @@ var baseRule = {
      * Derive param implements-classes (Interface) with package.
      * You can implements plural interfaces by comma-separeted string.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. "org.docksidestage.remote.Sea, org.docksidestage.remote.Land" (NullAllowed: then no implementing)
      */
     paramImplementsClasses: function(api, properties) {
@@ -319,7 +319,7 @@ var baseRule = {
     /**
      * Derive return extends-class (parent class) with package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. org.docksidestage.remote.AbstractSea (NullAllowed: then no extending)
      */
     returnExtendsClass: function(api, properties) {
@@ -330,7 +330,7 @@ var baseRule = {
      * Derive return implements-classes (Interface) with package.
      * You can implements plural interfaces by comma-separeted string.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. "org.docksidestage.remote.Sea, org.docksidestage.remote.Land" (NullAllowed: then no implementing)
      */
     returnImplementsClasses: function(api, properties) {
@@ -530,7 +530,7 @@ var baseRule = {
     /**
      * Define java field type mapping for OpenAPI parameter data type.
      * e.g. java.util.List -> org.eclipse.collections.api.list.ImmutableList, java.time.LocalDate -> String etc.
-     * @return typeMap {Map<String, String>} The map of type conversion, swagger type to java type. (NotNull)
+     * @return {Map<String, String>} The map of type conversion, swagger type to java type. (NotNull)
      */
     typeMap: function() {
         return {
@@ -565,7 +565,7 @@ var baseRule = {
      * Manually map classes for the bean property.
      * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} beanClassName - The class name (without package) of the bean for the property, may be nest class. (NotNull)
-     * @param {Property} property - The information of property, having e.g. name, in, required. (NotNull)
+     * @param {BeanProperty} property - The information of bean property, having e.g. name, in, required. (NotNull)
      * @return {string} The class name for the property, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
      */
     beanPropertyManualMappingClass: function(api, beanClassName, property) {
