@@ -174,9 +174,9 @@ function processHull(request) {
                 formDataProperties[parameter.name] = parameter;
             } else if (parameter.in === 'body') {
                 var definitionKey = '';
-                if (parameter.schema.type && parameter.schema.type === 'array') {
+                if (parameter.schema.type && parameter.schema.type === 'array') { // #{BeanSchema}
                     definitionKey = java.net.URLDecoder.decode(parameter.schema.items['$ref'].replace('#/definitions/', ''), "UTF-8");
-                } else if (parameter.schema['$ref']) {
+                } else if (parameter.schema['$ref']) { // #{BeanSchema}
                     definitionKey = java.net.URLDecoder.decode(parameter.schema['$ref'].replace('#/definitions/', ''), "UTF-8");
                 }
                 bodyProperties = definitionMap[rule.definitionKey(definitionKey)].properties;
@@ -236,9 +236,9 @@ function processHull(request) {
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
             // only one return bean is targeted.
             // _/_/_/_/_/_/_/_/_/_/
-            if (!returnBean.className && response.schema) {
+            if (!returnBean.className && response.schema) { // #{BeanSchema}
                 var array = response.schema.type === 'array';
-                var responseSchema = array ? response.schema.items : response.schema;
+                var responseSchema = array ? response.schema.items : response.schema; // #{ElementItem} if array
 
                 if (typeMap[responseSchema.format]) {
                     returnBean.className = typeMap[responseSchema.format];
@@ -333,7 +333,7 @@ function processHull(request) {
  * @param {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull)
  * @param {Api} api - The API object corresponding to the bean. (NotNull)
  * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
- * @param {Map<String, Object>} definitionMap - The map of all definitions containing other bean's. (NotNull)
+ * @param {Map<String, Map<String, Object>>} definitionMap - The map of all "definitions" on swagger.json containing other bean's. (NotNull)
  * @param {string} definitionKey - The identifier of the definition e.g. org.docksidestage.app.web.lido.product.ProductSearchBody (NotNull)
  * @return {TopLevelBean} The map of the remoteApi bean information. e.g. className, properties (NotNull)
  */

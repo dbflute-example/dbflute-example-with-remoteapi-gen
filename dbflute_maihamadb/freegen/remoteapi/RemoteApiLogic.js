@@ -328,7 +328,7 @@ var remoteApiLogic = {
             }
 
             var nestType = null;
-            if (property.items && property.items['$ref']) {
+            if (property.items && property.items['$ref']) { // #{ElementItem}
                 nestType = java.net.URLDecoder.decode(property.items['$ref'].replace('#/definitions/', ''), 'UTF-8');
             } else if (property.items && property.items.allOf && property.items.allOf[0]['$ref']) {
                 nestType = java.net.URLDecoder.decode(property.items.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');

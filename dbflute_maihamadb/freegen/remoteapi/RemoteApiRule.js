@@ -10,10 +10,10 @@
  * 
  * methodBean は、swagger.json の httpMethodパートの object そのまま。
  * #hope jflute MethodBean も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
- * searched by #{Api}
+ * You can search it on code by: #{Api}
  * 
  * @typedef {Object} Api
- * @property {string} schema - The schema of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+ * @property {string} schema - The schema name of the remoteApi server. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
  * @property {string} package - The base package of output classes e.g. org.docksidestage.remote (NotNull, NotEmpty)
  * @property {string} url - The relative path of the remote api. e.g. /lido/product/list, /lido/product/list/{pageNumber} (NotNull, NotEmpty)
  * @property {string} httpMethod - The http method of the remote api. e.g. get (NotNull, NotEmpty)
@@ -26,7 +26,7 @@
 /**
  * PathVariable Type.
  * It means e.g. pageNumber of "/lido/product/list/{pageNumber}".
- * swagger.json の形そのまま。
+ * swagger.json の形そのまま。利用していない項目などは列挙されていない可能性あり。
  * 
  * see below for details.<br/>
  * <ul>
@@ -35,7 +35,7 @@
  * </ul>
  * 
  * #hope jflute PathVariableItem や Schema も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
- * searched by #{PathVariable}
+ * You can search it on code by: #{PathVariable}
  * 
  * @typedef {Object} PathVariable
  * @property {string} name - The name of path variable. e.g. productId (NotNull, NotEmpty)
@@ -45,15 +45,15 @@
  * @property {string} type - The data type of swagger. e.g. string, integer, number, boolean, array (NotNull, NotEmpty)
  * @property {string} format - The data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
  * @property {string} default - The default value of the variable. (NullAllowed)
- * @property {Array<PathVariableItem>} items - The elements in the array, required if type is "array". (NullAllowed)
- * @property {Schema} schema - schema object for the variable, having "$ref". (NullAllowed)
- * @property {string} enum - lists possible values. (NullAllowed)
+ * @property {Array<ElementItem>} items - The element information in the array, required if type is "array". (NullAllowed)
+ * @property {BeanSchema} schema - The schema object for the variable, having "$ref". (NullAllowed)
+ * @property {string} enum - The lists possible values for the property. (NullAllowed)
  */
 
 /**
  * BeanProperty (query、formData、body field) Type.
  * It means e.g. "parameters": [ { "name": "productId", "type": "integer", ... } ]
- * swagger.json の形そのまま。
+ * swagger.json の形そのまま。利用していない項目などは列挙されていない可能性あり。
  * 
  * see below for details.<br/>
  * <ul>
@@ -61,20 +61,52 @@
  *   <li>https://swagger.io/specification/v2/#data-types</li>
  * </ul>
  * 
- * #hope jflute BeanPropertyItem や BeanSchema も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
- * searched by #{BeanProperty}
+ * You can search it on code by: #{BeanProperty}
  * 
  * @typedef {Object} BeanProperty
  * @property {string} name - name of property(query、formData、body field). (NotNull, NotEmpty)
  * @property {string} in - The location expression of the property. e.g. query, body. (NotNull, NotEmpty)
  * @property {boolean} required - true if the parameter is required. (NotNull)
  * @property {string} description - about the property. (NullAllowed)
- * @property {string} type - data type of swagger. e.g. string, integer, array (NotNull, NotEmpty)
- * @property {string} format - data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
- * @property {string} default - default value of the property. (NullAllowed)
- * @property {Array<PropertyItem>} items - The elements in the array, required if type is "array". (NullAllowed)
- * @property {BeanSchema} schema - schema object of nest class for the property, having "$ref". (NullAllowed)
- * @property {string} enum - lists possible values. (NullAllowed)
+ * @property {string} type - The data type of swagger. e.g. string, integer, array (NotNull, NotEmpty)
+ * @property {string} format - The data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
+ * @property {string} default - The default value of the property. (NullAllowed)
+ * @property {ElementItem} items - The element information in the array, required if type is "array". (NullAllowed)
+ * @property {BeanSchema} schema - The schema object of nest class for the property, having "$ref". (NullAllowed)
+ * @property {string} enum - The lists possible values for the property. (NullAllowed)
+ */
+
+/**
+ * ElementItem (of Array) Type.
+ * It means e.g. "items": { "type": "string" }
+ * swagger.json の形そのまま。利用していない項目などは列挙されていない可能性あり。
+ * 
+ * You can search it on code by: #{ElementItem}
+ * 
+ * @typedef {Object} ElementItem
+ * @property {string} type - The scalar data type of the array element. e.g. string, integer, array (NullAllowed: but required if scalar type)
+ * @property {string} format - The data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed: but required if e.g. integer type)
+ * @property {string} enum - The lists possible values for the property. (NullAllowed)
+ * @property {string} $ref - The definition key of bean as the array element. e.g. #/definitions/org.docksi...roduct.ProductSearchBody (NullAllowed: but required if bean type)
+ */
+
+/**
+ * BeanSchema Type.
+ * It means e.g. "schema": { "$ref": "#/definitions/org.docksi...ncers.BalletDancersPostBody" }
+ * swagger.json の形そのまま。利用していない項目などは列挙されていない可能性あり。
+ * BeanPropertyのネストBeanや、responsesのBeanにて利用される。
+ * {Api}のschemaとは全く別物なので注意。
+ * 
+ * ほとんど以下のパターン;
+ * Bean: $ref=...
+ * List<Bean>: type=array, $ref=...
+ * String: type=string // e.g. HtmlResponse
+ * 
+ * You can search it on code by: #{BeanSchema}
+ * 
+ * @typedef {Object} BeanSchema
+ * @property {string} type - The data type of the schema. e.g. string, integer, array (NullAllowed: but required if scalar type and array)
+ * @property {string} $ref - The definition key of bean as the array element. e.g. #/definitions/org.docksi...roduct.ProductSearchBody (NullAllowed: but required if bean type)
  */
 
 /**
@@ -88,7 +120,7 @@
  * The values that can be taken differ for each automatically generated class.
  * For TopLevelBeans, the URL of the remote API on which this class is used is set.
  * 
- * searched by #{TopLevelBean}
+ * You can search it on code by: #{TopLevelBean}
  * 
  * @typedef {Object} TopLevelBean
  * @property {Api} api - The API metadata corresponding to the bean. (NotNull)
@@ -100,7 +132,7 @@
  * @property {BeanProperty[]} properties - The properties of this bean class. (NotNull, EmptyAllowed)
  * @property {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull, NotEmpty)
  * @property {string} remoteApiExp - The expression of the remote api. See the description of the TopLevelBean itself for details. (NotNull, NotEmpty)
- * @property {Object} definitionMap - The map of all definitions containing other bean's. (NotNull)
+ * @property {Map<String, Map<String, Object>>} definitionMap - The map of all "definitions" on swagger.json containing other bean's. (NotNull)
  * @property {string} in - The location expression of the bean. e.g. query, formData, json, xml (NotNull, NotEmpty)
  */
 
