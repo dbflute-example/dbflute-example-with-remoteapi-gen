@@ -473,6 +473,8 @@ function generateBhv(rule, request, exBehaviorMap) {
         // #for_now jflute 環境変数技のままで良いのか？とりあえずoption的なものだからこれでいいかなというところで。 (2026/03/14)
         // 一時的に export FREE_GEN_REMOTEAPI_TESTZ=true ってやってから FreeGen を実行するスタイルでもいいし、
         // manage.sh に組み込んで常に生成するスタイルでもいい。
+        //
+        // #thinking jflute 既存ファイルを自動生成し直して見ると、ネスト周りのReturnのコードが消えたりとかで全体見直しが必要 (2026/03/14)
         // _/_/_/_/_/_/_/_/
         if (java.lang.System.getenv("FREE_GEN_REMOTEAPI_TEST") === 'true') {        
             path = '../../test/java/' + exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + 'Test.java';
