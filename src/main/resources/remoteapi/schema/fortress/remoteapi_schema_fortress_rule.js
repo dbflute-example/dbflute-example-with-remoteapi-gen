@@ -166,6 +166,30 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
             'dohotel',
             'format_bodying',
         ],
+        RemoteWxRequestJsonBodyClienterrorReturn: [
+            // test: Returnでプロパティを絞ってみてBeanやTestなど想定通りになるか？ (2026/03/14)
+            'sea',
+            //'sea_dockside',
+            'sea_hangar',
+            'sea_magiclamp',
+            'sea',
+            //'land',
+            'piari',
+            'bonvo',
+            //'dstore',
+            //'amba',
+            'miraco',
+            //'toscana',
+            // test: toscanaが除外されているので park_entrance_view の required は評価されないはず
+            'park_entrance_view',
+            'hotel_entrance_view',
+            //'nannimo_view',
+            'venezia_list',
+            'canal_view',
+            //'river_view',
+            'dohotel',
+            'format_bodying',
+        ],
     };
     var targetFields = targetFieldClasses[topLevelBean.className]
     if (targetFields) { // 絞り対象のクラスだったら

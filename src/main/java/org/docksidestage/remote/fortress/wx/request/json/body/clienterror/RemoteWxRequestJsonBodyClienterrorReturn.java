@@ -1,0 +1,89 @@
+/*
+ * Copyright 2017-2026 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package org.docksidestage.remote.fortress.wx.request.json.body.clienterror;
+
+import javax.validation.constraints.NotNull;
+
+import org.lastaflute.core.util.Lato;
+
+/**
+ * The bean class as return for remote API of POST /wx/request/json/body/clienterror.
+ * @author FreeGen
+ */
+public class RemoteWxRequestJsonBodyClienterrorReturn {
+
+    /** The property of sea. (NullAllowed) */
+    public String sea;
+
+    /** The property of seaHangar. */
+    @NotNull
+    public org.eclipse.collections.api.list.ImmutableList<String> seaHangar;
+
+    /** The property of seaMagiclamp. */
+    @NotNull
+    public org.eclipse.collections.api.list.ImmutableList<String> seaMagiclamp;
+
+    /** The property of piari. (NullAllowed) */
+    public java.time.LocalDate piari;
+
+    /** The property of bonvo. (NullAllowed) */
+    public java.time.LocalDateTime bonvo;
+
+    /** The property of miraco. (NullAllowed) */
+    @javax.validation.Valid
+    public MiracoPart miraco;
+
+    /**
+     * The part class of MiracoPart.
+     * @author FreeGen
+     */
+    public static class MiracoPart {
+
+        /** The property of veneziaList. */
+        @NotNull
+        @javax.validation.Valid
+        public org.eclipse.collections.api.list.ImmutableList<VeneziaPart> veneziaList;
+
+        /**
+         * The part class of VeneziaPart.
+         * @author FreeGen
+         */
+        public static class VeneziaPart {
+
+            /** The property of canalView. (NullAllowed) */
+            public String canalView;
+        }
+    }
+
+    /** The property of dohotel. (NullAllowed) */
+    @javax.validation.Valid
+    public DohotelPart dohotel;
+
+    /**
+     * The part class of DohotelPart.
+     * @author FreeGen
+     */
+    public static class DohotelPart {
+
+        /** The property of formatBodying. (enumValue=[SEA, LAN]) ( * `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
+        public String formatBodying;
+    }
+
+    @Override
+    public String toString() {
+        return Lato.string(this);
+    }
+}

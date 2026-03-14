@@ -98,13 +98,20 @@ import org.docksidestage.remote.fortress.wx.request.form.eccolle.RemoteWxRequest
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.swagger.RemoteWxRequestJsonBodySwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistReturn;
 import org.docksidestage.remote.fortress.wx.request.json.prop.RemoteWxRequestJsonPropParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonReturn;
@@ -3626,7 +3633,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda) {
+    public RemoteWxRequestJsonBodyReturn requestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda) {
         return doRequestRequestJsonBody(paramLambda, rule -> {});
     }
 
@@ -3640,11 +3647,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyReturn doRequestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyParam param = new RemoteWxRequestJsonBodyParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyReturn.class, "/wx/request/json/body/", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBody(rule);
             ruleLambda.accept(rule);
         });
@@ -3667,7 +3673,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyListParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda) {
+    public RemoteWxRequestJsonBodyListReturn requestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda) {
         return doRequestRequestJsonBodyList(body, paramLambda, rule -> {});
     }
 
@@ -3682,11 +3688,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyListReturn doRequestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyListParam param = new RemoteWxRequestJsonBodyListParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/list", moreUrl(body), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyListReturn.class, "/wx/request/json/body/list", moreUrl(body), param, rule -> {
             ruleOfRequestJsonBodyListBody(rule);
             ruleLambda.accept(rule);
         });
@@ -3708,7 +3713,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyClienterrorParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda) {
+    public RemoteWxRequestJsonBodyClienterrorReturn requestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda) {
         return doRequestRequestJsonBodyClienterror(paramLambda, rule -> {});
     }
 
@@ -3722,11 +3727,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyClienterrorReturn doRequestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyClienterrorParam param = new RemoteWxRequestJsonBodyClienterrorParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/clienterror", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyClienterrorReturn.class, "/wx/request/json/body/clienterror", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodyClienterror(rule);
             ruleLambda.accept(rule);
         });
@@ -3748,7 +3752,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodySystemerrorParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda) {
+    public RemoteWxRequestJsonBodySystemerrorReturn requestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda) {
         return doRequestRequestJsonBodySystemerror(paramLambda, rule -> {});
     }
 
@@ -3762,11 +3766,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodySystemerrorReturn doRequestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodySystemerrorParam param = new RemoteWxRequestJsonBodySystemerrorParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/systemerror", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodySystemerrorReturn.class, "/wx/request/json/body/systemerror", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodySystemerror(rule);
             ruleLambda.accept(rule);
         });
@@ -3788,7 +3791,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyValidatedParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda) {
+    public RemoteWxRequestJsonBodyValidatedReturn requestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda) {
         return doRequestRequestJsonBodyValidated(paramLambda, rule -> {});
     }
 
@@ -3802,11 +3805,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyValidatedReturn doRequestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyValidatedParam param = new RemoteWxRequestJsonBodyValidatedParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/validated", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyValidatedReturn.class, "/wx/request/json/body/validated", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodyValidated(rule);
             ruleLambda.accept(rule);
         });
@@ -3828,7 +3830,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyValidatedlonelyParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda) {
+    public RemoteWxRequestJsonBodyValidatedlonelyReturn requestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda) {
         return doRequestRequestJsonBodyValidatedlonely(paramLambda, rule -> {});
     }
 
@@ -3842,11 +3844,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyValidatedlonelyReturn doRequestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyValidatedlonelyParam param = new RemoteWxRequestJsonBodyValidatedlonelyParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/validatedlonely", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyValidatedlonelyReturn.class, "/wx/request/json/body/validatedlonely", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodyValidatedlonely(rule);
             ruleLambda.accept(rule);
         });
@@ -3869,7 +3870,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyValidatedlonelylistParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda) {
+    public RemoteWxRequestJsonBodyValidatedlonelylistReturn requestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda) {
         return doRequestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda, rule -> {});
     }
 
@@ -3884,11 +3885,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyValidatedlonelylistReturn doRequestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyValidatedlonelylistParam param = new RemoteWxRequestJsonBodyValidatedlonelylistParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/validatedlonelylist", moreUrl(bodyList), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyValidatedlonelylistReturn.class, "/wx/request/json/body/validatedlonelylist", moreUrl(bodyList), param, rule -> {
             ruleOfRequestJsonBodyValidatedlonelylistBodyList(rule);
             ruleLambda.accept(rule);
         });

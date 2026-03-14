@@ -91,13 +91,20 @@ import org.docksidestage.remote.fortress.wx.request.form.eccolle.RemoteWxRequest
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.swagger.RemoteWxRequestJsonBodySwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistReturn;
 import org.docksidestage.remote.fortress.wx.request.json.prop.RemoteWxRequestJsonPropParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonReturn;
@@ -1478,7 +1485,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBody(paramLambda);
+        RemoteWxRequestJsonBodyReturn returnBean = createBhv("{}").requestRequestJsonBody(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1508,7 +1515,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyList(body, paramLambda);
+        RemoteWxRequestJsonBodyListReturn returnBean = createBhv("{}").requestRequestJsonBodyList(body, paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1537,7 +1544,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyClienterror(paramLambda);
+        RemoteWxRequestJsonBodyClienterrorReturn returnBean = createBhv("{}").requestRequestJsonBodyClienterror(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1566,7 +1573,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodySystemerror(paramLambda);
+        RemoteWxRequestJsonBodySystemerrorReturn returnBean = createBhv("{}").requestRequestJsonBodySystemerror(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1586,7 +1593,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyValidated(paramLambda);
+        RemoteWxRequestJsonBodyValidatedReturn returnBean = createBhv("{}").requestRequestJsonBodyValidated(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1606,7 +1613,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonely(paramLambda);
+        RemoteWxRequestJsonBodyValidatedlonelyReturn returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonely(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1628,7 +1635,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
+        RemoteWxRequestJsonBodyValidatedlonelylistReturn returnBean =
+                createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
