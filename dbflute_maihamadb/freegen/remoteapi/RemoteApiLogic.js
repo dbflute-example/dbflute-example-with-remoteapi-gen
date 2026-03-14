@@ -125,7 +125,7 @@ var remoteApiLogic = {
     //                                                                     ===============
     /**
      * Derive the behavior method list.
-     * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+     * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {Method[]} methodList The list of The method information. (NotNull, EmptyAllowed)
      * @return {BehaviorMethod[]} The list of behavior method information. (NotNull, EmptyAllowed)
      */
@@ -290,12 +290,12 @@ var remoteApiLogic = {
     // rule.js内ではネストのbeanも区別したいので、topとcurrentを両方入れる、もしくは、stackでチェーン渡しするかしたいところ。
     // そして、rule.js の targetField も刷新したいところ。ただし、互換性のために別関数を用意することにはなる。
     // _/_/_/_/_/_/_/_/
-    // {TopLevelBean} の定義は、RemoteApiRule.js にて。
+    // {Property}, {TopLevelBean} types are defined on RemoteApiRule.js
     /**
      * Derive the bean import list for the specified properties.
-     * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+     * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
-     * @param {Map<String, Object>} properties API仕様の "properties" に相当するオブジェクト (NotNull)
+     * @param {Map<String, Property>} properties API仕様の "properties" に相当するオブジェクト (NotNull)
      * @param {List<String>} importList The mutable list of import statement, added by this. (NotNull)
      * @param {Map<String, Object>} definitionMap The mutable map of all schema definitions for remote api. (NotNull)
      */
@@ -387,10 +387,11 @@ var remoteApiLogic = {
     // ===================================================================================
     //                                                              RemoteApiBean Property
     //                                                              ======================
+    // {Property}, {TopLevelBean} types are defined on RemoteApiRule.js
     // #hope jflute 戻り値のpropertyInfoをtypedef宣言して明示的なデータ型にしたい (2026/03/13)
     /**
      * Derive the bean property metadata for the specified property.
-     * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+     * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
      * @param {Object} clazz top level bean class or nest bean class. (NotNull)
      * @param {Object} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)

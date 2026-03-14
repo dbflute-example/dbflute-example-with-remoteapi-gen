@@ -4,73 +4,104 @@
 //                                                                              ==========
 /**
  * API Type.
+ * It means e.g. "/ballet-dancers/": { ... "get": { ...
+ * swagger.json の 1 path の 1 httpMethod に相当する情報。
+ * swagger.json の形ほぼそのままだがちょっと違うところもあり。
+ * 
+ * methodBean は、swagger.json の httpMethodパートの object そのまま。
+ * #hope jflute MethodBean も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
+ * searched by #{Api}
+ * 
  * @typedef {Object} Api
- * @property {string} - schema of the remote api. (NotNull, NotEmpty)
- * @property {string} url - target url of the remote api. (NotNull, NotEmpty)
- * @property {string} httpMethod - target httpMethod of the remote api. (NotNull, NotEmpty)
- * @property {string[]} consumes - target consumes of the remote api. (NotNull, EmptyAllowed)
- * @property {string[]} produces - target produces of the remote api. (NotNull, EmptyAllowed)
+ * @property {string} schema - The schema of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+ * @property {string} package - The base package of output classes e.g. org.docksidestage.remote (NotNull, NotEmpty)
+ * @property {string} url - The relative path of the remote api. e.g. /ballet-dancers/ (NotNull, NotEmpty)
+ * @property {string} httpMethod - The http method of the remote api. e.g. get (NotNull, NotEmpty)
+ * @property {string[]} consumes - The consumes of the remote api. e.g. ["application/json"] (NotNull, EmptyAllowed)
+ * @property {string[]} produces - The produces of the remote api. e.g. ["application/json"] (NotNull, EmptyAllowed)
+ * @property {Object} methodBean - The bean of the target http method, having e.g. summary, parameters (NotNull, EmptyAllowed)
+ * @property {boolean} multipleHttpMethod - Does it have multiple httpMethods in the same url? (NotNull, EmptyAllowed)
  */
 
 /**
- * PathVariable Type.<br/>
+ * PathVariable Type.
+ * It means e.g. "/ballet-dancers/{productId}/".
+ * swagger.json の形そのまま。
+ * 
  * see below for details.<br/>
  * <ul>
  *   <li>https://swagger.io/specification/v2/#parameter-object</li>
  *   <li>https://swagger.io/specification/v2/#data-types</li>
  * </ul>
+ * 
+ * #hope jflute PathVariableItem や Schema も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
+ * searched by #{PathVariable}
+ * 
  * @typedef {Object} PathVariable
- * @property {string} name - path variable name. (NotNull, NotEmpty)
- * @property {string} in - parameter location. 'path' fixed. (NotNull, NotEmpty)
+ * @property {string} name - The name of path variable. e.g. productId (NotNull, NotEmpty)
+ * @property {string} in - The location expression of the variable. 'path' fixed. (NotNull, NotEmpty)
  * @property {boolean} required - true if the parameter is required. (NotNull)
- * @property {string} description - parameter description. (NullAllowed)
- * @property {string} type - parameter type. e.g. string, integer, number, boolean, array (NotNull, NotEmpty)
- * @property {string} format - parameter format. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
- * @property {string} default - parameter default. (NullAllowed)
- * @property {Items} items - required if type is "array". describes the type of items in the array.. (NullAllowed)
- * @property {Schema} schema - property schema. (NullAllowed)
+ * @property {string} description - about the variable. (NullAllowed)
+ * @property {string} type - The data type of swagger. e.g. string, integer, number, boolean, array (NotNull, NotEmpty)
+ * @property {string} format - The data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
+ * @property {string} default - The default value of the variable. (NullAllowed)
+ * @property {Array<PathVariableItem>} items - The elements in the array, required if type is "array". (NullAllowed)
+ * @property {Schema} schema - schema object for the variable, having "$ref". (NullAllowed)
  * @property {string} enum - lists possible values. (NullAllowed)
  */
 
 /**
- * Property(query、formData、body field) Type.<br/>
+ * Property(query、formData、body field) Type.
+ * It means e.g. "parameters": [ { "name": "productId", "type": "integer", ... } ]
+ * swagger.json の形そのまま。
+ * 
  * see below for details.<br/>
  * <ul>
  *   <li>https://swagger.io/specification/v2/#parameter-object</li>
  *   <li>https://swagger.io/specification/v2/#data-types</li>
  * </ul>
+ * 
+ * #hope jflute PropertyItem や Schema も typedef したいところ。swagger.json の仕様をなぞるだけではあるが... (2026/03/14)
+ * searched by #{Property}
+ * 
  * @typedef {Object} Property
- * @property {string} name - property(query、formData、body field) name. (NotNull, NotEmpty)
- * @property {string} in - parameter location. 'path' fixed. (NotNull, NotEmpty)
+ * @property {string} name - name of property(query、formData、body field). (NotNull, NotEmpty)
+ * @property {string} in - The location expression of the property. e.g. query, body. (NotNull, NotEmpty)
  * @property {boolean} required - true if the parameter is required. (NotNull)
- * @property {string} description - parameter description. (NullAllowed)
- * @property {string} type - parameter type. e.g. string, integer, array (NotNull, NotEmpty)
- * @property {string} format - parameter format. (NullAllowed)
- * @property {string} default - parameter default. (NullAllowed)
- * @property {Items} items - required if type is "array". describes the type of items in the array.. (NullAllowed)
- * @property {Schema} schema - property schema. (NullAllowed)
+ * @property {string} description - about the property. (NullAllowed)
+ * @property {string} type - data type of swagger. e.g. string, integer, array (NotNull, NotEmpty)
+ * @property {string} format - data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
+ * @property {string} default - default value of the property. (NullAllowed)
+ * @property {Array<PropertyItem>} items - The elements in the array, required if type is "array". (NullAllowed)
+ * @property {Schema} schema - schema object for the property, having "$ref". (NullAllowed)
  * @property {string} enum - lists possible values. (NullAllowed)
  */
 
 /**
- * Top Level Bean Type.
- * Information on the top class of beans in param and return. That is, it is not the nested part class.
+ * TopLevelBean Type.
+ * 自動生成クラス意識の情報メイン。Param や Return などに相当。
+ * ネストの Part などは対象外で、あくまで一つのAPIのルートに対応するクラス。
+ * (ネストクラスは同じファイル内のインナークラスで表現されるので、自動生成の途中処理で解析される)
+ * 
  * About remoteApiExp.
  * Used in the description of javadoc.
  * The values that can be taken differ for each automatically generated class.
- * For Top Level Beans, the URL of the remote API on which this class is used is set.
+ * For TopLevelBeans, the URL of the remote API on which this class is used is set.
+ * 
+ * searched by #{TopLevelBean}
+ * 
  * @typedef {Object} TopLevelBean
- * @property {Api} api - API. (NotNull)
- * @property {string} package - Package of this class. (NotNull, NotEmpty)
- * @property {string} className - class name without package of this class.  (NotNull, NotEmpty)
- * @property {string} definitionKey - The definition key for the swagger specification. (NotNull, NotEmpty)
- * @property {string} extendsClass - Extends class with package of this class. (NullAllowed)
- * @property {string} implementsClasses - Implements classes (Interface) with package of this class. (NullAllowed)
- * @property {Property[]} properties - Properties of this class. (NotNull, EmptyAllowed)
- * @property {string} beanPurposeType - bean purpose type of this class. e.g. param, return (NotNull, NotEmpty)
- * @property {string} remoteApiExp - remote api expression. See the description of the Top Level Bean itself for details. (NotNull, NotEmpty)
- * @property {Object} definitionMap - All schema definitions for remote api. (NotNull)
- * @property {string} in - Type of this class. e.g. json, xml (NotNull, NotEmpty)
+ * @property {Api} api - The API metadata corresponding to the bean. (NotNull)
+ * @property {string} package - The full package of this class. (NotNull, NotEmpty)
+ * @property {string} className - The class name without package of this class.  (NotNull, NotEmpty)
+ * @property {string} definitionKey - The key identifying definition of the bean on the swagger specification. (NotNull, NotEmpty)
+ * @property {string} extendsClass - The extends-class with package of this class. (NullAllowed)
+ * @property {string} implementsClasses - The implements-classes (interface) with package of this class. (NullAllowed)
+ * @property {Property[]} properties - The properties of this class. (NotNull, EmptyAllowed)
+ * @property {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull, NotEmpty)
+ * @property {string} remoteApiExp - The expression of the remote api. See the description of the TopLevelBean itself for details. (NotNull, NotEmpty)
+ * @property {Object} definitionMap - The map of all definitions containing other bean's. (NotNull)
+ * @property {string} in - The location expression of the bean. e.g. query, formData, json, xml (NotNull, NotEmpty)
  */
 
 var baseRule = {
@@ -93,7 +124,7 @@ var baseRule = {
      * Return the schema of the remote api.<br/>
      * This schema is used for packages, class name prefixes, and so on.
      * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
-     * @return {string} the schema of the remote api. (NotNull)
+     * @return {string} The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
      */
     schema: function(request) {
         return request.requestName.replace(/^RemoteApi/g, '');
@@ -101,8 +132,8 @@ var baseRule = {
 
     /**
      * Return the java schema package of the remote api.
-     * @param {string} schema - schema of the remote api. (NotNull, NotEmpty)
-     * @return {string} the java schema package of the remote api. (NotNull, NotEmpty)
+     * @param {string} schema - The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+     * @return {string} the java package for the schema. (NotNull, NotEmpty)
      */
     schemaPackage: function(schema) {
         return manager.decamelize(schema).replace(/_/g, '.').toLowerCase();
@@ -111,7 +142,7 @@ var baseRule = {
     /**
      * Return true if the api is to be generated.<br/>
      * Suppresses the generation of unused api.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @return {boolean} true if the api is to be generated. (NotNull)
      */
     target: function(api) {
@@ -124,7 +155,7 @@ var baseRule = {
      * Return filtered URL.<br/>
      * Exclude prefixes and version numbers contained in URLs. e.g. /api/xxx, /v1/xxx<br/>
      * If excluded, you must include the excluded URL in AbstractRemoteFortress${Schema}Bhv#getUrlBase.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @return {string} filtered URL. (NotNull)
      */
     url: function(api) {
@@ -132,9 +163,9 @@ var baseRule = {
     },
 
     /**
-     * Return the java sub schema package of the remote api.
-     * @param {Api} api - API. (NotNull)
-     * @return {string} the java sub package of the remote api. (NotNull, NotEmpty)
+     * Build the sub package for the API.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @return {string} The java package derived as rule. (NotNull, NotEmpty)
      */
     subPackage: function(api) {
         // 1. Remove symbols that cannot be used in java package name. And remove leading and trailing slashes.
@@ -148,8 +179,10 @@ var baseRule = {
     //                                                                            ========
     /** true to generate behavior classes. */
     behaviorClassGeneration: true,
+
     /** true to generate behavior class methods. */
     behaviorMethodGeneration: true,
+
     /** behavior class method access modifier. */
     behaviorMethodAccessModifier: 'public',
 
@@ -160,36 +193,36 @@ var baseRule = {
     frameworkBehaviorClass: 'org.lastaflute.remoteapi.LastaRemoteBehavior',
 
     /**
-     * Return abstract behavior class name without package.
-     * @param {string} schema - schema of the remote api. (NotNull, NotEmpty)
-     * @return {string} the abstract behavior class name without package. (NotNull, NotEmpty)
+     * Build abstract behavior class name for the schema.
+     * @param {string} schema - The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+     * @return {string} the class name of behavior without package. (NotNull, NotEmpty)
      */
     abstractBehaviorClassName: function(schema) {
         return 'AbstractRemote' + schema + 'Bhv';
     },
 
     /**
-     * Return the java behavior sub package.
-     * @param {Api} api - API. (NotNull)
-     * @return {string} the java behavior sub package. (NotNull, NotEmpty)
+     * Build the behavior sub package for the API.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @return {string} The sub package string of the java behavior. (NotNull, NotEmpty)
      */
     behaviorSubPackage: function(api) {
         return this.subPackage(api).replace(/^([^.]*)\.(.+)/, '$1');
     },
 
     /**
-     * Return bsBehavior class name without package.
-     * @param {Api} api - API. (NotNull)
-     * @return {string} bsBehavior class name without package. (NotNull, NotEmpty)
+     * Build base behavior class name for the API.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @return {string} The name of base behavior without package. (NotNull, NotEmpty)
      */
     bsBehaviorClassName: function(api) {
         return 'BsRemote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
     },
 
     /**
-     * Return exBehavior class name without package.
-     * @param {Api} api - API. (NotNull)
-     * @return {string} exBehavior class name without package. (NotNull, NotEmpty)
+     * Build extended behavior class name  for the API.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @return {string} The name of extended behavior without package. (NotNull, NotEmpty)
      */
     exBehaviorClassName: function(api) {
         return 'Remote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
@@ -197,7 +230,7 @@ var baseRule = {
 
     /**
      * Return the behavior request method name.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @return {string} the behavior request method name. (NotNull, NotEmpty)
      */
     behaviorRequestMethodName: function(api) {
@@ -207,7 +240,7 @@ var baseRule = {
 
     /**
      * Return the behavior rule method name.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @return {string} the behavior rule method name. (NotNull, NotEmpty)
      */
     behaviorRuleMethodName: function(api) {
@@ -220,7 +253,7 @@ var baseRule = {
     //                                                                  ==================
     /**
      * Return the java bean sub package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @return {string} the java bean sub package. (NotNull, NotEmpty)
      */
     beanSubPackage: function(api) {
@@ -233,7 +266,7 @@ var baseRule = {
 
     /**
      * Return bean class name without package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {boolean} detail - detail. (NotNull)
      * @return {string} bean class name without package. (NotNull)
      */
@@ -244,7 +277,7 @@ var baseRule = {
 
     /**
      * Return param extends class with package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {Object} properties - properties. (NotNull)
      * @return {string} param extends class with package. (NullAllowed)
      */
@@ -254,7 +287,7 @@ var baseRule = {
 
     /**
      * Return param implements classes (Interface) with package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {Object} properties - properties. (NotNull)
      * @return {string} param Implements classes (Interface) with package. (NullAllowed)
      */
@@ -264,7 +297,7 @@ var baseRule = {
 
     /**
      * Return param class name without package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {boolean} detail - detail. (NotNull)
      * @return {string} param class name without package. (NotNull)
      */
@@ -274,7 +307,7 @@ var baseRule = {
 
     /**
      * Return return extends class with package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {Object} properties - properties. (NotNull)
      * @return {string} return extends class with package. (NullAllowed)
      */
@@ -284,7 +317,7 @@ var baseRule = {
 
     /**
      * Return return implements classes (Interface) with package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {Object} properties - properties. (NotNull)
      * @return {string} return implements classes (Interface) with package. (NullAllowed)
      */
@@ -294,7 +327,7 @@ var baseRule = {
 
     /**
      * Return returnClassName without package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {boolean} detail - detail. (NotNull)
      * @return {string} return class name without package. (NotNull)
      */
@@ -304,7 +337,7 @@ var baseRule = {
 
     /**
      * Return nest class name without package.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} nestClassName - Nest class name without package. (NotNull)
      * @return {string} Nest class name without package. (NotNull)
      */
@@ -314,7 +347,7 @@ var baseRule = {
 
     /**
      * Return true if the property is to be generated.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {TopLevelBean} topLevelBean - top-level (root) bean of the field, same when nest field. (NotNull)
      * @param {string} jsonFieldName - The plain field name on json. (NotNull)
      * @return {boolean} true if target. (NotNull)
@@ -325,7 +358,7 @@ var baseRule = {
 
     /**
      * Return java field name.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
      * @param {string} jsonFieldName - json field name. (NotNull)
      * @return {string} java field name. (NotNull)
@@ -349,7 +382,7 @@ var baseRule = {
      *    After camel case -> snake case, reverse conversion is done to match the original name (reversible).
      *
      * If it is determined to be custom, @SerializedName will be added for serialization / deserialization at the time of automatic generation.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
      * @param {string} jsonFieldName - json field name. (NotNull)
      * @return {boolean} Return true for custom java field name. (NotNull)
@@ -499,7 +532,7 @@ var baseRule = {
 
     /**
      * Manually map classes for path variables.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {PathVariable} pathVariable - path variable. (NotNull)
      * @return {string} path variable manual mapping class. (NullAllowed)
      */
@@ -509,7 +542,7 @@ var baseRule = {
 
     /**
      * Manually map classes for bean property.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} beanClassName - bean class name. (NotNull)
      * @param {Property} property - property. (NotNull)
      * @return {string} bean property manual mapping class. (NullAllowed)
@@ -520,7 +553,7 @@ var baseRule = {
 
     /**
      * Manually description for path variables.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {PathVariable} pathVariable - path variable. (NotNull)
      * @return {string} path variable manual mapping description. (NullAllowed)
      */
@@ -530,7 +563,7 @@ var baseRule = {
 
     /**
      * Manually description for bean property.
-     * @param {Api} api - API. (NotNull)
+     * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} beanClassName - bean class name. (NotNull)
      * @param {Property} property - property. (NotNull)
      * @return {string} bean property manual mapping description. (NullAllowed)

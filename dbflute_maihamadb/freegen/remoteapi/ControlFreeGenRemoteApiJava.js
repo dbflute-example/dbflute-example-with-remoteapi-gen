@@ -108,7 +108,7 @@ function processHull(request) {
         var commonParameters = pathMap[pathKey].parameters;
         for (var methodKey in pathMap[pathKey]) {
             var method = path[methodKey];
-            var api = new java.util.LinkedHashMap();
+            var api = new java.util.LinkedHashMap(); // #{Api}
             api.schema = schema;
             api.package = request.package;
             api.url = pathKey;
@@ -154,10 +154,10 @@ function processHull(request) {
         // | Prepare 'Param' beans  |
         // |                        |
         // +------------------------+
-        var pathVariables = new java.util.LinkedHashMap();
-        var queryProperties = new java.util.LinkedHashMap();
-        var formDataProperties = new java.util.LinkedHashMap();
-        var bodyProperties = new java.util.LinkedHashMap();
+        var pathVariables = new java.util.LinkedHashMap(); // #{PathVariable}
+        var queryProperties = new java.util.LinkedHashMap(); // #{Property}
+        var formDataProperties = new java.util.LinkedHashMap(); // me too
+        var bodyProperties = new java.util.LinkedHashMap(); // me too
         var paramBean = new java.util.LinkedHashMap();
         var paramBeanArray = false;
 
@@ -326,15 +326,16 @@ function processHull(request) {
     generateDoc(rule, request, exBehaviorMap);
 }
 
+// {Api}, {Property}, {TopLevelBean} types are defined on RemoteApiRule.js
 /**
  * Create information of remoteApi bean. (e.g. Param, Return)
- * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
- * @param {string} beanPurposeType - The bean role type. e.g. param, return (NotNull)
- * @param {Api} api - The information of api. (NotNull)
- * @param {Map} properties - The information of property for the bean. (NotNull)
- * @param {Map} definitionMap - The information of definition map. (NotNull)
+ * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull)
+ * @param {Api} api - The API object corresponding to the bean. (NotNull)
+ * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+ * @param {Map<String, Object>} definitionMap - The map of all definitions containing other bean's. (NotNull)
  * @param {string} definitionKey - The identifier of the definition e.g. org.docksidesta...cers.BalletDancersResult (NotNull)
- * @returns The map of the remoteApi bean information. e.g. className, properties (NotNull)
+ * @return {TopLevelBean} The map of the remoteApi bean information. e.g. className, properties (NotNull)
  */
 function createBean(rule, beanPurposeType, api, properties, definitionMap, definitionKey) {
     var schemaPackage = rule.schemaPackage(api.schema);
@@ -344,7 +345,7 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
         package = package + '.' + subPackage;
     }
 
-    var remoteApiBean = new java.util.LinkedHashMap();
+    var remoteApiBean = new java.util.LinkedHashMap(); // #{TopLevelBean}
     remoteApiBean.api = api;
     remoteApiBean.package = package;
     remoteApiBean.className = rule[beanPurposeType + 'ClassName'](api, false);
@@ -360,7 +361,7 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
 
 /**
  * Keep information of behavior.
- * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {Map} api - The information of api, having "schema", "url", ... (NotNull)
  * @param {Map} pathVariables - The array of path variables. (NotNull)
  * @param {Map} paramBean - The information of param bean. (NotNull)
@@ -399,7 +400,7 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
 //                                                                               =========
 /**
  * Process bean. (generating class)
- * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {Array<Map>} remoteApiBeanList - The map list of all remoteApiBeans in the request. (NotNull)
  */
 function generateBean(rule, remoteApiBeanList) {
@@ -435,7 +436,7 @@ function generateBean(rule, remoteApiBeanList) {
 
 /**
  * Generate behavior class, also DI xml.
- * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
  * @param {Map} exBehaviorMap - The map of behavior information. (NotNull)
  */
@@ -503,7 +504,7 @@ function generateBhv(rule, request, exBehaviorMap) {
 
 /**
  * Generate document of generated remoteApi classes on LastaDoc.
- * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
  * @param {Map} exBehaviorMap - The map of behavior information. (NotNull)
  */
@@ -560,7 +561,7 @@ function generate(src, dest, data, overwite) {
 
 /**
  * Clean up generate files. Delete unnecessary files.
- * @param {Rule} rule - RemoteApiRule.js object. (NotNull)
+ * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The current freeGen request. (NotNull)
  * @param {string} genDir - generate directory (NotNull)
  * @param {string[]} destFilePathList - The list of destination generated file path. (NotNull)
