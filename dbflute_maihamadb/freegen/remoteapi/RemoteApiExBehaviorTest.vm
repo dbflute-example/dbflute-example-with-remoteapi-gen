@@ -362,7 +362,7 @@ $requestBeanVariableName.$fieldName = "$fieldName";
 #if (${typeMap[$property.items.type]} == "String")
 $requestBeanVariableName.$fieldName = $newList("$fieldName");
 #else
-$requestBeanVariableName.$fieldName = $newList(); // TODO
+$requestBeanVariableName.$fieldName = $newList();
 #end
 #elseif ($fieldClass.contains("java.util.Map"))
 $requestBeanVariableName.$fieldName = new ${fieldClass.replace("java.util.Map", "java.util.LinkedHashMap")}();
@@ -402,7 +402,7 @@ $requestBeanVariableName.$fieldName = ${fieldClass}.codeOf("$property.enum[0]");
 #elseif ($fieldClass.contains(".CDef."))
 $requestBeanVariableName.$fieldName = ${fieldClass}.values()[0];
 #else
-$requestBeanVariableName.$fieldName = new $paramBeanClassName.${fieldClass}(); // TODO
+$requestBeanVariableName.$fieldName = new $paramBeanClassName.${fieldClass}();
 #end
 #end
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
