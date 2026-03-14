@@ -21,7 +21,7 @@ var destFilePathList = [];
  *  2-1. rule.jsを読み込む // #hope jflute もっかい読むの回避できないかな？ (2026/03/08)
  *  2-2. 古いファイルを削除
  * 
- * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - the list of freeGen requests. (NotNull, EmptyAllowed)
+ * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest[]} requestList - The list of freeGen requests. (NotNull, EmptyAllowed)
  */
 function process(requestList) {
     // それぞれのリクエストごとに自動生成

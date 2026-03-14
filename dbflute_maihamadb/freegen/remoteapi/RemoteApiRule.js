@@ -4,7 +4,7 @@
 //                                                                              ==========
 /**
  * API Type.
- * It means e.g. "/ballet-dancers/": { ... "get": { ...
+ * It means e.g. "/lido/product/list/{pageNumber}": { ... "get": { ...
  * swagger.json の 1 path の 1 httpMethod に相当する情報。
  * swagger.json の形ほぼそのままだがちょっと違うところもあり。
  * 
@@ -25,7 +25,7 @@
 
 /**
  * PathVariable Type.
- * It means e.g. "/ballet-dancers/{productId}/".
+ * It means e.g. pageNumber of "/lido/product/list/{pageNumber}".
  * swagger.json の形そのまま。
  * 
  * see below for details.<br/>
@@ -121,10 +121,10 @@ var baseRule = {
     //                                                                               Base
     //                                                                              ======
     /**
-     * Return the schema of the remote api.<br/>
+     * Build the schema name of the remote api.<br/>
      * This schema is used for packages, class name prefixes, and so on.
-     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
-     * @return {string} The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The freeGen request as current. (NotNull)
+     * @return {string} e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
      */
     schema: function(request) {
         return request.requestName.replace(/^RemoteApi/g, '');
@@ -133,7 +133,7 @@ var baseRule = {
     /**
      * Return the java schema package of the remote api.
      * @param {string} schema - The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
-     * @return {string} the java package for the schema. (NotNull, NotEmpty)
+     * @return {string} e.g. org.docksidestage.remote (NotNull, NotEmpty)
      */
     schemaPackage: function(schema) {
         return manager.decamelize(schema).replace(/_/g, '.').toLowerCase();
@@ -152,20 +152,20 @@ var baseRule = {
     },
 
     /**
-     * Return filtered URL.<br/>
+     * Filter URL of the API.<br/>
      * Exclude prefixes and version numbers contained in URLs. e.g. /api/xxx, /v1/xxx<br/>
      * If excluded, you must include the excluded URL in AbstractRemoteFortress${Schema}Bhv#getUrlBase.
-     * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} filtered URL. (NotNull)
+     * @param {Api} api - The API metadata as current, having URL e.g. /lido/product/list (NotNull)
+     * @return {string} e.g. /lido/product/list, /api/lido/product/list, ... (NotNull)
      */
     url: function(api) {
         return api.url;
     },
 
     /**
-     * Build the sub package for the API.
+     * Build the sub package for the API. (without base package)
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} The java package derived as rule. (NotNull, NotEmpty)
+     * @return {string} e.g. lido.product.list (from /lido/product/list) (NotNull, NotEmpty)
      */
     subPackage: function(api) {
         // 1. Remove symbols that cannot be used in java package name. And remove leading and trailing slashes.
@@ -193,45 +193,45 @@ var baseRule = {
     frameworkBehaviorClass: 'org.lastaflute.remoteapi.LastaRemoteBehavior',
 
     /**
-     * Build abstract behavior class name for the schema.
+     * Build abstract behavior class name for the schema. (without package)
      * @param {string} schema - The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
-     * @return {string} the class name of behavior without package. (NotNull, NotEmpty)
+     * @return {string} e.g. AbstractRemoteFortressBhv (NotNull, NotEmpty)
      */
     abstractBehaviorClassName: function(schema) {
         return 'AbstractRemote' + schema + 'Bhv';
     },
 
     /**
-     * Build the behavior sub package for the API.
+     * Build the behavior sub package for the API. (without base package and schema package)
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} The sub package string of the java behavior. (NotNull, NotEmpty)
+     * @return {string} e.g. lido.product.list (NotNull, NotEmpty)
      */
     behaviorSubPackage: function(api) {
         return this.subPackage(api).replace(/^([^.]*)\.(.+)/, '$1');
     },
 
     /**
-     * Build base behavior class name for the API.
+     * Build base behavior class name for the API. (without package)
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} The name of base behavior without package. (NotNull, NotEmpty)
+     * @return {string} e.g. BsRemoteFortressLidoBhv (for /lido/...) (NotNull, NotEmpty)
      */
     bsBehaviorClassName: function(api) {
         return 'BsRemote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
     },
 
     /**
-     * Build extended behavior class name  for the API.
+     * Build extended behavior class name for the API. (without package)
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} The name of extended behavior without package. (NotNull, NotEmpty)
+     * @return {string} e.g. RemoteFortressLidoBhv (for /lido/...) (NotNull, NotEmpty)
      */
     exBehaviorClassName: function(api) {
         return 'Remote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
     },
 
     /**
-     * Return the behavior request method name.
+     * Build method name of the behavior request.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} the behavior request method name. (NotNull, NotEmpty)
+     * @return {string} e.g. requestProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     behaviorRequestMethodName: function(api) {
         var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
@@ -239,9 +239,9 @@ var baseRule = {
     },
 
     /**
-     * Return the behavior rule method name.
+     * Build method name of the behavior rule.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} the behavior rule method name. (NotNull, NotEmpty)
+     * @return {string} e.g. ruleOfProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     behaviorRuleMethodName: function(api) {
         var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
