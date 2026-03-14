@@ -334,7 +334,7 @@ function processHull(request) {
  * @param {Api} api - The API object corresponding to the bean. (NotNull)
  * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
  * @param {Map<String, Object>} definitionMap - The map of all definitions containing other bean's. (NotNull)
- * @param {string} definitionKey - The identifier of the definition e.g. org.docksidesta...cers.BalletDancersResult (NotNull)
+ * @param {string} definitionKey - The identifier of the definition e.g. org.docksidestage.app.web.lido.product.ProductSearchBody (NotNull)
  * @return {TopLevelBean} The map of the remoteApi bean information. e.g. className, properties (NotNull)
  */
 function createBean(rule, beanPurposeType, api, properties, definitionMap, definitionKey) {

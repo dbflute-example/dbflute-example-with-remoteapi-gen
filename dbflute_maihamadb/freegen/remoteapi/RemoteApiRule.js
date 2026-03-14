@@ -51,7 +51,7 @@
  */
 
 /**
- * Property(query、formData、body field) Type.
+ * Property (query、formData、body field) Type.
  * It means e.g. "parameters": [ { "name": "productId", "type": "integer", ... } ]
  * swagger.json の形そのまま。
  * 
@@ -429,20 +429,20 @@ var baseRule = {
     beanExtendsDefinitionGeneration: false,
 
     /**
-     * Return filtered bean definition(gap pattern Extends class) subPackage.
-     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
-     * @param {string} definitionKey - The definition key for the swagger specification. (NotNull, NotEmpty)
-     * @return {string} filtered bean subPackage. (NotNull, NotEmpty)
+     * Derive sub package for bean definition (gap pattern extends-class) from bean package.
+     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The freeGen request as current. (NotNull)
+     * @param {string} definitionKey - The identifier of the definition e.g. org.docksidestage.app.web.lido.product.ProductRowResult (NotNull, NotEmpty)
+     * @return {string} e.g. definition (org.docksidestage.remote.fortress.lido.product.list.definition) (NotNull, NotEmpty)
      */
     beanExtendsDefinitionSubPackage: function(request, definitionKey) {
         return 'definition';
     },
 
     /**
-     * Return bean definition(gap pattern Extends class) class name without package.
-     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
-     * @param {string} definitionKey - The definition key for the swagger specification. (NotNull, NotEmpty)
-     * @return {string} bean definition class name without package. (NotNull, NotEmpty)
+     * Build class name of bean definition (gap pattern extends-class) without package.
+     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The freeGen request as current. (NotNull)
+     * @param {string} definitionKey - The identifier of the definition e.g. org.docksidestage.app.web.lido.product.ProductRowResult (NotNull, NotEmpty)
+     * @return {string} e.g. ProductRowResultDefinition (NotNull, NotEmpty)
      */
     beanExtendsDefinitionClassName: function(request, definitionKey) {
         return definitionKey.replace(/.*\./g, '').replace(/(<|>)/g, '') + 'Definition';
@@ -452,11 +452,11 @@ var baseRule = {
     //                                                             Param/Return(irregular)
     //                                                             =======================
     /**
-     * Return filterd definition key for the swagger specification.
+     * Derive definition key for the swagger specification.
      * e.g. Filter common header pattern class.
      * http://dbflute.seasar.org/ja/lastaflute/howto/impldesign/jsondesign.html#jsonerrorexp
      * @param {string} definitionKey - The definition key for the swagger specification. (NotNull, NotEmpty)
-     * @return {string} filterd definition key for the swagger specification. (NotNull, NotEmpty)
+     * @return {string} The identifier of the definition e.g. org.docksidestage.app.web.lido.product.ProductRowResult (NotNull, NotEmpty)
      */
     definitionKey: function(definitionKey) {
         return definitionKey;
@@ -476,9 +476,9 @@ var baseRule = {
     //                                                                              Di xml
     //                                                                              ======
     /**
-     * Return di xml path for target container lasta di.
-     * @param {string} schema - schema of the remote api. (NotNull, NotEmpty)
-     * @return {string} di xml path for target container lasta di. (NotNull, NotEmpty)
+     * Build di xml path for target container lasta di.
+     * @param {string} schema - The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+     * @return {string} e.g. ../resources/remoteapi/di/remoteapi_fortress.xml (NotNull, NotEmpty)
      */
     diXmlPath: function(schema, resourceFilePath) {
         return '../resources/remoteapi/di/remoteapi_' + this.schemaPackage(schema).replace(/\./g, '-') + '.xml';
@@ -486,16 +486,16 @@ var baseRule = {
 
     /**
      * Return java config class name without package for target container spring.
-     * @param {string} schema - schema of the remote api. (NotNull, NotEmpty)
-     * @return {string} java config class name without package for target container spring. (NotNull, NotEmpty)
+     * @param {string} schema - The schema name of the remote api. e.g. Fortress (from RemoteApiFortress) (NotNull, NotEmpty)
+     * @return {string} e.g. RemoteFortressBeansJavaConfig (NotNull, NotEmpty)
      */
     javaConfigClassName: function(schema) {
         return 'Remote' + schema + 'BeansJavaConfig';
     },
 
     // ===================================================================================
-    //                                                                                 Doc
-    //                                                                                 ===
+    //                                                                                Doc
+    //                                                                               =====
     /** true for automatically generating doc. */
     docGeneration: true,
 
@@ -503,19 +503,19 @@ var baseRule = {
     //                                                                              Option
     //                                                                              ======
     /**
-     * Return the order list of categolized package of import.<br/>
+     * Define the order list of categolized package of import.<br/>
      * Specify top packages to categorize.
-     * @return {string[]} The order list of categolized package of import. (NotNull, EmptyAllowed)
+     * @return {string[]} e.g. [java, javax, ...] (NotNull, EmptyAllowed)
      */
     importOrderList: function() {
         return ['java', 'javax', 'junit', 'org', 'com', 'net', 'ognl', 'mockit', 'jp'];
     },
 
     /**
-     * Return java field naming rule mapping for OpenAPI parameter type.<br/>
+     * Define java field naming rule mapping for OpenAPI parameter type.<br/>
      * OpenAPI parameter types are path, query, formData, json(body and consumes not contains 'application/xml'), xml(body and consumes contains 'application/xml').<br/>
      * If this.FIELD_NAMING.CAMEL_TO_LOWER_SNAKE is specified, field names in Java will be camel case and snake case when sending API.
-     * @return field naming mapping. (NotNull)
+     * @return {Map<String, String>} The map of field naming, keyed by e.g. path, query (NotNull)
      */
     fieldNamingMapping: function() {
         return {
@@ -528,9 +528,9 @@ var baseRule = {
     },
 
     /**
-     * Return java field type mapping for OpenAPI parameter data type.
+     * Define java field type mapping for OpenAPI parameter data type.
      * e.g. java.util.List -> org.eclipse.collections.api.list.ImmutableList, java.time.LocalDate -> String etc.
-     * @return typeMap The map of type conversion, swagger type to java type. (NotNull)
+     * @return typeMap {Map<String, String>} The map of type conversion, swagger type to java type. (NotNull)
      */
     typeMap: function() {
         return {
@@ -552,42 +552,42 @@ var baseRule = {
     },
 
     /**
-     * Manually map classes for path variables.
+     * Manually map classes for the path variable.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {PathVariable} pathVariable - path variable. (NotNull)
-     * @return {string} path variable manual mapping class. (NullAllowed)
+     * @param {PathVariable} pathVariable - The information of path variable, having e.g. name, in, required. (NotNull)
+     * @return {string} The class name for the path variable, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
      */
     pathVariableManualMappingClass: function(api, pathVariable) {
         return null;
     },
 
     /**
-     * Manually map classes for bean property.
+     * Manually map classes for the bean property.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {string} beanClassName - bean class name. (NotNull)
-     * @param {Property} property - property. (NotNull)
-     * @return {string} bean property manual mapping class. (NullAllowed)
+     * @param {string} beanClassName - The class name (without package) of the bean for the property, may be nest class. (NotNull)
+     * @param {Property} property - The information of property, having e.g. name, in, required. (NotNull)
+     * @return {string} The class name for the property, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
      */
     beanPropertyManualMappingClass: function(api, beanClassName, property) {
         return null;
     },
 
     /**
-     * Manually description for path variables.
+     * Manually map description for the path variables. (actually switched)
      * @param {Api} api - The API metadata as current. (NotNull)
      * @param {PathVariable} pathVariable - path variable. (NotNull)
-     * @return {string} path variable manual mapping description. (NullAllowed)
+     * @return {string} The description about the path variable. (NullAllowed: then as default)
      */
     pathVariableManualMappingDescription: function(api, pathVariable) {
         return null;
     },
 
     /**
-     * Manually description for bean property.
+     * Manually map description for the bean property.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {string} beanClassName - bean class name. (NotNull)
-     * @param {Property} property - property. (NotNull)
-     * @return {string} bean property manual mapping description. (NullAllowed)
+     * @param {string} beanClassName - The class name (without package) of the bean for the property, may be nest class. (NotNull)
+     * @param {Property} property - The information of property, having e.g. name, in, required. (NotNull)
+     * @return {string} The description about the property. (NullAllowed: then as default)
      */
     beanPropertyManualMappingDescription: function(api, beanClassName, property) {
         return null;
@@ -596,9 +596,9 @@ var baseRule = {
     /**
      * Determines whether files are eligible for deletion during cleanup after auto-generation.
      * By default, files with ' @author FreeGen' are eligible for deletion.
-     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - freeGen request settings. (NotNull)
-     * @return {File} file. (NotNull)
-     * @return {boolean} delete target. (NotNull)
+     * @param {org.dbflute.logic.manage.freegen.DfFreeGenRequest} request - The freeGen request as current. (NotNull)
+     * @return {java.io.File} The existing file on auto-generate directory. (NotNull)
+     * @return {boolean} Is the file delete target? (NotNull)
      */
     deleteTarget: function(request, file) {
         try {
