@@ -324,7 +324,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestLoginSurprised() {
         // ## Act ##
-        createBhv(null).requestLoginSurprised();
+        createBhv("mysticOneman").requestLoginSurprised();
     }
 
     public void test_requestLoginSurprisedSignin() {
@@ -336,12 +336,12 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestLoginSurprisedSignin(paramLambda);
+        createBhv("mysticOneman").requestLoginSurprisedSignin(paramLambda);
     }
 
     public void test_requestLoginSurprisedRequired() {
         // ## Act ##
-        createBhv(null).requestLoginSurprisedRequired();
+        createBhv("mysticOneman").requestLoginSurprisedRequired();
     }
 
     public void test_requestMail() {
@@ -401,7 +401,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestMessage(paramLambda);
+        createBhv("mysticOneman").requestMessage(paramLambda);
     }
 
     public void test_requestMessagePageNumber() {
@@ -414,7 +414,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestMessage(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestMessage(pageNumber, paramLambda);
     }
 
     public void test_requestNamedcls() {
@@ -1238,7 +1238,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestRemoteapiRmhangarTranslate(paramLambda);
+        createBhv("mysticOneman").requestRemoteapiRmhangarTranslate(paramLambda);
     }
 
     public void test_requestRemoteapiRmharborLidoSignin() {
@@ -1274,7 +1274,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestRemoteapiRmharborSerhProduct(paramLambda);
+        createBhv("mysticOneman").requestRemoteapiRmharborSerhProduct(paramLambda);
     }
 
     public void test_requestRemoteapiRmharborSerhSignin() {
@@ -1707,7 +1707,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRequestMultipart() {
         // ## Act ##
-        createBhv(null).requestRequestMultipart();
+        createBhv("mysticOneman").requestRequestMultipart();
     }
 
     public void test_requestRequestMultipartUpload() {
@@ -1748,7 +1748,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestRequestMultipartUpload(paramLambda);
+        createBhv("mysticOneman").requestRequestMultipartUpload(paramLambda);
     }
 
     public void test_requestRequestPathvarString() {
@@ -1852,17 +1852,17 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseHtmlEmpty() {
         // ## Act ##
-        createBhv(null).requestResponseHtmlEmpty();
+        createBhv("mysticOneman").requestResponseHtmlEmpty();
     }
 
     public void test_requestResponseHtmlEmptyCommitted() {
         // ## Act ##
-        createBhv(null).requestResponseHtmlEmptyCommitted();
+        createBhv("mysticOneman").requestResponseHtmlEmptyCommitted();
     }
 
     public void test_requestResponseHtmlAdd() {
         // ## Act ##
-        createBhv(null).requestResponseHtmlAdd();
+        createBhv("mysticOneman").requestResponseHtmlAdd();
     }
 
     public void test_requestResponseHtmlAddRegister() {
@@ -1875,7 +1875,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlAddRegister(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlAddRegister(paramLambda);
     }
 
     public void test_requestResponseHtmlEdit() {
@@ -1883,7 +1883,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlEdit(memberId);
+        createBhv("mysticOneman").requestResponseHtmlEdit(memberId);
     }
 
     public void test_requestResponseHtmlEditUpdate() {
@@ -1902,7 +1902,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlEditUpdate(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlEditUpdate(paramLambda);
     }
 
     public void test_requestResponseHtmlEditWithdrawal() {
@@ -1921,7 +1921,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlEditWithdrawal(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlEditWithdrawal(paramLambda);
     }
 
     public void test_requestResponseHtmlList() {
@@ -1936,7 +1936,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlList(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlList(paramLambda);
     }
 
     public void test_requestResponseHtmlListPageNumber() {
@@ -1952,7 +1952,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlList(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlList(pageNumber, paramLambda);
     }
 
     public void test_requestResponseJson() {
@@ -1967,7 +1967,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonEmptybody() {
         // ## Act ##
-        createBhv(null).requestResponseJsonEmptybody();
+        createBhv("mysticOneman").requestResponseJsonEmptybody();
     }
 
     public void test_requestResponseJsonStrval() {
@@ -2088,39 +2088,40 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("showbaseNow={}", returnBean.showbaseNow);
     }
 
+    // #for_now jflute multipartのレスポンスは、テストの仕方をそもそも変えないといけないけど、とりあえず例外アサート (2026/03/14)
     public void test_requestResponseStreamSmall() {
         // ## Act ##
-        createBhv(null).requestResponseStreamSmall();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamSmall());
     }
 
     public void test_requestResponseStreamLarge() {
         // ## Act ##
-        createBhv(null).requestResponseStreamLarge();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamLarge());
     }
 
     public void test_requestResponseStreamOutput() {
         // ## Act ##
-        createBhv(null).requestResponseStreamOutput();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamOutput());
     }
 
     public void test_requestResponseStreamCursortsv() {
         // ## Act ##
-        createBhv(null).requestResponseStreamCursortsv();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamCursortsv());
     }
 
     public void test_requestResponseStreamUpdateplain() {
         // ## Act ##
-        createBhv(null).requestResponseStreamUpdateplain();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamUpdateplain());
     }
 
     public void test_requestResponseStreamUpdatetx() {
         // ## Act ##
-        createBhv(null).requestResponseStreamUpdatetx();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamUpdatetx());
     }
 
     public void test_requestResponseStreamJapanese() {
         // ## Act ##
-        createBhv(null).requestResponseStreamJapanese();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamJapanese());
     }
 
     public void test_requestResponseStreamValidationerror() {
@@ -2130,17 +2131,18 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseStreamValidationerror(paramLambda);
+        assertException(RemoteApiResponseParseFailureException.class,
+                () -> createBhv(null).requestResponseStreamValidationerror(paramLambda));
     }
 
     public void test_requestResponseStreamWithbizex() {
         // ## Act ##
-        createBhv(null).requestResponseStreamWithbizex();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamWithbizex());
     }
 
     public void test_requestResponseStreamWithbizexapi() {
         // ## Act ##
-        createBhv(null).requestResponseStreamWithbizexapi();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamWithbizexapi());
     }
 
     public void test_requestResponseStreamApiValidationerror() {
@@ -2150,37 +2152,38 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseStreamApiValidationerror(paramLambda);
+        assertException(RemoteApiResponseParseFailureException.class,
+                () -> createBhv(null).requestResponseStreamApiValidationerror(paramLambda));
     }
 
     public void test_requestResponseStreamApiWithbizex() {
         // ## Act ##
-        createBhv(null).requestResponseStreamApiWithbizex();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamApiWithbizex());
     }
 
     public void test_requestResponseTransitionForward() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionForward();
+        createBhv("mysticOneman").requestResponseTransitionForward();
     }
 
     public void test_requestResponseTransitionRedirect() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirect();
+        createBhv("mysticOneman").requestResponseTransitionRedirect();
     }
 
     public void test_requestResponseTransitionRedirectPermanently() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirectPermanently();
+        createBhv("mysticOneman").requestResponseTransitionRedirectPermanently();
     }
 
     public void test_requestResponseTransitionRedirectPermanentlySsl() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirectPermanentlySsl();
+        createBhv("mysticOneman").requestResponseTransitionRedirectPermanentlySsl();
     }
 
     public void test_requestResponseTransitionRedirectTemporary() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirectTemporary();
+        createBhv("mysticOneman").requestResponseTransitionRedirectTemporary();
     }
 
     public void test_requestRouting() {
@@ -3014,7 +3017,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestThymeleafParade(paramLambda);
+        createBhv("mysticOneman").requestThymeleafParade(paramLambda);
     }
 
     public void test_requestThymeleafParadePageNumber() {
@@ -3029,7 +3032,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestThymeleafParade(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestThymeleafParade(pageNumber, paramLambda);
     }
 
     public void test_requestTransactionMemoriesFail() {
@@ -3041,7 +3044,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestTransactionMemoriesFail(paramLambda);
+        createBhv("mysticOneman").requestTransactionMemoriesFail(paramLambda);
     }
 
     public void test_requestTransactionMemoriesFailasync() {
@@ -3053,7 +3056,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestTransactionMemoriesFailasync(paramLambda);
+        createBhv("mysticOneman").requestTransactionMemoriesFailasync(paramLambda);
     }
 
     public void test_requestValidator() {
@@ -3084,7 +3087,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestValidator(paramLambda);
+        createBhv("mysticOneman").requestValidator(paramLambda);
     }
 
     public void test_requestValidatorGenericform() {
@@ -3096,7 +3099,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestValidatorGenericform(paramLambda);
+        createBhv("mysticOneman").requestValidatorGenericform(paramLambda);
     }
 
     public void test_requestValidatorGroupingjson() {

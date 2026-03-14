@@ -36,7 +36,7 @@ public class RemoteFortressWithdrawalBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_request() {
         // ## Act ##
-        createBhv(null).request();
+        createBhv("mysticOneman").request();
     }
 
     public void test_requestConfirm() {
@@ -47,7 +47,7 @@ public class RemoteFortressWithdrawalBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestConfirm(paramLambda);
+        createBhv("mysticOneman").requestConfirm(paramLambda);
     }
 
     public void test_requestDone() {
@@ -58,7 +58,7 @@ public class RemoteFortressWithdrawalBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestDone(paramLambda);
+        createBhv("mysticOneman").requestDone(paramLambda);
     }
 
     private RemoteFortressWithdrawalBhv createBhv(String json) {

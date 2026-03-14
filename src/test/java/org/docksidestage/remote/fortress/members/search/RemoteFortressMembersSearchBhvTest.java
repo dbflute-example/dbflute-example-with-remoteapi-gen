@@ -46,7 +46,7 @@ public class RemoteFortressMembersSearchBhvTest extends UnitRemoteapigenTestCase
         };
 
         // ## Act ##
-        createBhv(null).requestGet(paramLambda);
+        createBhv("mysticOneman").requestGet(paramLambda);
     }
 
     private RemoteFortressMembersSearchBhv createBhv(String json) {

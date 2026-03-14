@@ -37,7 +37,7 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_request() {
         // ## Act ##
-        createBhv(null).request();
+        createBhv("mysticOneman").request();
     }
 
     public void test_requestGet() {
@@ -45,7 +45,7 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv(null).requestGet(memberId);
+        createBhv("mysticOneman").requestGet(memberId);
     }
 
     public void test_requestPut() {
@@ -65,7 +65,7 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestPut(memberId, paramLambda);
+        createBhv("mysticOneman").requestPut(memberId, paramLambda);
     }
 
     public void test_requestDelete() {
@@ -85,7 +85,7 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestDelete(memberId, paramLambda);
+        createBhv("mysticOneman").requestDelete(memberId, paramLambda);
     }
 
     public void test_requestPost() {
@@ -98,7 +98,7 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestPost(paramLambda);
+        createBhv("mysticOneman").requestPost(paramLambda);
     }
 
     private RemoteFortressMembersBhv createBhv(String json) {

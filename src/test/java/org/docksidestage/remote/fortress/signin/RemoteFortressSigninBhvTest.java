@@ -35,7 +35,7 @@ public class RemoteFortressSigninBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_request() {
         // ## Act ##
-        createBhv(null).request();
+        createBhv("mysticOneman").request();
     }
 
     public void test_requestSignin() {
@@ -47,7 +47,7 @@ public class RemoteFortressSigninBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestSignin(paramLambda);
+        createBhv("mysticOneman").requestSignin(paramLambda);
     }
 
     private RemoteFortressSigninBhv createBhv(String json) {

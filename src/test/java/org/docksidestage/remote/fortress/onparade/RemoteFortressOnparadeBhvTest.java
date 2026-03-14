@@ -46,7 +46,7 @@ public class RemoteFortressOnparadeBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).request(paramLambda);
+        createBhv("mysticOneman").request(paramLambda);
     }
 
     public void test_requestPageNumber() {
@@ -62,7 +62,7 @@ public class RemoteFortressOnparadeBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).request(pageNumber, paramLambda);
+        createBhv("mysticOneman").request(pageNumber, paramLambda);
     }
 
     private RemoteFortressOnparadeBhv createBhv(String json) {

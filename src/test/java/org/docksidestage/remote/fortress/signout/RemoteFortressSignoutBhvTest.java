@@ -32,7 +32,7 @@ public class RemoteFortressSignoutBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_request() {
         // ## Act ##
-        createBhv(null).request();
+        createBhv("mysticOneman").request();
     }
 
     private RemoteFortressSignoutBhv createBhv(String json) {

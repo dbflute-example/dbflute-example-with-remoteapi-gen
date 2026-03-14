@@ -35,7 +35,7 @@ public class RemoteFortressSignupBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_request() {
         // ## Act ##
-        createBhv(null).request();
+        createBhv("mysticOneman").request();
     }
 
     public void test_requestSignup() {
@@ -49,7 +49,7 @@ public class RemoteFortressSignupBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestSignup(paramLambda);
+        createBhv("mysticOneman").requestSignup(paramLambda);
     }
 
     public void test_requestRegister() {
@@ -58,7 +58,7 @@ public class RemoteFortressSignupBhvTest extends UnitRemoteapigenTestCase {
         String token = "token";
 
         // ## Act ##
-        createBhv(null).requestRegister(account, token);
+        createBhv("mysticOneman").requestRegister(account, token);
     }
 
     private RemoteFortressSignupBhv createBhv(String json) {
