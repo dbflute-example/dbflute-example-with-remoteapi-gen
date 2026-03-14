@@ -465,7 +465,15 @@ function generateBhv(rule, request, exBehaviorMap) {
         path = exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + '.java';
         generate('./remoteapi/RemoteApiExBehavior.vm', path, exBehavior, false);
 
-        // #for_now jflute 環境変数技のままで良いのか？シークレットだからこれでいい？いや、ruleにしたい？ (2026/03/08)
+        // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+        // テストクラスの自動生成。既存ファイルは上書されず、その後手動で育てていく。
+        // MockHttpClientを使って実行するUnitTestで、全項目を列挙して使用するコードを生成する。
+        // (きっかけは、RemoteApiGen自身のテストで使うものとして作られた)
+        // 
+        // #for_now jflute 環境変数技のままで良いのか？とりあえずoption的なものだからこれでいいかなというところで。 (2026/03/14)
+        // 一時的に export FREE_GEN_REMOTEAPI_TESTZ=true ってやってから FreeGen を実行するスタイルでもいいし、
+        // manage.sh に組み込んで常に生成するスタイルでもいい。
+        // _/_/_/_/_/_/_/_/
         if (java.lang.System.getenv("FREE_GEN_REMOTEAPI_TEST") === 'true') {        
             path = '../../test/java/' + exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + 'Test.java';
             generate('./remoteapi/RemoteApiExBehaviorTest.vm', path, exBehavior, false);

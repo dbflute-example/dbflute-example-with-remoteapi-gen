@@ -233,13 +233,14 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterList)$parameter.name#if( $foreach.hasNext ), #end#end);
 #if ($returnBeanClassName != 'void')
 
+## #hope jflute Returnクラスはログに直接出してるでデータ型の変化を検知できないので、変数に置くスタイルにしたいところ。 (2026/03/14)
 #[[        // ## Assert ##]]#
 #if ($method.returnBeanArray)
         list.forEach(returnBean -> {
 #foreach($propertyEntry in $method.returnBean.properties.entrySet())
 #set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $method.returnBean, $propertyEntry.key)})
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
-            logger.debug("$fieldName={}", returnBean.$fieldName); // TODO nest property check
+            logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
             logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName});
 #end
@@ -254,7 +255,7 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
 #foreach($propertyEntry in $method.returnBean.properties.entrySet())
 #set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $method.returnBean, $propertyEntry.key)})
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
-        logger.debug("$fieldName={}", returnBean.$fieldName); // TODO nest property check
+        logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
         logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName});
 #end
