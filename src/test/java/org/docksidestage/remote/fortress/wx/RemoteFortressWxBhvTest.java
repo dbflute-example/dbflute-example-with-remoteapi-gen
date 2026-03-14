@@ -209,27 +209,27 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexBasic() {
         // ## Act ##
-        createBhv(null).requestAppexBasic();
+        createBhv("mysticOneman").requestAppexBasic();
     }
 
     public void test_requestAppexBasicWithoutinfo() {
         // ## Act ##
-        createBhv(null).requestAppexBasicWithoutinfo();
+        createBhv("mysticOneman").requestAppexBasicWithoutinfo();
     }
 
     public void test_requestAppexBasicLoginfailure() {
         // ## Act ##
-        createBhv(null).requestAppexBasicLoginfailure();
+        createBhv("mysticOneman").requestAppexBasicLoginfailure();
     }
 
     public void test_requestAppexBasicAlreadydeleted() {
         // ## Act ##
-        createBhv(null).requestAppexBasicAlreadydeleted();
+        createBhv("mysticOneman").requestAppexBasicAlreadydeleted();
     }
 
     public void test_requestAppexHandlerAlreadydeleted() {
         // ## Act ##
-        createBhv(null).requestAppexHandlerAlreadydeleted();
+        createBhv("mysticOneman").requestAppexHandlerAlreadydeleted();
     }
 
     public void test_requestAppexHandlerJson() {
@@ -239,7 +239,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexMessageJson() {
         // ## Act ##
-        String returnBean = createBhv("String").requestAppexMessageJson();
+        String returnBean = createBhv("mysticOneman").requestAppexMessageJson();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -247,7 +247,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexMessageJsonDirect() {
         // ## Act ##
-        String returnBean = createBhv("String").requestAppexMessageJsonDirect();
+        String returnBean = createBhv("mysticOneman").requestAppexMessageJsonDirect();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -255,7 +255,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexMessageJsonNovalues() {
         // ## Act ##
-        String returnBean = createBhv("String").requestAppexMessageJsonNovalues();
+        String returnBean = createBhv("mysticOneman").requestAppexMessageJsonNovalues();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -268,7 +268,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestConfig() {
         // ## Act ##
-        String returnBean = createBhv("String").requestConfig();
+        String returnBean = createBhv("mysticOneman").requestConfig();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -308,7 +308,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        String returnBean = createBhv("String").requestLastadoc(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestLastadoc(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -346,7 +346,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMail() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMail();
+        String returnBean = createBhv("mysticOneman").requestMail();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -354,7 +354,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailBasic() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailBasic();
+        String returnBean = createBhv("mysticOneman").requestMailBasic();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -362,7 +362,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailEntity() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailEntity();
+        String returnBean = createBhv("mysticOneman").requestMailEntity();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -370,7 +370,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailEntitylist() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailEntitylist();
+        String returnBean = createBhv("mysticOneman").requestMailEntitylist();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -378,7 +378,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailLoopbeans() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailLoopbeans();
+        String returnBean = createBhv("mysticOneman").requestMailLoopbeans();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -386,7 +386,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailRemoteapi() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailRemoteapi();
+        String returnBean = createBhv("mysticOneman").requestMailRemoteapi();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1972,7 +1972,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonStrval() {
         // ## Act ##
-        String returnBean = createBhv("String").requestResponseJsonStrval();
+        String returnBean = createBhv("mysticOneman").requestResponseJsonStrval();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1988,7 +1988,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonDirectly() {
         // ## Act ##
-        String returnBean = createBhv("String").requestResponseJsonDirectly();
+        String returnBean = createBhv("mysticOneman").requestResponseJsonDirectly();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
