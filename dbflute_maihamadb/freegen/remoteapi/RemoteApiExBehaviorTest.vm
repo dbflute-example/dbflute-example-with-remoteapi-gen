@@ -223,9 +223,9 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #elseif ($method.returnBeanArray)
 #set ($json = '"[]"')
 #elseif ($returnBeanClassName == 'String')
-#set ($json = '"String"')
+#set ($json = '"mysticOneman"')
 #elseif ($returnBeanClassName == 'Integer')
-#set ($json = '"1"')
+#set ($json = '"88888888"')
 #else
 #set ($json = '"{}"')
 #end
