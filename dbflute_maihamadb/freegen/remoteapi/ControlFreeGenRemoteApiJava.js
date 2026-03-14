@@ -348,13 +348,24 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
     var remoteApiBean = new java.util.LinkedHashMap(); // #{TopLevelBean}
     remoteApiBean.api = api;
     remoteApiBean.package = package;
-    remoteApiBean.className = rule[beanPurposeType + 'ClassName'](api, false);
+
+    // call e.g. rule.paramClassName(), rule.returnClassName()
+    remoteApiBean.className = rule[beanPurposeType + 'ClassName'](api, /*detail*/false);
+
     remoteApiBean.definitionKey = definitionKey;
+
+    // call e.g. rule.paramExtendsClass(), rule.returnExtendsClass()
     remoteApiBean.extendsClass = rule[beanPurposeType + 'ExtendsClass'](api, properties);
+
+    // call e.g. rule.paramImplementsClasses(), rule.returnImplementsClasses()
     remoteApiBean.implementsClasses = rule[beanPurposeType + 'ImplementsClasses'](api, properties);
+
     remoteApiBean.properties = properties;
     remoteApiBean.beanPurposeType = beanPurposeType;
+
+    // e.g. GET /lido/product/list
     remoteApiBean.remoteApiExp = api.httpMethod.toUpperCase() + ' ' + api.url;
+
     remoteApiBean.definitionMap = definitionMap;
     return remoteApiBean;
 }

@@ -204,7 +204,7 @@ var baseRule = {
     /**
      * Build the behavior sub package for the API. (without base package and schema package)
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} e.g. lido.product.list (NotNull, NotEmpty)
+     * @return {string} e.g. lido.product (NotNull, NotEmpty)
      */
     behaviorSubPackage: function(api) {
         return this.subPackage(api).replace(/^([^.]*)\.(.+)/, '$1');
@@ -251,10 +251,13 @@ var baseRule = {
     // ===================================================================================
     //                                                                  Param/Return(base)
     //                                                                  ==================
+    // -----------------------------------------------------
+    //                                            Basic Bean
+    //                                            ----------
     /**
-     * Return the java bean sub package.
+     * Build sub package of the bean (param/return). (without base package and schema package)
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @return {string} the java bean sub package. (NotNull, NotEmpty)
+     * @return {string} e.g. lido.product.list (NotNull, NotEmpty)
      */
     beanSubPackage: function(api) {
         var package = this.subPackage(api);
@@ -264,32 +267,37 @@ var baseRule = {
         return package;
     },
 
+    // #thinking jflute "detail" is fixedly false in createBean(), what is this? (2026/03/14)
     /**
-     * Return bean class name without package.
+     * Build base name of bean class without package for e.g. Param/Return.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {boolean} detail - detail. (NotNull)
-     * @return {string} bean class name without package. (NotNull)
+     * @param {boolean} detail - ???. (NotNull)
+     * @return {string} e.g. RemoteLidoProductList (NotNull)
      */
     beanClassName: function(api, detail) {
-        var namePart = detail ? api.url.replace(/(_|-|^\/|\/$|\{|\})/g, '').replace(/\//g, '_').toLowerCase(): this.subPackage(api);
+        var namePart = detail ? api.url.replace(/(_|-|^\/|\/$|\{|\})/g, '').replace(/\//g, '_').toLowerCase() : this.subPackage(api);
         return 'Remote' + manager.initCap(manager.camelize(namePart.replace(/\./g, '_'))) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
     },
 
+    // -----------------------------------------------------
+    //                                            Param Bean
+    //                                            ----------
     /**
-     * Return param extends class with package.
+     * Derive param extends-class (parent class) with package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} properties - properties. (NotNull)
-     * @return {string} param extends class with package. (NullAllowed)
+     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @return {string} e.g. org.docksidestage.remote.AbstractSea (NullAllowed: then no extending)
      */
     paramExtendsClass: function(api, properties) {
         return null;
     },
 
     /**
-     * Return param implements classes (Interface) with package.
+     * Derive param implements-classes (Interface) with package.
+     * You can implements plural interfaces by comma-separeted string.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} properties - properties. (NotNull)
-     * @return {string} param Implements classes (Interface) with package. (NullAllowed)
+     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @return {string} e.g. "org.docksidestage.remote.Sea, org.docksidestage.remote.Land" (NullAllowed: then no implementing)
      */
     paramImplementsClasses: function(api, properties) {
         return null;
@@ -298,58 +306,68 @@ var baseRule = {
     /**
      * Return param class name without package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {boolean} detail - detail. (NotNull)
-     * @return {string} param class name without package. (NotNull)
+     * @param {boolean} detail - ???. (NotNull)
+     * @return {string} e.g. RemoteLidoProductListParam (NotNull)
      */
     paramClassName: function(api, detail) {
         return this.beanClassName(api, detail) + 'Param';
     },
 
+    // -----------------------------------------------------
+    //                                           Return Bean
+    //                                           -----------
     /**
-     * Return return extends class with package.
+     * Derive return extends-class (parent class) with package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} properties - properties. (NotNull)
-     * @return {string} return extends class with package. (NullAllowed)
+     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @return {string} e.g. org.docksidestage.remote.AbstractSea (NullAllowed: then no extending)
      */
     returnExtendsClass: function(api, properties) {
         return null;
     },
 
     /**
-     * Return return implements classes (Interface) with package.
+     * Derive return implements-classes (Interface) with package.
+     * You can implements plural interfaces by comma-separeted string.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} properties - properties. (NotNull)
-     * @return {string} return implements classes (Interface) with package. (NullAllowed)
+     * @param {Map<String, Property>} properties - The information of property for the bean. (NotNull)
+     * @return {string} e.g. "org.docksidestage.remote.Sea, org.docksidestage.remote.Land" (NullAllowed: then no implementing)
      */
     returnImplementsClasses: function(api, properties) {
         return null;
     },
 
     /**
-     * Return returnClassName without package.
+     * Build return class name without package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {boolean} detail - detail. (NotNull)
-     * @return {string} return class name without package. (NotNull)
+     * @param {boolean} detail - ???. (NotNull)
+     * @return {string} e.g. RemoteLidoProductListReturn (NotNull)
      */
     returnClassName: function(api, detail) {
         return this.beanClassName(api, detail) + 'Return';
     },
 
+    // -----------------------------------------------------
+    //                                             Nest Bean
+    //                                             ---------
     /**
-     * Return nest class name without package.
+     * Build generated class name as nest class without package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {string} nestClassName - Nest class name without package. (NotNull)
-     * @return {string} Nest class name without package. (NotNull)
+     * @param {string} nestClassName - The remote-side name of nest class without package, e.g. ProductRowBean, ProductRowPart (NotNull)
+     * @return {string} e.g. ProductRowPart (NotNull)
      */
     nestClassName: function(api, nestClassName) {
         return nestClassName.replace(/(Part|Result|Model|Bean)$/, '') + 'Part';
     },
 
+    // -----------------------------------------------------
+    //                                            Bean Field
+    //                                            ----------
     /**
-     * Return true if the property is to be generated.
+     * Determine whether the property is to be generated.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {TopLevelBean} topLevelBean - top-level (root) bean of the field, same when nest field. (NotNull)
-     * @param {string} jsonFieldName - The plain field name on json. (NotNull)
+     * @param {TopLevelBean} topLevelBean - The top-level (root) bean of the field, same when nest field. (NotNull)
+     * @param {string} jsonFieldName - The plain field name on json, e.g. product_id (NotNull)
      * @return {boolean} true if target. (NotNull)
      */
     targetField: function(api, topLevelBean, fieldName) {
@@ -357,11 +375,11 @@ var baseRule = {
     },
 
     /**
-     * Return java field name.
+     * Filter field name for Java.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
-     * @param {string} jsonFieldName - json field name. (NotNull)
-     * @return {string} java field name. (NotNull)
+     * @param {TopLevelBean} topLevelBean - The top-level (root) bean of the field, same when nest field. (NotNull)
+     * @param {string} jsonFieldName - The plain field name on json, e.g. product_id (NotNull)
+     * @return {string} e.g. productId (from product_id) (NotNull)
      */
     fieldName: function(api, topLevelBean, jsonFieldName) {
         var fieldNaming = this.fieldNamingMapping()[topLevelBean.in];
@@ -374,18 +392,21 @@ var baseRule = {
     },
 
     /**
-     * Return true for custom java field name.
+     * Determine whether the field name is custom.
+     * 
      * If neither of the following is true, it is considered custom.
      * 1. Swagger field name and java field name are an exact match.
      * 2. Swagger field name and java field name are the simple conversion of camel case -> snake case.
      *    Judgment of simple conversion of camel case-> snake case,
      *    After camel case -> snake case, reverse conversion is done to match the original name (reversible).
      *
-     * If it is determined to be custom, @SerializedName will be added for serialization / deserialization at the time of automatic generation.
+     * If it is determined to be custom, @SerializedName will be added
+     * for serialization / deserialization at the time of automatic generation.
+     * 
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {TopLevelBean} topLevelBean - definition of bean where field is declared. (NotNull)
-     * @param {string} jsonFieldName - json field name. (NotNull)
-     * @return {boolean} Return true for custom java field name. (NotNull)
+     * @param {TopLevelBean} topLevelBean - The top-level (root) bean of the field, same when nest field. (NotNull)
+     * @param {string} jsonFieldName - The plain field name on json, e.g. product_id (NotNull)
+     * @return {boolean} true if custom. (NotNull)
      */
     isCustomFieldName: function(api, topLevelBean, jsonFieldName) {
         var adjustedFieldName = this.fieldName(api, topLevelBean, jsonFieldName);
