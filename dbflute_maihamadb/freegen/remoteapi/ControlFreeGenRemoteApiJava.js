@@ -5,6 +5,10 @@ var genType = 'remoteapi';
 // 自動生成ファイルのパス一覧、自動生成処理ごとに保持して溜めていく、freegenディレクトリからの相対パス
 var destFilePathList = [];
 
+// =======================================================================================
+//                                                                              Definition
+//                                                                              ==========
+
 
 // =======================================================================================
 //                                                                              Controller
@@ -373,13 +377,13 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
 /**
  * Keep information of behavior.
  * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
- * @param {Map} api - The information of api, having "schema", "url", ... (NotNull)
- * @param {Map} pathVariables - The array of path variables. (NotNull)
- * @param {Map} paramBean - The information of param bean. (NotNull)
+ * @param {Api} api - The information of api, having "schema", "url", ... (NotNull)
+ * @param {PathVariable[]} pathVariables - The array of path variables. (NotNull)
+ * @param {TopLevelBean} paramBean - The information of param bean. (NotNull)
  * @param {boolean} paramBeanArray - true if param bean is array. (NotNull)
- * @param {Map} returnBean - The information of return bean. (NotNull)
+ * @param {TopLevelBean} returnBean - The information of return bean. (NotNull)
  * @param {boolean} returnBeanArray - true if return bean is array. (NotNull)
- * @param {Map} exBehaviorMap - The map of behavior information, contains bsBehavior. (NotNull)
+ * @param {ExBehavior} exBehaviorMap - The map of behavior information, contains bsBehavior. (NotNull)
  */
 function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, returnBean, returnBeanArray, exBehaviorMap) {
     var schemaPackage = rule.schemaPackage(api.schema);
@@ -390,7 +394,7 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
     }
     var className = rule.exBehaviorClassName(api);
     if (!exBehaviorMap[package + '.' + className]) {
-        var exBehavior = new java.util.LinkedHashMap();
+        var exBehavior = new java.util.LinkedHashMap(); // #{ExBehavior}
         exBehavior.package = package;
         exBehavior.className = className;
         exBehavior.remoteApiExp = subPackage;
@@ -400,10 +404,11 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
         bsBehavior.package = package;
         bsBehavior.className = rule.bsBehaviorClassName(api);
         bsBehavior.remoteApiExp = subPackage;
-        bsBehavior.methodList = [];
+        bsBehavior.methodResourceList = []; // #{RequestMethodResource}
         exBehavior.bsBehavior = bsBehavior;
     }
-    exBehaviorMap[package + '.' + className].bsBehavior.methodList.push({ 'api': api, 'pathVariables': pathVariables, 'paramBean': paramBean, 'paramBeanArray': paramBeanArray, 'returnBean': returnBean, 'returnBeanArray': returnBeanArray });
+    var methodResource = { 'api': api, 'pathVariables': pathVariables, 'paramBean': paramBean, 'paramBeanArray': paramBeanArray, 'returnBean': returnBean, 'returnBeanArray': returnBeanArray };
+    exBehaviorMap[package + '.' + className].bsBehavior.methodResourceList.push(methodResource);
 }
 
 // =======================================================================================

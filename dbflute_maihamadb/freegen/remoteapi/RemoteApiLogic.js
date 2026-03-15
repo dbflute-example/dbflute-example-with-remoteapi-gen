@@ -6,21 +6,51 @@
 // =======================================================================================
 //                                                                              Definition
 //                                                                              ==========
+// {PathVariable}, {TopLevelBean} types are defined on RemoteApiRule.js
 /**
- * Method Type.
- * @typedef {Object} Method
- * @property {Api} api - The information of api. (NotNull)
- * @property {PathVariable[]} pathVariables - The array of path variables. (NotNull, EmptyAllowed)
- * @property {TopLevelBean} paramBean - The information of param bean. (NotNull)
- * @property {boolean} paramBeanArray - true if the paramBea is array. (NotNull)
- * @property {TopLevelBean} returnBean - The information of return bean. (NotNull)
- * @property {boolean} returnBeanArray - true if the returnBean is array. (NotNull)
+ * ExBehavior Type.
+ * Extended Behaviorに相当。Base Behaviorの情報も保持する。
+ * 
+ * You can search it on code by: #{ExBehavior}
+ * 
+ * @typedef {Object} ExBehavior
+ * @property {string} package - The full package of this behavior class. (NotNull, NotEmpty)
+ * @property {string} className - The class name without package of this class.  (NotNull, NotEmpty)
+ * @property {string} remoteApiExp - The expression of the remote api used in JSDoc, e.g. lido.product (NotNull)
+ * @property {BsBehavior} bsBehavior - The parent class of this behavior as generation gap pattern. (NotNull)
  */
 
 /**
+ * BsBehavior Type.
+ * Base Behaviorに相当。requestメソッドなどのメソッド情報も保持する。
+ * 
+ * You can search it on code by: #{ExBehavior}
+ * 
+ * @typedef {Object} BsBehavior
+ * @property {string} package - The full package of this behavior class. (NotNull, NotEmpty)
+ * @property {string} className - The class name without package of this class.  (NotNull, NotEmpty)
+ * @property {string} remoteApiExp - The expression of the remote api used in JSDoc, e.g. lido.product (NotNull)
+ * @property {RequestMethodResource[]} methodResourceList - The array of resource for request method on base behavior. (NotNull)
+ */
+
+/**
+ * RequestMethodResource Type.
+ * Behaviorのrequestメソッド(one API)の基本情報(IN/OUTなどの外観)に相当。
+ * @typedef {Object} RequestMethodResource
+ * @property {Api} api - The API metadata corresponding to the bean. (NotNull)
+ * @property {PathVariable[]} pathVariables - The array of path variables. (NotNull, EmptyAllowed)
+ * @property {TopLevelBean} paramBean - The information of param bean as top level. (NotNull)
+ * @property {boolean} paramBeanArray - true if the paramBean is array. (NotNull)
+ * @property {TopLevelBean} returnBean - The information of return bean as top level. (NotNull)
+ * @property {boolean} returnBeanArray - true if the returnBean is array. (NotNull)
+ */
+
+// #thinking jflute Parameterという名前をやめたい、swagger上のparameterと紛らわしい (2026/03/15)
+/**
  * Parameter Type.
+ * Method のrequestメソッドの引数に相当。
  * @typedef {Object} Parameter
- * @property {string} name - The parameter Name. (NotEmpty)
+ * @property {string} name - The parameter name, requestメソッドの引数名. (NotEmpty)
  * @property {string} class - The class name without package of parameter. (NotEmpty)
  * @property {string} description - The description of parameter. (NotEmpty)
  */
@@ -28,18 +58,19 @@
 /**
  * BehaviorMethod Type.
  * @typedef {Object} BehaviorMethod
- * @property {Method} method - The information of method. (NotNull).
+ * @property {RequestMethodResource} exteriorResource - The resource of method exterior for one API. (NotNull).
  * @property {string} behaviorRequestMethodName - The behavior request method name. e.g. requestXxx, requestXxxGet (NotEmpty).
  * @property {string} callDoRequestMethodName - The call doRequest method name. e.g. doRequestGet, doRequestPost (NotEmpty).
  * @property {string} param - one of param, query(param), noQuery(), noRequestBody() (NotEmpty).
  * @property {string} behaviorRuleMethodName - The behavior rule method name. e.g. ruleOfXxx, ruleOfXxxGet (NotEmpty).
- * @property {Parameter[]} parameterList - the list of parameter of behavior method. (NotNull, EmptyAllowed)
- * @property {string} parameterDefinition - the parameter definition of behavior request method. (NotNull, EmptyAllowed)
+ * @property {Parameter[]} parameterList - The list of parameter on behavior method. (NotNull, EmptyAllowed)
+ * @property {string} parameterDefinition - The Java code expression parameter definition. (NotNull, EmptyAllowed)
  * @property {string} parameterDefinitionRule - the parameter definition of behavior rule method. (NotNull, EmptyAllowed)
  * @property {string} moreUrl - one of moreUrl(xxx), noMoreUrl(). (NotNull, NotEmpty)
  * @property {string} paramBeanClassName - the param bean class without package of behavior method. (NotNull, EmptyAllowed)
  * @property {string} returnBeanClassName - the return bean class without package of behavior method. (NotNull, EmptyAllowed)
  */
+// ↑RequestMethodResourceがロジックの中で入り乱れるので、BehaviorMethodの変数名は exteriorResource (メソッドの外観リソース) にした。(2026/03/15)
 
 var remoteApiLogic = {
 
@@ -126,24 +157,23 @@ var remoteApiLogic = {
     /**
      * Derive the behavior method list.
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
-     * @param {Method[]} methodList The list of The method information. (NotNull, EmptyAllowed)
+     * @param {RequestMethodResource[]} methodResourceList The list of The method information. (NotNull, EmptyAllowed)
      * @return {BehaviorMethod[]} The list of behavior method information. (NotNull, EmptyAllowed)
      */
-    deriveBehaviorMethodList: function(rule, methodList) {
+    deriveBehaviorMethodList: function(rule, methodResourceList) {
         if (!rule.behaviorMethodGeneration) {
             return [];
         }
 
-        var behaviorMethodList = [];
+        var behaviorMethodList = []; // #{BehaviorMethod}
         var behaviorRequestMethodSignatureList = [];
-        methodList.forEach(function(method) {
-
+        methodResourceList.forEach(function(methodResource) {
             var behaviorMethod = {
-                method: method,
-                behaviorRequestMethodName: rule.behaviorRequestMethodName(method.api),
+                exteriorResource: methodResource,
+                behaviorRequestMethodName: rule.behaviorRequestMethodName(methodResource.api),
                 callDoRequestMethodName: null,
                 param: null,
-                behaviorRuleMethodName: rule.behaviorRuleMethodName(method.api),
+                behaviorRuleMethodName: rule.behaviorRuleMethodName(methodResource.api),
                 parameterList: [],
                 parameterDefinition: '',
                 parameterDefinitionRule: '',
@@ -156,12 +186,12 @@ var remoteApiLogic = {
             var typeMap = rule.typeMap();
 
             // Analyze pathVariables.
-            method.pathVariables.entrySet().forEach(function(pathVariableEntry) {
-                var pathVariableName = rule.fieldName(method.api, {'in': 'path'}, pathVariableEntry.key);
+            methodResource.pathVariables.entrySet().forEach(function(pathVariableEntry) {
+                var pathVariableName = rule.fieldName(methodResource.api, {'in': 'path'}, pathVariableEntry.key);
                 behaviorMethod.behaviorRuleMethodName = behaviorMethod.behaviorRuleMethodName + manager.initCap(pathVariableName);
 
                 var pathVariable = pathVariableEntry.value;
-                var pathVariableManualMappingClass = rule.pathVariableManualMappingClass(method.api, pathVariable);
+                var pathVariableManualMappingClass = rule.pathVariableManualMappingClass(methodResource.api, pathVariable);
                 var pathVariableClass = '';
                 if (pathVariable.type === 'array') {
                     if (pathVariableManualMappingClass) {
@@ -189,7 +219,7 @@ var remoteApiLogic = {
                     enumValueComment = '(enumValue=' + pathVariable.items.enum + ') ';
                 }
 
-                var pathVariableDescription = rule.pathVariableManualMappingDescription(method.api, pathVariable);
+                var pathVariableDescription = rule.pathVariableManualMappingDescription(methodResource.api, pathVariable);
                 if (!pathVariableDescription) {
                     pathVariableDescription = pathVariable.description;
                 }
@@ -206,9 +236,9 @@ var remoteApiLogic = {
             }
 
             // Analyze paramBean.
-            if (method.paramBean.className) {
-                behaviorMethod.paramBeanClassName = method.paramBean.className;
-                if (method.paramBeanArray) {
+            if (methodResource.paramBean.className) {
+                behaviorMethod.paramBeanClassName = methodResource.paramBean.className;
+                if (methodResource.paramBeanArray) {
                     behaviorMethod.paramBeanClassName = 'java.util.List<' + behaviorMethod.paramBeanClassName + '>';
                 }
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
@@ -226,9 +256,9 @@ var remoteApiLogic = {
             behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinitionRule + 'Consumer<FlutyRemoteApiRule> ruleLambda';
 
             // Analyze returnBean.
-            if (method.returnBean.className) {
-                behaviorMethod.returnBeanClassName = method.returnBean.className;
-                if (method.returnBeanArray) {
+            if (methodResource.returnBean.className) {
+                behaviorMethod.returnBeanClassName = methodResource.returnBean.className;
+                if (methodResource.returnBeanArray) {
                     behaviorMethod.returnBeanClassName = typeMap['array'] + '<' + behaviorMethod.returnBeanClassName + '>';
                 }
             }
@@ -243,8 +273,8 @@ var remoteApiLogic = {
 
             var behaviorRequestMethodSignature = behaviorMethod.behaviorRequestMethodName + parameterSignature;
             if (behaviorRequestMethodSignatureList.indexOf(behaviorRequestMethodSignature) >= 0) {
-                method.pathVariables.entrySet().forEach(function(pathVariableEntry) {
-                    var pathVariableName = rule.fieldName(method.api, {'in': 'path'}, pathVariableEntry.key);
+                methodResource.pathVariables.entrySet().forEach(function(pathVariableEntry) {
+                    var pathVariableName = rule.fieldName(methodResource.api, {'in': 'path'}, pathVariableEntry.key);
                     behaviorMethod.behaviorRequestMethodName = behaviorMethod.behaviorRequestMethodName + manager.initCap(pathVariableName);
                 });
                 behaviorRequestMethodSignature = behaviorMethod.behaviorRequestMethodName + parameterSignature;
@@ -255,14 +285,14 @@ var remoteApiLogic = {
 
             // Adjust call doRequestMethodName.
             var calloRequestSuffix = '';
-            if (behaviorMethod.method.api.httpMethod === 'delete' && behaviorMethod.method.paramBean.in === 'json') {
+            if (behaviorMethod.exteriorResource.api.httpMethod === 'delete' && behaviorMethod.exteriorResource.paramBean.in === 'json') {
                 calloRequestSuffix = 'Enclosing';
             }
 
-            behaviorMethod.callDoRequestMethodName = 'doRequest' + manager.initCap(behaviorMethod.method.api.httpMethod) + calloRequestSuffix;
+            behaviorMethod.callDoRequestMethodName = 'doRequest' + manager.initCap(behaviorMethod.exteriorResource.api.httpMethod) + calloRequestSuffix;
 
             // Analyze param.
-            if (behaviorMethod.method.api.httpMethod === 'get' || behaviorMethod.method.api.httpMethod === 'delete') {
+            if (behaviorMethod.exteriorResource.api.httpMethod === 'get' || behaviorMethod.exteriorResource.api.httpMethod === 'delete') {
                 behaviorMethod.param = 'noQuery()';
             } else {
                 behaviorMethod.param = 'noRequestBody()';
@@ -274,8 +304,8 @@ var remoteApiLogic = {
                 json: 'param',
                 xml: 'param',
             };
-            if (paramMap[behaviorMethod.method.paramBean.in]) {
-                behaviorMethod.param = paramMap[behaviorMethod.method.paramBean.in];
+            if (paramMap[behaviorMethod.exteriorResource.paramBean.in]) {
+                behaviorMethod.param = paramMap[behaviorMethod.exteriorResource.paramBean.in];
             }
         });
 

@@ -45,7 +45,7 @@
  * @property {string} type - The data type of swagger. e.g. string, integer, number, boolean, array (NotNull, NotEmpty)
  * @property {string} format - The data format of swagger. e.g. int32, int64, float, double, byte, binary, date, date-time, password (NullAllowed)
  * @property {string} default - The default value of the variable. (NullAllowed)
- * @property {Array<ElementItem>} items - The element information in the array, required if type is "array". (NullAllowed)
+ * @property {ElementItem[]} items - The element information in the array, required if type is "array". (NullAllowed)
  * @property {BeanSchema} schema - The schema object for the variable, having "$ref". (NullAllowed)
  * @property {string} enum - The lists possible values for the property. (NullAllowed)
  */
@@ -75,6 +75,7 @@
  * @property {BeanSchema} schema - The schema object of nest class for the property, having "$ref". (NullAllowed)
  * @property {string} enum - The lists possible values for the property. (NullAllowed)
  */
+// ↑ "items" と言ってるけど、別に複数形というわけじゃない。配列の要素たちというニュアンスで複数形だけど、要素の定義は一つ。(2026/03/15)
 
 /**
  * ElementItem (of Array) Type.
