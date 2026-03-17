@@ -85,8 +85,9 @@ public abstract class ${data.className} extends ${data.abstractBehavior.classNam
      * url: $behaviorMethod.exteriorResource.api.url
      * httpMethod: $behaviorMethod.exteriorResource.api.httpMethod.toUpperCase()
      * </pre>
+## #{MethodParameter}
 #foreach($parameter in ${behaviorMethod.parameterList})
-     * @param $parameter.name $parameter.description
+     * @param ${parameter.name} ${parameter.description}
 #end
 #if (${behaviorMethod.returnBeanClassName} != 'void')
      * @return The bean object as return type, receiving response body. (NotNull)

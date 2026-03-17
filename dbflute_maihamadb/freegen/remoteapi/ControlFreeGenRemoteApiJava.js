@@ -376,6 +376,8 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
 
 /**
  * Keep information of behavior.
+ * まだexBehaviorMapに登録されていないBehaviorを登録して、requestメソッドのリソースオブジェクトを設定する。
+ * すでに登録されているBehaviorでも、リソースオブジェクトを設定だけは行われる。
  * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
  * @param {Api} api - The information of api, having "schema", "url", ... (NotNull)
  * @param {PathVariable[]} pathVariables - The array of path variables. (NotNull)
@@ -393,7 +395,7 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
         package = package + '.' + subPackage;
     }
     var className = rule.exBehaviorClassName(api);
-    if (!exBehaviorMap[package + '.' + className]) {
+    if (!exBehaviorMap[package + '.' + className]) { // 新しく登録されるBehaviorなら
         var exBehavior = new java.util.LinkedHashMap(); // #{ExBehavior}
         exBehavior.package = package;
         exBehavior.className = className;
@@ -401,14 +403,19 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
         exBehaviorMap[package + '.' + className] = exBehavior;
 
         var bsBehavior = new java.util.LinkedHashMap();
-        bsBehavior.package = package;
+        bsBehavior.package = package; // base behaviorも同じパッケージ
         bsBehavior.className = rule.bsBehaviorClassName(api);
         bsBehavior.remoteApiExp = subPackage;
         bsBehavior.methodResourceList = []; // #{RequestMethodResource}
         exBehavior.bsBehavior = bsBehavior;
     }
-    var methodResource = { 'api': api, 'pathVariables': pathVariables, 'paramBean': paramBean, 'paramBeanArray': paramBeanArray, 'returnBean': returnBean, 'returnBeanArray': returnBeanArray };
-    exBehaviorMap[package + '.' + className].bsBehavior.methodResourceList.push(methodResource);
+    // 新しく登録されたBehaviorでも、すでに登録されているBehaviorでも
+    var requestMethodResource = { 'api': api,
+        'pathVariables': pathVariables, 
+        'paramBean': paramBean, 'paramBeanArray': paramBeanArray,
+        'returnBean': returnBean, 'returnBeanArray': returnBeanArray
+    };
+    exBehaviorMap[package + '.' + className].bsBehavior.methodResourceList.push(requestMethodResource);
 }
 
 // =======================================================================================

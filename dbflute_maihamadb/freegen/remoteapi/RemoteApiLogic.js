@@ -36,6 +36,9 @@
 /**
  * RequestMethodResource Type.
  * Behaviorのrequestメソッド(one API)の基本情報(IN/OUTなどの外観)に相当。
+ * 
+ * You can search it on code by: #{RequestMethodResource}
+ * 
  * @typedef {Object} RequestMethodResource
  * @property {Api} api - The API metadata corresponding to the bean. (NotNull)
  * @property {PathVariable[]} pathVariables - The array of path variables. (NotNull, EmptyAllowed)
@@ -45,14 +48,16 @@
  * @property {boolean} returnBeanArray - true if the returnBean is array. (NotNull)
  */
 
-// #thinking jflute Parameterという名前をやめたい、swagger上のparameterと紛らわしい (2026/03/15)
 /**
- * Parameter Type.
+ * MethodParameter Type.
  * Method のrequestメソッドの引数に相当。
- * @typedef {Object} Parameter
+ * 
+ * You can search it on code by: #{MethodParameter}
+ * 
+ * @typedef {Object} MethodParameter
  * @property {string} name - The parameter name, requestメソッドの引数名. (NotEmpty)
  * @property {string} class - The class name without package of parameter. (NotEmpty)
- * @property {string} description - The description of parameter. (NotEmpty)
+ * @property {string} description - The description of parameter for e.g. JavaDoc. (NotEmpty)
  */
 
 /**
@@ -63,7 +68,7 @@
  * @property {string} callDoRequestMethodName - The call doRequest method name. e.g. doRequestGet, doRequestPost (NotEmpty).
  * @property {string} param - one of param, query(param), noQuery(), noRequestBody() (NotEmpty).
  * @property {string} behaviorRuleMethodName - The behavior rule method name. e.g. ruleOfXxx, ruleOfXxxGet (NotEmpty).
- * @property {Parameter[]} parameterList - The list of parameter on behavior method. (NotNull, EmptyAllowed)
+ * @property {MethodParameter[]} parameterList - The list of parameter on behavior method. (NotNull, EmptyAllowed)
  * @property {string} parameterDefinition - The Java code expression parameter definition. (NotNull, EmptyAllowed)
  * @property {string} parameterDefinitionRule - the parameter definition of behavior rule method. (NotNull, EmptyAllowed)
  * @property {string} moreUrl - one of moreUrl(xxx), noMoreUrl(). (NotNull, NotEmpty)
@@ -174,7 +179,7 @@ var remoteApiLogic = {
                 callDoRequestMethodName: null,
                 param: null,
                 behaviorRuleMethodName: rule.behaviorRuleMethodName(methodResource.api),
-                parameterList: [],
+                parameterList: [], // #{MethodParameter}
                 parameterDefinition: '',
                 parameterDefinitionRule: '',
                 moreUrl: '',
@@ -223,7 +228,11 @@ var remoteApiLogic = {
                 if (!pathVariableDescription) {
                     pathVariableDescription = pathVariable.description;
                 }
-                behaviorMethod.parameterList.push({ 'name': pathVariableName, 'class': pathVariableClass, 'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment + (pathVariableDescription ? '(' + pathVariableDescription + ') ' : '') + '(NotNull)'});
+                var pathVariableParameter = { // #{MethodParameter}
+                    'name': pathVariableName, 'class': pathVariableClass,
+                    'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment + (pathVariableDescription ? '(' + pathVariableDescription + ') ' : '') + '(NotNull)'
+                };
+                behaviorMethod.parameterList.push(pathVariableParameter);
 
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + pathVariableClass + ' ' + pathVariableName + ', ';
                 behaviorMethod.moreUrl = behaviorMethod.moreUrl + pathVariableName + ', ';
@@ -242,7 +251,11 @@ var remoteApiLogic = {
                     behaviorMethod.paramBeanClassName = 'java.util.List<' + behaviorMethod.paramBeanClassName + '>';
                 }
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
-                behaviorMethod.parameterList.push({ 'name': 'paramLambda', 'class': 'Consumer', 'description': 'The callback for ' + behaviorMethod.paramBeanClassName + '. (NotNull)'});
+                var paramParameter = { // #{MethodParameter}
+                    'name': 'paramLambda', 'class': 'Consumer',
+                    'description': 'The callback for ' + behaviorMethod.paramBeanClassName + '. (NotNull)'
+                };
+                behaviorMethod.parameterList.push(paramParameter);
             }
 
             if (behaviorMethod.parameterDefinition) {
