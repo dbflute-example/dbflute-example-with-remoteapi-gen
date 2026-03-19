@@ -50,7 +50,7 @@
 
 /**
  * MethodParameter Type.
- * Method のrequestメソッドの引数に相当。
+ * requestメソッドの引数に相当。
  * 
  * You can search it on code by: #{MethodParameter}
  * 
@@ -62,18 +62,22 @@
 
 /**
  * BehaviorMethod Type.
+ * Behavior の one API 対応のメソッドたち (request, ruleOf) に相当。
+ * 
+ * You can search it on code by: #{BehaviorMethod}
+ * 
  * @typedef {Object} BehaviorMethod
  * @property {RequestMethodResource} exteriorResource - The resource of method exterior for one API. (NotNull).
  * @property {string} behaviorRequestMethodName - The behavior request method name. e.g. requestXxx, requestXxxGet (NotEmpty).
  * @property {string} callDoRequestMethodName - The call doRequest method name. e.g. doRequestGet, doRequestPost (NotEmpty).
- * @property {string} param - one of param, query(param), noQuery(), noRequestBody() (NotEmpty).
+ * @property {string} param - The Java code expression of "param" argument, e.g. param, query(param), noQuery(), noRequestBody() (NotEmpty).
  * @property {string} behaviorRuleMethodName - The behavior rule method name. e.g. ruleOfXxx, ruleOfXxxGet (NotEmpty).
  * @property {MethodParameter[]} parameterList - The list of parameter on behavior method. (NotNull, EmptyAllowed)
- * @property {string} parameterDefinition - The Java code expression parameter definition. (NotNull, EmptyAllowed)
- * @property {string} parameterDefinitionRule - the parameter definition of behavior rule method. (NotNull, EmptyAllowed)
- * @property {string} moreUrl - one of moreUrl(xxx), noMoreUrl(). (NotNull, NotEmpty)
- * @property {string} paramBeanClassName - the param bean class without package of behavior method. (NotNull, EmptyAllowed)
- * @property {string} returnBeanClassName - the return bean class without package of behavior method. (NotNull, EmptyAllowed)
+ * @property {string} parameterDefinition - The Java code expression of parameter definition for request method. e.g. "Consumer<...Param> paramLambda" (NotNull, EmptyAllowed)
+ * @property {string} parameterDefinitionRule - The Java code expression of parameter definition for rule method. e.g. e.g. "Consumer<FlutyRemoteApiRule> ruleLambda" (NotNull, EmptyAllowed)
+ * @property {string} moreUrl - The Java code expression of e.g. moreUrl(xxx) or noMoreUrl() (NotNull, NotEmpty)
+ * @property {string} paramBeanClassName - The type expression of param bean class without package. e.g. ...Param, List<...Param> (NotNull, EmptyAllowed)
+ * @property {string} returnBeanClassName - The type expression of return bean class without package.  e.g. ...Return, List<...Return> (NotNull, EmptyAllowed)
  */
 // ↑RequestMethodResourceがロジックの中で入り乱れるので、BehaviorMethodの変数名は exteriorResource (メソッドの外観リソース) にした。(2026/03/15)
 
@@ -160,9 +164,9 @@ var remoteApiLogic = {
     //                                                                     Behavior Method
     //                                                                     ===============
     /**
-     * Derive the behavior method list.
+     * Derive the behavior method list. (for one behavior)
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
-     * @param {RequestMethodResource[]} methodResourceList The list of The method information. (NotNull, EmptyAllowed)
+     * @param {RequestMethodResource[]} methodResourceList The list of request method resources for one behavior. (NotNull, EmptyAllowed)
      * @return {BehaviorMethod[]} The list of behavior method information. (NotNull, EmptyAllowed)
      */
     deriveBehaviorMethodList: function(rule, methodResourceList) {
@@ -174,15 +178,15 @@ var remoteApiLogic = {
         var behaviorRequestMethodSignatureList = [];
         methodResourceList.forEach(function(methodResource) {
             var behaviorMethod = {
-                exteriorResource: methodResource,
+                exteriorResource: methodResource, // #{RequestMethodResource}
                 behaviorRequestMethodName: rule.behaviorRequestMethodName(methodResource.api),
-                callDoRequestMethodName: null,
-                param: null,
+                callDoRequestMethodName: null, // e.g. doRequestGet, doRequestPost
+                param: null, // e.g. param, query(param), noQuery(), noRequestBody()
                 behaviorRuleMethodName: rule.behaviorRuleMethodName(methodResource.api),
-                parameterList: [], // #{MethodParameter}
-                parameterDefinition: '',
-                parameterDefinitionRule: '',
-                moreUrl: '',
+                parameterList: [], // array of #{MethodParameter}
+                parameterDefinition: '', // e.g. Consumer<...Param> paramLambda
+                parameterDefinitionRule: '', // e.g. Consumer<FlutyRemoteApiRule> ruleLambda
+                moreUrl: '', // e.g. moreUrl(xxx) or noMoreUrl()
                 paramBeanClassName: null,
                 returnBeanClassName: 'void',
             };
@@ -247,7 +251,7 @@ var remoteApiLogic = {
             // Analyze paramBean.
             if (methodResource.paramBean.className) {
                 behaviorMethod.paramBeanClassName = methodResource.paramBean.className;
-                if (methodResource.paramBeanArray) {
+                if (methodResource.paramBeanArray) { // arrayならarray表現で囲う
                     behaviorMethod.paramBeanClassName = 'java.util.List<' + behaviorMethod.paramBeanClassName + '>';
                 }
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
@@ -263,7 +267,7 @@ var remoteApiLogic = {
             }
 
             behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinition;
-            if (behaviorMethod.parameterDefinitionRule) {
+            if (behaviorMethod.parameterDefinitionRule) { // すでに先の引数があったらカンマ付ける
                 behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinitionRule + ', ';
             }
             behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinitionRule + 'Consumer<FlutyRemoteApiRule> ruleLambda';
@@ -271,7 +275,7 @@ var remoteApiLogic = {
             // Analyze returnBean.
             if (methodResource.returnBean.className) {
                 behaviorMethod.returnBeanClassName = methodResource.returnBean.className;
-                if (methodResource.returnBeanArray) {
+                if (methodResource.returnBeanArray) { // arrayならarray表現で囲う
                     behaviorMethod.returnBeanClassName = typeMap['array'] + '<' + behaviorMethod.returnBeanClassName + '>';
                 }
             }
@@ -279,11 +283,12 @@ var remoteApiLogic = {
             behaviorMethod.returnBeanClassName = rule.unDefinitionKey(behaviorMethod.returnBeanClassName);
 
             // Adjust method name.
-            var parameterSignature = '';
+            var parameterSignature = ''; // 1メソッドの引数セットを一意に識別する文字列 (生成コードで使われるわけじゃない)
             behaviorMethod.parameterList.forEach(function(parameter) {
                 parameterSignature = parameterSignature + '|' + parameter['class'];
             });
 
+            // requestメソッドをメソッド名と引数で一意に識別する文字列 (生成コードで使われるわけじゃない)
             var behaviorRequestMethodSignature = behaviorMethod.behaviorRequestMethodName + parameterSignature;
             if (behaviorRequestMethodSignatureList.indexOf(behaviorRequestMethodSignature) >= 0) {
                 methodResource.pathVariables.entrySet().forEach(function(pathVariableEntry) {
