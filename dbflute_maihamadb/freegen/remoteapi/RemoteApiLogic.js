@@ -177,18 +177,19 @@ var remoteApiLogic = {
         var behaviorMethodList = []; // #{BehaviorMethod}
         var behaviorRequestMethodSignatureList = [];
         methodResourceList.forEach(function(methodResource) {
-            var behaviorMethod = {
-                exteriorResource: methodResource, // #{RequestMethodResource}
-                behaviorRequestMethodName: rule.behaviorRequestMethodName(methodResource.api),
-                callDoRequestMethodName: null, // e.g. doRequestGet, doRequestPost
-                param: null, // e.g. param, query(param), noQuery(), noRequestBody()
-                behaviorRuleMethodName: rule.behaviorRuleMethodName(methodResource.api),
-                parameterList: [], // array of #{MethodParameter}
-                parameterDefinition: '', // e.g. Consumer<...Param> paramLambda
-                parameterDefinitionRule: '', // e.g. Consumer<FlutyRemoteApiRule> ruleLambda
-                moreUrl: '', // e.g. moreUrl(xxx) or noMoreUrl()
-                paramBeanClassName: null, // e.g. ...Param, List<...Param>
-                returnBeanClassName: 'void', // e.g. void, ...Return, List<...Return>
+            var behaviorApi = methodResource.api;
+            var behaviorMethod = { // #{BehaviorMethod}
+                exteriorResource: methodResource,  // #{RequestMethodResource}
+                behaviorRequestMethodName: rule.behaviorRequestMethodName(behaviorApi), // e.g. requestProductList
+                callDoRequestMethodName: null,     // e.g. doRequestGet, doRequestPost
+                param: null,                       // e.g. param, query(param), noQuery(), noRequestBody()
+                behaviorRuleMethodName: rule.behaviorRuleMethodName(behaviorApi), // e.g. ruleOfProductList
+                parameterList: [],                 // array of #{MethodParameter}
+                parameterDefinition: '',           // e.g. Consumer<...Param> paramLambda
+                parameterDefinitionRule: '',       // e.g. Consumer<FlutyRemoteApiRule> ruleLambda
+                moreUrl: '',                       // e.g. moreUrl(xxx) or noMoreUrl()
+                paramBeanClassName: null,          // e.g. ...Param, List<...Param>
+                returnBeanClassName: 'void',       // e.g. void, ...Return, List<...Return>
             };
             behaviorMethodList.push(behaviorMethod);
 
@@ -196,11 +197,11 @@ var remoteApiLogic = {
 
             // Analyze pathVariables.
             methodResource.pathVariables.entrySet().forEach(function(pathVariableEntry) {
-                var pathVariableName = rule.fieldName(methodResource.api, {'in': 'path'}, pathVariableEntry.key);
+                var pathVariableName = rule.fieldName(behaviorApi, {'in': 'path'}, pathVariableEntry.key);
                 behaviorMethod.behaviorRuleMethodName = behaviorMethod.behaviorRuleMethodName + manager.initCap(pathVariableName);
 
                 var pathVariable = pathVariableEntry.value;
-                var pathVariableManualMappingClass = rule.pathVariableManualMappingClass(methodResource.api, pathVariable);
+                var pathVariableManualMappingClass = rule.pathVariableManualMappingClass(behaviorApi, pathVariable);
                 var pathVariableClass = '';
                 if (pathVariable.type === 'array') {
                     if (pathVariableManualMappingClass) {
@@ -221,24 +222,27 @@ var remoteApiLogic = {
                 // #thinking p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
                 pathVariable.name = pathVariableName;
                 var enumValueComment = '';
-                var nestType = '';
                 if (pathVariable.enum) {
                     enumValueComment = '(enumValue=' + pathVariable.enum + ') ';
                 } else if (pathVariable.items && pathVariable.items.enum) {
                     enumValueComment = '(enumValue=' + pathVariable.items.enum + ') ';
                 }
 
-                var pathVariableDescription = rule.pathVariableManualMappingDescription(methodResource.api, pathVariable);
+                var pathVariableDescription = rule.pathVariableManualMappingDescription(behaviorApi, pathVariable);
                 if (!pathVariableDescription) {
                     pathVariableDescription = pathVariable.description;
                 }
                 var pathVariableParameter = { // #{MethodParameter}
-                    'name': pathVariableName, 'class': pathVariableClass,
-                    'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment + (pathVariableDescription ? '(' + pathVariableDescription + ') ' : '') + '(NotNull)'
+                    'name': pathVariableName,
+                    'class': pathVariableClass,
+                    'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment
+                                   + (pathVariableDescription ? '(' + pathVariableDescription + ') ' : '') + '(NotNull)'
                 };
                 behaviorMethod.parameterList.push(pathVariableParameter);
 
-                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + pathVariableClass + ' ' + pathVariableName + ', ';
+                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition
+                                                     + pathVariableClass + ' ' + pathVariableName + ', ';
+
                 behaviorMethod.moreUrl = behaviorMethod.moreUrl + pathVariableName + ', ';
             });
 
@@ -255,9 +259,11 @@ var remoteApiLogic = {
                     // paramBeanの方はコールバックで落ちてくるだけなのでListはtypeMap参照せずに固定になっている (2026/03/19)
                     behaviorMethod.paramBeanClassName = 'java.util.List<' + behaviorMethod.paramBeanClassName + '>';
                 }
-                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
+                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition
+                                                     + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
                 var paramParameter = { // #{MethodParameter}
-                    'name': 'paramLambda', 'class': 'Consumer',
+                    'name': 'paramLambda',
+                    'class': 'Consumer',
                     'description': 'The callback for ' + behaviorMethod.paramBeanClassName + '. (NotNull)'
                 };
                 behaviorMethod.parameterList.push(paramParameter);
@@ -271,7 +277,8 @@ var remoteApiLogic = {
             if (behaviorMethod.parameterDefinitionRule) { // すでに先の引数があったらカンマ付ける
                 behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinitionRule + ', ';
             }
-            behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinitionRule + 'Consumer<FlutyRemoteApiRule> ruleLambda';
+            behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinitionRule
+                                                     + 'Consumer<FlutyRemoteApiRule> ruleLambda';
 
             // Analyze returnBean.
             if (methodResource.returnBean.className) {
@@ -295,9 +302,10 @@ var remoteApiLogic = {
             // 同じ引数セットのrequestメソッドがすでに存在していたら、メソッド名にパス変数名を入れる。
             // #thinking jflute でも、パス変数もparameterListに入ってるから引数だけで区別されるので、どういうケース想定？ (2026/03/19)
             // e.g. /lido/product/list/ と /lido/product/list/{pageNumber} は、どちらも requestProductList() になるので。
+            // (続き)試しに、この Signature 関連の処理をまるごと削除して自動生成しても本家テストでは生成コード何も変わらなかった。 (2026/03/19)
             if (behaviorRequestMethodSignatureList.indexOf(behaviorRequestMethodSignature) >= 0) {
                 methodResource.pathVariables.entrySet().forEach(function(pathVariableEntry) {
-                    var pathVariableName = rule.fieldName(methodResource.api, {'in': 'path'}, pathVariableEntry.key);
+                    var pathVariableName = rule.fieldName(behaviorApi, {'in': 'path'}, pathVariableEntry.key);
                     behaviorMethod.behaviorRequestMethodName = behaviorMethod.behaviorRequestMethodName + manager.initCap(pathVariableName);
                 });
                 behaviorRequestMethodSignature = behaviorMethod.behaviorRequestMethodName + parameterSignature;
@@ -308,14 +316,14 @@ var remoteApiLogic = {
 
             // Adjust call doRequestMethodName.
             var calloRequestSuffix = '';
-            if (behaviorMethod.exteriorResource.api.httpMethod === 'delete' && behaviorMethod.exteriorResource.paramBean.in === 'json') {
+            if (behaviorApi.httpMethod === 'delete' && methodResource.paramBean.in === 'json') {
                 calloRequestSuffix = 'Enclosing';
             }
 
-            behaviorMethod.callDoRequestMethodName = 'doRequest' + manager.initCap(behaviorMethod.exteriorResource.api.httpMethod) + calloRequestSuffix;
+            behaviorMethod.callDoRequestMethodName = 'doRequest' + manager.initCap(behaviorApi.httpMethod) + calloRequestSuffix;
 
             // Analyze param.
-            if (behaviorMethod.exteriorResource.api.httpMethod === 'get' || behaviorMethod.exteriorResource.api.httpMethod === 'delete') {
+            if (behaviorApi.httpMethod === 'get' || behaviorApi.httpMethod === 'delete') {
                 behaviorMethod.param = 'noQuery()';
             } else {
                 behaviorMethod.param = 'noRequestBody()';
@@ -327,8 +335,8 @@ var remoteApiLogic = {
                 json: 'param',
                 xml: 'param',
             };
-            if (paramMap[behaviorMethod.exteriorResource.paramBean.in]) {
-                behaviorMethod.param = paramMap[behaviorMethod.exteriorResource.paramBean.in];
+            if (paramMap[methodResource.paramBean.in]) {
+                behaviorMethod.param = paramMap[methodResource.paramBean.in];
             }
         });
 
