@@ -388,7 +388,7 @@ var remoteApiLogic = {
                 importList.add(property.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
             }
 
-            var nestType = null;
+            var nestType = null; // e.g. WxRequestJsonBodyBody$ToscanaPart
             if (property.items && property.items['$ref']) { // #{ElementItem}
                 nestType = java.net.URLDecoder.decode(property.items['$ref'].replace('#/definitions/', ''), 'UTF-8');
             } else if (property.items && property.items.allOf && property.items.allOf[0]['$ref']) {
@@ -512,7 +512,7 @@ var remoteApiLogic = {
             return rule.nestClassName(topLevelBean.api, nestType.replaceAll('^.*\\$', ''));
         };
 
-        var nestType = '';
+        var nestType = ''; // e.g. WxRequestJsonBodyBody$ToscanaPart
         var typeMap = rule.typeMap();
         if (property.type == 'array') {
             if (rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property)) {
