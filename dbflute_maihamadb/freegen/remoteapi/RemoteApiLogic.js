@@ -77,7 +77,7 @@
  * @property {string} parameterDefinitionRule - The Java code expression of parameter definition for rule method. e.g. e.g. "Consumer<FlutyRemoteApiRule> ruleLambda" (NotNull, EmptyAllowed)
  * @property {string} moreUrl - The Java code expression of e.g. moreUrl(xxx) or noMoreUrl() (NotNull, NotEmpty)
  * @property {string} paramBeanClassName - The type expression of param bean class without package. e.g. ...Param, List<...Param> (NotNull, EmptyAllowed)
- * @property {string} returnBeanClassName - The type expression of return bean class without package.  e.g. ...Return, List<...Return> (NotNull, EmptyAllowed)
+ * @property {string} returnBeanClassName - The type expression of return bean class without package.  e.g. void, ...Return, List<...Return> (NotNull, EmptyAllowed)
  */
 // ↑RequestMethodResourceがロジックの中で入り乱れるので、BehaviorMethodの変数名は exteriorResource (メソッドの外観リソース) にした。(2026/03/15)
 
@@ -187,8 +187,8 @@ var remoteApiLogic = {
                 parameterDefinition: '', // e.g. Consumer<...Param> paramLambda
                 parameterDefinitionRule: '', // e.g. Consumer<FlutyRemoteApiRule> ruleLambda
                 moreUrl: '', // e.g. moreUrl(xxx) or noMoreUrl()
-                paramBeanClassName: null,
-                returnBeanClassName: 'void',
+                paramBeanClassName: null, // e.g. ...Param, List<...Param>
+                returnBeanClassName: 'void', // e.g. void, ...Return, List<...Return>
             };
             behaviorMethodList.push(behaviorMethod);
 
@@ -252,6 +252,7 @@ var remoteApiLogic = {
             if (methodResource.paramBean.className) {
                 behaviorMethod.paramBeanClassName = methodResource.paramBean.className;
                 if (methodResource.paramBeanArray) { // arrayならarray表現で囲う
+                    // paramBeanの方はコールバックで落ちてくるだけなのでListはtypeMap参照せずに固定になっている (2026/03/19)
                     behaviorMethod.paramBeanClassName = 'java.util.List<' + behaviorMethod.paramBeanClassName + '>';
                 }
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
@@ -290,6 +291,10 @@ var remoteApiLogic = {
 
             // requestメソッドをメソッド名と引数で一意に識別する文字列 (生成コードで使われるわけじゃない)
             var behaviorRequestMethodSignature = behaviorMethod.behaviorRequestMethodName + parameterSignature;
+
+            // 同じ引数セットのrequestメソッドがすでに存在していたら、メソッド名にパス変数名を入れる。
+            // #thinking jflute でも、パス変数もparameterListに入ってるから引数だけで区別されるので、どういうケース想定？ (2026/03/19)
+            // e.g. /lido/product/list/ と /lido/product/list/{pageNumber} は、どちらも requestProductList() になるので。
             if (behaviorRequestMethodSignatureList.indexOf(behaviorRequestMethodSignature) >= 0) {
                 methodResource.pathVariables.entrySet().forEach(function(pathVariableEntry) {
                     var pathVariableName = rule.fieldName(methodResource.api, {'in': 'path'}, pathVariableEntry.key);
