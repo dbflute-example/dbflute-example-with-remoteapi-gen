@@ -454,13 +454,13 @@ var remoteApiLogic = {
      * Derive the bean property metadata for the specified property.
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
-     * @param {Object} clazz top level bean class or nest bean class. (NotNull)
-     * @param {Object} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
+     * @param {string} beanClassName The class name without package for the top level or nest bean. (NotNull)
+     * @param {Map.Entry<String, BeanProperty>} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
      * @param {List<String>} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)
      * @param {List<String>} nestTypeList nest type list to avoid auto-generating duplicates. (NotNull)
      * @return {Object} The metadata of the property, having e.g. fieldName, fieldClass. (NotNull, EmptyAllowed: if no target)
      */
-    deriveBeanProperty: function(rule, topLevelBean, clazz, propertyEntry, nestTypeFullNameList, nestTypeList) {
+    deriveBeanProperty: function(rule, topLevelBean, beanClassName, propertyEntry, nestTypeFullNameList, nestTypeList) {
         if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
             // #for_now jflute nullだとvm側でうまく判定できなかったので、fieldName の有無などで判定してもらう (2026/03/09)
             return {};
@@ -474,7 +474,7 @@ var remoteApiLogic = {
             nestType: null,
         };
     
-        var property = propertyEntry.value;
+        var property = propertyEntry.value; // #{BeanProperty}
         // #thinking p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
         property.name = propertyInfo.fieldName;
 
@@ -487,8 +487,8 @@ var remoteApiLogic = {
         }
         
         var description = property.description;
-        if (rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property)) {
-            description = rule.beanPropertyManualMappingDescription(topLevelBean.api, clazz, property);
+        if (rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property)) {
+            description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
         propertyInfo.javadocComment = '/** The property of ' + propertyInfo.fieldName + '. ' + enumValueComment + (property.description ? '(' + property.description + ') ' : '') + (property.required ? '' : '(NullAllowed) ') + '*/';
 
@@ -515,8 +515,8 @@ var remoteApiLogic = {
         var nestType = ''; // e.g. WxRequestJsonBodyBody$ToscanaPart
         var typeMap = rule.typeMap();
         if (property.type == 'array') {
-            if (rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property)) {
-                propertyInfo.fieldClass = typeMap[property.type] + '<' + rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property) + '>';
+            if (rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property)) {
+                propertyInfo.fieldClass = typeMap[property.type] + '<' + rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property) + '>';
             } else if (typeMap[property.items.format]) {
                 propertyInfo.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.format] + '>';
             } else if (typeMap[property.items.type]) {
@@ -531,8 +531,8 @@ var remoteApiLogic = {
                 propertyInfo.fieldClass = typeMap[property.type] + '<' + adjustNestType(rule, topLevelBean, nestType) + '>';
                 propertyInfo.annotationList.push('@javax.validation.Valid');
             }
-        } else if (rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property)) {
-            propertyInfo.fieldClass = rule.beanPropertyManualMappingClass(topLevelBean.api, clazz, property);
+        } else if (rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property)) {
+            propertyInfo.fieldClass = rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property);
         } else if (typeMap[property.format]) {
             propertyInfo.fieldClass = typeMap[property.format];
         } else if (typeMap[property.type]) {
