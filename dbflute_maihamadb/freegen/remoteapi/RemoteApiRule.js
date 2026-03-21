@@ -51,9 +51,10 @@
  */
 
 /**
- * BeanProperty (query、formData、body field) Type.
+ * ApiProperty (query、formData、body field) Type.
  * It means e.g. "parameters": [ { "name": "productId", "type": "integer", ... } ]
  * swagger.json の形そのまま。利用していない項目などは列挙されていない可能性あり。
+ * 自動生成情報のPropertyと区別するために、Apiを接頭辞として付けている。
  * 
  * see below for details.<br/>
  * <ul>
@@ -61,9 +62,9 @@
  *   <li>https://swagger.io/specification/v2/#data-types</li>
  * </ul>
  * 
- * You can search it on code by: #{BeanProperty}
+ * You can search it on code by: #{ApiProperty}
  * 
- * @typedef {Object} BeanProperty
+ * @typedef {Object} ApiProperty
  * @property {string} name - name of property(query、formData、body field). (NotNull, NotEmpty)
  * @property {string} in - The location expression of the property. e.g. query, body. (NotNull, NotEmpty)
  * @property {boolean} required - true if the parameter is required. (NotNull)
@@ -95,7 +96,7 @@
  * BeanSchema Type.
  * It means e.g. "schema": { "$ref": "#/definitions/org.docksi...ncers.BalletDancersPostBody" }
  * swagger.json の形そのまま。利用していない項目などは列挙されていない可能性あり。
- * BeanPropertyのネストBeanや、responsesのBeanにて利用される。
+ * ApiPropertyのネストBeanや、responsesのBeanにて利用される。
  * {Api}のschemaとは全く別物なので注意。
  * 
  * ほとんど以下のパターン;
@@ -130,7 +131,7 @@
  * @property {string} definitionKey - The key identifying definition of the bean on the swagger specification. (NotNull, NotEmpty)
  * @property {string} extendsClass - The extends-class with package of this class. (NullAllowed)
  * @property {string} implementsClasses - The implements-classes (interface) with package of this class. (NullAllowed)
- * @property {BeanProperty[]} properties - The properties of this bean class. (NotNull, EmptyAllowed)
+ * @property {ApiProperty[]} properties - The properties of this bean class. (NotNull, EmptyAllowed)
  * @property {string} beanPurposeType - The type of bean purpose. e.g. param, return (NotNull, NotEmpty)
  * @property {string} remoteApiExp - The expression of the remote api. See the description of the TopLevelBean itself for details. (NotNull, NotEmpty)
  * @property {Map<String, Map<String, Object>>} definitionMap - The map of all "definitions" on swagger.json containing other bean's. (NotNull)
@@ -318,7 +319,7 @@ var baseRule = {
     /**
      * Derive param extends-class (parent class) with package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, ApiProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. org.docksidestage.remote.AbstractSea (NullAllowed: then no extending)
      */
     paramExtendsClass: function(api, properties) {
@@ -329,7 +330,7 @@ var baseRule = {
      * Derive param implements-classes (Interface) with package.
      * You can implements plural interfaces by comma-separeted string.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, ApiProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. "org.docksidestage.remote.Sea, org.docksidestage.remote.Land" (NullAllowed: then no implementing)
      */
     paramImplementsClasses: function(api, properties) {
@@ -352,7 +353,7 @@ var baseRule = {
     /**
      * Derive return extends-class (parent class) with package.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, ApiProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. org.docksidestage.remote.AbstractSea (NullAllowed: then no extending)
      */
     returnExtendsClass: function(api, properties) {
@@ -363,7 +364,7 @@ var baseRule = {
      * Derive return implements-classes (Interface) with package.
      * You can implements plural interfaces by comma-separeted string.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Map<String, BeanProperty>} properties - The information of property for the bean. (NotNull)
+     * @param {Map<String, ApiProperty>} properties - The information of property for the bean. (NotNull)
      * @return {string} e.g. "org.docksidestage.remote.Sea, org.docksidestage.remote.Land" (NullAllowed: then no implementing)
      */
     returnImplementsClasses: function(api, properties) {
@@ -598,7 +599,7 @@ var baseRule = {
      * Manually map classes for the bean property.
      * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} beanClassName - The class name (without package) of the bean for the property, may be nest class. (NotNull)
-     * @param {BeanProperty} property - The information of bean property, having e.g. name, in, required. (NotNull)
+     * @param {ApiProperty} property - The information of bean property, having e.g. name, in, required. (NotNull)
      * @return {string} The class name for the property, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
      */
     beanPropertyManualMappingClass: function(api, beanClassName, property) {

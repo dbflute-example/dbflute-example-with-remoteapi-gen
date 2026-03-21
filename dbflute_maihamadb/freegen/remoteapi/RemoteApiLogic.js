@@ -351,12 +351,12 @@ var remoteApiLogic = {
     // rule.js内ではネストのbeanも区別したいので、topとcurrentを両方入れる、もしくは、stackでチェーン渡しするかしたいところ。
     // そして、rule.js の targetField も刷新したいところ。ただし、互換性のために別関数を用意することにはなる。
     // _/_/_/_/_/_/_/_/
-    // {BeanProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
+    // {ApiProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
     /**
      * Derive the bean import list for the specified properties.
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
-     * @param {Map<String, BeanProperty>} properties API仕様の "properties" に相当するオブジェクト (NotNull)
+     * @param {Map<String, ApiProperty>} properties API仕様の "properties" に相当するオブジェクト (NotNull)
      * @param {List<String>} importList The mutable list of import statement, added by this. (NotNull)
      * @param {Map<String, Object>} definitionMap The mutable map of all schema definitions for remote api. (NotNull)
      */
@@ -448,14 +448,14 @@ var remoteApiLogic = {
     // ===================================================================================
     //                                                              RemoteApiBean Property
     //                                                              ======================
-    // {BeanProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
+    // {ApiProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
     // #hope jflute 戻り値のpropertyInfoをtypedef宣言して明示的なデータ型にしたい (2026/03/13)
     /**
      * Derive the bean property metadata for the specified property.
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
      * @param {string} beanClassName The class name without package for the top level or nest bean. (NotNull)
-     * @param {Map.Entry<String, BeanProperty>} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
+     * @param {Map.Entry<String, ApiProperty>} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
      * @param {List<String>} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)
      * @param {List<String>} nestTypeList nest type list to avoid auto-generating duplicates. (NotNull)
      * @return {Object} The metadata of the property, having e.g. fieldName, fieldClass. (NotNull, EmptyAllowed: if no target)
@@ -474,7 +474,7 @@ var remoteApiLogic = {
             nestType: null,
         };
     
-        var property = propertyEntry.value; // #{BeanProperty}
+        var property = propertyEntry.value; // #{ApiProperty}
         // #thinking p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
         property.name = propertyInfo.fieldName;
 
