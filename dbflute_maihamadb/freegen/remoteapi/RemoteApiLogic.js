@@ -24,7 +24,7 @@
  * BsBehavior Type.
  * Base Behaviorに相当。requestメソッドなどのメソッド情報も保持する。
  * 
- * You can search it on code by: #{ExBehavior}
+ * You can search it on code by: #{BsBehavior}
  * 
  * @typedef {Object} BsBehavior
  * @property {string} package - The full package of this behavior class. (NotNull, NotEmpty)
@@ -178,7 +178,7 @@ var remoteApiLogic = {
         var behaviorRequestMethodSignatureList = [];
         methodResourceList.forEach(function(methodResource) {
             var behaviorApi = methodResource.api;
-            var behaviorMethod = { // #{BehaviorMethod}
+            var behaviorMethod = { // new #{BehaviorMethod}
                 exteriorResource: methodResource,  // #{RequestMethodResource}
                 behaviorRequestMethodName: rule.behaviorRequestMethodName(behaviorApi), // e.g. requestProductList
                 callDoRequestMethodName: null,     // e.g. doRequestGet, doRequestPost
@@ -232,7 +232,7 @@ var remoteApiLogic = {
                 if (!pathVariableDescription) {
                     pathVariableDescription = pathVariable.description;
                 }
-                var pathVariableParameter = { // #{MethodParameter}
+                var pathVariableParameter = { // new #{MethodParameter}
                     'name': pathVariableName,
                     'class': pathVariableClass,
                     'description': 'The value of path variable for ' + pathVariableName + '. ' + enumValueComment
@@ -261,7 +261,7 @@ var remoteApiLogic = {
                 }
                 behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition
                                                      + 'Consumer<' + behaviorMethod.paramBeanClassName + '> paramLambda';
-                var paramParameter = { // #{MethodParameter}
+                var paramParameter = { // new #{MethodParameter}
                     'name': 'paramLambda',
                     'class': 'Consumer',
                     'description': 'The callback for ' + behaviorMethod.paramBeanClassName + '. (NotNull)'

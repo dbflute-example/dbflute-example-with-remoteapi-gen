@@ -112,7 +112,7 @@ function processHull(request) {
         var commonParameters = pathMap[pathKey].parameters;
         for (var methodKey in pathMap[pathKey]) {
             var method = path[methodKey];
-            var api = new java.util.LinkedHashMap(); // #{Api}
+            var api = new java.util.LinkedHashMap(); // new #{Api}
             api.schema = schema;
             api.package = request.package;
             api.url = pathKey;
@@ -158,8 +158,8 @@ function processHull(request) {
         // | Prepare 'Param' beans  |
         // |                        |
         // +------------------------+
-        var pathVariables = new java.util.LinkedHashMap(); // #{PathVariable}
-        var queryProperties = new java.util.LinkedHashMap(); // #{ApiProperty}
+        var pathVariables = new java.util.LinkedHashMap(); // new #{PathVariable}
+        var queryProperties = new java.util.LinkedHashMap(); // new #{ApiProperty}
         var formDataProperties = new java.util.LinkedHashMap(); // me too
         var bodyProperties = new java.util.LinkedHashMap(); // me too
         var paramBean = new java.util.LinkedHashMap();
@@ -349,7 +349,7 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
         package = package + '.' + subPackage;
     }
 
-    var remoteApiBean = new java.util.LinkedHashMap(); // #{TopLevelBean}
+    var remoteApiBean = new java.util.LinkedHashMap(); // new #{TopLevelBean}
     remoteApiBean.api = api;
     remoteApiBean.package = package;
 
@@ -396,13 +396,13 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
     }
     var className = rule.exBehaviorClassName(api);
     if (!exBehaviorMap[package + '.' + className]) { // 新しく登録されるBehaviorなら
-        var exBehavior = new java.util.LinkedHashMap(); // #{ExBehavior}
+        var exBehavior = new java.util.LinkedHashMap(); // new #{ExBehavior}
         exBehavior.package = package;
         exBehavior.className = className;
         exBehavior.remoteApiExp = subPackage;
         exBehaviorMap[package + '.' + className] = exBehavior;
 
-        var bsBehavior = new java.util.LinkedHashMap();
+        var bsBehavior = new java.util.LinkedHashMap(); //  new #{BsBehavior}
         bsBehavior.package = package; // base behaviorも同じパッケージ
         bsBehavior.className = rule.bsBehaviorClassName(api);
         bsBehavior.remoteApiExp = subPackage;
@@ -410,7 +410,8 @@ function keepBehavior(rule, api, pathVariables, paramBean, paramBeanArray, retur
         exBehavior.bsBehavior = bsBehavior;
     }
     // 新しく登録されたBehaviorでも、すでに登録されているBehaviorでも
-    var requestMethodResource = { 'api': api,
+    var requestMethodResource = { // new #{RequestMethodResource}
+        'api': api,
         'pathVariables': pathVariables, 
         'paramBean': paramBean, 'paramBeanArray': paramBeanArray,
         'returnBean': returnBean, 'returnBeanArray': returnBeanArray
