@@ -228,7 +228,6 @@ function processHull(request) {
         // | Prepare 'Return' beans  |
         // |                         |
         // +-------------------------+
-        var returnProperties = new java.util.LinkedHashMap();
         var returnBean = new java.util.LinkedHashMap();
         var returnBeanArray = false;
 
@@ -257,8 +256,8 @@ function processHull(request) {
                     definitionKey = rule.definitionKey(definitionKey);
                     var definition = definitionMap[definitionKey];
                     if (definition) {
-                        var returnProperties = definition.properties;
-                        if (!returnProperties.isEmpty()) {
+                        var returnProperties = definition.properties; // may be null (2026/03/22)
+                        if (returnProperties != null && !returnProperties.isEmpty()) {
                             for (returnPropertyKey in returnProperties) {
                                 var returnPropertyValue = returnProperties[returnPropertyKey];
                                 var required = definitionMap[rule.definitionKey(definitionKey)].required;
