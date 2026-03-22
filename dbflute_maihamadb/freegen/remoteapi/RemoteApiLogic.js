@@ -81,6 +81,32 @@
  */
 // ↑RequestMethodResourceがロジックの中で入り乱れるので、BehaviorMethodの変数名は exteriorResource (メソッドの外観リソース) にした。(2026/03/15)
 
+/**
+ * BeanProperty Type.
+ * 自動生成されるBeanクラスの 1 Property情報に相当。主に自動生成コードの情報。
+ * 
+ * You can search it on code by: #{BeanProperty}
+ * 
+ * @typedef {Object} BeanProperty
+ * @property {string} fieldName - The instance variable (field) name of the property. (NotNull, NotEmpty)
+ * @property {string[]} annotationList - The Java code expression of annotation for the instance variable. e.g. "@Required" (NotNull)
+ * @property {string} javadocComment - The whole expression of Javadoc for the instance variable. (NotNull, NotEmpty)
+ * @property {string} fieldClass - The class name (without package if necessary) of the instance variable. (NotNull, NotEmpty)
+ * @property {BeanNestBean} nestBean - The metadata of nest bean for the property. (NullAllowed: when no nest)
+ */
+
+/**
+ * BeanNestBean Type.
+ * BeanのネストクラスのBeanの総合情報に相当。主に自動生成コードの情報。
+ * 
+ * You can search it on code by: #{BeanNestBean}
+ * 
+ * @typedef {Object} BeanNestBean
+ * @property {string} nestType - The class name with package of nest class. (NotNull, NotEmpty)
+ * @property {BeanProperty} propertyList - The list of bean property for the nest bean. (NotNull, NotEmpty)
+ */
+
+
 var remoteApiLogic = {
 
     // ===================================================================================
@@ -377,7 +403,7 @@ var remoteApiLogic = {
             if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
                 return; // to avoid unused import statement (2026/03/12)
             }
-            var property = propertyEntry.value;
+            var property = propertyEntry.value; // #{ApiProperty}
             if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, propertyEntry.key)) {
                 importList.add('com.google.gson.annotations.SerializedName');
             } else if (topLevelBean.in === 'xml') {
@@ -388,7 +414,7 @@ var remoteApiLogic = {
                 importList.add(property.type === 'array' ? 'javax.validation.constraints.NotNull' : 'org.lastaflute.web.validation.Required');
             }
 
-            var nestType = null; // e.g. WxRequestJsonBodyBody$ToscanaPart
+            var nestType = null; // e.g. org.docksidestage.app.web.wx.request.json.WxRequestJsonBodyBody$ToscanaPart
             if (property.items && property.items['$ref']) { // #{ElementItem}
                 nestType = java.net.URLDecoder.decode(property.items['$ref'].replace('#/definitions/', ''), 'UTF-8');
             } else if (property.items && property.items.allOf && property.items.allOf[0]['$ref']) {
@@ -449,7 +475,7 @@ var remoteApiLogic = {
     //                                                              RemoteApiBean Property
     //                                                              ======================
     // {ApiProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
-    // #hope jflute 戻り値のpropertyInfoをtypedef宣言して明示的なデータ型にしたい (2026/03/13)
+    // #hope jflute 戻り値のbeanPropertyをtypedef宣言して明示的なデータ型にしたい (2026/03/13)
     /**
      * Derive the bean property metadata for the specified property.
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
@@ -458,7 +484,7 @@ var remoteApiLogic = {
      * @param {Map.Entry<String, ApiProperty>} propertyEntry top level bean class or nest bean class property entry of properties. (NotNull)
      * @param {List<String>} nestTypeFullNameList nest type full name list to avoid auto-generating duplicates. (NotNull)
      * @param {List<String>} nestTypeList nest type list to avoid auto-generating duplicates. (NotNull)
-     * @return {Object} The metadata of the property, having e.g. fieldName, fieldClass. (NotNull, EmptyAllowed: if no target)
+     * @return {BeanProperty} The metadata of the property, having e.g. fieldName, fieldClass. (NotNull, EmptyAllowed: if no target)
      */
     deriveBeanProperty: function(rule, topLevelBean, beanClassName, propertyEntry, nestTypeFullNameList, nestTypeList) {
         if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
@@ -466,17 +492,19 @@ var remoteApiLogic = {
             return {};
         }
 
-        var propertyInfo = {
+        var beanProperty = { // new #{BeanProperty}
             fieldName: rule.fieldName(topLevelBean.api, topLevelBean, propertyEntry.key),
             annotationList: [],
             javadocComment: null,
             fieldClass: null,
-            nestType: null,
+            nestBean: null, // #{BeanNestBean}
         };
     
         var property = propertyEntry.value; // #{ApiProperty}
+
         // #thinking p1us2er0 temporary for beanPropertyManualMappingDescription. (2017/10/10)
-        property.name = propertyInfo.fieldName;
+        // #thinking jflute rule.js の fieldName() で微調整された名前を rule.js の別の関数で参照させるためにってこと？ (2026/03/22)
+        property.name = beanProperty.fieldName;
 
         // javadoc comment
         var enumValueComment = '';
@@ -485,42 +513,47 @@ var remoteApiLogic = {
         } else if (property.items && property.items.enum) {
             enumValueComment = '(enumValue=' + property.items.enum + ') ';
         }
-        
+
         var description = property.description;
         if (rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property)) {
             description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
-        propertyInfo.javadocComment = '/** The property of ' + propertyInfo.fieldName + '. ' + enumValueComment + (property.description ? '(' + property.description + ') ' : '') + (property.required ? '' : '(NullAllowed) ') + '*/';
+        beanProperty.javadocComment = '/** The property of ' + beanProperty.fieldName + '. ' + enumValueComment
+                                      + (property.description ? '(' + property.description + ') ' : '')
+                                      + (property.required ? '' : '(NullAllowed) ') + '*/';
 
         // annotation
         var serializedNameTargetList = ['query', 'formData', 'json'];
         if (serializedNameTargetList.indexOf(topLevelBean.in) >= 0 && rule.isCustomFieldName(topLevelBean.api, topLevelBean, propertyEntry.key)) {
-            propertyInfo.annotationList.push('@SerializedName("' + propertyEntry.key + '")');
+            beanProperty.annotationList.push('@SerializedName("' + propertyEntry.key + '")');
         } else if (topLevelBean.in == 'xml') {
-            propertyInfo.annotationList.push('@XmlElement(name = "' + propertyEntry.key + '")');
+            beanProperty.annotationList.push('@XmlElement(name = "' + propertyEntry.key + '")');
         }
         if (property.required) {
-            propertyInfo.annotationList.push(property.type == 'array' ? '@NotNull' : '@Required');
+            beanProperty.annotationList.push(property.type == 'array' ? '@NotNull' : '@Required');
         }
 
         // field class
         var adjustNestType = function(rule, topLevelBean, nestType) {
             var index = nestType.lastIndexOf('.');
-            if (index != -1) {
+            if (index != -1) { // basically true
+                // e.g. org.docksidestage.app.web.wx.request.json.WxRequestJsonBodyBody$ToscanaPart
+                //      => WxRequestJsonBodyBody$ToscanaPart
                 nestType = nestType.substring(index + 1);
             }
-            return rule.nestClassName(topLevelBean.api, nestType.replaceAll('^.*\\$', ''));
+            var pureNestClassName = nestType.replaceAll('^.*\\$', ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
+            return rule.nestClassName(topLevelBean.api, pureNestClassName); // e.g. ProductRowBean => ProductRowPart
         };
 
-        var nestType = ''; // e.g. WxRequestJsonBodyBody$ToscanaPart
-        var typeMap = rule.typeMap();
+        var nestType = ''; // e.g. org.docksidestage.app.web.wx.request.json.WxRequestJsonBodyBody$ToscanaPart
+        var typeMap = rule.typeMap(); // e.g. { ..., 'int32': 'Integer', ..., 'string': 'String', ... }
         if (property.type == 'array') {
             if (rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property)) {
-                propertyInfo.fieldClass = typeMap[property.type] + '<' + rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property) + '>';
+                beanProperty.fieldClass = typeMap[property.type] + '<' + rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property) + '>';
             } else if (typeMap[property.items.format]) {
-                propertyInfo.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.format] + '>';
+                beanProperty.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.format] + '>';
             } else if (typeMap[property.items.type]) {
-                propertyInfo.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.type] + '>';
+                beanProperty.fieldClass = typeMap[property.type] + '<' + typeMap[property.items.type] + '>';
             } else if (property.items['$ref'] || (property.items && property.items.allOf[0]['$ref'])) {
                 if (property.items['$ref']) {
                     nestType = java.net.URLDecoder.decode(property.items['$ref'].replace('#/definitions/', ''), 'UTF-8');
@@ -528,31 +561,31 @@ var remoteApiLogic = {
                     nestType = java.net.URLDecoder.decode(property.items.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
                 }
 
-                propertyInfo.fieldClass = typeMap[property.type] + '<' + adjustNestType(rule, topLevelBean, nestType) + '>';
-                propertyInfo.annotationList.push('@javax.validation.Valid');
+                beanProperty.fieldClass = typeMap[property.type] + '<' + adjustNestType(rule, topLevelBean, nestType) + '>';
+                beanProperty.annotationList.push('@javax.validation.Valid');
             }
         } else if (rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property)) {
-            propertyInfo.fieldClass = rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property);
+            beanProperty.fieldClass = rule.beanPropertyManualMappingClass(topLevelBean.api, beanClassName, property);
         } else if (typeMap[property.format]) {
-            propertyInfo.fieldClass = typeMap[property.format];
+            beanProperty.fieldClass = typeMap[property.format];
         } else if (typeMap[property.type]) {
-            propertyInfo.fieldClass = typeMap[property.type];
+            beanProperty.fieldClass = typeMap[property.type];
         } else if (property['$ref'] || property.allOf[0]['$ref']) {
             if (property['$ref']) {
                 nestType = java.net.URLDecoder.decode(property['$ref'].replace('#/definitions/', ''), 'UTF-8');
             } else if (property.allOf[0]['$ref']) {
                 nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
             }
-            propertyInfo.fieldClass = adjustNestType(rule, topLevelBean, nestType);
-            propertyInfo.annotationList.push('@javax.validation.Valid');
+            beanProperty.fieldClass = adjustNestType(rule, topLevelBean, nestType);
+            beanProperty.annotationList.push('@javax.validation.Valid');
         }
 
-        if (propertyInfo.fieldClass == '') {
-            propertyInfo.fieldClass = typeMap[''];
+        if (beanProperty.fieldClass == '') {
+            beanProperty.fieldClass = typeMap[''];
         }
 
-        // @return The information of nest type, having e.g. nestType, propertyList. (NullAllowed: when no nest)
-        var deriveNestType = function(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList) {
+        // @return The metadata of nest type, having e.g. nestType, propertyList. (NullAllowed: when no nest)
+        var deriveNestBean = function(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList) {
             if (!nestType
                     || nestTypeList.contains(nestType)
                     || nestTypeFullNameList.contains(nestType)
@@ -563,7 +596,7 @@ var remoteApiLogic = {
             nestTypeList.add(nestType);
             nestTypeFullNameList.add(java.lang.String.join('_', nestTypeList));
     
-            var nestTypeInfo = {
+            var beanNestBean = { // new #{BeanNestBean}
                 nestType: adjustNestType(rule, topLevelBean, nestType),
                 propertyList: [],
             };
@@ -575,18 +608,23 @@ var remoteApiLogic = {
                     nestProperties.entrySet().forEach(function(nestPropertyEntry) {
                         if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
                             // recursive call here
-                            var nestPropertyInfo = remoteApiLogic.deriveBeanProperty(rule, topLevelBean, nestType, nestPropertyEntry, nestTypeFullNameList, nestTypeList);
-                            nestTypeInfo.propertyList.push(nestPropertyInfo);
+                            var nestBeanProperty = remoteApiLogic.deriveBeanProperty(rule // #{BeanProperty}
+                                                                                   , topLevelBean
+                                                                                   , nestType
+                                                                                   , nestPropertyEntry
+                                                                                   , nestTypeFullNameList
+                                                                                   , nestTypeList);
+                            beanNestBean.propertyList.push(nestBeanProperty);
                         }
                     });
                 }
             }
             nestTypeList.remove(nestTypeList.size() - 1);
-            return nestTypeInfo;
+            return beanNestBean;
         };
-        propertyInfo.nestType = deriveNestType(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList);
+        beanProperty.nestBean = deriveNestBean(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList);
 
-        return propertyInfo;
+        return beanProperty;
     },
 
     // ===================================================================================

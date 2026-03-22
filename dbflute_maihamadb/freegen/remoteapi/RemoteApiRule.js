@@ -589,7 +589,7 @@ var baseRule = {
      * Manually map classes for the path variable.
      * @param {Api} api - The API metadata as current. (NotNull)
      * @param {PathVariable} pathVariable - The information of path variable, having e.g. name, in, required. (NotNull)
-     * @return {string} The class name for the path variable, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
+     * @return {string} The class name (without package if necessary) for the path variable, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
      */
     pathVariableManualMappingClass: function(api, pathVariable) {
         return null;
@@ -600,7 +600,7 @@ var baseRule = {
      * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} beanClassName - The class name (without package) of the bean for the property, may be nest class. (NotNull)
      * @param {ApiProperty} property - The information of bean property, having e.g. name, in, required. (NotNull)
-     * @return {string} The class name for the property, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
+     * @return {string} The class name (without package if necessary) for the property, e.g. String, Integer, java.time.LocalDate (NullAllowed: then as default)
      */
     beanPropertyManualMappingClass: function(api, beanClassName, property) {
         return null;
@@ -620,7 +620,7 @@ var baseRule = {
      * Manually map description for the bean property.
      * @param {Api} api - The API metadata as current. (NotNull)
      * @param {string} beanClassName - The class name (without package) of the bean for the property, may be nest class. (NotNull)
-     * @param {Property} property - The information of property, having e.g. name, in, required. (NotNull)
+     * @param {ApiProperty} property - The information of API property, having e.g. name, in, required. (NotNull)
      * @return {string} The description about the property. (NullAllowed: then as default)
      */
     beanPropertyManualMappingDescription: function(api, beanClassName, property) {
