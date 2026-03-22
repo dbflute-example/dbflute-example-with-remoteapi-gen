@@ -475,7 +475,6 @@ var remoteApiLogic = {
     //                                                              RemoteApiBean Property
     //                                                              ======================
     // {ApiProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
-    // #hope jflute 戻り値のbeanPropertyをtypedef宣言して明示的なデータ型にしたい (2026/03/13)
     /**
      * Derive the bean property metadata for the specified property.
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
@@ -494,9 +493,9 @@ var remoteApiLogic = {
 
         var beanProperty = { // new #{BeanProperty}
             fieldName: rule.fieldName(topLevelBean.api, topLevelBean, propertyEntry.key),
-            annotationList: [],
-            javadocComment: null,
-            fieldClass: null,
+            annotationList: [], // e.g. @Required, @javax.validation.Valid
+            javadocComment: null, // e.g. /** ... */
+            fieldClass: null, // e.g. String, Integer, ToscanaPart, java.util.List<ToscanaPart>
             nestBean: null, // #{BeanNestBean}
         };
     
@@ -597,8 +596,8 @@ var remoteApiLogic = {
             nestTypeFullNameList.add(java.lang.String.join('_', nestTypeList));
     
             var beanNestBean = { // new #{BeanNestBean}
-                nestType: adjustNestType(rule, topLevelBean, nestType),
-                propertyList: [],
+                nestType: adjustNestType(rule, topLevelBean, nestType), // e.g. ToscanaPart
+                propertyList: [], // #{BeanProperty}
             };
 
             var nestDefinition = topLevelBean.definitionMap[nestType];
