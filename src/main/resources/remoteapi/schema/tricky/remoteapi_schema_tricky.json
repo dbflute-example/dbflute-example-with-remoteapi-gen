@@ -258,6 +258,53 @@
         ]
       }
     },
+    "/urlcharacter/:pathcolon/": {
+      "get": {
+        "summary": "@author jflute",
+        "description": "colon in path variable",
+        "parameters": [
+          {
+            "name": "sea_id",
+            "type": "integer",
+            "format": "int32",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "landName",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "piari",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "BONVO",
+            "type": "string",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.FieldCaseMixedResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/url.character/dot": {
       "get": {
         "summary": "@author jflute",

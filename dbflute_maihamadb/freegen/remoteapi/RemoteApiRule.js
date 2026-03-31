@@ -170,7 +170,7 @@ var baseRule = {
      * @return {string} e.g. org.docksidestage.remote (NotNull, NotEmpty)
      */
     schemaPackage: function(schema) {
-        return manager.decamelize(schema).replace(/_/g, '.').toLowerCase();
+        return manager.decamelize(schema).replace(/_/g, '.').replace(/:/g, '').toLowerCase();
     },
 
     /**
@@ -205,7 +205,7 @@ var baseRule = {
         // 1. Remove symbols that cannot be used in java package name. And remove leading and trailing slashes.
         // 2. Remove path variable.
         // 3. Replace slashes with dots.
-        return api.url.replace(/(_|-|\.|^\/|\/$)/g, '').replace(/\/\{.*?\}/g, '').replace(/\//g, '.').toLowerCase();
+        return api.url.replace(/(_|-|\.|^\/|:|\/$)/g, '').replace(/\/\{.*?\}/g, '').replace(/\//g, '.').toLowerCase();
     },
 
     // ===================================================================================
@@ -250,7 +250,7 @@ var baseRule = {
      * @return {string} e.g. BsRemoteFortressLidoBhv (for /lido/...) (NotNull, NotEmpty)
      */
     bsBehaviorClassName: function(api) {
-        return 'BsRemote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
+        return 'BsRemote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_').replace(/:/g, ''))) + 'Bhv';
     },
 
     /**
@@ -259,7 +259,7 @@ var baseRule = {
      * @return {string} e.g. RemoteFortressLidoBhv (for /lido/...) (NotNull, NotEmpty)
      */
     exBehaviorClassName: function(api) {
-        return 'Remote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_'))) + 'Bhv';
+        return 'Remote' + api.schema + manager.initCap(manager.camelize(this.behaviorSubPackage(api).replace(/\./g, '_').replace(/:/g, ''))) + 'Bhv';
     },
 
     /**
@@ -268,7 +268,7 @@ var baseRule = {
      * @return {string} e.g. requestProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     behaviorRequestMethodName: function(api) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
+        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_').replace(/:/g, ''));
         return 'request' + manager.initCap(methodPart) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
     },
 
@@ -278,7 +278,7 @@ var baseRule = {
      * @return {string} e.g. ruleOfProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     behaviorRuleMethodName: function(api) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
+        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_').replace(/:/g, ''));
         return 'ruleOf' + manager.initCap(methodPart) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
     },
 
@@ -310,7 +310,7 @@ var baseRule = {
      */
     beanClassName: function(api, detail) {
         var namePart = detail ? api.url.replace(/(_|-|^\/|\/$|\{|\})/g, '').replace(/\//g, '_').toLowerCase() : this.subPackage(api);
-        return 'Remote' + manager.initCap(manager.camelize(namePart.replace(/\./g, '_'))) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
+        return 'Remote' + manager.initCap(manager.camelize(namePart.replace(/\./g, '_').replace(/:/g, ''))) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
     },
 
     // -----------------------------------------------------
