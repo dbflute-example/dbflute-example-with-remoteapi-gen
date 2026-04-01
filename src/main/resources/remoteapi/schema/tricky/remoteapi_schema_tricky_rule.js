@@ -25,8 +25,17 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
 // test of #5 Derived from swagger field name to java field name (add @SerializedName) 
 // @Override
 remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
-  customJsonFieldName = jsonFieldName.replace(/[*-]/, '').replace(/1/, 'one');
-  return baseRule.fieldName.bind(this)(api, topLevelBean, customJsonFieldName);
+  // いったん元のサンプルを維持するために、bind(this) したりしなかったり
+  if (api.url.contains('/ngchar/')) {
+    var customJsonFieldName = jsonFieldName.replace(/[*-]/, '').replace(/1/, 'one');
+    return baseRule.fieldName.bind(this)(api, topLevelBean, customJsonFieldName);
+  } else if (api.url.contains('/numbercamel/')) {
+    var customJsonFieldName = jsonFieldName.replace(/3/, 'three');
+    return baseRule.fieldName(api, topLevelBean, customJsonFieldName);
+  } else {
+    var customJsonFieldName = jsonFieldName;
+    return baseRule.fieldName.bind(this)(api, topLevelBean, customJsonFieldName);
+  }
 }
 
 // test of suffix hell e.g. result result headache

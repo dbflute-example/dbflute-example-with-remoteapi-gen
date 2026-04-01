@@ -198,6 +198,138 @@
         ]
       }
     },
+    "/fieldcase/numbercamel/": {
+      "get": {
+        "summary": "@author jflute",
+        "description": "contains number camal case headache.",
+        "parameters": [
+          {
+            "name": "sea_id_1",
+            "type": "integer",
+            "format": "int32",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "land_2_name",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "3_piari",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "bonvo4_4dstore",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "amba5",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.fieldcase.FieldCaseNumberCamelResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "@author jflute",
+        "description": "contains number camal case headache.",
+        "parameters": [
+          {
+            "name": "sea_id_1",
+            "type": "integer",
+            "format": "int32",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "land_2_name",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "3_piari",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "bonvo4_4dstore",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+          {
+            "name": "amba5",
+            "type": "string",
+            "in": "formData",
+            "required": false
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.fieldcase.FieldCaseNumberCamelResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "put": {
+        "summary": "@author jflute",
+        "description": "contains number camal case headache.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.fieldcase.FieldCaseNumberCamelBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.fieldcase.FieldCaseNumberCamelResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/urlcharacter/hyphen-hyphen/": {
       "get": {
         "summary": "@author jflute",
@@ -471,6 +603,48 @@
         "unchanged": {
           "type": "string"
         }
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.fieldcase.FieldCaseNumberCamelBody": {
+      "type": "object",
+      "properties": {
+        "sea_id_1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "land_2_name": {
+          "type": "string"
+        },
+        "3_piari": {
+          "type": "string"
+        },
+        "bonvo4_4dstore": {
+          "type": "string"
+        },
+        "amba5": {
+          "type": "string"
+        },
+      }
+    },
+    "org.docksidestage.remote.swagger.tricky.fieldcase.FieldCaseNumberCamelResult": {
+      "type": "object",
+      "properties": {
+        "sea_id_1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "land_2_name": {
+          "type": "string"
+        },
+        "3_piari": {
+          "type": "string"
+        },
+        "bonvo4_4dstore": {
+          "type": "string"
+        },
+        "amba5": {
+          "type": "string"
+        },
       }
     },
     "org.docksidestage.remote.swagger.tricky.SchemaallofSimpleBody": {

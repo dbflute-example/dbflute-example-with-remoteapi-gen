@@ -27,6 +27,12 @@ import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharPut
 import org.docksidestage.remote.tricky.fieldcase.ngchar.RemoteFieldcaseNgcharPutReturn;
 import org.docksidestage.remote.tricky.fieldcase.noconv.RemoteFieldcaseNoconvParam;
 import org.docksidestage.remote.tricky.fieldcase.noconv.RemoteFieldcaseNoconvReturn;
+import org.docksidestage.remote.tricky.fieldcase.numbercamel.RemoteFieldcaseNumbercamelGetParam;
+import org.docksidestage.remote.tricky.fieldcase.numbercamel.RemoteFieldcaseNumbercamelGetReturn;
+import org.docksidestage.remote.tricky.fieldcase.numbercamel.RemoteFieldcaseNumbercamelPostParam;
+import org.docksidestage.remote.tricky.fieldcase.numbercamel.RemoteFieldcaseNumbercamelPostReturn;
+import org.docksidestage.remote.tricky.fieldcase.numbercamel.RemoteFieldcaseNumbercamelPutParam;
+import org.docksidestage.remote.tricky.fieldcase.numbercamel.RemoteFieldcaseNumbercamelPutReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -204,5 +210,124 @@ public abstract class BsRemoteTrickyFieldcaseBhv extends AbstractRemoteTrickyBhv
      * @param rule The rule that class default rule is already set. (NotNull)
      */
     protected void ruleOfNgcharPut(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /fieldcase/numbercamel/. (auto-generated method)<br>
+     * <pre>
+     * url: /fieldcase/numbercamel/
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteFieldcaseNumbercamelGetParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteFieldcaseNumbercamelGetReturn requestNumbercamelGet(Consumer<RemoteFieldcaseNumbercamelGetParam> paramLambda) {
+        return doRequestNumbercamelGet(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /fieldcase/numbercamel/. (auto-generated method)<br>
+     * <pre>
+     * url: /fieldcase/numbercamel/
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteFieldcaseNumbercamelGetParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteFieldcaseNumbercamelGetReturn doRequestNumbercamelGet(Consumer<RemoteFieldcaseNumbercamelGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteFieldcaseNumbercamelGetParam param = new RemoteFieldcaseNumbercamelGetParam();
+        paramLambda.accept(param);
+        return doRequestGet(RemoteFieldcaseNumbercamelGetReturn.class, "/fieldcase/numbercamel/", noMoreUrl(), query(param), rule -> {
+            ruleOfNumbercamelGet(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /fieldcase/numbercamel/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfNumbercamelGet(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /fieldcase/numbercamel/. (auto-generated method)<br>
+     * <pre>
+     * url: /fieldcase/numbercamel/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteFieldcaseNumbercamelPostParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteFieldcaseNumbercamelPostReturn requestNumbercamelPost(Consumer<RemoteFieldcaseNumbercamelPostParam> paramLambda) {
+        return doRequestNumbercamelPost(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /fieldcase/numbercamel/. (auto-generated method)<br>
+     * <pre>
+     * url: /fieldcase/numbercamel/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteFieldcaseNumbercamelPostParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteFieldcaseNumbercamelPostReturn doRequestNumbercamelPost(Consumer<RemoteFieldcaseNumbercamelPostParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteFieldcaseNumbercamelPostParam param = new RemoteFieldcaseNumbercamelPostParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteFieldcaseNumbercamelPostReturn.class, "/fieldcase/numbercamel/", noMoreUrl(), param, rule -> {
+            rule.sendBodyBy(
+                    new org.lastaflute.remoteapi.sender.body.LaFormSender(new org.dbflute.remoteapi.mapping.FlVacantMappingPolicy()));
+            ruleOfNumbercamelPost(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /fieldcase/numbercamel/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfNumbercamelPost(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /fieldcase/numbercamel/. (auto-generated method)<br>
+     * <pre>
+     * url: /fieldcase/numbercamel/
+     * httpMethod: PUT
+     * </pre>
+     * @param paramLambda The callback for RemoteFieldcaseNumbercamelPutParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteFieldcaseNumbercamelPutReturn requestNumbercamelPut(Consumer<RemoteFieldcaseNumbercamelPutParam> paramLambda) {
+        return doRequestNumbercamelPut(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /fieldcase/numbercamel/. (auto-generated method)<br>
+     * <pre>
+     * url: /fieldcase/numbercamel/
+     * httpMethod: PUT
+     * </pre>
+     * @param paramLambda The callback for RemoteFieldcaseNumbercamelPutParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteFieldcaseNumbercamelPutReturn doRequestNumbercamelPut(Consumer<RemoteFieldcaseNumbercamelPutParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteFieldcaseNumbercamelPutParam param = new RemoteFieldcaseNumbercamelPutParam();
+        paramLambda.accept(param);
+        return doRequestPut(RemoteFieldcaseNumbercamelPutReturn.class, "/fieldcase/numbercamel/", noMoreUrl(), param, rule -> {
+            ruleOfNumbercamelPut(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /fieldcase/numbercamel/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfNumbercamelPut(FlutyRemoteApiRule rule) {
     }
 }
