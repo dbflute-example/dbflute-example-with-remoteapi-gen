@@ -30,6 +30,9 @@ remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
     // アスタリスクやハイフンなどの変数名で使えないものを_にしたり、先頭の数字をアルファベットに変えたり。
     var customJsonFieldName = jsonFieldName.replace(/[*-]/, '_').replace(/^1/, 'one');
     return baseRule.fieldName(api, topLevelBean, customJsonFieldName);
+  } else if (api.url.contains('/noconv/')) {
+    // ケース混在のケースなので、キャメル変換させずまんまの形で表現させるために super 側を呼ばない。
+    return jsonFieldName;
   } else if (api.url.contains('/numbercamel/')) {
     var customJsonFieldName = jsonFieldName.replace(/3/, 'three');
     return baseRule.fieldName(api, topLevelBean, customJsonFieldName);
