@@ -25,21 +25,18 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RemoteFieldcaseNumbercamelPostReturn {
 
-    /** The property of seaId1. (NullAllowed) */
-    @SerializedName("sea_id_1")
-    public Integer seaId1;
+    /** The property of sea_id_1. (NullAllowed) */
+    public Integer sea_id_1;
 
-    /** The property of land2Name. (NullAllowed) */
-    @SerializedName("land_2_name")
-    public String land2Name;
+    /** The property of land_2_name. (NullAllowed) */
+    public String land_2_name;
 
-    /** The property of threePiari. (NullAllowed) */
+    /** The property of three_piari. (NullAllowed) */
     @SerializedName("3_piari")
-    public String threePiari;
+    public String three_piari;
 
-    /** The property of bonvo44dstore. (NullAllowed) */
-    @SerializedName("bonvo4_4dstore")
-    public String bonvo44dstore;
+    /** The property of bonvo4_4dstore. (NullAllowed) */
+    public String bonvo4_4dstore;
 
     /** The property of amba5. (NullAllowed) */
     public String amba5;
