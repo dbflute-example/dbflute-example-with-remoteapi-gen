@@ -25,9 +25,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RemoteFieldcaseNgcharPostParam {
 
-    /** The property of seaid. (NullAllowed) */
+    /** The property of seaId. (NullAllowed) */
     @SerializedName("sea*id")
-    public Integer seaid;
+    public Integer seaId;
 
     /** The property of landName. (NullAllowed) */
     @SerializedName("land-Name")

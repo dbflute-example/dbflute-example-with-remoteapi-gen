@@ -25,13 +25,13 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RemoteFieldcaseNgcharPutReturn {
 
-    /** The property of hangarid. (NullAllowed) */
+    /** The property of hangarId. (NullAllowed) */
     @SerializedName("hangar*id")
-    public Integer hangarid;
+    public Integer hangarId;
 
-    /** The property of onemanname. (NullAllowed) */
+    /** The property of onemanName. (NullAllowed) */
     @SerializedName("oneman-name")
-    public String onemanname;
+    public String onemanName;
 
     /** The property of onePiari. (NullAllowed) */
     @SerializedName("1Piari")

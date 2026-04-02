@@ -27,12 +27,14 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
 remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
   // いったん元のサンプルを維持するために、bind(this) したりしなかったり
   if (api.url.contains('/ngchar/')) {
-    var customJsonFieldName = jsonFieldName.replace(/[*-]/, '').replace(/1/, 'one');
-    return baseRule.fieldName.bind(this)(api, topLevelBean, customJsonFieldName);
+    // アスタリスクやハイフンなどの変数名で使えないものを_にしたり、先頭の数字をアルファベットに変えたり。
+    var customJsonFieldName = jsonFieldName.replace(/[*-]/, '_').replace(/^1/, 'one');
+    return baseRule.fieldName(api, topLevelBean, customJsonFieldName);
   } else if (api.url.contains('/numbercamel/')) {
     var customJsonFieldName = jsonFieldName.replace(/3/, 'three');
     return baseRule.fieldName(api, topLevelBean, customJsonFieldName);
   } else {
+    // #for_now jflute 元のテストが bind(this) で、super側のキャメル変換を抑制していたのでとりあえずそのまま (2026/04/02)
     var customJsonFieldName = jsonFieldName;
     return baseRule.fieldName.bind(this)(api, topLevelBean, customJsonFieldName);
   }
