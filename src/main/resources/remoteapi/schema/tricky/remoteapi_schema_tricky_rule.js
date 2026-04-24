@@ -37,6 +37,8 @@ remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
 
   // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
   // 数字キャメル問題: sea_land_1 が seaLand1 になって、Gsonの逆キャメルで sea_land1 になっちゃう。
+  //
+  // <追記> バージョン運用版からは、回避策3で自然解決されてるっぽい。回避策1,2が不要。 (2026/04/24)
   // _/_/_/_/_/_/_/_/
   } else if (api.url.contains('/numbercamel/') && api.httpMethod === 'get') {
     // 回避策1: 数字をアルファベットにしてしまう。
@@ -51,8 +53,9 @@ remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
     var customName = jsonFieldName.replace(/^3/, 'three'); // 先頭数字だけアルファベット変換 (テストケースとしてたまたま)
     return baseRule.fieldName.bind(this)(api, topLevelBean, customName); // キャメル変換しないようにbind
   } else if (api.url.contains('/numbercamel/') && api.httpMethod === 'put') {
-    // まんまキャメルケースにするとこうなるのパターン。
-    // #for_now jflute 回避策3何かあるかな？ (2026/04/02)
+    // 回避策3: まんまキャメルケースにすれば自然と @SerializedName が付与される。 (2026/04/24)
+    // isCustomFieldName() で逆キャメルを試して判断をしている。
+    // 昔のRemoteApiGenではこうならない、バージョン運用版から改善されたってことかな？
     var customName = jsonFieldName.replace(/^3/, 'three'); // 先頭数字だけアルファベット変換 (テストケースとしてたまたま)
     return baseRule.fieldName(api, topLevelBean, customName) // superを呼んでキャメル変換もする
   } else {
