@@ -17,14 +17,17 @@ package org.docksidestage.remote.tricky.urlcharacter.pathcolon;
 
 import org.lastaflute.core.util.Lato;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The bean class as return for remote API of GET /urlcharacter/:pathcolon/.
  * @author FreeGen
  */
 public class RemoteUrlcharacterPathcolonReturn {
 
-    /** The property of hangar_id. (NullAllowed) */
-    public Integer hangar_id;
+    /** The property of hangarId. (NullAllowed) */
+    @SerializedName("hangar_id")
+    public Integer hangarId;
 
     /** The property of onemanName. (NullAllowed) */
     public String onemanName;
@@ -32,8 +35,9 @@ public class RemoteUrlcharacterPathcolonReturn {
     /** The property of piari. (NullAllowed) */
     public String piari;
 
-    /** The property of BONVO. (NullAllowed) */
-    public String BONVO;
+    /** The property of bonvo. (NullAllowed) */
+    @SerializedName("BONVO")
+    public String bonvo;
 
     @Override
     public String toString() {

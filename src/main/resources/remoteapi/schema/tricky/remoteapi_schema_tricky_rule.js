@@ -56,9 +56,9 @@ remoteApiRule.fieldName = function(api, topLevelBean, jsonFieldName) {
     var customName = jsonFieldName.replace(/^3/, 'three'); // 先頭数字だけアルファベット変換 (テストケースとしてたまたま)
     return baseRule.fieldName(api, topLevelBean, customName) // superを呼んでキャメル変換もする
   } else {
-    // デフォルトでは custom rule側の fieldNamingMapping を呼び出すてキャメル変換なしにする。
-    // (ここはどっちでもいい。テストケースの都合でまた変えるかも) (2026/04/07)
-    return baseRule.fieldName.bind(this)(api, topLevelBean, jsonFieldName);
+    // デフォルトでは super側の fieldNamingMapping を呼び出してキャメル変換ありにする。
+    // (ここはどっちでもいい。テストケースの都合でまた変えるかも) (2026/04/24)
+    return baseRule.fieldName(api, topLevelBean, jsonFieldName);
   }
 }
 
