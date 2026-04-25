@@ -484,6 +484,27 @@
     },
     "/definition/less/": {
       "get": {
+        "summary": "@author jflute",
+        "description": "less property",
+        "parameters": [
+          {
+            "name": "empty_type_param",
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/org.docksidestage.remote.swagger.tricky.DefinitionLessResult"
+            }
+          },
+          "400": {
+            "description": "client error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
       },
       "post": {
         "responses": {
@@ -494,6 +515,8 @@
             }
           }
         }
+      },
+      "put": {
       }
     }
   },
@@ -695,6 +718,17 @@
           "type": "string"
         }
       }
-    }
+    },
+    "org.docksidestage.remote.swagger.tricky.DefinitionLessResult": {
+      "type": "object",
+      "required": [
+        "simple"
+      ],
+      "properties": {
+        "empty_type_prop": {
+          "description": "no type, no ref"
+        }
+      }
+    },
   }
 }
