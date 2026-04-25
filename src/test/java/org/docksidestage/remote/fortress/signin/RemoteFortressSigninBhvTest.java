@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class RemoteFortressSigninBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_request() {
         // ## Act ##
-        createBhv(null).request();
+        createBhv("mysticOneman").request();
     }
 
     public void test_requestSignin() {
@@ -47,7 +47,7 @@ public class RemoteFortressSigninBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestSignin(paramLambda);
+        createBhv("mysticOneman").requestSignin(paramLambda);
     }
 
     private RemoteFortressSigninBhv createBhv(String json) {

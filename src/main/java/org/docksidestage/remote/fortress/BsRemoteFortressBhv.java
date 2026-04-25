@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,9 +45,10 @@ public abstract class BsRemoteFortressBhv extends AbstractRemoteFortressBhv {
      * url: /
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request() {
-        doRequest(rule -> {});
+    public String request() {
+        return doRequest(rule -> {});
     }
 
     /**
@@ -57,9 +58,10 @@ public abstract class BsRemoteFortressBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/", noMoreUrl(), noQuery(), rule -> {
             ruleOf(rule);
             ruleLambda.accept(rule);
         });

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAdd() {
         // ## Act ##
-        createBhv(null).requestAdd();
+        createBhv("mysticOneman").requestAdd();
     }
 
     public void test_requestAddRegister() {
@@ -52,7 +52,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestAddRegister(paramLambda);
+        createBhv("mysticOneman").requestAddRegister(paramLambda);
     }
 
     public void test_requestEdit() {
@@ -60,7 +60,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv(null).requestEdit(memberId);
+        createBhv("mysticOneman").requestEdit(memberId);
     }
 
     public void test_requestEditUpdate() {
@@ -79,7 +79,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestEditUpdate(paramLambda);
+        createBhv("mysticOneman").requestEditUpdate(paramLambda);
     }
 
     public void test_requestEditWithdrawal() {
@@ -98,7 +98,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestEditWithdrawal(paramLambda);
+        createBhv("mysticOneman").requestEditWithdrawal(paramLambda);
     }
 
     public void test_requestList() {
@@ -113,7 +113,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestList(paramLambda);
+        createBhv("mysticOneman").requestList(paramLambda);
     }
 
     public void test_requestListPageNumber() {
@@ -129,7 +129,7 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestList(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestList(pageNumber, paramLambda);
     }
 
     private RemoteFortressMemberBhv createBhv(String json) {

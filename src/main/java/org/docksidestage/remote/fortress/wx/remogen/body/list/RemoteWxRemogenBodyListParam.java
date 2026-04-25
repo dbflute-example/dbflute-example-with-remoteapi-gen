@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,13 @@
 package org.docksidestage.remote.fortress.wx.remogen.body.list;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of POST /wx/remogen/body/list.
  * @author FreeGen
  */
 public class RemoteWxRemogenBodyListParam {
-
-    /** The property of sea. (NullAllowed) */
-    public String sea;
 
     /** The property of land. (NullAllowed) */
     public Integer land;
@@ -38,8 +36,15 @@ public class RemoteWxRemogenBodyListParam {
     /** The property of dstore. (NullAllowed) */
     public String dstore;
 
-    /** The property of iamBody. (NullAllowed) */
-    public String iamBody;
+    /** The property of amba. */
+    @Required
+    public Boolean amba;
+
+    /** The property of miraco. (NullAllowed) */
+    public String miraco;
+
+    /** The property of dohotel. (NullAllowed) */
+    public Long dohotel;
 
     @Override
     public String toString() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,9 +48,10 @@ public abstract class BsRemoteFortressWithdrawalBhv extends AbstractRemoteFortre
      * url: /withdrawal/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request() {
-        doRequest(rule -> {});
+    public String request() {
+        return doRequest(rule -> {});
     }
 
     /**
@@ -60,9 +61,10 @@ public abstract class BsRemoteFortressWithdrawalBhv extends AbstractRemoteFortre
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/withdrawal/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/withdrawal/", noMoreUrl(), noQuery(), rule -> {
             ruleOf(rule);
             ruleLambda.accept(rule);
         });
@@ -82,9 +84,10 @@ public abstract class BsRemoteFortressWithdrawalBhv extends AbstractRemoteFortre
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWithdrawalConfirmParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestConfirm(Consumer<RemoteWithdrawalConfirmParam> paramLambda) {
-        doRequestConfirm(paramLambda, rule -> {});
+    public String requestConfirm(Consumer<RemoteWithdrawalConfirmParam> paramLambda) {
+        return doRequestConfirm(paramLambda, rule -> {});
     }
 
     /**
@@ -95,11 +98,12 @@ public abstract class BsRemoteFortressWithdrawalBhv extends AbstractRemoteFortre
      * </pre>
      * @param paramLambda The callback for RemoteWithdrawalConfirmParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestConfirm(Consumer<RemoteWithdrawalConfirmParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestConfirm(Consumer<RemoteWithdrawalConfirmParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWithdrawalConfirmParam param = new RemoteWithdrawalConfirmParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/withdrawal/confirm", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/withdrawal/confirm", noMoreUrl(), query(param), rule -> {
             ruleOfConfirm(rule);
             ruleLambda.accept(rule);
         });
@@ -119,9 +123,10 @@ public abstract class BsRemoteFortressWithdrawalBhv extends AbstractRemoteFortre
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWithdrawalDoneParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestDone(Consumer<RemoteWithdrawalDoneParam> paramLambda) {
-        doRequestDone(paramLambda, rule -> {});
+    public String requestDone(Consumer<RemoteWithdrawalDoneParam> paramLambda) {
+        return doRequestDone(paramLambda, rule -> {});
     }
 
     /**
@@ -132,11 +137,12 @@ public abstract class BsRemoteFortressWithdrawalBhv extends AbstractRemoteFortre
      * </pre>
      * @param paramLambda The callback for RemoteWithdrawalDoneParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestDone(Consumer<RemoteWithdrawalDoneParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestDone(Consumer<RemoteWithdrawalDoneParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWithdrawalDoneParam param = new RemoteWithdrawalDoneParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/withdrawal/done", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/withdrawal/done", noMoreUrl(), query(param), rule -> {
             ruleOfDone(rule);
             ruleLambda.accept(rule);
         });

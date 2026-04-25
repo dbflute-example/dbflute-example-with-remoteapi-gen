@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,9 +49,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * url: /members
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request() {
-        doRequest(rule -> {});
+    public String request() {
+        return doRequest(rule -> {});
     }
 
     /**
@@ -61,9 +62,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/members", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/members", noMoreUrl(), noQuery(), rule -> {
             ruleOf(rule);
             ruleLambda.accept(rule);
         });
@@ -83,9 +85,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * httpMethod: GET
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestGet(Integer memberId) {
-        doRequestGet(memberId, rule -> {});
+    public String requestGet(Integer memberId) {
+        return doRequestGet(memberId, rule -> {});
     }
 
     /**
@@ -96,9 +99,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestGet(Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/members/{memberId}", moreUrl(memberId), noQuery(), rule -> {
+    protected String doRequestGet(Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/members/{memberId}", moreUrl(memberId), noQuery(), rule -> {
             ruleOfGetMemberId(rule);
             ruleLambda.accept(rule);
         });
@@ -119,9 +123,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param paramLambda The callback for RemoteMembersPutParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestPut(Integer memberId, Consumer<RemoteMembersPutParam> paramLambda) {
-        doRequestPut(memberId, paramLambda, rule -> {});
+    public String requestPut(Integer memberId, Consumer<RemoteMembersPutParam> paramLambda) {
+        return doRequestPut(memberId, paramLambda, rule -> {});
     }
 
     /**
@@ -133,11 +138,12 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param paramLambda The callback for RemoteMembersPutParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestPut(Integer memberId, Consumer<RemoteMembersPutParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestPut(Integer memberId, Consumer<RemoteMembersPutParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMembersPutParam param = new RemoteMembersPutParam();
         paramLambda.accept(param);
-        doRequestPut(void.class, "/members/{memberId}", moreUrl(memberId), param, rule -> {
+        return doRequestPut(String.class, "/members/{memberId}", moreUrl(memberId), param, rule -> {
             rule.sendBodyBy(
                     new org.lastaflute.remoteapi.sender.body.LaFormSender(new org.dbflute.remoteapi.mapping.FlVacantMappingPolicy()));
             ruleOfPutMemberId(rule);
@@ -160,9 +166,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param paramLambda The callback for RemoteMembersDeleteParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestDelete(Integer memberId, Consumer<RemoteMembersDeleteParam> paramLambda) {
-        doRequestDelete(memberId, paramLambda, rule -> {});
+    public String requestDelete(Integer memberId, Consumer<RemoteMembersDeleteParam> paramLambda) {
+        return doRequestDelete(memberId, paramLambda, rule -> {});
     }
 
     /**
@@ -174,11 +181,12 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param paramLambda The callback for RemoteMembersDeleteParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestDelete(Integer memberId, Consumer<RemoteMembersDeleteParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestDelete(Integer memberId, Consumer<RemoteMembersDeleteParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMembersDeleteParam param = new RemoteMembersDeleteParam();
         paramLambda.accept(param);
-        doRequestDelete(void.class, "/members/{memberId}", moreUrl(memberId), query(param), rule -> {
+        return doRequestDelete(String.class, "/members/{memberId}", moreUrl(memberId), query(param), rule -> {
             ruleOfDeleteMemberId(rule);
             ruleLambda.accept(rule);
         });
@@ -198,9 +206,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * httpMethod: POST
      * </pre>
      * @param paramLambda The callback for RemoteMembersParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestPost(Consumer<RemoteMembersParam> paramLambda) {
-        doRequestPost(paramLambda, rule -> {});
+    public String requestPost(Consumer<RemoteMembersParam> paramLambda) {
+        return doRequestPost(paramLambda, rule -> {});
     }
 
     /**
@@ -211,11 +220,12 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * </pre>
      * @param paramLambda The callback for RemoteMembersParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestPost(Consumer<RemoteMembersParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestPost(Consumer<RemoteMembersParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMembersParam param = new RemoteMembersParam();
         paramLambda.accept(param);
-        doRequestPost(void.class, "/members/", noMoreUrl(), param, rule -> {
+        return doRequestPost(String.class, "/members/", noMoreUrl(), param, rule -> {
             rule.sendBodyBy(
                     new org.lastaflute.remoteapi.sender.body.LaFormSender(new org.dbflute.remoteapi.mapping.FlVacantMappingPolicy()));
             ruleOfPost(rule);

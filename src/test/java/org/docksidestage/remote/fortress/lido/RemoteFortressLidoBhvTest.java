@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -169,7 +169,8 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("productId={}", returnBean.productId);
         logger.debug("productName={}", returnBean.productName);
         logger.debug("categoryName={}", returnBean.categoryName);
-        logger.debug("regularPrice={}", returnBean.regularPrice);
+        // targetFieldのテストで定価を対象外にしたため (2026/03/09)
+        //logger.debug("regularPrice={}", returnBean.regularPrice);
         logger.debug("productHandleCode={}", returnBean.productHandleCode);
     }
 

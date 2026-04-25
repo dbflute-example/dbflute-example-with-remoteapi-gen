@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,9 +47,10 @@ public abstract class BsRemoteFortressSignupBhv extends AbstractRemoteFortressBh
      * url: /signup/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request() {
-        doRequest(rule -> {});
+    public String request() {
+        return doRequest(rule -> {});
     }
 
     /**
@@ -59,9 +60,10 @@ public abstract class BsRemoteFortressSignupBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/signup/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequest(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/signup/", noMoreUrl(), noQuery(), rule -> {
             ruleOf(rule);
             ruleLambda.accept(rule);
         });
@@ -81,9 +83,10 @@ public abstract class BsRemoteFortressSignupBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteSignupSignupParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestSignup(Consumer<RemoteSignupSignupParam> paramLambda) {
-        doRequestSignup(paramLambda, rule -> {});
+    public String requestSignup(Consumer<RemoteSignupSignupParam> paramLambda) {
+        return doRequestSignup(paramLambda, rule -> {});
     }
 
     /**
@@ -94,11 +97,12 @@ public abstract class BsRemoteFortressSignupBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param paramLambda The callback for RemoteSignupSignupParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestSignup(Consumer<RemoteSignupSignupParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestSignup(Consumer<RemoteSignupSignupParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteSignupSignupParam param = new RemoteSignupSignupParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/signup/signup", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/signup/signup", noMoreUrl(), query(param), rule -> {
             ruleOfSignup(rule);
             ruleLambda.accept(rule);
         });
@@ -119,9 +123,10 @@ public abstract class BsRemoteFortressSignupBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param account The value of path variable for account. (NotNull)
      * @param token The value of path variable for token. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestRegister(String account, String token) {
-        doRequestRegister(account, token, rule -> {});
+    public String requestRegister(String account, String token) {
+        return doRequestRegister(account, token, rule -> {});
     }
 
     /**
@@ -133,9 +138,10 @@ public abstract class BsRemoteFortressSignupBhv extends AbstractRemoteFortressBh
      * @param account The value of path variable for account. (NotNull)
      * @param token The value of path variable for token. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestRegister(String account, String token, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/signup/register/{account}/{token}", moreUrl(account, token), noQuery(), rule -> {
+    protected String doRequestRegister(String account, String token, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/signup/register/{account}/{token}", moreUrl(account, token), noQuery(), rule -> {
             ruleOfRegisterAccountToken(rule);
             ruleLambda.accept(rule);
         });

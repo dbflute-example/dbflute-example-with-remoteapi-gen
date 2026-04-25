@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
         Integer productId = 1;
 
         // ## Act ##
-        createBhv(null).requestDetail(productId);
+        createBhv("mysticOneman").requestDetail(productId);
     }
 
     public void test_requestList() {
@@ -51,7 +51,7 @@ public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestList(paramLambda);
+        createBhv("mysticOneman").requestList(paramLambda);
     }
 
     public void test_requestListPageNumber() {
@@ -64,7 +64,7 @@ public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestList(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestList(pageNumber, paramLambda);
     }
 
     private RemoteFortressProductBhv createBhv(String json) {

@@ -141,6 +141,8 @@ remoteApiRule.nestClassName = function(api, className) {
 };
 
 // 自動生成するParam/Returnクラスのフィールドを調整する。
+// ネストクラスのフィールドも、ルートのBeanである topLevelBean で判定することになる。
+// ネストクラスのフィールドで、別クラス同名フィールドがある場合は区別が付かない。
 remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
     return ['fieldNotGenerated'].indexOf(jsonFieldName) === -1;
 }

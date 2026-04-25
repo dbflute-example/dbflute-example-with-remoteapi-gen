@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,13 +25,13 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RemoteFieldcaseNgcharPutReturn {
 
-    /** The property of hangarid. (NullAllowed) */
+    /** The property of hangarId. (NullAllowed) */
     @SerializedName("hangar*id")
-    public Integer hangarid;
+    public Integer hangarId;
 
-    /** The property of onemanname. (NullAllowed) */
+    /** The property of onemanName. (NullAllowed) */
     @SerializedName("oneman-name")
-    public String onemanname;
+    public String onemanName;
 
     /** The property of onePiari. (NullAllowed) */
     @SerializedName("1Piari")

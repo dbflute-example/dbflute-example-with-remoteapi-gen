@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import org.lastaflute.core.util.Lato;
  */
 public class RemoteWxRequestFormEccolleReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
-    /** The property of sea. (NullAllowed) */
+    /** The property of sea. (string immutable list e.g. [dockside,hangar,magiclamp]) (NullAllowed) */
     public org.eclipse.collections.api.list.ImmutableList<String> sea;
 
     /** The property of land. (NullAllowed) */
     public org.eclipse.collections.api.list.ImmutableList<String> land;
 
-    /** The property of piari. (NullAllowed) */
+    /** The property of piari. (string util) (NullAllowed) */
     public org.eclipse.collections.api.list.ImmutableList<String> piari;
 
     /** The property of bonvo. (NullAllowed) */

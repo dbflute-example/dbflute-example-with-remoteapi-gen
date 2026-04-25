@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,9 +49,10 @@ public abstract class BsRemoteFortressOnparadeBhv extends AbstractRemoteFortress
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteOnparadeParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request(Consumer<RemoteOnparadeParam> paramLambda) {
-        doRequest(paramLambda, rule -> {});
+    public String request(Consumer<RemoteOnparadeParam> paramLambda) {
+        return doRequest(paramLambda, rule -> {});
     }
 
     /**
@@ -62,11 +63,12 @@ public abstract class BsRemoteFortressOnparadeBhv extends AbstractRemoteFortress
      * </pre>
      * @param paramLambda The callback for RemoteOnparadeParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Consumer<RemoteOnparadeParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequest(Consumer<RemoteOnparadeParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteOnparadeParam param = new RemoteOnparadeParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/onparade", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/onparade", noMoreUrl(), query(param), rule -> {
             ruleOf(rule);
             ruleLambda.accept(rule);
         });
@@ -87,9 +89,10 @@ public abstract class BsRemoteFortressOnparadeBhv extends AbstractRemoteFortress
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteOnparadePagenumberParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void request(Integer pageNumber, Consumer<RemoteOnparadePagenumberParam> paramLambda) {
-        doRequest(pageNumber, paramLambda, rule -> {});
+    public String request(Integer pageNumber, Consumer<RemoteOnparadePagenumberParam> paramLambda) {
+        return doRequest(pageNumber, paramLambda, rule -> {});
     }
 
     /**
@@ -101,11 +104,12 @@ public abstract class BsRemoteFortressOnparadeBhv extends AbstractRemoteFortress
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteOnparadePagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequest(Integer pageNumber, Consumer<RemoteOnparadePagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequest(Integer pageNumber, Consumer<RemoteOnparadePagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteOnparadePagenumberParam param = new RemoteOnparadePagenumberParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/onparade/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
+        return doRequestGet(String.class, "/onparade/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
             ruleOfPageNumber(rule);
             ruleLambda.accept(rule);
         });

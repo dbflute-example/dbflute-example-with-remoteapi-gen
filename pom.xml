@@ -14,21 +14,21 @@
 
 	<properties>
 		<!-- Main Framework -->
-		<dbflute.version>1.2.5</dbflute.version>
-		<lastaflute.version>1.2.1</lastaflute.version>
-		<lasta.remoteapi.version>0.4.5</lasta.remoteapi.version>
+		<dbflute.version>1.3.1</dbflute.version>
+		<lastaflute.version>1.2.8</lastaflute.version>
+		<lasta.remoteapi.version>0.5.2</lasta.remoteapi.version>
 
 		<!-- Partner Library -->
-		<slf4j.version>1.7.12</slf4j.version>
+		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.13</logback.version>
-		<servlet.version>3.1.0</servlet.version>
+		<servlet.version>4.0.1</servlet.version>
 
 		<!-- GoodNeighbor Library -->
-		<eclipse.collections.version>9.2.0</eclipse.collections.version>
+		<eclipse.collections.version>11.0.0</eclipse.collections.version>
 
 		<!-- Testing -->
 		<junit.version>4.8.2</junit.version> <!-- is latest version without hamcrest -->
-		<utflute.version>0.9.3</utflute.version>
+		<utflute.version>0.9.9</utflute.version>
 	</properties>
 
 	<licenses>

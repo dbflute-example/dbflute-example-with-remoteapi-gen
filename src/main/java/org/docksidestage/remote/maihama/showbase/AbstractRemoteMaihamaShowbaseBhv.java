@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,8 @@ import org.lastaflute.web.servlet.request.RequestManager;
  * This class remains when re-generating.
  * </p>
  * @author FreeGen
+ * @author p1us2er0
+ * @author jflute
  */
 public abstract class AbstractRemoteMaihamaShowbaseBhv extends org.lastaflute.remoteapi.LastaRemoteBehavior {
 
@@ -58,6 +60,8 @@ public abstract class AbstractRemoteMaihamaShowbaseBhv extends org.lastaflute.re
         rule.sendQueryBy(new LaQuerySender(new LaVacantMappingPolicy()));
         rule.sendBodyBy(new LaJsonSender(requestManager, mappingOption));
         rule.receiveBodyBy(new LaJsonReceiver(requestManager, mappingOption));
+
+        // #for_now jflute UnitTestを気軽にやるためにValidationはオフに (2026/03/07)
         rule.getValidatorOption().suppressParam().suppressReturn();
     }
 

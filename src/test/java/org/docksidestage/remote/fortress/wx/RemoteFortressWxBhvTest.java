@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,13 +91,20 @@ import org.docksidestage.remote.fortress.wx.request.form.eccolle.RemoteWxRequest
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.swagger.RemoteWxRequestJsonBodySwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistReturn;
 import org.docksidestage.remote.fortress.wx.request.json.prop.RemoteWxRequestJsonPropParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonReturn;
@@ -184,6 +191,7 @@ import org.docksidestage.remote.fortress.wx.validator.listjson.RemoteWxValidator
 import org.docksidestage.remote.fortress.wx.validator.wholejson.RemoteWxValidatorWholejsonParam;
 import org.docksidestage.remote.fortress.wx.validator.wholejson.RemoteWxValidatorWholejsonReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
+import org.eclipse.collections.api.factory.Lists;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,27 +209,27 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexBasic() {
         // ## Act ##
-        createBhv(null).requestAppexBasic();
+        createBhv("mysticOneman").requestAppexBasic();
     }
 
     public void test_requestAppexBasicWithoutinfo() {
         // ## Act ##
-        createBhv(null).requestAppexBasicWithoutinfo();
+        createBhv("mysticOneman").requestAppexBasicWithoutinfo();
     }
 
     public void test_requestAppexBasicLoginfailure() {
         // ## Act ##
-        createBhv(null).requestAppexBasicLoginfailure();
+        createBhv("mysticOneman").requestAppexBasicLoginfailure();
     }
 
     public void test_requestAppexBasicAlreadydeleted() {
         // ## Act ##
-        createBhv(null).requestAppexBasicAlreadydeleted();
+        createBhv("mysticOneman").requestAppexBasicAlreadydeleted();
     }
 
     public void test_requestAppexHandlerAlreadydeleted() {
         // ## Act ##
-        createBhv(null).requestAppexHandlerAlreadydeleted();
+        createBhv("mysticOneman").requestAppexHandlerAlreadydeleted();
     }
 
     public void test_requestAppexHandlerJson() {
@@ -231,7 +239,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexMessageJson() {
         // ## Act ##
-        String returnBean = createBhv("String").requestAppexMessageJson();
+        String returnBean = createBhv("mysticOneman").requestAppexMessageJson();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -239,7 +247,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexMessageJsonDirect() {
         // ## Act ##
-        String returnBean = createBhv("String").requestAppexMessageJsonDirect();
+        String returnBean = createBhv("mysticOneman").requestAppexMessageJsonDirect();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -247,7 +255,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexMessageJsonNovalues() {
         // ## Act ##
-        String returnBean = createBhv("String").requestAppexMessageJsonNovalues();
+        String returnBean = createBhv("mysticOneman").requestAppexMessageJsonNovalues();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -260,7 +268,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestConfig() {
         // ## Act ##
-        String returnBean = createBhv("String").requestConfig();
+        String returnBean = createBhv("mysticOneman").requestConfig();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -300,7 +308,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        String returnBean = createBhv("String").requestLastadoc(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestLastadoc(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -316,7 +324,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestLoginSurprised() {
         // ## Act ##
-        createBhv(null).requestLoginSurprised();
+        createBhv("mysticOneman").requestLoginSurprised();
     }
 
     public void test_requestLoginSurprisedSignin() {
@@ -328,17 +336,17 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestLoginSurprisedSignin(paramLambda);
+        createBhv("mysticOneman").requestLoginSurprisedSignin(paramLambda);
     }
 
     public void test_requestLoginSurprisedRequired() {
         // ## Act ##
-        createBhv(null).requestLoginSurprisedRequired();
+        createBhv("mysticOneman").requestLoginSurprisedRequired();
     }
 
     public void test_requestMail() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMail();
+        String returnBean = createBhv("mysticOneman").requestMail();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -346,7 +354,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailBasic() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailBasic();
+        String returnBean = createBhv("mysticOneman").requestMailBasic();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -354,7 +362,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailEntity() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailEntity();
+        String returnBean = createBhv("mysticOneman").requestMailEntity();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -362,7 +370,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailEntitylist() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailEntitylist();
+        String returnBean = createBhv("mysticOneman").requestMailEntitylist();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -370,7 +378,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailLoopbeans() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailLoopbeans();
+        String returnBean = createBhv("mysticOneman").requestMailLoopbeans();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -378,7 +386,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestMailRemoteapi() {
         // ## Act ##
-        String returnBean = createBhv("String").requestMailRemoteapi();
+        String returnBean = createBhv("mysticOneman").requestMailRemoteapi();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -393,7 +401,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestMessage(paramLambda);
+        createBhv("mysticOneman").requestMessage(paramLambda);
     }
 
     public void test_requestMessagePageNumber() {
@@ -406,7 +414,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestMessage(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestMessage(pageNumber, paramLambda);
     }
 
     public void test_requestNamedcls() {
@@ -429,12 +437,16 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestRemogenBodyBasic() {
         // ## Arrange ##
         Consumer<RemoteWxRemogenBodyBasicParam> paramLambda = param -> {
-            param.sea = "sea";
+            // rule.js にて対象外フィールドに (2026/03/11)
+            //param.sea = "sea";
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            // rule.js にて対象外フィールドに (2026/03/11)
+            //param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -446,12 +458,15 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList =
                 org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRemogenBodyListParam> paramLambda = param -> {
-            param.sea = "sea";
+            // rule.js にて対象外フィールドに (2026/03/11)
+            //param.sea = "sea";
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -530,7 +545,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -601,7 +618,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -638,7 +657,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            param.iamBody = "iamBody";
+            param.amba = Boolean.TRUE;
+            param.miraco = "miraco";
+            param.dohotel = 1L;
         };
 
         // ## Act ##
@@ -1217,7 +1238,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestRemoteapiRmhangarTranslate(paramLambda);
+        createBhv("mysticOneman").requestRemoteapiRmhangarTranslate(paramLambda);
     }
 
     public void test_requestRemoteapiRmharborLidoSignin() {
@@ -1253,7 +1274,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestRemoteapiRmharborSerhProduct(paramLambda);
+        createBhv("mysticOneman").requestRemoteapiRmharborSerhProduct(paramLambda);
     }
 
     public void test_requestRemoteapiRmharborSerhSignin() {
@@ -1314,7 +1335,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
-            param.dstore = Boolean.TRUE;
+            param.dstore = "sea";
+            param.amba = Boolean.TRUE;
         };
 
         // ## Act ##
@@ -1452,13 +1474,18 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodyParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco.toscana = new RemoteWxRequestJsonBodyParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodyParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBody(paramLambda);
+        RemoteWxRequestJsonBodyReturn returnBean = createBhv("{}").requestRequestJsonBody(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1476,13 +1503,19 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyListParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodyListParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco = new RemoteWxRequestJsonBodyListParam.MiracoPart();
+            param.miraco.toscana = new RemoteWxRequestJsonBodyListParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyListParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodyListParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyList(body, paramLambda);
+        RemoteWxRequestJsonBodyListReturn returnBean = createBhv("{}").requestRequestJsonBodyList(body, paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1491,20 +1524,27 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestRequestJsonBodyClienterror() {
         // ## Arrange ##
         Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda = param -> {
+            // targetField() で @Required のものを除外している (2026/03/11)
             param.sea = "sea";
-            param.land = 1;
+            //param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
-            param.dstore = Boolean.TRUE;
-            param.amba = "amba";
+            //param.dstore = Boolean.TRUE;
+            //param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodyClienterrorParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
+            //param.miraco.toscana = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.ToscanaPart();
+            //param.miraco.toscana.parkEntranceView = "sea";
+            //param.miraco.toscana.hotelEntranceView = "sea";
+            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.VeneziaPart());
+            param.miraco.veneziaList.get(0).canalView = "sea";
+            //param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodyClienterrorParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyClienterror(paramLambda);
+        RemoteWxRequestJsonBodyClienterrorReturn returnBean = createBhv("{}").requestRequestJsonBodyClienterror(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1520,13 +1560,20 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart();
-            param.miraco.sta = "sta";
-            param.white = new RemoteWxRequestJsonBodySystemerrorParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
+            param.miraco = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart();
+            param.miraco.toscana = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.ToscanaPart();
+            param.miraco.toscana.parkEntranceView = "sea";
+            param.miraco.toscana.hotelEntranceView = "sea";
+            // targetFieldのテストで除外している (2026/03/12)
+            //param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.VeneziaPart());
+            //param.miraco.veneziaList.get(0).canalView = "sea";
+            //param.miraco.veneziaList.get(0).riverView = "sea";
+            param.dohotel = new RemoteWxRequestJsonBodySystemerrorParam.DohotelPart();
+            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodySystemerror(paramLambda);
+        RemoteWxRequestJsonBodySystemerrorReturn returnBean = createBhv("{}").requestRequestJsonBodySystemerror(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1546,7 +1593,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyValidated(paramLambda);
+        RemoteWxRequestJsonBodyValidatedReturn returnBean = createBhv("{}").requestRequestJsonBodyValidated(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1566,7 +1613,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonely(paramLambda);
+        RemoteWxRequestJsonBodyValidatedlonelyReturn returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonely(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1588,7 +1635,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
+        RemoteWxRequestJsonBodyValidatedlonelylistReturn returnBean =
+                createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1659,7 +1707,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRequestMultipart() {
         // ## Act ##
-        createBhv(null).requestRequestMultipart();
+        createBhv("mysticOneman").requestRequestMultipart();
     }
 
     public void test_requestRequestMultipartUpload() {
@@ -1700,7 +1748,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestRequestMultipartUpload(paramLambda);
+        createBhv("mysticOneman").requestRequestMultipartUpload(paramLambda);
     }
 
     public void test_requestRequestPathvarString() {
@@ -1804,17 +1852,17 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseHtmlEmpty() {
         // ## Act ##
-        createBhv(null).requestResponseHtmlEmpty();
+        createBhv("mysticOneman").requestResponseHtmlEmpty();
     }
 
     public void test_requestResponseHtmlEmptyCommitted() {
         // ## Act ##
-        createBhv(null).requestResponseHtmlEmptyCommitted();
+        createBhv("mysticOneman").requestResponseHtmlEmptyCommitted();
     }
 
     public void test_requestResponseHtmlAdd() {
         // ## Act ##
-        createBhv(null).requestResponseHtmlAdd();
+        createBhv("mysticOneman").requestResponseHtmlAdd();
     }
 
     public void test_requestResponseHtmlAddRegister() {
@@ -1827,7 +1875,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlAddRegister(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlAddRegister(paramLambda);
     }
 
     public void test_requestResponseHtmlEdit() {
@@ -1835,7 +1883,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlEdit(memberId);
+        createBhv("mysticOneman").requestResponseHtmlEdit(memberId);
     }
 
     public void test_requestResponseHtmlEditUpdate() {
@@ -1854,7 +1902,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlEditUpdate(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlEditUpdate(paramLambda);
     }
 
     public void test_requestResponseHtmlEditWithdrawal() {
@@ -1873,7 +1921,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlEditWithdrawal(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlEditWithdrawal(paramLambda);
     }
 
     public void test_requestResponseHtmlList() {
@@ -1888,7 +1936,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlList(paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlList(paramLambda);
     }
 
     public void test_requestResponseHtmlListPageNumber() {
@@ -1904,7 +1952,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseHtmlList(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestResponseHtmlList(pageNumber, paramLambda);
     }
 
     public void test_requestResponseJson() {
@@ -1919,12 +1967,12 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonEmptybody() {
         // ## Act ##
-        createBhv(null).requestResponseJsonEmptybody();
+        createBhv("mysticOneman").requestResponseJsonEmptybody();
     }
 
     public void test_requestResponseJsonStrval() {
         // ## Act ##
-        String returnBean = createBhv("String").requestResponseJsonStrval();
+        String returnBean = createBhv("mysticOneman").requestResponseJsonStrval();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -1940,7 +1988,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonDirectly() {
         // ## Act ##
-        String returnBean = createBhv("String").requestResponseJsonDirectly();
+        String returnBean = createBhv("mysticOneman").requestResponseJsonDirectly();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -2040,39 +2088,40 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("showbaseNow={}", returnBean.showbaseNow);
     }
 
+    // #for_now jflute multipartのレスポンスは、テストの仕方をそもそも変えないといけないけど、とりあえず例外アサート (2026/03/14)
     public void test_requestResponseStreamSmall() {
         // ## Act ##
-        createBhv(null).requestResponseStreamSmall();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamSmall());
     }
 
     public void test_requestResponseStreamLarge() {
         // ## Act ##
-        createBhv(null).requestResponseStreamLarge();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamLarge());
     }
 
     public void test_requestResponseStreamOutput() {
         // ## Act ##
-        createBhv(null).requestResponseStreamOutput();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamOutput());
     }
 
     public void test_requestResponseStreamCursortsv() {
         // ## Act ##
-        createBhv(null).requestResponseStreamCursortsv();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamCursortsv());
     }
 
     public void test_requestResponseStreamUpdateplain() {
         // ## Act ##
-        createBhv(null).requestResponseStreamUpdateplain();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamUpdateplain());
     }
 
     public void test_requestResponseStreamUpdatetx() {
         // ## Act ##
-        createBhv(null).requestResponseStreamUpdatetx();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamUpdatetx());
     }
 
     public void test_requestResponseStreamJapanese() {
         // ## Act ##
-        createBhv(null).requestResponseStreamJapanese();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamJapanese());
     }
 
     public void test_requestResponseStreamValidationerror() {
@@ -2082,17 +2131,18 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseStreamValidationerror(paramLambda);
+        assertException(RemoteApiResponseParseFailureException.class,
+                () -> createBhv(null).requestResponseStreamValidationerror(paramLambda));
     }
 
     public void test_requestResponseStreamWithbizex() {
         // ## Act ##
-        createBhv(null).requestResponseStreamWithbizex();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamWithbizex());
     }
 
     public void test_requestResponseStreamWithbizexapi() {
         // ## Act ##
-        createBhv(null).requestResponseStreamWithbizexapi();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamWithbizexapi());
     }
 
     public void test_requestResponseStreamApiValidationerror() {
@@ -2102,37 +2152,38 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestResponseStreamApiValidationerror(paramLambda);
+        assertException(RemoteApiResponseParseFailureException.class,
+                () -> createBhv(null).requestResponseStreamApiValidationerror(paramLambda));
     }
 
     public void test_requestResponseStreamApiWithbizex() {
         // ## Act ##
-        createBhv(null).requestResponseStreamApiWithbizex();
+        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamApiWithbizex());
     }
 
     public void test_requestResponseTransitionForward() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionForward();
+        createBhv("mysticOneman").requestResponseTransitionForward();
     }
 
     public void test_requestResponseTransitionRedirect() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirect();
+        createBhv("mysticOneman").requestResponseTransitionRedirect();
     }
 
     public void test_requestResponseTransitionRedirectPermanently() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirectPermanently();
+        createBhv("mysticOneman").requestResponseTransitionRedirectPermanently();
     }
 
     public void test_requestResponseTransitionRedirectPermanentlySsl() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirectPermanentlySsl();
+        createBhv("mysticOneman").requestResponseTransitionRedirectPermanentlySsl();
     }
 
     public void test_requestResponseTransitionRedirectTemporary() {
         // ## Act ##
-        createBhv(null).requestResponseTransitionRedirectTemporary();
+        createBhv("mysticOneman").requestResponseTransitionRedirectTemporary();
     }
 
     public void test_requestRouting() {
@@ -2966,7 +3017,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestThymeleafParade(paramLambda);
+        createBhv("mysticOneman").requestThymeleafParade(paramLambda);
     }
 
     public void test_requestThymeleafParadePageNumber() {
@@ -2981,7 +3032,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestThymeleafParade(pageNumber, paramLambda);
+        createBhv("mysticOneman").requestThymeleafParade(pageNumber, paramLambda);
     }
 
     public void test_requestTransactionMemoriesFail() {
@@ -2993,7 +3044,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestTransactionMemoriesFail(paramLambda);
+        createBhv("mysticOneman").requestTransactionMemoriesFail(paramLambda);
     }
 
     public void test_requestTransactionMemoriesFailasync() {
@@ -3005,7 +3056,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestTransactionMemoriesFailasync(paramLambda);
+        createBhv("mysticOneman").requestTransactionMemoriesFailasync(paramLambda);
     }
 
     public void test_requestValidator() {
@@ -3036,7 +3087,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestValidator(paramLambda);
+        createBhv("mysticOneman").requestValidator(paramLambda);
     }
 
     public void test_requestValidatorGenericform() {
@@ -3048,7 +3099,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv(null).requestValidatorGenericform(paramLambda);
+        createBhv("mysticOneman").requestValidatorGenericform(paramLambda);
     }
 
     public void test_requestValidatorGroupingjson() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,9 +51,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * url: /member/add/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAdd() {
-        doRequestAdd(rule -> {});
+    public String requestAdd() {
+        return doRequestAdd(rule -> {});
     }
 
     /**
@@ -63,9 +64,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAdd(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/member/add/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestAdd(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/member/add/", noMoreUrl(), noQuery(), rule -> {
             ruleOfAdd(rule);
             ruleLambda.accept(rule);
         });
@@ -85,9 +87,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteMemberAddRegisterParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAddRegister(Consumer<RemoteMemberAddRegisterParam> paramLambda) {
-        doRequestAddRegister(paramLambda, rule -> {});
+    public String requestAddRegister(Consumer<RemoteMemberAddRegisterParam> paramLambda) {
+        return doRequestAddRegister(paramLambda, rule -> {});
     }
 
     /**
@@ -98,11 +101,12 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param paramLambda The callback for RemoteMemberAddRegisterParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAddRegister(Consumer<RemoteMemberAddRegisterParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestAddRegister(Consumer<RemoteMemberAddRegisterParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMemberAddRegisterParam param = new RemoteMemberAddRegisterParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/member/add/register", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/member/add/register", noMoreUrl(), query(param), rule -> {
             ruleOfAddRegister(rule);
             ruleLambda.accept(rule);
         });
@@ -122,9 +126,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestEdit(Integer memberId) {
-        doRequestEdit(memberId, rule -> {});
+    public String requestEdit(Integer memberId) {
+        return doRequestEdit(memberId, rule -> {});
     }
 
     /**
@@ -135,9 +140,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestEdit(Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/member/edit/{memberId}", moreUrl(memberId), noQuery(), rule -> {
+    protected String doRequestEdit(Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/member/edit/{memberId}", moreUrl(memberId), noQuery(), rule -> {
             ruleOfEditMemberId(rule);
             ruleLambda.accept(rule);
         });
@@ -157,9 +163,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteMemberEditUpdateParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestEditUpdate(Consumer<RemoteMemberEditUpdateParam> paramLambda) {
-        doRequestEditUpdate(paramLambda, rule -> {});
+    public String requestEditUpdate(Consumer<RemoteMemberEditUpdateParam> paramLambda) {
+        return doRequestEditUpdate(paramLambda, rule -> {});
     }
 
     /**
@@ -170,11 +177,12 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param paramLambda The callback for RemoteMemberEditUpdateParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestEditUpdate(Consumer<RemoteMemberEditUpdateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestEditUpdate(Consumer<RemoteMemberEditUpdateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMemberEditUpdateParam param = new RemoteMemberEditUpdateParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/member/edit/update", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/member/edit/update", noMoreUrl(), query(param), rule -> {
             ruleOfEditUpdate(rule);
             ruleLambda.accept(rule);
         });
@@ -194,9 +202,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteMemberEditWithdrawalParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestEditWithdrawal(Consumer<RemoteMemberEditWithdrawalParam> paramLambda) {
-        doRequestEditWithdrawal(paramLambda, rule -> {});
+    public String requestEditWithdrawal(Consumer<RemoteMemberEditWithdrawalParam> paramLambda) {
+        return doRequestEditWithdrawal(paramLambda, rule -> {});
     }
 
     /**
@@ -207,11 +216,12 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param paramLambda The callback for RemoteMemberEditWithdrawalParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestEditWithdrawal(Consumer<RemoteMemberEditWithdrawalParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestEditWithdrawal(Consumer<RemoteMemberEditWithdrawalParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMemberEditWithdrawalParam param = new RemoteMemberEditWithdrawalParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/member/edit/withdrawal", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/member/edit/withdrawal", noMoreUrl(), query(param), rule -> {
             ruleOfEditWithdrawal(rule);
             ruleLambda.accept(rule);
         });
@@ -231,9 +241,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteMemberListParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestList(Consumer<RemoteMemberListParam> paramLambda) {
-        doRequestList(paramLambda, rule -> {});
+    public String requestList(Consumer<RemoteMemberListParam> paramLambda) {
+        return doRequestList(paramLambda, rule -> {});
     }
 
     /**
@@ -244,11 +255,12 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param paramLambda The callback for RemoteMemberListParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestList(Consumer<RemoteMemberListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestList(Consumer<RemoteMemberListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMemberListParam param = new RemoteMemberListParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/member/list", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/member/list", noMoreUrl(), query(param), rule -> {
             ruleOfList(rule);
             ruleLambda.accept(rule);
         });
@@ -269,9 +281,10 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteMemberListPagenumberParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestList(Integer pageNumber, Consumer<RemoteMemberListPagenumberParam> paramLambda) {
-        doRequestList(pageNumber, paramLambda, rule -> {});
+    public String requestList(Integer pageNumber, Consumer<RemoteMemberListPagenumberParam> paramLambda) {
+        return doRequestList(pageNumber, paramLambda, rule -> {});
     }
 
     /**
@@ -283,11 +296,12 @@ public abstract class BsRemoteFortressMemberBhv extends AbstractRemoteFortressBh
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteMemberListPagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestList(Integer pageNumber, Consumer<RemoteMemberListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestList(Integer pageNumber, Consumer<RemoteMemberListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteMemberListPagenumberParam param = new RemoteMemberListPagenumberParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/member/list/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
+        return doRequestGet(String.class, "/member/list/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
             ruleOfListPageNumber(rule);
             ruleLambda.accept(rule);
         });

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.tricky.AbstractRemoteTrickyBhv;
+import org.docksidestage.remote.tricky.urlcharacter.pathcolon.RemoteUrlcharacterPathcolonParam;
+import org.docksidestage.remote.tricky.urlcharacter.pathcolon.RemoteUrlcharacterPathcolonReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -170,6 +172,45 @@ public abstract class BsRemoteTrickyUrlcharacterBhv extends AbstractRemoteTricky
      * @param rule The rule that class default rule is already set. (NotNull)
      */
     protected void ruleOfFilepdf(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /urlcharacter/:pathcolon/. (auto-generated method)<br>
+     * <pre>
+     * url: /urlcharacter/:pathcolon/
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteUrlcharacterPathcolonParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteUrlcharacterPathcolonReturn requestPathcolon(Consumer<RemoteUrlcharacterPathcolonParam> paramLambda) {
+        return doRequestPathcolon(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /urlcharacter/:pathcolon/. (auto-generated method)<br>
+     * <pre>
+     * url: /urlcharacter/:pathcolon/
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteUrlcharacterPathcolonParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteUrlcharacterPathcolonReturn doRequestPathcolon(Consumer<RemoteUrlcharacterPathcolonParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteUrlcharacterPathcolonParam param = new RemoteUrlcharacterPathcolonParam();
+        paramLambda.accept(param);
+        return doRequestGet(RemoteUrlcharacterPathcolonReturn.class, "/urlcharacter/:pathcolon/", noMoreUrl(), query(param), rule -> {
+            ruleOfPathcolon(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /urlcharacter/:pathcolon/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfPathcolon(FlutyRemoteApiRule rule) {
     }
 
     /**

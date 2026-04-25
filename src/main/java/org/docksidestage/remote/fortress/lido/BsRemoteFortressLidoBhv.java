@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -356,7 +356,7 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * url: /lido/product/detail/{productId}
      * httpMethod: GET
      * </pre>
-     * @param productId The value of path variable for productId. (NotNull)
+     * @param productId The value of path variable for productId. (The ID of selected product.) (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
     public RemoteLidoProductDetailReturn requestProductDetail(Integer productId) {
@@ -369,7 +369,7 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * url: /lido/product/detail/{productId}
      * httpMethod: GET
      * </pre>
-     * @param productId The value of path variable for productId. (NotNull)
+     * @param productId The value of path variable for productId. (The ID of selected product.) (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
@@ -432,7 +432,7 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * url: /lido/product/list/{pageNumber}
      * httpMethod: POST
      * </pre>
-     * @param pageNumber The value of path variable for pageNumber. (NotNull)
+     * @param pageNumber The value of path variable for pageNumber. (The current page number for paging select.) (NotNull)
      * @param paramLambda The callback for RemoteLidoProductListParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
@@ -446,7 +446,7 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * url: /lido/product/list/{pageNumber}
      * httpMethod: POST
      * </pre>
-     * @param pageNumber The value of path variable for pageNumber. (NotNull)
+     * @param pageNumber The value of path variable for pageNumber. (The current page number for paging select.) (NotNull)
      * @param paramLambda The callback for RemoteLidoProductListParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)

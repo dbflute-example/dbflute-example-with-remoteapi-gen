@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RemoteFieldcaseNgcharPostParam {
 
-    /** The property of seaid. (NullAllowed) */
+    /** The property of seaId. (NullAllowed) */
     @SerializedName("sea*id")
-    public Integer seaid;
+    public Integer seaId;
 
     /** The property of landName. (NullAllowed) */
     @SerializedName("land-Name")

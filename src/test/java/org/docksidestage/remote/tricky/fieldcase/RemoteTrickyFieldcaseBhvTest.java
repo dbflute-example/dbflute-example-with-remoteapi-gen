@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestNgcharGet() {
         // ## Arrange ##
         Consumer<RemoteFieldcaseNgcharGetParam> paramLambda = param -> {
-            param.seaid = 1;
+            param.seaId = 1;
             param.landName = "land-Name";
             param.onePiari = "1Piari";
             param.unchanged = "unchanged";
@@ -102,14 +102,14 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
                 }).requestNgcharGet(paramLambda);
 
         // ## Assert ##
-        logger.debug("hangarid={}", returnBean.hangarid);
-        logger.debug("onemanname={}", returnBean.onemanname);
+        logger.debug("hangarid={}", returnBean.hangarId);
+        logger.debug("onemanname={}", returnBean.onemanName);
         logger.debug("onePiari", returnBean.onePiari);
         logger.debug("unchanged", returnBean.unchanged);
         logger.debug("unchanged", returnBean.unchanged);
 
-        assertEquals("hangarid", returnMap.get("hangar*id"), returnBean.hangarid);
-        assertEquals("onemanname", returnMap.get("oneman-name"), returnBean.onemanname);
+        assertEquals("hangarid", returnMap.get("hangar*id"), returnBean.hangarId);
+        assertEquals("onemanname", returnMap.get("oneman-name"), returnBean.onemanName);
         assertEquals("onePiari", returnMap.get("1Piari"), returnBean.onePiari);
         assertEquals("unchanged", returnMap.get("unchanged"), returnBean.unchanged);
     }
@@ -118,7 +118,7 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestNgcharPost() {
         // ## Arrange ##
         Consumer<RemoteFieldcaseNgcharPostParam> paramLambda = param -> {
-            param.seaid = 1;
+            param.seaId = 1;
             param.landName = "land-Name";
             param.onePiari = "1Piari";
             param.unchanged = "unchanged";
@@ -142,13 +142,13 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
                 }).requestNgcharPost(paramLambda);
 
         // ## Assert ##
-        logger.debug("hangarid={}", returnBean.hangarid);
-        logger.debug("onemanname={}", returnBean.onemanname);
+        logger.debug("hangarid={}", returnBean.hangarId);
+        logger.debug("onemanname={}", returnBean.onemanName);
         logger.debug("onePiari", returnBean.onePiari);
         logger.debug("unchanged", returnBean.unchanged);
 
-        assertEquals("hangarid", returnMap.get("hangar*id"), returnBean.hangarid);
-        assertEquals("onemanname", returnMap.get("oneman-name"), returnBean.onemanname);
+        assertEquals("hangarid", returnMap.get("hangar*id"), returnBean.hangarId);
+        assertEquals("onemanname", returnMap.get("oneman-name"), returnBean.onemanName);
         assertEquals("onePiari", returnMap.get("1Piari"), returnBean.onePiari);
         assertEquals("unchanged", returnMap.get("unchanged"), returnBean.unchanged);
     }
@@ -157,7 +157,7 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestNgcharPut() {
         // ## Arrange ##
         Consumer<RemoteFieldcaseNgcharPutParam> paramLambda = param -> {
-            param.seaid = 1;
+            param.seaId = 1;
             param.landName = "land-Name";
             param.onePiari = "1Piari";
             param.unchanged = "unchanged";
@@ -181,13 +181,13 @@ public class RemoteTrickyFieldcaseBhvTest extends UnitRemoteapigenTestCase {
                 }).requestNgcharPut(paramLambda);
 
         // ## Assert ##
-        logger.debug("hangarid={}", returnBean.hangarid);
-        logger.debug("onemanname={}", returnBean.onemanname);
+        logger.debug("hangarid={}", returnBean.hangarId);
+        logger.debug("onemanname={}", returnBean.onemanName);
         logger.debug("onePiari", returnBean.onePiari);
         logger.debug("unchanged", returnBean.unchanged);
 
-        assertEquals("hangarid", returnMap.get("hangar*id"), returnBean.hangarid);
-        assertEquals("onemanname", returnMap.get("oneman-name"), returnBean.onemanname);
+        assertEquals("hangarid", returnMap.get("hangar*id"), returnBean.hangarId);
+        assertEquals("onemanname", returnMap.get("oneman-name"), returnBean.onemanName);
         assertEquals("onePiari", returnMap.get("1Piari"), returnBean.onePiari);
         assertEquals("unchanged", returnMap.get("unchanged"), returnBean.unchanged);
     }

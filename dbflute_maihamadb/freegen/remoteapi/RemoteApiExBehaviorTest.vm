@@ -1,5 +1,5 @@
 ##
-## Copyright 2017-2021 the original author or authors.
+## Copyright 2017-2026 the original author or authors.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -223,9 +223,9 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #elseif ($method.returnBeanArray)
 #set ($json = '"[]"')
 #elseif ($returnBeanClassName == 'String')
-#set ($json = '"String"')
+#set ($json = '"mysticOneman"')
 #elseif ($returnBeanClassName == 'Integer')
-#set ($json = '"1"')
+#set ($json = '"88888888"')
 #else
 #set ($json = '"{}"')
 #end
@@ -233,13 +233,14 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterList)$parameter.name#if( $foreach.hasNext ), #end#end);
 #if ($returnBeanClassName != 'void')
 
+## #hope jflute Returnクラスはログに直接出してるでデータ型の変化を検知できないので、変数に置くスタイルにしたいところ。 (2026/03/14)
 #[[        // ## Assert ##]]#
 #if ($method.returnBeanArray)
         list.forEach(returnBean -> {
 #foreach($propertyEntry in $method.returnBean.properties.entrySet())
 #set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $method.returnBean, $propertyEntry.key)})
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
-            logger.debug("$fieldName={}", returnBean.$fieldName); // TODO nest property check
+            logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
             logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName});
 #end
@@ -254,7 +255,7 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
 #foreach($propertyEntry in $method.returnBean.properties.entrySet())
 #set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $method.returnBean, $propertyEntry.key)})
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
-        logger.debug("$fieldName={}", returnBean.$fieldName); // TODO nest property check
+        logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
         logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName});
 #end
@@ -361,7 +362,7 @@ $requestBeanVariableName.$fieldName = "$fieldName";
 #if (${typeMap[$property.items.type]} == "String")
 $requestBeanVariableName.$fieldName = $newList("$fieldName");
 #else
-$requestBeanVariableName.$fieldName = $newList(); // TODO
+$requestBeanVariableName.$fieldName = $newList();
 #end
 #elseif ($fieldClass.contains("java.util.Map"))
 $requestBeanVariableName.$fieldName = new ${fieldClass.replace("java.util.Map", "java.util.LinkedHashMap")}();
@@ -401,7 +402,7 @@ $requestBeanVariableName.$fieldName = ${fieldClass}.codeOf("$property.enum[0]");
 #elseif ($fieldClass.contains(".CDef."))
 $requestBeanVariableName.$fieldName = ${fieldClass}.values()[0];
 #else
-$requestBeanVariableName.$fieldName = new $paramBeanClassName.${fieldClass}(); // TODO
+$requestBeanVariableName.$fieldName = new $paramBeanClassName.${fieldClass}();
 #end
 #end
 ## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/

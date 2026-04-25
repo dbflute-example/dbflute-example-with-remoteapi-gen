@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,6 @@ import org.lastaflute.core.util.Lato;
  */
 public class RemoteWxRemogenBodyBasicParam {
 
-    /** The property of sea. (NullAllowed) */
-    public String sea;
-
     /** The property of land. (NullAllowed) */
     public Integer land;
 
@@ -38,8 +35,11 @@ public class RemoteWxRemogenBodyBasicParam {
     /** The property of dstore. (NullAllowed) */
     public String dstore;
 
-    /** The property of iamBody. (NullAllowed) */
-    public String iamBody;
+    /** The property of miraco. (NullAllowed) */
+    public String miraco;
+
+    /** The property of dohotel. (NullAllowed) */
+    public Long dohotel;
 
     @Override
     public String toString() {

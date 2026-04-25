@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,16 @@ import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
 import org.docksidestage.remote.fortress.wx.lastadoc.RemoteWxLastadocParam;
 import org.docksidestage.remote.fortress.wx.lastadoc.apiemptybody.RemoteWxLastadocApiemptybodyParam;
+import org.docksidestage.remote.fortress.wx.lastameta.fieldoc.RemoteWxLastametaFieldocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.fieldoc.RemoteWxLastametaFieldocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.RemoteWxLastametaHascladocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.RemoteWxLastametaHascladocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.nomedoc.RemoteWxLastametaHascladocNomedocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.nomedoc.RemoteWxLastametaHascladocNomedocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.RemoteWxLastametaNocladocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.RemoteWxLastametaNocladocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.nomedoc.RemoteWxLastametaNocladocNomedocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.nomedoc.RemoteWxLastametaNocladocNomedocReturn;
 import org.docksidestage.remote.fortress.wx.login.surprised.signin.RemoteWxLoginSurprisedSigninParam;
 import org.docksidestage.remote.fortress.wx.message.RemoteWxMessagePagenumberParam;
 import org.docksidestage.remote.fortress.wx.message.RemoteWxMessageParam;
@@ -88,13 +98,20 @@ import org.docksidestage.remote.fortress.wx.request.form.eccolle.RemoteWxRequest
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.form.swagger.RemoteWxRequestFormSwaggerReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.RemoteWxRequestJsonBodyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.clienterror.RemoteWxRequestJsonBodyClienterrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.list.RemoteWxRequestJsonBodyListReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.swagger.RemoteWxRequestJsonBodySwaggerParam;
 import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.systemerror.RemoteWxRequestJsonBodySystemerrorReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validated.RemoteWxRequestJsonBodyValidatedReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonely.RemoteWxRequestJsonBodyValidatedlonelyReturn;
 import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistParam;
+import org.docksidestage.remote.fortress.wx.request.json.body.validatedlonelylist.RemoteWxRequestJsonBodyValidatedlonelylistReturn;
 import org.docksidestage.remote.fortress.wx.request.json.prop.RemoteWxRequestJsonPropParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonParam;
 import org.docksidestage.remote.fortress.wx.request.json.prop.json.RemoteWxRequestJsonPropJsonReturn;
@@ -165,6 +182,14 @@ import org.docksidestage.remote.fortress.wx.routing.wording.RemoteWxRoutingWordi
 import org.docksidestage.remote.fortress.wx.routing.wording.land.RemoteWxRoutingWordingLandReturn;
 import org.docksidestage.remote.fortress.wx.routing.wording.piari.plaza.RemoteWxRoutingWordingPiariPlazaReturn;
 import org.docksidestage.remote.fortress.wx.routing.wording.sea.RemoteWxRoutingWordingSeaReturn;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.RemoteWxSecurityRequestJsonbodyParam;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.RemoteWxSecurityRequestJsonbodyReturn;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.error.RemoteWxSecurityRequestJsonbodyErrorParam;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.error.RemoteWxSecurityRequestJsonbodyErrorReturn;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.RemoteWxSecurityRequestParameterParam;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.RemoteWxSecurityRequestParameterReturn;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.error.RemoteWxSecurityRequestParameterErrorParam;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.error.RemoteWxSecurityRequestParameterErrorReturn;
 import org.docksidestage.remote.fortress.wx.thymeleaf.parade.RemoteWxThymeleafParadePagenumberParam;
 import org.docksidestage.remote.fortress.wx.thymeleaf.parade.RemoteWxThymeleafParadeParam;
 import org.docksidestage.remote.fortress.wx.transaction.memories.fail.RemoteWxTransactionMemoriesFailParam;
@@ -207,9 +232,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/appex/basic/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAppexBasic() {
-        doRequestAppexBasic(rule -> {});
+    public String requestAppexBasic() {
+        return doRequestAppexBasic(rule -> {});
     }
 
     /**
@@ -219,9 +245,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAppexBasic(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/appex/basic/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestAppexBasic(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/appex/basic/", noMoreUrl(), noQuery(), rule -> {
             ruleOfAppexBasic(rule);
             ruleLambda.accept(rule);
         });
@@ -240,9 +267,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/appex/basic/withoutinfo
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAppexBasicWithoutinfo() {
-        doRequestAppexBasicWithoutinfo(rule -> {});
+    public String requestAppexBasicWithoutinfo() {
+        return doRequestAppexBasicWithoutinfo(rule -> {});
     }
 
     /**
@@ -252,9 +280,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAppexBasicWithoutinfo(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/appex/basic/withoutinfo", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestAppexBasicWithoutinfo(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/appex/basic/withoutinfo", noMoreUrl(), noQuery(), rule -> {
             ruleOfAppexBasicWithoutinfo(rule);
             ruleLambda.accept(rule);
         });
@@ -273,9 +302,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/appex/basic/loginfailure
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAppexBasicLoginfailure() {
-        doRequestAppexBasicLoginfailure(rule -> {});
+    public String requestAppexBasicLoginfailure() {
+        return doRequestAppexBasicLoginfailure(rule -> {});
     }
 
     /**
@@ -285,9 +315,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAppexBasicLoginfailure(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/appex/basic/loginfailure", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestAppexBasicLoginfailure(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/appex/basic/loginfailure", noMoreUrl(), noQuery(), rule -> {
             ruleOfAppexBasicLoginfailure(rule);
             ruleLambda.accept(rule);
         });
@@ -306,9 +337,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/appex/basic/alreadydeleted
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAppexBasicAlreadydeleted() {
-        doRequestAppexBasicAlreadydeleted(rule -> {});
+    public String requestAppexBasicAlreadydeleted() {
+        return doRequestAppexBasicAlreadydeleted(rule -> {});
     }
 
     /**
@@ -318,9 +350,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAppexBasicAlreadydeleted(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/appex/basic/alreadydeleted", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestAppexBasicAlreadydeleted(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/appex/basic/alreadydeleted", noMoreUrl(), noQuery(), rule -> {
             ruleOfAppexBasicAlreadydeleted(rule);
             ruleLambda.accept(rule);
         });
@@ -339,9 +372,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/appex/handler/alreadydeleted
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestAppexHandlerAlreadydeleted() {
-        doRequestAppexHandlerAlreadydeleted(rule -> {});
+    public String requestAppexHandlerAlreadydeleted() {
+        return doRequestAppexHandlerAlreadydeleted(rule -> {});
     }
 
     /**
@@ -351,9 +385,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestAppexHandlerAlreadydeleted(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/appex/handler/alreadydeleted", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestAppexHandlerAlreadydeleted(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/appex/handler/alreadydeleted", noMoreUrl(), noQuery(), rule -> {
             ruleOfAppexHandlerAlreadydeleted(rule);
             ruleLambda.accept(rule);
         });
@@ -678,6 +713,41 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
     }
 
     /**
+     * Request remote call to /wx/lastadi/enhance. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastadi/enhance
+     * httpMethod: GET
+     * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public String requestLastadiEnhance() {
+        return doRequestLastadiEnhance(rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/lastadi/enhance. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastadi/enhance
+     * httpMethod: GET
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected String doRequestLastadiEnhance(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/lastadi/enhance", noMoreUrl(), noQuery(), rule -> {
+            ruleOfLastadiEnhance(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/lastadi/enhance.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLastadiEnhance(FlutyRemoteApiRule rule) {
+    }
+
+    /**
      * Request remote call to /wx/lastadoc/. (auto-generated method)<br>
      * <pre>
      * url: /wx/lastadoc/
@@ -754,14 +824,210 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
     }
 
     /**
+     * Request remote call to /wx/lastameta/fieldoc/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/fieldoc/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaFieldocParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxLastametaFieldocReturn requestLastametaFieldoc(Consumer<RemoteWxLastametaFieldocParam> paramLambda) {
+        return doRequestLastametaFieldoc(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/fieldoc/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/fieldoc/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaFieldocParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxLastametaFieldocReturn doRequestLastametaFieldoc(Consumer<RemoteWxLastametaFieldocParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxLastametaFieldocParam param = new RemoteWxLastametaFieldocParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxLastametaFieldocReturn.class, "/wx/lastameta/fieldoc/", noMoreUrl(), param, rule -> {
+            ruleOfLastametaFieldoc(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/lastameta/fieldoc/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLastametaFieldoc(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/hascladoc/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/hascladoc/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaHascladocParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxLastametaHascladocReturn requestLastametaHascladoc(Consumer<RemoteWxLastametaHascladocParam> paramLambda) {
+        return doRequestLastametaHascladoc(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/hascladoc/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/hascladoc/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaHascladocParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxLastametaHascladocReturn doRequestLastametaHascladoc(Consumer<RemoteWxLastametaHascladocParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxLastametaHascladocParam param = new RemoteWxLastametaHascladocParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxLastametaHascladocReturn.class, "/wx/lastameta/hascladoc/", noMoreUrl(), param, rule -> {
+            ruleOfLastametaHascladoc(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/lastameta/hascladoc/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLastametaHascladoc(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/hascladoc/nomedoc. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/hascladoc/nomedoc
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaHascladocNomedocParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxLastametaHascladocNomedocReturn requestLastametaHascladocNomedoc(Consumer<RemoteWxLastametaHascladocNomedocParam> paramLambda) {
+        return doRequestLastametaHascladocNomedoc(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/hascladoc/nomedoc. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/hascladoc/nomedoc
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaHascladocNomedocParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxLastametaHascladocNomedocReturn doRequestLastametaHascladocNomedoc(Consumer<RemoteWxLastametaHascladocNomedocParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxLastametaHascladocNomedocParam param = new RemoteWxLastametaHascladocNomedocParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxLastametaHascladocNomedocReturn.class, "/wx/lastameta/hascladoc/nomedoc", noMoreUrl(), param, rule -> {
+            ruleOfLastametaHascladocNomedoc(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/lastameta/hascladoc/nomedoc.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLastametaHascladocNomedoc(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/nocladoc/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/nocladoc/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaNocladocParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxLastametaNocladocReturn requestLastametaNocladoc(Consumer<RemoteWxLastametaNocladocParam> paramLambda) {
+        return doRequestLastametaNocladoc(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/nocladoc/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/nocladoc/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaNocladocParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxLastametaNocladocReturn doRequestLastametaNocladoc(Consumer<RemoteWxLastametaNocladocParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxLastametaNocladocParam param = new RemoteWxLastametaNocladocParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxLastametaNocladocReturn.class, "/wx/lastameta/nocladoc/", noMoreUrl(), param, rule -> {
+            ruleOfLastametaNocladoc(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/lastameta/nocladoc/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLastametaNocladoc(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/nocladoc/nomedoc. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/nocladoc/nomedoc
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaNocladocNomedocParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxLastametaNocladocNomedocReturn requestLastametaNocladocNomedoc(Consumer<RemoteWxLastametaNocladocNomedocParam> paramLambda) {
+        return doRequestLastametaNocladocNomedoc(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/lastameta/nocladoc/nomedoc. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/lastameta/nocladoc/nomedoc
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxLastametaNocladocNomedocParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxLastametaNocladocNomedocReturn doRequestLastametaNocladocNomedoc(Consumer<RemoteWxLastametaNocladocNomedocParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxLastametaNocladocNomedocParam param = new RemoteWxLastametaNocladocNomedocParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxLastametaNocladocNomedocReturn.class, "/wx/lastameta/nocladoc/nomedoc", noMoreUrl(), param, rule -> {
+            ruleOfLastametaNocladocNomedoc(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/lastameta/nocladoc/nomedoc.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLastametaNocladocNomedoc(FlutyRemoteApiRule rule) {
+    }
+
+    /**
      * Request remote call to /wx/login/surprised/. (auto-generated method)<br>
      * <pre>
      * url: /wx/login/surprised/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestLoginSurprised() {
-        doRequestLoginSurprised(rule -> {});
+    public String requestLoginSurprised() {
+        return doRequestLoginSurprised(rule -> {});
     }
 
     /**
@@ -771,9 +1037,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestLoginSurprised(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/login/surprised/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestLoginSurprised(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/login/surprised/", noMoreUrl(), noQuery(), rule -> {
             ruleOfLoginSurprised(rule);
             ruleLambda.accept(rule);
         });
@@ -793,9 +1060,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxLoginSurprisedSigninParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestLoginSurprisedSignin(Consumer<RemoteWxLoginSurprisedSigninParam> paramLambda) {
-        doRequestLoginSurprisedSignin(paramLambda, rule -> {});
+    public String requestLoginSurprisedSignin(Consumer<RemoteWxLoginSurprisedSigninParam> paramLambda) {
+        return doRequestLoginSurprisedSignin(paramLambda, rule -> {});
     }
 
     /**
@@ -806,11 +1074,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxLoginSurprisedSigninParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestLoginSurprisedSignin(Consumer<RemoteWxLoginSurprisedSigninParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestLoginSurprisedSignin(Consumer<RemoteWxLoginSurprisedSigninParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxLoginSurprisedSigninParam param = new RemoteWxLoginSurprisedSigninParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/login/surprised/signin", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/login/surprised/signin", noMoreUrl(), query(param), rule -> {
             ruleOfLoginSurprisedSignin(rule);
             ruleLambda.accept(rule);
         });
@@ -829,9 +1098,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/login/surprised/required/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestLoginSurprisedRequired() {
-        doRequestLoginSurprisedRequired(rule -> {});
+    public String requestLoginSurprisedRequired() {
+        return doRequestLoginSurprisedRequired(rule -> {});
     }
 
     /**
@@ -841,9 +1111,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestLoginSurprisedRequired(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/login/surprised/required/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestLoginSurprisedRequired(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/login/surprised/required/", noMoreUrl(), noQuery(), rule -> {
             ruleOfLoginSurprisedRequired(rule);
             ruleLambda.accept(rule);
         });
@@ -1073,9 +1344,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxMessageParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestMessage(Consumer<RemoteWxMessageParam> paramLambda) {
-        doRequestMessage(paramLambda, rule -> {});
+    public String requestMessage(Consumer<RemoteWxMessageParam> paramLambda) {
+        return doRequestMessage(paramLambda, rule -> {});
     }
 
     /**
@@ -1086,11 +1358,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxMessageParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestMessage(Consumer<RemoteWxMessageParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestMessage(Consumer<RemoteWxMessageParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxMessageParam param = new RemoteWxMessageParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/message", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/message", noMoreUrl(), query(param), rule -> {
             ruleOfMessage(rule);
             ruleLambda.accept(rule);
         });
@@ -1111,9 +1384,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteWxMessagePagenumberParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestMessage(Integer pageNumber, Consumer<RemoteWxMessagePagenumberParam> paramLambda) {
-        doRequestMessage(pageNumber, paramLambda, rule -> {});
+    public String requestMessage(Integer pageNumber, Consumer<RemoteWxMessagePagenumberParam> paramLambda) {
+        return doRequestMessage(pageNumber, paramLambda, rule -> {});
     }
 
     /**
@@ -1125,11 +1399,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteWxMessagePagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestMessage(Integer pageNumber, Consumer<RemoteWxMessagePagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestMessage(Integer pageNumber, Consumer<RemoteWxMessagePagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxMessagePagenumberParam param = new RemoteWxMessagePagenumberParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/message/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/message/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
             ruleOfMessagePageNumber(rule);
             ruleLambda.accept(rule);
         });
@@ -2945,9 +3220,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxRemoteapiRmhangarTranslateParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestRemoteapiRmhangarTranslate(Consumer<RemoteWxRemoteapiRmhangarTranslateParam> paramLambda) {
-        doRequestRemoteapiRmhangarTranslate(paramLambda, rule -> {});
+    public String requestRemoteapiRmhangarTranslate(Consumer<RemoteWxRemoteapiRmhangarTranslateParam> paramLambda) {
+        return doRequestRemoteapiRmhangarTranslate(paramLambda, rule -> {});
     }
 
     /**
@@ -2958,11 +3234,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxRemoteapiRmhangarTranslateParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestRemoteapiRmhangarTranslate(Consumer<RemoteWxRemoteapiRmhangarTranslateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestRemoteapiRmhangarTranslate(Consumer<RemoteWxRemoteapiRmhangarTranslateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRemoteapiRmhangarTranslateParam param = new RemoteWxRemoteapiRmhangarTranslateParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/remoteapi/rmhangar/translate", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/remoteapi/rmhangar/translate", noMoreUrl(), query(param), rule -> {
             ruleOfRemoteapiRmhangarTranslate(rule);
             ruleLambda.accept(rule);
         });
@@ -3055,9 +3332,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxRemoteapiRmharborSerhProductParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestRemoteapiRmharborSerhProduct(Consumer<RemoteWxRemoteapiRmharborSerhProductParam> paramLambda) {
-        doRequestRemoteapiRmharborSerhProduct(paramLambda, rule -> {});
+    public String requestRemoteapiRmharborSerhProduct(Consumer<RemoteWxRemoteapiRmharborSerhProductParam> paramLambda) {
+        return doRequestRemoteapiRmharborSerhProduct(paramLambda, rule -> {});
     }
 
     /**
@@ -3068,11 +3346,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxRemoteapiRmharborSerhProductParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestRemoteapiRmharborSerhProduct(Consumer<RemoteWxRemoteapiRmharborSerhProductParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestRemoteapiRmharborSerhProduct(Consumer<RemoteWxRemoteapiRmharborSerhProductParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRemoteapiRmharborSerhProductParam param = new RemoteWxRemoteapiRmharborSerhProductParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/remoteapi/rmharbor/serh/product", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/remoteapi/rmharbor/serh/product", noMoreUrl(), query(param), rule -> {
             ruleOfRemoteapiRmharborSerhProduct(rule);
             ruleLambda.accept(rule);
         });
@@ -3354,7 +3633,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda) {
+    public RemoteWxRequestJsonBodyReturn requestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda) {
         return doRequestRequestJsonBody(paramLambda, rule -> {});
     }
 
@@ -3368,11 +3647,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyReturn doRequestRequestJsonBody(Consumer<RemoteWxRequestJsonBodyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyParam param = new RemoteWxRequestJsonBodyParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyReturn.class, "/wx/request/json/body/", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBody(rule);
             ruleLambda.accept(rule);
         });
@@ -3395,7 +3673,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyListParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda) {
+    public RemoteWxRequestJsonBodyListReturn requestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda) {
         return doRequestRequestJsonBodyList(body, paramLambda, rule -> {});
     }
 
@@ -3410,11 +3688,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyListReturn doRequestRequestJsonBodyList(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body, Consumer<RemoteWxRequestJsonBodyListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyListParam param = new RemoteWxRequestJsonBodyListParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/list", moreUrl(body), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyListReturn.class, "/wx/request/json/body/list", moreUrl(body), param, rule -> {
             ruleOfRequestJsonBodyListBody(rule);
             ruleLambda.accept(rule);
         });
@@ -3436,7 +3713,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyClienterrorParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda) {
+    public RemoteWxRequestJsonBodyClienterrorReturn requestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda) {
         return doRequestRequestJsonBodyClienterror(paramLambda, rule -> {});
     }
 
@@ -3450,11 +3727,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyClienterrorReturn doRequestRequestJsonBodyClienterror(Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyClienterrorParam param = new RemoteWxRequestJsonBodyClienterrorParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/clienterror", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyClienterrorReturn.class, "/wx/request/json/body/clienterror", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodyClienterror(rule);
             ruleLambda.accept(rule);
         });
@@ -3476,7 +3752,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodySystemerrorParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda) {
+    public RemoteWxRequestJsonBodySystemerrorReturn requestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda) {
         return doRequestRequestJsonBodySystemerror(paramLambda, rule -> {});
     }
 
@@ -3490,11 +3766,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodySystemerrorReturn doRequestRequestJsonBodySystemerror(Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodySystemerrorParam param = new RemoteWxRequestJsonBodySystemerrorParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/systemerror", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodySystemerrorReturn.class, "/wx/request/json/body/systemerror", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodySystemerror(rule);
             ruleLambda.accept(rule);
         });
@@ -3516,7 +3791,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyValidatedParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda) {
+    public RemoteWxRequestJsonBodyValidatedReturn requestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda) {
         return doRequestRequestJsonBodyValidated(paramLambda, rule -> {});
     }
 
@@ -3530,11 +3805,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyValidatedReturn doRequestRequestJsonBodyValidated(Consumer<RemoteWxRequestJsonBodyValidatedParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyValidatedParam param = new RemoteWxRequestJsonBodyValidatedParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/validated", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyValidatedReturn.class, "/wx/request/json/body/validated", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodyValidated(rule);
             ruleLambda.accept(rule);
         });
@@ -3556,7 +3830,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyValidatedlonelyParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda) {
+    public RemoteWxRequestJsonBodyValidatedlonelyReturn requestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda) {
         return doRequestRequestJsonBodyValidatedlonely(paramLambda, rule -> {});
     }
 
@@ -3570,11 +3844,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyValidatedlonelyReturn doRequestRequestJsonBodyValidatedlonely(Consumer<RemoteWxRequestJsonBodyValidatedlonelyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyValidatedlonelyParam param = new RemoteWxRequestJsonBodyValidatedlonelyParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/validatedlonely", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyValidatedlonelyReturn.class, "/wx/request/json/body/validatedlonely", noMoreUrl(), param, rule -> {
             ruleOfRequestJsonBodyValidatedlonely(rule);
             ruleLambda.accept(rule);
         });
@@ -3597,7 +3870,7 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param paramLambda The callback for RemoteWxRequestJsonBodyValidatedlonelylistParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public java.util.Map<String, Object> requestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda) {
+    public RemoteWxRequestJsonBodyValidatedlonelylistReturn requestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda) {
         return doRequestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda, rule -> {});
     }
 
@@ -3612,11 +3885,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected java.util.Map<String, Object> doRequestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected RemoteWxRequestJsonBodyValidatedlonelylistReturn doRequestRequestJsonBodyValidatedlonelylist(org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList, Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestJsonBodyValidatedlonelylistParam param = new RemoteWxRequestJsonBodyValidatedlonelylistParam();
         paramLambda.accept(param);
-        return doRequestPost(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
-        }.getType(), "/wx/request/json/body/validatedlonelylist", moreUrl(bodyList), param, rule -> {
+        return doRequestPost(RemoteWxRequestJsonBodyValidatedlonelylistReturn.class, "/wx/request/json/body/validatedlonelylist", moreUrl(bodyList), param, rule -> {
             ruleOfRequestJsonBodyValidatedlonelylistBodyList(rule);
             ruleLambda.accept(rule);
         });
@@ -3754,9 +4026,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/request/multipart/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestRequestMultipart() {
-        doRequestRequestMultipart(rule -> {});
+    public String requestRequestMultipart() {
+        return doRequestRequestMultipart(rule -> {});
     }
 
     /**
@@ -3766,9 +4039,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestRequestMultipart(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/request/multipart/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestRequestMultipart(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/request/multipart/", noMoreUrl(), noQuery(), rule -> {
             ruleOfRequestMultipart(rule);
             ruleLambda.accept(rule);
         });
@@ -3788,9 +4062,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxRequestMultipartUploadParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestRequestMultipartUpload(Consumer<RemoteWxRequestMultipartUploadParam> paramLambda) {
-        doRequestRequestMultipartUpload(paramLambda, rule -> {});
+    public String requestRequestMultipartUpload(Consumer<RemoteWxRequestMultipartUploadParam> paramLambda) {
+        return doRequestRequestMultipartUpload(paramLambda, rule -> {});
     }
 
     /**
@@ -3801,11 +4076,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxRequestMultipartUploadParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestRequestMultipartUpload(Consumer<RemoteWxRequestMultipartUploadParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestRequestMultipartUpload(Consumer<RemoteWxRequestMultipartUploadParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxRequestMultipartUploadParam param = new RemoteWxRequestMultipartUploadParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/request/multipart/upload", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/request/multipart/upload", noMoreUrl(), query(param), rule -> {
             ruleOfRequestMultipartUpload(rule);
             ruleLambda.accept(rule);
         });
@@ -4082,14 +4358,51 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
     }
 
     /**
+     * Request remote call to /wx/request/xml/body/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/request/xml/body/
+     * httpMethod: GET
+     * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public java.util.Map<String, Object> requestRequestXmlBody() {
+        return doRequestRequestXmlBody(rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/request/xml/body/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/request/xml/body/
+     * httpMethod: GET
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected java.util.Map<String, Object> doRequestRequestXmlBody(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(new org.lastaflute.di.helper.misc.ParameterizedRef<java.util.Map<String, Object>>() {
+        }.getType(), "/wx/request/xml/body/", noMoreUrl(), noQuery(), rule -> {
+            ruleOfRequestXmlBody(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/request/xml/body/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfRequestXmlBody(FlutyRemoteApiRule rule) {
+    }
+
+    /**
      * Request remote call to /wx/response/html/empty/. (auto-generated method)<br>
      * <pre>
      * url: /wx/response/html/empty/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlEmpty() {
-        doRequestResponseHtmlEmpty(rule -> {});
+    public String requestResponseHtmlEmpty() {
+        return doRequestResponseHtmlEmpty(rule -> {});
     }
 
     /**
@@ -4099,9 +4412,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlEmpty(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/html/empty/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseHtmlEmpty(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/html/empty/", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseHtmlEmpty(rule);
             ruleLambda.accept(rule);
         });
@@ -4120,9 +4434,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/html/empty/committed
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlEmptyCommitted() {
-        doRequestResponseHtmlEmptyCommitted(rule -> {});
+    public String requestResponseHtmlEmptyCommitted() {
+        return doRequestResponseHtmlEmptyCommitted(rule -> {});
     }
 
     /**
@@ -4132,9 +4447,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlEmptyCommitted(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/html/empty/committed", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseHtmlEmptyCommitted(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/html/empty/committed", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseHtmlEmptyCommitted(rule);
             ruleLambda.accept(rule);
         });
@@ -4153,9 +4469,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/html/add/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlAdd() {
-        doRequestResponseHtmlAdd(rule -> {});
+    public String requestResponseHtmlAdd() {
+        return doRequestResponseHtmlAdd(rule -> {});
     }
 
     /**
@@ -4165,9 +4482,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlAdd(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/html/add/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseHtmlAdd(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/html/add/", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseHtmlAdd(rule);
             ruleLambda.accept(rule);
         });
@@ -4187,9 +4505,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlAddRegisterParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlAddRegister(Consumer<RemoteWxResponseHtmlAddRegisterParam> paramLambda) {
-        doRequestResponseHtmlAddRegister(paramLambda, rule -> {});
+    public String requestResponseHtmlAddRegister(Consumer<RemoteWxResponseHtmlAddRegisterParam> paramLambda) {
+        return doRequestResponseHtmlAddRegister(paramLambda, rule -> {});
     }
 
     /**
@@ -4200,11 +4519,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlAddRegisterParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlAddRegister(Consumer<RemoteWxResponseHtmlAddRegisterParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestResponseHtmlAddRegister(Consumer<RemoteWxResponseHtmlAddRegisterParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseHtmlAddRegisterParam param = new RemoteWxResponseHtmlAddRegisterParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/html/add/register", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/response/html/add/register", noMoreUrl(), query(param), rule -> {
             ruleOfResponseHtmlAddRegister(rule);
             ruleLambda.accept(rule);
         });
@@ -4224,9 +4544,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlEdit(Integer memberId) {
-        doRequestResponseHtmlEdit(memberId, rule -> {});
+    public String requestResponseHtmlEdit(Integer memberId) {
+        return doRequestResponseHtmlEdit(memberId, rule -> {});
     }
 
     /**
@@ -4237,9 +4558,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param memberId The value of path variable for memberId. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlEdit(Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/html/edit/{memberId}", moreUrl(memberId), noQuery(), rule -> {
+    protected String doRequestResponseHtmlEdit(Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/html/edit/{memberId}", moreUrl(memberId), noQuery(), rule -> {
             ruleOfResponseHtmlEditMemberId(rule);
             ruleLambda.accept(rule);
         });
@@ -4259,9 +4581,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlEditUpdateParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlEditUpdate(Consumer<RemoteWxResponseHtmlEditUpdateParam> paramLambda) {
-        doRequestResponseHtmlEditUpdate(paramLambda, rule -> {});
+    public String requestResponseHtmlEditUpdate(Consumer<RemoteWxResponseHtmlEditUpdateParam> paramLambda) {
+        return doRequestResponseHtmlEditUpdate(paramLambda, rule -> {});
     }
 
     /**
@@ -4272,11 +4595,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlEditUpdateParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlEditUpdate(Consumer<RemoteWxResponseHtmlEditUpdateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestResponseHtmlEditUpdate(Consumer<RemoteWxResponseHtmlEditUpdateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseHtmlEditUpdateParam param = new RemoteWxResponseHtmlEditUpdateParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/html/edit/update", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/response/html/edit/update", noMoreUrl(), query(param), rule -> {
             ruleOfResponseHtmlEditUpdate(rule);
             ruleLambda.accept(rule);
         });
@@ -4296,9 +4620,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlEditWithdrawalParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlEditWithdrawal(Consumer<RemoteWxResponseHtmlEditWithdrawalParam> paramLambda) {
-        doRequestResponseHtmlEditWithdrawal(paramLambda, rule -> {});
+    public String requestResponseHtmlEditWithdrawal(Consumer<RemoteWxResponseHtmlEditWithdrawalParam> paramLambda) {
+        return doRequestResponseHtmlEditWithdrawal(paramLambda, rule -> {});
     }
 
     /**
@@ -4309,11 +4634,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlEditWithdrawalParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlEditWithdrawal(Consumer<RemoteWxResponseHtmlEditWithdrawalParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestResponseHtmlEditWithdrawal(Consumer<RemoteWxResponseHtmlEditWithdrawalParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseHtmlEditWithdrawalParam param = new RemoteWxResponseHtmlEditWithdrawalParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/html/edit/withdrawal", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/response/html/edit/withdrawal", noMoreUrl(), query(param), rule -> {
             ruleOfResponseHtmlEditWithdrawal(rule);
             ruleLambda.accept(rule);
         });
@@ -4333,9 +4659,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlListParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlList(Consumer<RemoteWxResponseHtmlListParam> paramLambda) {
-        doRequestResponseHtmlList(paramLambda, rule -> {});
+    public String requestResponseHtmlList(Consumer<RemoteWxResponseHtmlListParam> paramLambda) {
+        return doRequestResponseHtmlList(paramLambda, rule -> {});
     }
 
     /**
@@ -4346,11 +4673,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseHtmlListParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlList(Consumer<RemoteWxResponseHtmlListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestResponseHtmlList(Consumer<RemoteWxResponseHtmlListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseHtmlListParam param = new RemoteWxResponseHtmlListParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/html/list", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/response/html/list", noMoreUrl(), query(param), rule -> {
             ruleOfResponseHtmlList(rule);
             ruleLambda.accept(rule);
         });
@@ -4371,9 +4699,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteWxResponseHtmlListPagenumberParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseHtmlList(Integer pageNumber, Consumer<RemoteWxResponseHtmlListPagenumberParam> paramLambda) {
-        doRequestResponseHtmlList(pageNumber, paramLambda, rule -> {});
+    public String requestResponseHtmlList(Integer pageNumber, Consumer<RemoteWxResponseHtmlListPagenumberParam> paramLambda) {
+        return doRequestResponseHtmlList(pageNumber, paramLambda, rule -> {});
     }
 
     /**
@@ -4385,11 +4714,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteWxResponseHtmlListPagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseHtmlList(Integer pageNumber, Consumer<RemoteWxResponseHtmlListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestResponseHtmlList(Integer pageNumber, Consumer<RemoteWxResponseHtmlListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseHtmlListPagenumberParam param = new RemoteWxResponseHtmlListPagenumberParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/html/list/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/response/html/list/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
             ruleOfResponseHtmlListPageNumber(rule);
             ruleLambda.accept(rule);
         });
@@ -4861,9 +5191,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/small
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamSmall() {
-        doRequestResponseStreamSmall(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamSmall() {
+        return doRequestResponseStreamSmall(rule -> {});
     }
 
     /**
@@ -4873,9 +5204,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamSmall(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/small", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamSmall(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/small", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamSmall(rule);
             ruleLambda.accept(rule);
         });
@@ -4894,9 +5226,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/large
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamLarge() {
-        doRequestResponseStreamLarge(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamLarge() {
+        return doRequestResponseStreamLarge(rule -> {});
     }
 
     /**
@@ -4906,9 +5239,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamLarge(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/large", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamLarge(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/large", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamLarge(rule);
             ruleLambda.accept(rule);
         });
@@ -4927,9 +5261,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/output
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamOutput() {
-        doRequestResponseStreamOutput(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamOutput() {
+        return doRequestResponseStreamOutput(rule -> {});
     }
 
     /**
@@ -4939,9 +5274,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamOutput(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/output", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamOutput(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/output", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamOutput(rule);
             ruleLambda.accept(rule);
         });
@@ -4960,9 +5296,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/cursortsv
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamCursortsv() {
-        doRequestResponseStreamCursortsv(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamCursortsv() {
+        return doRequestResponseStreamCursortsv(rule -> {});
     }
 
     /**
@@ -4972,9 +5309,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamCursortsv(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/cursortsv", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamCursortsv(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/cursortsv", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamCursortsv(rule);
             ruleLambda.accept(rule);
         });
@@ -4993,9 +5331,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/updateplain
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamUpdateplain() {
-        doRequestResponseStreamUpdateplain(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamUpdateplain() {
+        return doRequestResponseStreamUpdateplain(rule -> {});
     }
 
     /**
@@ -5005,9 +5344,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamUpdateplain(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/updateplain", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamUpdateplain(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/updateplain", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamUpdateplain(rule);
             ruleLambda.accept(rule);
         });
@@ -5026,9 +5366,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/updatetx
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamUpdatetx() {
-        doRequestResponseStreamUpdatetx(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamUpdatetx() {
+        return doRequestResponseStreamUpdatetx(rule -> {});
     }
 
     /**
@@ -5038,9 +5379,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamUpdatetx(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/updatetx", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamUpdatetx(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/updatetx", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamUpdatetx(rule);
             ruleLambda.accept(rule);
         });
@@ -5059,9 +5401,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/japanese
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamJapanese() {
-        doRequestResponseStreamJapanese(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamJapanese() {
+        return doRequestResponseStreamJapanese(rule -> {});
     }
 
     /**
@@ -5071,9 +5414,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamJapanese(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/japanese", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamJapanese(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/japanese", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamJapanese(rule);
             ruleLambda.accept(rule);
         });
@@ -5093,9 +5437,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseStreamValidationerrorParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamValidationerror(Consumer<RemoteWxResponseStreamValidationerrorParam> paramLambda) {
-        doRequestResponseStreamValidationerror(paramLambda, rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamValidationerror(Consumer<RemoteWxResponseStreamValidationerrorParam> paramLambda) {
+        return doRequestResponseStreamValidationerror(paramLambda, rule -> {});
     }
 
     /**
@@ -5106,11 +5451,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseStreamValidationerrorParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamValidationerror(Consumer<RemoteWxResponseStreamValidationerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamValidationerror(Consumer<RemoteWxResponseStreamValidationerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseStreamValidationerrorParam param = new RemoteWxResponseStreamValidationerrorParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/stream/validationerror", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/validationerror", noMoreUrl(), query(param), rule -> {
             ruleOfResponseStreamValidationerror(rule);
             ruleLambda.accept(rule);
         });
@@ -5129,9 +5475,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/withbizex
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamWithbizex() {
-        doRequestResponseStreamWithbizex(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamWithbizex() {
+        return doRequestResponseStreamWithbizex(rule -> {});
     }
 
     /**
@@ -5141,9 +5488,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamWithbizex(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/withbizex", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamWithbizex(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/withbizex", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamWithbizex(rule);
             ruleLambda.accept(rule);
         });
@@ -5162,9 +5510,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/withbizexapi
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamWithbizexapi() {
-        doRequestResponseStreamWithbizexapi(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamWithbizexapi() {
+        return doRequestResponseStreamWithbizexapi(rule -> {});
     }
 
     /**
@@ -5174,9 +5523,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamWithbizexapi(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/withbizexapi", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamWithbizexapi(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/withbizexapi", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamWithbizexapi(rule);
             ruleLambda.accept(rule);
         });
@@ -5196,9 +5546,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseStreamApiValidationerrorParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamApiValidationerror(Consumer<RemoteWxResponseStreamApiValidationerrorParam> paramLambda) {
-        doRequestResponseStreamApiValidationerror(paramLambda, rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamApiValidationerror(Consumer<RemoteWxResponseStreamApiValidationerrorParam> paramLambda) {
+        return doRequestResponseStreamApiValidationerror(paramLambda, rule -> {});
     }
 
     /**
@@ -5209,11 +5560,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxResponseStreamApiValidationerrorParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamApiValidationerror(Consumer<RemoteWxResponseStreamApiValidationerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamApiValidationerror(Consumer<RemoteWxResponseStreamApiValidationerrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxResponseStreamApiValidationerrorParam param = new RemoteWxResponseStreamApiValidationerrorParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/response/stream/api/validationerror", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/api/validationerror", noMoreUrl(), query(param), rule -> {
             ruleOfResponseStreamApiValidationerror(rule);
             ruleLambda.accept(rule);
         });
@@ -5232,9 +5584,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/stream/api/withbizex
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseStreamApiWithbizex() {
-        doRequestResponseStreamApiWithbizex(rule -> {});
+    public org.lastaflute.web.ruts.multipart.MultipartFormFile requestResponseStreamApiWithbizex() {
+        return doRequestResponseStreamApiWithbizex(rule -> {});
     }
 
     /**
@@ -5244,9 +5597,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseStreamApiWithbizex(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/stream/api/withbizex", noMoreUrl(), noQuery(), rule -> {
+    protected org.lastaflute.web.ruts.multipart.MultipartFormFile doRequestResponseStreamApiWithbizex(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(org.lastaflute.web.ruts.multipart.MultipartFormFile.class, "/wx/response/stream/api/withbizex", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseStreamApiWithbizex(rule);
             ruleLambda.accept(rule);
         });
@@ -5265,9 +5619,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/transition/forward/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseTransitionForward() {
-        doRequestResponseTransitionForward(rule -> {});
+    public String requestResponseTransitionForward() {
+        return doRequestResponseTransitionForward(rule -> {});
     }
 
     /**
@@ -5277,9 +5632,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseTransitionForward(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/transition/forward/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseTransitionForward(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/transition/forward/", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseTransitionForward(rule);
             ruleLambda.accept(rule);
         });
@@ -5298,9 +5654,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/transition/redirect/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseTransitionRedirect() {
-        doRequestResponseTransitionRedirect(rule -> {});
+    public String requestResponseTransitionRedirect() {
+        return doRequestResponseTransitionRedirect(rule -> {});
     }
 
     /**
@@ -5310,9 +5667,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseTransitionRedirect(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/transition/redirect/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseTransitionRedirect(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/transition/redirect/", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseTransitionRedirect(rule);
             ruleLambda.accept(rule);
         });
@@ -5331,9 +5689,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/transition/redirect/permanently/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseTransitionRedirectPermanently() {
-        doRequestResponseTransitionRedirectPermanently(rule -> {});
+    public String requestResponseTransitionRedirectPermanently() {
+        return doRequestResponseTransitionRedirectPermanently(rule -> {});
     }
 
     /**
@@ -5343,9 +5702,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseTransitionRedirectPermanently(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/transition/redirect/permanently/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseTransitionRedirectPermanently(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/transition/redirect/permanently/", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseTransitionRedirectPermanently(rule);
             ruleLambda.accept(rule);
         });
@@ -5364,9 +5724,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/transition/redirect/permanently/ssl
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseTransitionRedirectPermanentlySsl() {
-        doRequestResponseTransitionRedirectPermanentlySsl(rule -> {});
+    public String requestResponseTransitionRedirectPermanentlySsl() {
+        return doRequestResponseTransitionRedirectPermanentlySsl(rule -> {});
     }
 
     /**
@@ -5376,9 +5737,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseTransitionRedirectPermanentlySsl(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/transition/redirect/permanently/ssl", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseTransitionRedirectPermanentlySsl(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/transition/redirect/permanently/ssl", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseTransitionRedirectPermanentlySsl(rule);
             ruleLambda.accept(rule);
         });
@@ -5397,9 +5759,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * url: /wx/response/transition/redirect/temporary/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestResponseTransitionRedirectTemporary() {
-        doRequestResponseTransitionRedirectTemporary(rule -> {});
+    public String requestResponseTransitionRedirectTemporary() {
+        return doRequestResponseTransitionRedirectTemporary(rule -> {});
     }
 
     /**
@@ -5409,9 +5772,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestResponseTransitionRedirectTemporary(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/wx/response/transition/redirect/temporary/", noMoreUrl(), noQuery(), rule -> {
+    protected String doRequestResponseTransitionRedirectTemporary(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(String.class, "/wx/response/transition/redirect/temporary/", noMoreUrl(), noQuery(), rule -> {
             ruleOfResponseTransitionRedirectTemporary(rule);
             ruleLambda.accept(rule);
         });
@@ -7761,15 +8125,172 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
     }
 
     /**
+     * Request remote call to /wx/security/request/jsonbody/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/jsonbody/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestJsonbodyParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxSecurityRequestJsonbodyReturn requestSecurityRequestJsonbody(Consumer<RemoteWxSecurityRequestJsonbodyParam> paramLambda) {
+        return doRequestSecurityRequestJsonbody(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/security/request/jsonbody/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/jsonbody/
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestJsonbodyParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxSecurityRequestJsonbodyReturn doRequestSecurityRequestJsonbody(Consumer<RemoteWxSecurityRequestJsonbodyParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxSecurityRequestJsonbodyParam param = new RemoteWxSecurityRequestJsonbodyParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxSecurityRequestJsonbodyReturn.class, "/wx/security/request/jsonbody/", noMoreUrl(), param, rule -> {
+            ruleOfSecurityRequestJsonbody(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/security/request/jsonbody/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfSecurityRequestJsonbody(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/security/request/jsonbody/error. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/jsonbody/error
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestJsonbodyErrorParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxSecurityRequestJsonbodyErrorReturn requestSecurityRequestJsonbodyError(Consumer<RemoteWxSecurityRequestJsonbodyErrorParam> paramLambda) {
+        return doRequestSecurityRequestJsonbodyError(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/security/request/jsonbody/error. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/jsonbody/error
+     * httpMethod: POST
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestJsonbodyErrorParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxSecurityRequestJsonbodyErrorReturn doRequestSecurityRequestJsonbodyError(Consumer<RemoteWxSecurityRequestJsonbodyErrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxSecurityRequestJsonbodyErrorParam param = new RemoteWxSecurityRequestJsonbodyErrorParam();
+        paramLambda.accept(param);
+        return doRequestPost(RemoteWxSecurityRequestJsonbodyErrorReturn.class, "/wx/security/request/jsonbody/error", noMoreUrl(), param, rule -> {
+            ruleOfSecurityRequestJsonbodyError(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/security/request/jsonbody/error.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfSecurityRequestJsonbodyError(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/security/request/parameter/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/parameter/
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestParameterParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxSecurityRequestParameterReturn requestSecurityRequestParameter(Consumer<RemoteWxSecurityRequestParameterParam> paramLambda) {
+        return doRequestSecurityRequestParameter(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/security/request/parameter/. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/parameter/
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestParameterParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxSecurityRequestParameterReturn doRequestSecurityRequestParameter(Consumer<RemoteWxSecurityRequestParameterParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxSecurityRequestParameterParam param = new RemoteWxSecurityRequestParameterParam();
+        paramLambda.accept(param);
+        return doRequestGet(RemoteWxSecurityRequestParameterReturn.class, "/wx/security/request/parameter/", noMoreUrl(), query(param), rule -> {
+            ruleOfSecurityRequestParameter(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/security/request/parameter/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfSecurityRequestParameter(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /wx/security/request/parameter/error. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/parameter/error
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestParameterErrorParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    public RemoteWxSecurityRequestParameterErrorReturn requestSecurityRequestParameterError(Consumer<RemoteWxSecurityRequestParameterErrorParam> paramLambda) {
+        return doRequestSecurityRequestParameterError(paramLambda, rule -> {});
+    }
+
+    /**
+     * Request remote call to /wx/security/request/parameter/error. (auto-generated method)<br>
+     * <pre>
+     * url: /wx/security/request/parameter/error
+     * httpMethod: GET
+     * </pre>
+     * @param paramLambda The callback for RemoteWxSecurityRequestParameterErrorParam. (NotNull)
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
+     */
+    protected RemoteWxSecurityRequestParameterErrorReturn doRequestSecurityRequestParameterError(Consumer<RemoteWxSecurityRequestParameterErrorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxSecurityRequestParameterErrorParam param = new RemoteWxSecurityRequestParameterErrorParam();
+        paramLambda.accept(param);
+        return doRequestGet(RemoteWxSecurityRequestParameterErrorReturn.class, "/wx/security/request/parameter/error", noMoreUrl(), query(param), rule -> {
+            ruleOfSecurityRequestParameterError(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /wx/security/request/parameter/error.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfSecurityRequestParameterError(FlutyRemoteApiRule rule) {
+    }
+
+    /**
      * Request remote call to /wx/thymeleaf/parade. (auto-generated method)<br>
      * <pre>
      * url: /wx/thymeleaf/parade
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxThymeleafParadeParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestThymeleafParade(Consumer<RemoteWxThymeleafParadeParam> paramLambda) {
-        doRequestThymeleafParade(paramLambda, rule -> {});
+    public String requestThymeleafParade(Consumer<RemoteWxThymeleafParadeParam> paramLambda) {
+        return doRequestThymeleafParade(paramLambda, rule -> {});
     }
 
     /**
@@ -7780,11 +8301,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxThymeleafParadeParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestThymeleafParade(Consumer<RemoteWxThymeleafParadeParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestThymeleafParade(Consumer<RemoteWxThymeleafParadeParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxThymeleafParadeParam param = new RemoteWxThymeleafParadeParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/thymeleaf/parade", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/thymeleaf/parade", noMoreUrl(), query(param), rule -> {
             ruleOfThymeleafParade(rule);
             ruleLambda.accept(rule);
         });
@@ -7805,9 +8327,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteWxThymeleafParadePagenumberParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestThymeleafParade(Integer pageNumber, Consumer<RemoteWxThymeleafParadePagenumberParam> paramLambda) {
-        doRequestThymeleafParade(pageNumber, paramLambda, rule -> {});
+    public String requestThymeleafParade(Integer pageNumber, Consumer<RemoteWxThymeleafParadePagenumberParam> paramLambda) {
+        return doRequestThymeleafParade(pageNumber, paramLambda, rule -> {});
     }
 
     /**
@@ -7819,11 +8342,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * @param pageNumber The value of path variable for pageNumber. (NotNull)
      * @param paramLambda The callback for RemoteWxThymeleafParadePagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestThymeleafParade(Integer pageNumber, Consumer<RemoteWxThymeleafParadePagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestThymeleafParade(Integer pageNumber, Consumer<RemoteWxThymeleafParadePagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxThymeleafParadePagenumberParam param = new RemoteWxThymeleafParadePagenumberParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/thymeleaf/parade/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/thymeleaf/parade/{pageNumber}", moreUrl(pageNumber), query(param), rule -> {
             ruleOfThymeleafParadePageNumber(rule);
             ruleLambda.accept(rule);
         });
@@ -7843,9 +8367,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxTransactionMemoriesFailParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestTransactionMemoriesFail(Consumer<RemoteWxTransactionMemoriesFailParam> paramLambda) {
-        doRequestTransactionMemoriesFail(paramLambda, rule -> {});
+    public String requestTransactionMemoriesFail(Consumer<RemoteWxTransactionMemoriesFailParam> paramLambda) {
+        return doRequestTransactionMemoriesFail(paramLambda, rule -> {});
     }
 
     /**
@@ -7856,11 +8381,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxTransactionMemoriesFailParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestTransactionMemoriesFail(Consumer<RemoteWxTransactionMemoriesFailParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestTransactionMemoriesFail(Consumer<RemoteWxTransactionMemoriesFailParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxTransactionMemoriesFailParam param = new RemoteWxTransactionMemoriesFailParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/transaction/memories/fail", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/transaction/memories/fail", noMoreUrl(), query(param), rule -> {
             ruleOfTransactionMemoriesFail(rule);
             ruleLambda.accept(rule);
         });
@@ -7880,9 +8406,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxTransactionMemoriesFailasyncParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestTransactionMemoriesFailasync(Consumer<RemoteWxTransactionMemoriesFailasyncParam> paramLambda) {
-        doRequestTransactionMemoriesFailasync(paramLambda, rule -> {});
+    public String requestTransactionMemoriesFailasync(Consumer<RemoteWxTransactionMemoriesFailasyncParam> paramLambda) {
+        return doRequestTransactionMemoriesFailasync(paramLambda, rule -> {});
     }
 
     /**
@@ -7893,11 +8420,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxTransactionMemoriesFailasyncParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestTransactionMemoriesFailasync(Consumer<RemoteWxTransactionMemoriesFailasyncParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestTransactionMemoriesFailasync(Consumer<RemoteWxTransactionMemoriesFailasyncParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxTransactionMemoriesFailasyncParam param = new RemoteWxTransactionMemoriesFailasyncParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/transaction/memories/failasync", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/transaction/memories/failasync", noMoreUrl(), query(param), rule -> {
             ruleOfTransactionMemoriesFailasync(rule);
             ruleLambda.accept(rule);
         });
@@ -7917,9 +8445,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxValidatorParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestValidator(Consumer<RemoteWxValidatorParam> paramLambda) {
-        doRequestValidator(paramLambda, rule -> {});
+    public String requestValidator(Consumer<RemoteWxValidatorParam> paramLambda) {
+        return doRequestValidator(paramLambda, rule -> {});
     }
 
     /**
@@ -7930,11 +8459,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxValidatorParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestValidator(Consumer<RemoteWxValidatorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestValidator(Consumer<RemoteWxValidatorParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxValidatorParam param = new RemoteWxValidatorParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/validator/", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/validator/", noMoreUrl(), query(param), rule -> {
             ruleOfValidator(rule);
             ruleLambda.accept(rule);
         });
@@ -7954,9 +8484,10 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * httpMethod: GET
      * </pre>
      * @param paramLambda The callback for RemoteWxValidatorGenericformParam. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestValidatorGenericform(Consumer<RemoteWxValidatorGenericformParam> paramLambda) {
-        doRequestValidatorGenericform(paramLambda, rule -> {});
+    public String requestValidatorGenericform(Consumer<RemoteWxValidatorGenericformParam> paramLambda) {
+        return doRequestValidatorGenericform(paramLambda, rule -> {});
     }
 
     /**
@@ -7967,11 +8498,12 @@ public abstract class BsRemoteFortressWxBhv extends AbstractRemoteFortressBhv {
      * </pre>
      * @param paramLambda The callback for RemoteWxValidatorGenericformParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestValidatorGenericform(Consumer<RemoteWxValidatorGenericformParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+    protected String doRequestValidatorGenericform(Consumer<RemoteWxValidatorGenericformParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
         RemoteWxValidatorGenericformParam param = new RemoteWxValidatorGenericformParam();
         paramLambda.accept(param);
-        doRequestGet(void.class, "/wx/validator/genericform", noMoreUrl(), query(param), rule -> {
+        return doRequestGet(String.class, "/wx/validator/genericform", noMoreUrl(), query(param), rule -> {
             ruleOfValidatorGenericform(rule);
             ruleLambda.accept(rule);
         });

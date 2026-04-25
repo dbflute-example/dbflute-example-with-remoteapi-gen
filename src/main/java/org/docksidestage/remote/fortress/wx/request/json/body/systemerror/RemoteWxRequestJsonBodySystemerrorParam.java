@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package org.docksidestage.remote.fortress.wx.request.json.body.systemerror;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as param for remote API of POST /wx/request/json/body/systemerror.
@@ -26,7 +27,12 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
     /** The property of sea. (NullAllowed) */
     public String sea;
 
-    /** The property of land. (NullAllowed) */
+    /** The property of seaDockside. */
+    @Required
+    public String seaDockside;
+
+    /** The property of land. */
+    @Required
     public Integer land;
 
     /** The property of piari. (NullAllowed) */
@@ -35,10 +41,12 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
     /** The property of bonvo. (NullAllowed) */
     public java.time.LocalDateTime bonvo;
 
-    /** The property of dstore. (NullAllowed) */
+    /** The property of dstore. */
+    @Required
     public Boolean dstore;
 
-    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) (NullAllowed) */
+    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) */
+    @Required
     public String amba;
 
     /** The property of miraco. (NullAllowed) */
@@ -51,19 +59,39 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
      */
     public static class MiracoPart {
 
-        /** The property of sta. (NullAllowed) */
-        public String sta;
+        /** The property of toscana. */
+        @Required
+        @javax.validation.Valid
+        public ToscanaPart toscana;
+
+        /**
+         * The part class of ToscanaPart.
+         * @author FreeGen
+         */
+        public static class ToscanaPart {
+
+            /** The property of parkEntranceView. */
+            @Required
+            public String parkEntranceView;
+
+            /** The property of hotelEntranceView. (NullAllowed) */
+            public String hotelEntranceView;
+
+            /** The property of nannimoView. */
+            @Required
+            public String nannimoView;
+        }
     }
 
-    /** The property of white. (NullAllowed) */
+    /** The property of dohotel. (NullAllowed) */
     @javax.validation.Valid
-    public WhitePart white;
+    public DohotelPart dohotel;
 
     /**
-     * The part class of WhitePart.
+     * The part class of DohotelPart.
      * @author FreeGen
      */
-    public static class WhitePart {
+    public static class DohotelPart {
 
         /** The property of formatBodying. (enumValue=[SEA, LAN]) ( * `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
         public String formatBodying;

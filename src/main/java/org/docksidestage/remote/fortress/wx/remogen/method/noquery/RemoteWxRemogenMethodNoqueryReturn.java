@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 the original author or authors.
+ * Copyright 2017-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package org.docksidestage.remote.fortress.wx.remogen.method.noquery;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
  * The bean class as return for remote API of DELETE /wx/remogen/method/noquery.
@@ -23,10 +24,12 @@ import org.lastaflute.core.util.Lato;
  */
 public class RemoteWxRemogenMethodNoqueryReturn {
 
-    /** The property of sea. (NullAllowed) */
+    /** The property of sea. */
+    @Required
     public String sea;
 
-    /** The property of land. (NullAllowed) */
+    /** The property of land. */
+    @Required
     public Integer land;
 
     /** The property of iamResult. (NullAllowed) */
