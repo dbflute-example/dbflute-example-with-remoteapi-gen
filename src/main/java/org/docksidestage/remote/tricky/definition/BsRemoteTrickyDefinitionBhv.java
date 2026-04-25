@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.tricky.AbstractRemoteTrickyBhv;
+import org.docksidestage.remote.tricky.definition.less.RemoteDefinitionLessGetReturn;
 import org.docksidestage.remote.tricky.definition.less.RemoteDefinitionLessPostReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
@@ -47,9 +48,10 @@ public abstract class BsRemoteTrickyDefinitionBhv extends AbstractRemoteTrickyBh
      * url: /definition/less/
      * httpMethod: GET
      * </pre>
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public void requestLessGet() {
-        doRequestLessGet(rule -> {});
+    public RemoteDefinitionLessGetReturn requestLessGet() {
+        return doRequestLessGet(rule -> {});
     }
 
     /**
@@ -59,9 +61,10 @@ public abstract class BsRemoteTrickyDefinitionBhv extends AbstractRemoteTrickyBh
      * httpMethod: GET
      * </pre>
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected void doRequestLessGet(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        doRequestGet(void.class, "/definition/less/", noMoreUrl(), noQuery(), rule -> {
+    protected RemoteDefinitionLessGetReturn doRequestLessGet(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteDefinitionLessGetReturn.class, "/definition/less/", noMoreUrl(), noQuery(), rule -> {
             ruleOfLessGet(rule);
             ruleLambda.accept(rule);
         });
@@ -107,5 +110,38 @@ public abstract class BsRemoteTrickyDefinitionBhv extends AbstractRemoteTrickyBh
      * @param rule The rule that class default rule is already set. (NotNull)
      */
     protected void ruleOfLessPost(FlutyRemoteApiRule rule) {
+    }
+
+    /**
+     * Request remote call to /definition/less/. (auto-generated method)<br>
+     * <pre>
+     * url: /definition/less/
+     * httpMethod: PUT
+     * </pre>
+     */
+    public void requestLessPut() {
+        doRequestLessPut(rule -> {});
+    }
+
+    /**
+     * Request remote call to /definition/less/. (auto-generated method)<br>
+     * <pre>
+     * url: /definition/less/
+     * httpMethod: PUT
+     * </pre>
+     * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
+     */
+    protected void doRequestLessPut(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        doRequestPut(void.class, "/definition/less/", noMoreUrl(), noRequestBody(), rule -> {
+            ruleOfLessPut(rule);
+            ruleLambda.accept(rule);
+        });
+    }
+
+    /**
+     * Set up method-level rule of /definition/less/.<br>
+     * @param rule The rule that class default rule is already set. (NotNull)
+     */
+    protected void ruleOfLessPut(FlutyRemoteApiRule rule) {
     }
 }

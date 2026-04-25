@@ -569,14 +569,18 @@ var remoteApiLogic = {
             beanProperty.fieldClass = typeMap[property.format];
         } else if (typeMap[property.type]) {
             beanProperty.fieldClass = typeMap[property.type];
-        } else if (property['$ref'] || property.allOf[0]['$ref']) {
+        } else if (property['$ref'] || (property.allOf && property.allOf[0]['$ref'])) {
             if (property['$ref']) {
                 nestType = java.net.URLDecoder.decode(property['$ref'].replace('#/definitions/', ''), 'UTF-8');
             } else if (property.allOf[0]['$ref']) {
                 nestType = java.net.URLDecoder.decode(property.allOf[0]['$ref'].replace('#/definitions/', ''), 'UTF-8');
-            }
+            } // logically else no way here
             beanProperty.fieldClass = adjustNestType(rule, topLevelBean, nestType);
             beanProperty.annotationList.push('@javax.validation.Valid');
+        } else { // type も ref も何も指定がないプロパティのとき
+            // 古い RemoteApiGen に合わせて、デフォルト String にする。
+            // https://github.com/dbflute-example/dbflute-example-with-remoteapi-gen/issues/34
+            beanProperty.fieldClass = java.lang.String.class.getSimpleName();
         }
 
         if (beanProperty.fieldClass == '') {
