@@ -31,13 +31,13 @@ ${manager.allClassCopyright}package ${data.package};
 #set ($parameterFlg = false)
 #set ($returnFlg = false)
 #if ($rule['behaviorMethodGeneration'])
-#foreach($method in $data.bsBehavior.methodList)
-#if (${method.paramBean.className} && ${method.paramBean.className} != '')
-#set($added = $importList.add("${method.paramBean.package}.${method.paramBean.className}"))
+#foreach($methodResource in $data.bsBehavior.methodResourceList)
+#if (${methodResource.paramBean.className} && ${methodResource.paramBean.className} != '')
+#set($added = $importList.add("${methodResource.paramBean.package}.${methodResource.paramBean.className}"))
 #set ($parameterFlg = true)
 #end
-#if (${method.returnBean.package} && ${method.returnBean.package} != '' && ${method.returnBean.className} && ${method.returnBean.className} != '')
-#set($added = $importList.add("${method.returnBean.package}.${method.returnBean.className}"))
+#if (${methodResource.returnBean.package} && ${methodResource.returnBean.package} != '' && ${methodResource.returnBean.className} && ${methodResource.returnBean.className} != '')
+#set($added = $importList.add("${methodResource.returnBean.package}.${methodResource.returnBean.className}"))
 #set ($returnFlg = true)
 #end
 #end
@@ -45,7 +45,14 @@ ${manager.allClassCopyright}package ${data.package};
 #if ($parameterFlg)
 #set($added = $importList.add('java.util.function.Consumer'))
 #end
-#set($added = $importList.add("org.docksidestage.unit.UnitRemoteapigenTestCase"))
+#set ($testSuperClass = "")
+#if ($rule['behaviorTestSuperClass'])
+#set ($testSuperClass = $rule['behaviorTestSuperClass'])
+#else
+## テストの自動生成はするけど、スーパークラス名が指定されていない状態 here
+#set ($testSuperClass = "/*you should set super class name on your rule.js*/")
+#end
+#set($added = $importList.add(${testSuperClass}))
 #set($added = $importList.add("javax.annotation.Resource"))
 #if ($returnFlg)
 #set($added = $importList.add("org.slf4j.Logger"))
@@ -67,7 +74,8 @@ import ${importClass};
  * The behavior test for remote API of ${data.remoteApiExp}.
  * @author FreeGen
  */
-public class ${data.className}Test extends UnitRemoteapigenTestCase {
+#superSimpleClassName($testSuperClass)
+public class ${data.className}Test extends $superSimpleClassName {
 ##########################################################################################
 ##### Property definition.
 ##########################################################################################
@@ -83,10 +91,10 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 ##########################################################################################
 #if ($rule['behaviorMethodGeneration'])
 #set ($behaviorRequestMethodSignatureList = [])
-#foreach($method in $data.bsBehavior.methodList)
-#set ($behaviorRequestMethodName = $scriptEngine.invokeMethod($rule, 'behaviorRequestMethodName', $method.api))
-#set ($behaviorRuleMethodName = $scriptEngine.invokeMethod($rule, 'behaviorRuleMethodName', $method.api))
-#foreach($pathVariableEntry in $method.pathVariables.entrySet())
+#foreach($methodResource in $data.bsBehavior.methodResourceList)
+#set ($behaviorRequestMethodName = $scriptEngine.invokeMethod($rule, 'behaviorRequestMethodName', $methodResource.api))
+#set ($behaviorRuleMethodName = $scriptEngine.invokeMethod($rule, 'behaviorRuleMethodName', $methodResource.api))
+#foreach($pathVariableEntry in $methodResource.pathVariables.entrySet())
 #set ($pathVariableName = $scriptEngine.invokeMethod($rule, 'fieldName', $data.api, {'in': 'path'}, $pathVariableEntry.key))
 #set ($behaviorRuleMethodName = "$behaviorRuleMethodName$manager.initCap($pathVariableName)")
 #end
@@ -94,7 +102,7 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #set ($parameterDefinition = '')
 #set ($moreUrl = '')
 #set ($returnBeanClassName = 'void')
-#foreach($pathVariableEntry in $method.pathVariables.entrySet())
+#foreach($pathVariableEntry in $methodResource.pathVariables.entrySet())
 #set ($pathVariableName = $scriptEngine.invokeMethod($rule, 'fieldName', $data.api, {'in': 'path'}, $pathVariableEntry.key))
 #set ($pathVariable = $pathVariableEntry.value)
 #if ($pathVariable.type == 'array')
@@ -131,9 +139,9 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #set ($moreUrl = "${moreUrl}${pathVariableName}, ")
 #end
 #set ($paramBeanClassName = '')
-#if (${method.paramBean.className})
-#set ($paramBeanClassName = ${method.paramBean.className})
-#if ($method.paramBeanArray)
+#if (${methodResource.paramBean.className})
+#set ($paramBeanClassName = ${methodResource.paramBean.className})
+#if ($methodResource.paramBeanArray)
 #set ($paramBeanClassName = "java.util.List<${paramBeanClassName}>")
 #end
 #set ($parameterDefinition = "${parameterDefinition}Consumer<${paramBeanClassName}> paramLambda")
@@ -144,8 +152,8 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #if ($moreUrl == '')
 #set ($moreUrl = 'noMoreUrl()')
 #end
-#set ($returnBeanClassName = ${method.returnBean.className})
-#if ($method.returnBeanArray)
+#set ($returnBeanClassName = ${methodResource.returnBean.className})
+#if ($methodResource.returnBeanArray)
 #set ($returnBeanClassName = "${typeMap['array']}<${returnBeanClassName}>")
 #end
 #set ($returnBeanClassName = $scriptEngine.invokeMethod($rule, 'unDefinitionKey', ${returnBeanClassName}))
@@ -155,7 +163,7 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #end
 #set ($behaviorRequestMethodSignature = "$behaviorRequestMethodName$parameterSignature")
 #if ($behaviorRequestMethodSignatureList.contains($behaviorRequestMethodSignature))
-#foreach($pathVariableEntry in $method.pathVariables.entrySet())
+#foreach($pathVariableEntry in $methodResource.pathVariables.entrySet())
 #set ($behaviorRequestMethodName = "$behaviorRequestMethodName$manager.initCap($pathVariableName)")
 #end
 #set ($behaviorRequestMethodSignature = "$behaviorRequestMethodName$parameterSignature")
@@ -169,7 +177,7 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #end
 #set ($behaviorRequestMethodSignature = "$behaviorRequestTestMethodName")
 #if ($behaviorRequestMethodSignatureList.contains($behaviorRequestMethodSignature))
-#foreach($pathVariableEntry in $method.pathVariables.entrySet())
+#foreach($pathVariableEntry in $methodResource.pathVariables.entrySet())
 #set ($behaviorRequestTestMethodName = "$behaviorRequestTestMethodName$manager.initCap($pathVariableName)")
 #end
 #set ($behaviorRequestMethodSignature = "$behaviorRequestTestMethodName$parameterSignature")
@@ -200,17 +208,17 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
         $parameter['class'] $parameter.name = null;
 #end
 #end
-#if (${method.paramBean.className} && ${method.paramBean.className} != '')
+#if (${methodResource.paramBean.className} && ${methodResource.paramBean.className} != '')
         Consumer<${paramBeanClassName}> paramLambda = param -> {
-#if ($method.paramBeanArray)
-            $method.paramBean.className rowParam = new ${method.paramBean.className}();
-#foreach($propertyEntry in $method.paramBean.properties.entrySet())
-            #generateTestRequestPropertySetting($method.paramBean, $propertyEntry, "rowParam")
+#if ($methodResource.paramBeanArray)
+            $methodResource.paramBean.className rowParam = new ${methodResource.paramBean.className}();
+#foreach($propertyEntry in $methodResource.paramBean.properties.entrySet())
+            #generateTestRequestPropertySetting($methodResource.paramBean, $propertyEntry, "rowParam")
 #end
             param.add(rowParam);
 #else
-#foreach($propertyEntry in $method.paramBean.properties.entrySet())
-            #generateTestRequestPropertySetting($method.paramBean, $propertyEntry, "param")
+#foreach($propertyEntry in $methodResource.paramBean.properties.entrySet())
+            #generateTestRequestPropertySetting($methodResource.paramBean, $propertyEntry, "param")
 #end
 #end
         };
@@ -220,7 +228,7 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #[[        // ## Act ##]]#
 #if ($returnBeanClassName == 'void')
 #set ($json = "null")
-#elseif ($method.returnBeanArray)
+#elseif ($methodResource.returnBeanArray)
 #set ($json = '"[]"')
 #elseif ($returnBeanClassName == 'String')
 #set ($json = '"mysticOneman"')
@@ -229,16 +237,16 @@ public class ${data.className}Test extends UnitRemoteapigenTestCase {
 #else
 #set ($json = '"{}"')
 #end
-        #if ($returnBeanClassName != 'void')$returnBeanClassName#if ($method.returnBeanArray) list#else returnBean#end = #end
+        #if ($returnBeanClassName != 'void')$returnBeanClassName#if ($methodResource.returnBeanArray) list#else returnBean#end = #end
 createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterList)$parameter.name#if( $foreach.hasNext ), #end#end);
 #if ($returnBeanClassName != 'void')
 
 ## #hope jflute Returnクラスはログに直接出してるでデータ型の変化を検知できないので、変数に置くスタイルにしたいところ。 (2026/03/14)
 #[[        // ## Assert ##]]#
-#if ($method.returnBeanArray)
+#if ($methodResource.returnBeanArray)
         list.forEach(returnBean -> {
-#foreach($propertyEntry in $method.returnBean.properties.entrySet())
-#set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $method.returnBean, $propertyEntry.key)})
+#foreach($propertyEntry in $methodResource.returnBean.properties.entrySet())
+#set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $methodResource.returnBean, $propertyEntry.key)})
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
             logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
@@ -249,11 +257,11 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
 #end
 #end
         });
-#elseif (!$method.returnBean.properties)
+#elseif (!$methodResource.returnBean.properties)
         logger.debug("returnBean={}", returnBean);
 #else
-#foreach($propertyEntry in $method.returnBean.properties.entrySet())
-#set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $method.returnBean, $propertyEntry.key)})
+#foreach($propertyEntry in $methodResource.returnBean.properties.entrySet())
+#set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $methodResource.returnBean, $propertyEntry.key)})
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
         logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
@@ -419,4 +427,17 @@ $requestBeanVariableName.$fieldName = new $paramBeanClassName.${fieldClass}();
 #end
 #set ($adjustType = $adjustType.replaceAll("^.*\$", ''))
 #set ($adjustType = $scriptEngine.invokeMethod($rule, 'nestClassName', $schema, $adjustType))
+#end
+## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+## Derive simple class name of super class e.g. sea.HangarTestCase to HangarTestCase
+## @param fqcn The fqcn of super class e.g. sea.HangarTestCase (NotNull)
+## @return superSimpleClassName The filtered name as simple class name. (NotNull)
+## _/_/_/_/_/_/_/_/_/_/
+#macro(superSimpleClassName, $fqcn)
+#set ($superSimpleClassName = ${fqcn})
+#set ($index = ${superSimpleClassName.lastIndexOf('.')})
+#if ($index != -1)
+#set ($index = $index + 1)
+#set ($superSimpleClassName = ${superSimpleClassName.substring($index)})
+#end
 #end

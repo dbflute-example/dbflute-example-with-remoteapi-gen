@@ -518,7 +518,7 @@ var remoteApiLogic = {
             description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
         beanProperty.javadocComment = '/** The property of ' + beanProperty.fieldName + '. ' + enumValueComment
-                                      + (property.description ? '(' + property.description + ') ' : '')
+                                      + (description ? '(' + description + ') ' : '')
                                       + (property.required ? '' : '(NullAllowed) ') + '*/';
 
         // annotation

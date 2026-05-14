@@ -500,10 +500,15 @@ function generateBhv(rule, request, exBehaviorMap) {
         // manage.sh に組み込んで常に生成するスタイルでもいい。
         //
         // #thinking jflute 既存ファイルを自動生成し直して見ると、ネスト周りのReturnのコードが消えたりとかで全体見直しが必要 (2026/03/14)
+        //
+        // #for_now jflute Remoteサーバーごとに自動生成の制御をできないと使いづらいと思ったのでruleで制御boolean。(2026/05/14)
+        // スーパークラスの名前もruleで指定。さすがに環境変数にスーパークラスの名前を定義するのは微妙ということもあり。
         // _/_/_/_/_/_/_/_/
         if (java.lang.System.getenv("FREE_GEN_REMOTEAPI_TEST") === 'true') {        
-            path = '../../test/java/' + exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + 'Test.java';
-            generate('./remoteapi/RemoteApiExBehaviorTest.vm', path, exBehavior, false);
+            if (rule.testClassGeneration) {
+                path = '../../test/java/' + exBehavior.package.replace(/\./g, '/') + '/' + exBehavior.className + 'Test.java';
+                generate('./remoteapi/RemoteApiExBehaviorTest.vm', path, exBehavior, false);
+            }
         }
     }
 

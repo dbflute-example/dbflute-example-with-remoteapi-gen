@@ -632,6 +632,19 @@ var baseRule = {
     docGeneration: true,
 
     // ===================================================================================
+    //                                                                               Test
+    //                                                                              ======
+    /**
+     * true for automatically generating behavior test.
+     */
+    testClassGeneration: false,
+
+    /**
+     * A super class FQCN of behavior test. (NullAllowed: if null, compile error)
+     */
+    behaviorTestSuperClass: null,
+
+    // ===================================================================================
     //                                                                              Option
     //                                                                              ======
     /**
