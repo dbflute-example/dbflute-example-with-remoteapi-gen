@@ -439,8 +439,9 @@ function generateBean(rule, remoteApiBeanList) {
         var remoteApiBean = sortRemoteApiBeanMap[remoteApiBeanKey];
         var path = remoteApiBean.package.replace(/\./g, '/') + '/' + remoteApiBean.className + '.java';
         if (uniqueRemoteApiBeanMap[path] && uniqueRemoteApiBeanMap[path].properties != remoteApiBean.properties) {
+            // beanClassName(), paramClassName(), returnClassName() are called here as 'detail' true
             print('warning duplication! try change path');
-            remoteApiBean.className = rule[remoteApiBean.beanPurposeType + 'ClassName'](remoteApiBean.api, true);
+            remoteApiBean.className = rule[remoteApiBean.beanPurposeType + 'ClassName'](remoteApiBean.api, /*detail*/true);
             var path = remoteApiBean.package.replace(/\./g, '/') + '/' + remoteApiBean.className + '.java';
         }
         if (uniqueRemoteApiBeanMap[path] && uniqueRemoteApiBeanMap[path].properties != remoteApiBean.properties) {

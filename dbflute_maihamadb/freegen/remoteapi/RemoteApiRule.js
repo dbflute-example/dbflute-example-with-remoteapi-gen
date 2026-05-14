@@ -268,8 +268,9 @@ var baseRule = {
      * @return {string} e.g. requestProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     behaviorRequestMethodName: function(api) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_').replace(/:/g, ''));
-        return 'request' + manager.initCap(methodPart) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
+        var methodPart = this.resourceNameOfBehaviorMethod(api, {}); // camelized
+        var suffix = isAvailableFixedHttpMethodSuffixOfBehaviorMethodName(api, {}); // dummy option for now
+        return 'request' + manager.initCap(methodPart) + suffix;
     },
 
     /**
@@ -278,8 +279,39 @@ var baseRule = {
      * @return {string} e.g. ruleOfProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     behaviorRuleMethodName: function(api) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_').replace(/:/g, ''));
-        return 'ruleOf' + manager.initCap(methodPart) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
+        var methodPart = this.resourceNameOfBehaviorMethod(api, {}); // camelized
+        var suffix = isAvailableFixedHttpMethodSuffixOfBehaviorMethodName(api, {}); // dummy option for now
+        return 'ruleOf' + manager.initCap(methodPart) + suffix;
+    },
+
+    // #hope jflute the 'option' is reservation argument for future (2026/05/08)
+    /**
+     * Build resource name of the behavior method. (camelized, initUncap)
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @return {string} e.g. ruleOfProductList (for /lido/product/list) (NotNull, NotEmpty)
+     */
+    resourceNameOfBehaviorMethod: function(api, option) {
+        return manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_').replace(/:/g, ''));
+    },
+
+    /**
+     * Is available HTTP method suffix of behavior methods (e.g. request.../ruleOf...) ?
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. {} (NotNull)
+     * @return {boolean} true if always HTTP method as suffix e.g. requestLidoProductListGet (NotNull)
+     */
+    isAvailableFixedHttpMethodSuffixOfBehaviorMethodName: function(api, option) {
+        return this.isAvailableFixedHttpMethodSuffixOfIdentityName(api, option);
+    },
+
+    /**
+     * Is available HTTP method suffix of identity name (behavior methods/Param/Return) ?
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. {} (NotNull)
+     * @return {boolean} true if always HTTP method as suffix e.g. RemoteLidoProductListGet (NotNull)
+     */
+    isAvailableFixedHttpMethodSuffixOfIdentityName: function(api, option) {
+        return false; // as default
     },
 
     // ===================================================================================
@@ -301,16 +333,70 @@ var baseRule = {
         return package;
     },
 
-    // #thinking jflute "detail" is fixedly false in createBean(), what is this? (2026/03/14)
+    // #hope jflute change parameter 'detail' to 'option' object at future (2026/05/08)
     /**
      * Build base name of bean class without package for e.g. Param/Return.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {boolean} detail - ???. (NotNull)
-     * @return {string} e.g. RemoteLidoProductList (NotNull)
+     * @param {boolean} detail - true if duplicate path, then using e.g. path variables. (NotNull)
+     * @return {string} e.g. RemoteLidoProductList, RemoteLidoProductListGet, RemoteLidoProductListPagenumber (NotNull)
      */
     beanClassName: function(api, detail) {
-        var namePart = detail ? api.url.replace(/(_|-|^\/|\/$|\{|\})/g, '').replace(/\//g, '_').toLowerCase() : this.subPackage(api);
-        return 'Remote' + manager.initCap(manager.camelize(namePart.replace(/\./g, '_').replace(/:/g, ''))) + (api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
+        var option = { detail: detail }; // as adapter
+        var namePart;
+        if (detail) { // if having duplicate with other API path
+            namePart = this.resourceNameOfDetailBeanClassName(api, option);
+        } else { // normally here
+            namePart = this.resourceNameOfBasicBeanClassName(api, option);
+        }
+        var camelized = manager.initCap(manager.camelize(namePart.replace(/\./g, '_').replace(/:/g, '')));
+        var suffix = this.suffixOfBeanClassName(api, option);
+        return 'Remote' + camelized + suffix;
+    },
+
+    /**
+     * Build resource name of basic bean class without Remote/camel/package/ for e.g. Param/Return.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @return {string} e.g. lido.product.list (NotNull)
+     */
+    resourceNameOfBasicBeanClassName: function(api, option) {
+        return this.subPackage(api);
+    },
+
+    /**
+     * Build resource name of detail bean class without Remote/camel/package/ for e.g. Param/Return.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. { detail: true } (NotNull)
+     * @return {string} e.g. lido_product_list_pagenumber (NotNull)
+     */
+    resourceNameOfDetailBeanClassName: function(api, option) {
+        // use PathVariables to be unique path (different from subPackage())
+        // e.g.
+        //  subPackage() :: lido.product.list
+        //  this method  :: lido_product_list_pagenumber
+        return api.url.replace(/(_|-|^\/|\/$|\{|\})/g, '').replace(/\//g, '_').toLowerCase();
+    },
+
+    /**
+     * Build suffix (basically HTTP method keyword) of bean class for e.g. Param/Return.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @return {string} e.g. '', 'Get', 'Post' (NotNull)
+     */
+    suffixOfBeanClassName: function(api, option) {
+        // multiple only as default
+        var fixed = this.isAvailableFixedHttpMethodSuffixOfBeanClassName(api, option); // false as default
+        return (fixed || api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
+    },
+
+    /**
+     * Is available fixed HTTP method suffix of bean class for e.g. Param/Return.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @return {boolean} true if always HTTP method as suffix e.g. RemoteLidoProductListGet (NotNull)
+     */
+    isAvailableFixedHttpMethodSuffixOfBeanClassName: function(api, option) {
+        return this.isAvailableFixedHttpMethodSuffixOfIdentityName(api, option);
     },
 
     // -----------------------------------------------------
