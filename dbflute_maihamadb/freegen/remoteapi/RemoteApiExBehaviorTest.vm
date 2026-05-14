@@ -45,7 +45,14 @@ ${manager.allClassCopyright}package ${data.package};
 #if ($parameterFlg)
 #set($added = $importList.add('java.util.function.Consumer'))
 #end
-#set($added = $importList.add("org.docksidestage.unit.UnitRemoteapigenTestCase"))
+#set ($testSuperClass = "")
+#if ($rule['behaviorTestSuperClass'])
+#set ($testSuperClass = $rule['behaviorTestSuperClass'])
+#else
+## テストの自動生成はするけど、スーパークラス名が指定されていない状態 here
+#set ($testSuperClass = "/*you should set super class name on your rule.js*/")
+#end
+#set($added = $importList.add(${testSuperClass}))
 #set($added = $importList.add("javax.annotation.Resource"))
 #if ($returnFlg)
 #set($added = $importList.add("org.slf4j.Logger"))
@@ -67,7 +74,8 @@ import ${importClass};
  * The behavior test for remote API of ${data.remoteApiExp}.
  * @author FreeGen
  */
-public class ${data.className}Test extends UnitRemoteapigenTestCase {
+#superSimpleClassName($testSuperClass)
+public class ${data.className}Test extends $superSimpleClassName {
 ##########################################################################################
 ##### Property definition.
 ##########################################################################################
@@ -419,4 +427,17 @@ $requestBeanVariableName.$fieldName = new $paramBeanClassName.${fieldClass}();
 #end
 #set ($adjustType = $adjustType.replaceAll("^.*\$", ''))
 #set ($adjustType = $scriptEngine.invokeMethod($rule, 'nestClassName', $schema, $adjustType))
+#end
+## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+## Derive simple class name of super class e.g. sea.HangarTestCase to HangarTestCase
+## @param fqcn The fqcn of super class e.g. sea.HangarTestCase (NotNull)
+## @return superSimpleClassName The filtered name as simple class name. (NotNull)
+## _/_/_/_/_/_/_/_/_/_/
+#macro(superSimpleClassName, $fqcn)
+#set ($superSimpleClassName = ${fqcn})
+#set ($index = ${superSimpleClassName.lastIndexOf('.')})
+#if ($index != -1)
+#set ($index = $index + 1)
+#set ($superSimpleClassName = ${superSimpleClassName.substring($index)})
+#end
 #end
