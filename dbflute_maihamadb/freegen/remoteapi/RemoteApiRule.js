@@ -269,7 +269,7 @@ var baseRule = {
      */
     behaviorRequestMethodName: function(api) {
         var methodPart = this.resourceNameOfBehaviorMethod(api, {}); // camelized
-        var suffix = isAvailableFixedHttpMethodSuffixOfBehaviorMethodName(api, {}); // dummy option for now
+        var suffix = this.suffixOfBehaviorMethodName(api, {}); // dummy option for now
         return 'request' + manager.initCap(methodPart) + suffix;
     },
 
@@ -280,7 +280,7 @@ var baseRule = {
      */
     behaviorRuleMethodName: function(api) {
         var methodPart = this.resourceNameOfBehaviorMethod(api, {}); // camelized
-        var suffix = isAvailableFixedHttpMethodSuffixOfBehaviorMethodName(api, {}); // dummy option for now
+        var suffix = this.suffixOfBehaviorMethodName(api, {}); // dummy option for now
         return 'ruleOf' + manager.initCap(methodPart) + suffix;
     },
 
@@ -292,6 +292,18 @@ var baseRule = {
      */
     resourceNameOfBehaviorMethod: function(api, option) {
         return manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_').replace(/:/g, ''));
+    },
+
+    /**
+     * Build suffix (basically HTTP method keyword) of behavior method for e.g. request/ruleOf...().
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @return {string} e.g. '', 'Get', 'Post' (NotNull)
+     */
+    suffixOfBehaviorMethodName: function(api, option) {
+        // multiple only as default
+        var fixed = this.isAvailableFixedHttpMethodSuffixOfBehaviorMethodName(api, option); // false as default
+        return (fixed || api.multipleHttpMethod ? manager.initCap(api.httpMethod): '');
     },
 
     /**
