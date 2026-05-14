@@ -22,10 +22,10 @@ import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeDeleteParam;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeDeleteReturn;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeGetReturn;
-import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeParam;
+import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePostParam;
+import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePostReturn;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePutParam;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePutReturn;
-import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -55,7 +55,7 @@ public abstract class BsRemoteFortressWxRoutingRestlikeBhv extends AbstractRemot
      * </pre>
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeReturn requestGet() {
+    public RemoteWxRoutingRestlikeGetReturn requestGet() {
         return doRequestGet(rule -> {});
     }
 
@@ -68,8 +68,8 @@ public abstract class BsRemoteFortressWxRoutingRestlikeBhv extends AbstractRemot
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeReturn doRequestGet(Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteWxRoutingRestlikeReturn.class, "/wx/routing/restlike", noMoreUrl(), noQuery(), rule -> {
+    protected RemoteWxRoutingRestlikeGetReturn doRequestGet(Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteWxRoutingRestlikeGetReturn.class, "/wx/routing/restlike", noMoreUrl(), noQuery(), rule -> {
             ruleOfGet(rule);
             ruleLambda.accept(rule);
         });
@@ -209,10 +209,10 @@ public abstract class BsRemoteFortressWxRoutingRestlikeBhv extends AbstractRemot
      * url: /wx/routing/restlike/
      * httpMethod: POST
      * </pre>
-     * @param paramLambda The callback for RemoteWxRoutingRestlikeParam. (NotNull)
+     * @param paramLambda The callback for RemoteWxRoutingRestlikePostParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeReturn requestPost(Consumer<RemoteWxRoutingRestlikeParam> paramLambda) {
+    public RemoteWxRoutingRestlikePostReturn requestPost(Consumer<RemoteWxRoutingRestlikePostParam> paramLambda) {
         return doRequestPost(paramLambda, rule -> {});
     }
 
@@ -222,14 +222,14 @@ public abstract class BsRemoteFortressWxRoutingRestlikeBhv extends AbstractRemot
      * url: /wx/routing/restlike/
      * httpMethod: POST
      * </pre>
-     * @param paramLambda The callback for RemoteWxRoutingRestlikeParam. (NotNull)
+     * @param paramLambda The callback for RemoteWxRoutingRestlikePostParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeReturn doRequestPost(Consumer<RemoteWxRoutingRestlikeParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteWxRoutingRestlikeParam param = new RemoteWxRoutingRestlikeParam();
+    protected RemoteWxRoutingRestlikePostReturn doRequestPost(Consumer<RemoteWxRoutingRestlikePostParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteWxRoutingRestlikePostParam param = new RemoteWxRoutingRestlikePostParam();
         paramLambda.accept(param);
-        return doRequestPost(RemoteWxRoutingRestlikeReturn.class, "/wx/routing/restlike/", noMoreUrl(), param, rule -> {
+        return doRequestPost(RemoteWxRoutingRestlikePostReturn.class, "/wx/routing/restlike/", noMoreUrl(), param, rule -> {
             rule.sendBodyBy(
                     new org.lastaflute.remoteapi.sender.body.LaFormSender(new org.dbflute.remoteapi.mapping.FlVacantMappingPolicy()));
             ruleOfPost(rule);

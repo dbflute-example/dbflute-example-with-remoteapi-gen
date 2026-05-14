@@ -18,7 +18,7 @@ package org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.showbaseoneman.index.RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.showbaseoneman.index.RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -30,7 +30,8 @@ import org.slf4j.LoggerFactory;
  */
 public class RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhvTest extends UnitRemoteapigenTestCase {
 
-    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhvTest.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhvTest.class);
 
     @Resource
     private RequestManager requestManager;
@@ -41,7 +42,7 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv
         Long purchaseId = 1L;
 
         // ## Act ##
-        RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanReturn returnBean = createBhv("{}").requestGet(productId, purchaseId);
+        RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanGetReturn returnBean = createBhv("{}").requestGet(productId, purchaseId);
 
         // ## Assert ##
         logger.debug("purchaseId={}", returnBean.purchaseId);
@@ -58,7 +59,8 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv
             }
         });
         registerMock(client);
-        RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv bhv = new RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv(requestManager);
+        RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv bhv =
+                new RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv(requestManager);
         inject(bhv);
         return bhv;
     }

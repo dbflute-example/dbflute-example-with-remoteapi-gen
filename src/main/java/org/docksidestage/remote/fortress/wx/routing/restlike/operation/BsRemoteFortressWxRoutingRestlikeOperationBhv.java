@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.wx.routing.restlike.operation.index.RemoteWxRoutingRestlikeOperationReturn;
+import org.docksidestage.remote.fortress.wx.routing.restlike.operation.index.RemoteWxRoutingRestlikeOperationGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,7 +50,7 @@ public abstract class BsRemoteFortressWxRoutingRestlikeOperationBhv extends Abst
      * @param first The value of path variable for first. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeOperationReturn requestGet(String first) {
+    public RemoteWxRoutingRestlikeOperationGetReturn requestGet(String first) {
         return doRequestGet(first, rule -> {});
     }
 
@@ -64,8 +64,8 @@ public abstract class BsRemoteFortressWxRoutingRestlikeOperationBhv extends Abst
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeOperationReturn doRequestGet(String first, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteWxRoutingRestlikeOperationReturn.class, "/wx/routing/restlike/{first}/operation", moreUrl(first), noQuery(), rule -> {
+    protected RemoteWxRoutingRestlikeOperationGetReturn doRequestGet(String first, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteWxRoutingRestlikeOperationGetReturn.class, "/wx/routing/restlike/{first}/operation", moreUrl(first), noQuery(), rule -> {
             ruleOfGetFirst(rule);
             ruleLambda.accept(rule);
         });

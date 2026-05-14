@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
 import org.docksidestage.remote.fortress.members.index.RemoteMembersDeleteParam;
-import org.docksidestage.remote.fortress.members.index.RemoteMembersParam;
+import org.docksidestage.remote.fortress.members.index.RemoteMembersPostParam;
 import org.docksidestage.remote.fortress.members.index.RemoteMembersPutParam;
 import org.lastaflute.web.servlet.request.RequestManager;
 
@@ -205,10 +205,10 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * url: /members/
      * httpMethod: POST
      * </pre>
-     * @param paramLambda The callback for RemoteMembersParam. (NotNull)
+     * @param paramLambda The callback for RemoteMembersPostParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public String requestPost(Consumer<RemoteMembersParam> paramLambda) {
+    public String requestPost(Consumer<RemoteMembersPostParam> paramLambda) {
         return doRequestPost(paramLambda, rule -> {});
     }
 
@@ -218,12 +218,12 @@ public abstract class BsRemoteFortressMembersBhv extends AbstractRemoteFortressB
      * url: /members/
      * httpMethod: POST
      * </pre>
-     * @param paramLambda The callback for RemoteMembersParam. (NotNull)
+     * @param paramLambda The callback for RemoteMembersPostParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected String doRequestPost(Consumer<RemoteMembersParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteMembersParam param = new RemoteMembersParam();
+    protected String doRequestPost(Consumer<RemoteMembersPostParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteMembersPostParam param = new RemoteMembersPostParam();
         paramLambda.accept(param);
         return doRequestPost(String.class, "/members/", noMoreUrl(), param, rule -> {
             rule.sendBodyBy(

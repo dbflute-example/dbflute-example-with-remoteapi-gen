@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.hangarmystic.index.RemoteBalletdancersGreatestfavoritestudiosHangarmysticParam;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.hangarmystic.index.RemoteBalletdancersGreatestfavoritestudiosHangarmysticReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.hangarmystic.index.RemoteBalletdancersGreatestfavoritestudiosHangarmysticGetParam;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.hangarmystic.index.RemoteBalletdancersGreatestfavoritestudiosHangarmysticGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -42,12 +42,12 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhvTe
     public void test_requestGet() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteBalletdancersGreatestfavoritestudiosHangarmysticParam> paramLambda = param -> {
+        Consumer<RemoteBalletdancersGreatestfavoritestudiosHangarmysticGetParam> paramLambda = param -> {
             param.memberName = "memberName";
         };
 
         // ## Act ##
-        RemoteBalletdancersGreatestfavoritestudiosHangarmysticReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
+        RemoteBalletdancersGreatestfavoritestudiosHangarmysticGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);

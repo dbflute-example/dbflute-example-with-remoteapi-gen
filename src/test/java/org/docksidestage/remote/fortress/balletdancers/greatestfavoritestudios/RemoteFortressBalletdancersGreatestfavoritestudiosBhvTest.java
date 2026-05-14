@@ -20,9 +20,9 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosParam;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosReturn;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosGetParam;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosGetReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -42,12 +42,12 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosBhvTest extends U
     public void test_requestGet() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteBalletdancersGreatestfavoritestudiosParam> paramLambda = param -> {
+        Consumer<RemoteBalletdancersGreatestfavoritestudiosGetParam> paramLambda = param -> {
             param.memberName = "memberName";
         };
 
         // ## Act ##
-        RemoteBalletdancersGreatestfavoritestudiosReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
+        RemoteBalletdancersGreatestfavoritestudiosGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);
@@ -66,7 +66,8 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosBhvTest extends U
         Long purchaseId = 1L;
 
         // ## Act ##
-        RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidReturn returnBean = createBhv("{}").requestGet(productId, purchaseId);
+        RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn returnBean =
+                createBhv("{}").requestGet(productId, purchaseId);
 
         // ## Assert ##
         logger.debug("purchaseId={}", returnBean.purchaseId);
