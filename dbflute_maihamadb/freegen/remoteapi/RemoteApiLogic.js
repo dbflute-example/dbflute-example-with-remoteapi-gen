@@ -517,6 +517,9 @@ var remoteApiLogic = {
         if (rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property)) {
             description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
+        if (description) {
+            description = description.replace(/\n+/g, ' ').trim();
+        }
         beanProperty.javadocComment = '/** The property of ' + beanProperty.fieldName + '. ' + enumValueComment
                                       + (description ? '(' + description + ') ' : '')
                                       + (property.required ? '' : '(NullAllowed) ') + '*/';
