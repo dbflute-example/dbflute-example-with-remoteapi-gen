@@ -354,7 +354,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestLastadocApiemptybody() {
         // ## Arrange ##
-        Consumer<RemoteWxLastadocApiemptybodyParam> paramLambda = param -> {};
+        Consumer<RemoteWxLastadocApiemptybodyParam> paramLambda = param -> {
+        };
 
         // ## Act ##
         createBhv(null).requestLastadocApiemptybody(paramLambda);
@@ -695,13 +696,12 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestRemogenBodyBasic() {
         // ## Arrange ##
         Consumer<RemoteWxRemogenBodyBasicParam> paramLambda = param -> {
-            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
-            //param.sea = "sea";
+            //sea = ... // out of targetField (as root)
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            //param.amba = Boolean.TRUE;
+            //amba = ... // out of targetField (as root)
             param.miraco = "miraco";
             param.dohotel = 1L;
         };
@@ -712,11 +712,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemogenBodyList() {
         // ## Arrange ##
-        org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList =
-                org.eclipse.collections.impl.factory.Lists.immutable.empty();
+        org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList = org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRemogenBodyListParam> paramLambda = param -> {
-            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
-            //param.sea = "sea";
+            //sea = ... // out of targetField (as root)
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
@@ -743,8 +741,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemogenListGenebean() {
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemogenListGenebeanReturn> list =
-                createBhv("[]").requestRemogenListGenebean();
+        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemogenListGenebeanReturn> list = createBhv("[]").requestRemogenListGenebean();
 
         // ## Assert ##
         list.forEach(returnBean -> {
@@ -755,8 +752,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemogenListGenestring() {
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemogenListGenestringReturn> list =
-                createBhv("[]").requestRemogenListGenestring();
+        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemogenListGenestringReturn> list = createBhv("[]").requestRemogenListGenestring();
 
         // ## Assert ##
         list.forEach(returnBean -> {
@@ -767,8 +763,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemogenListInnergene() {
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemogenListInnergeneReturn> list =
-                createBhv("[]").requestRemogenListInnergene();
+        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemogenListInnergeneReturn> list = createBhv("[]").requestRemogenListInnergene();
 
         // ## Assert ##
         list.forEach(returnBean -> {
@@ -1214,8 +1209,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String second = "second";
 
         // ## Act ##
-        RemoteWxRemogenRoutingAmphiTheaterMaihamaReturn returnBean =
-                createBhv("{}").requestRemogenRoutingAmphiTheaterMaihama(first, second);
+        RemoteWxRemogenRoutingAmphiTheaterMaihamaReturn returnBean = createBhv("{}").requestRemogenRoutingAmphiTheaterMaihama(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -1356,8 +1350,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemoteapiRmharborLidoMypage() {
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemoteapiRmharborLidoMypageReturn> list =
-                createBhv("[]").requestRemoteapiRmharborLidoMypage();
+        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemoteapiRmharborLidoMypageReturn> list = createBhv("[]").requestRemoteapiRmharborLidoMypage();
 
         // ## Assert ##
         list.forEach(returnBean -> {
@@ -1395,8 +1388,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemoteapiRmharborViaMypage() {
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemoteapiRmharborViaMypageReturn> list =
-                createBhv("[]").requestRemoteapiRmharborViaMypage();
+        org.eclipse.collections.api.list.ImmutableList<RemoteWxRemoteapiRmharborViaMypageReturn> list = createBhv("[]").requestRemoteapiRmharborViaMypage();
 
         // ## Assert ##
         list.forEach(returnBean -> {
@@ -1564,8 +1556,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRequestJsonBodyList() {
         // ## Arrange ##
-        org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body =
-                org.eclipse.collections.impl.factory.Lists.immutable.empty();
+        org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> body = org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRequestJsonBodyListParam> paramLambda = param -> {
             param.sea = "sea";
             param.seaDockside = "seaDockside";
@@ -1601,15 +1592,14 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Arrange ##
         Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda = param -> {
             param.sea = "sea";
-            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
-            //param.seaDockside = "seaDockside";
+            //sea_dockside = ... // out of targetField (as root)
             param.seaHangar = org.eclipse.collections.impl.factory.Lists.immutable.of("seaHangar");
             param.seaMagiclamp = org.eclipse.collections.impl.factory.Lists.immutable.of("seaMagiclamp");
-            //param.land = 1;
+            //land = ... // out of targetField (as root)
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
-            //param.dstore = Boolean.TRUE;
-            //param.amba = "amba";
+            //dstore = ... // out of targetField (as root)
+            //amba = ... // out of targetField (as root)
             param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
             param.dohotel = new RemoteWxRequestJsonBodyClienterrorParam.DohotelPart();
         };
@@ -1619,15 +1609,14 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("sea={}", returnBean.sea);
-        // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
-        //logger.debug("seaDockside={}", returnBean.seaDockside);
+        //logger.debug("seaDockside={}", returnBean.seaDockside); // out of targetField (as root)
         logger.debug("seaHangar={}", returnBean.seaHangar);
         logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
-        //logger.debug("land={}", returnBean.land);
+        //logger.debug("land={}", returnBean.land); // out of targetField (as root)
         logger.debug("piari={}", returnBean.piari);
         logger.debug("bonvo={}", returnBean.bonvo);
-        //logger.debug("dstore={}", returnBean.dstore);
-        //// #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)logger.debug("amba={}", returnBean.amba);
+        //logger.debug("dstore={}", returnBean.dstore); // out of targetField (as root)
+        //logger.debug("amba={}", returnBean.amba); // out of targetField (as root)
         logger.debug("miraco={}", returnBean.miraco);
         logger.debug("dohotel={}", returnBean.dohotel);
     }
@@ -1637,9 +1626,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda = param -> {
             param.sea = "sea";
             param.seaDockside = "seaDockside";
-            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
-            //param.seaHangar = org.eclipse.collections.impl.factory.Lists.immutable.of("seaHangar");
-            //param.seaMagiclamp = org.eclipse.collections.impl.factory.Lists.immutable.of("seaMagiclamp");
+            //sea_hangar = ... // out of targetField (as root)
+            //sea_magiclamp = ... // out of targetField (as root)
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
@@ -1726,8 +1714,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRequestJsonBodyValidatedlonelylist() {
         // ## Arrange ##
-        org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList =
-                org.eclipse.collections.impl.factory.Lists.immutable.empty();
+        org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList = org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRequestJsonBodyValidatedlonelylistParam> paramLambda = param -> {
             param.sea = "sea";
             param.land = 1;
@@ -1739,8 +1726,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        RemoteWxRequestJsonBodyValidatedlonelylistReturn returnBean =
-                createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
+        RemoteWxRequestJsonBodyValidatedlonelylistReturn returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
 
         // ## Assert ##
         logger.debug("sea={}", returnBean.sea);
@@ -1958,8 +1944,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String third = "third";
 
         // ## Act ##
-        RemoteWxRequestPathvarOptionalOnparadeReturn returnBean =
-                createBhv("{}").requestRequestPathvarOptionalOnparade(first, second, third);
+        RemoteWxRequestPathvarOptionalOnparadeReturn returnBean = createBhv("{}").requestRequestPathvarOptionalOnparade(first, second, third);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2318,8 +2303,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean =
-                createBhv("{}").requestResponseStreamApiValidationerror(paramLambda);
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamApiValidationerror(paramLambda);
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -2866,8 +2850,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer first = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword05Optstr2numNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword05Optstr2numNamed(first);
+        RemoteWxRoutingNearpathByword05Optstr2numNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword05Optstr2numNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2880,8 +2863,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword10Optstr4str2numReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword10Optstr4str2num(first);
+        RemoteWxRoutingNearpathByword10Optstr4str2numReturn returnBean = createBhv("{}").requestRoutingNearpathByword10Optstr4str2num(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2895,8 +2877,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String second = "second";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword10Optstr4str2numReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword10Optstr4str2num(first, second);
+        RemoteWxRoutingNearpathByword10Optstr4str2numReturn returnBean = createBhv("{}").requestRoutingNearpathByword10Optstr4str2num(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2909,8 +2890,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer first = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword10Optstr4str2numNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword10Optstr4str2numNamed(first);
+        RemoteWxRoutingNearpathByword10Optstr4str2numNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword10Optstr4str2numNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2923,8 +2903,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer first = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword11Optstr4numtostrReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword11Optstr4numtostr(first);
+        RemoteWxRoutingNearpathByword11Optstr4numtostrReturn returnBean = createBhv("{}").requestRoutingNearpathByword11Optstr4numtostr(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2938,8 +2917,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String second = "second";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword11Optstr4numtostrReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword11Optstr4numtostr(first, second);
+        RemoteWxRoutingNearpathByword11Optstr4numtostrReturn returnBean = createBhv("{}").requestRoutingNearpathByword11Optstr4numtostr(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2952,8 +2930,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword11Optstr4numtostrNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword11Optstr4numtostrNamed(first);
+        RemoteWxRoutingNearpathByword11Optstr4numtostrNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword11Optstr4numtostrNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2966,8 +2943,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword12Optstr4cls2strReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword12Optstr4cls2str(first);
+        RemoteWxRoutingNearpathByword12Optstr4cls2strReturn returnBean = createBhv("{}").requestRoutingNearpathByword12Optstr4cls2str(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2981,8 +2957,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String second = "second";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword12Optstr4cls2strReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword12Optstr4cls2str(first, second);
+        RemoteWxRoutingNearpathByword12Optstr4cls2strReturn returnBean = createBhv("{}").requestRoutingNearpathByword12Optstr4cls2str(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -2995,8 +2970,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword12Optstr4cls2strNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword12Optstr4cls2strNamed(first);
+        RemoteWxRoutingNearpathByword12Optstr4cls2strNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword12Optstr4cls2strNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3009,8 +2983,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword13Optstr4cls2numReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword13Optstr4cls2num(first);
+        RemoteWxRoutingNearpathByword13Optstr4cls2numReturn returnBean = createBhv("{}").requestRoutingNearpathByword13Optstr4cls2num(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3024,8 +2997,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String second = "second";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword13Optstr4cls2numReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword13Optstr4cls2num(first, second);
+        RemoteWxRoutingNearpathByword13Optstr4cls2numReturn returnBean = createBhv("{}").requestRoutingNearpathByword13Optstr4cls2num(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3038,8 +3010,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer first = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword13Optstr4cls2numNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword13Optstr4cls2numNamed(first);
+        RemoteWxRoutingNearpathByword13Optstr4cls2numNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword13Optstr4cls2numNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3052,8 +3023,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword15Optnum4str2numReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword15Optnum4str2num(first);
+        RemoteWxRoutingNearpathByword15Optnum4str2numReturn returnBean = createBhv("{}").requestRoutingNearpathByword15Optnum4str2num(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3067,8 +3037,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer second = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword15Optnum4str2numReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword15Optnum4str2num(first, second);
+        RemoteWxRoutingNearpathByword15Optnum4str2numReturn returnBean = createBhv("{}").requestRoutingNearpathByword15Optnum4str2num(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3081,8 +3050,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer first = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword15Optnum4str2numNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword15Optnum4str2numNamed(first);
+        RemoteWxRoutingNearpathByword15Optnum4str2numNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword15Optnum4str2numNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3095,8 +3063,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer first = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword16Optnum4num2strReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword16Optnum4num2str(first);
+        RemoteWxRoutingNearpathByword16Optnum4num2strReturn returnBean = createBhv("{}").requestRoutingNearpathByword16Optnum4num2str(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3110,8 +3077,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer second = 1;
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword16Optnum4num2strReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword16Optnum4num2str(first, second);
+        RemoteWxRoutingNearpathByword16Optnum4num2strReturn returnBean = createBhv("{}").requestRoutingNearpathByword16Optnum4num2str(first, second);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3124,8 +3090,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingNearpathByword16Optnum4num2strNamedReturn returnBean =
-                createBhv("{}").requestRoutingNearpathByword16Optnum4num2strNamed(first);
+        RemoteWxRoutingNearpathByword16Optnum4num2strNamedReturn returnBean = createBhv("{}").requestRoutingNearpathByword16Optnum4num2strNamed(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -3432,8 +3397,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteWxValidatorListjsonReturn> list =
-                createBhv("[]").requestValidatorListjson(paramLambda);
+        org.eclipse.collections.api.list.ImmutableList<RemoteWxValidatorListjsonReturn> list = createBhv("[]").requestValidatorListjson(paramLambda);
 
         // ## Assert ##
         list.forEach(returnBean -> {

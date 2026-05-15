@@ -30,8 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhvTest extends UnitRemoteapigenTestCase {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhvTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhvTest.class);
 
     @Resource
     private RequestManager requestManager;
@@ -59,8 +58,7 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv
             }
         });
         registerMock(client);
-        RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv bhv =
-                new RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv(requestManager);
+        RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv bhv = new RemoteFortressBalletdancersGreatestfavoritestudiosShowbaseonemanBhv(requestManager);
         inject(bhv);
         return bhv;
     }

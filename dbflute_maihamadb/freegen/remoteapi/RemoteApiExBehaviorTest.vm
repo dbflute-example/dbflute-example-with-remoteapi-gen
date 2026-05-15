@@ -216,12 +216,22 @@ public class ${data.className}Test extends $superSimpleClassName {
 #if ($methodResource.paramBeanArray)
             $methodResource.paramBean.className rowParam = new ${methodResource.paramBean.className}();
 #foreach($propertyEntry in $methodResource.paramBean.properties.entrySet())
+#set ($isTargetBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.paramBean, $propertyEntry.key)})
+#if ($isTargetBeanProperty)
             #generateTestRequestPropertySetting($methodResource.paramBean, $propertyEntry, "rowParam")
+#else
+            //${propertyEntry.key} = ... // out of targetField (in array, as root)
+#end
 #end
             param.add(rowParam);
 #else
 #foreach($propertyEntry in $methodResource.paramBean.properties.entrySet())
+#set ($isTargetBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.paramBean, $propertyEntry.key)})
+#if ($isTargetBeanProperty)
             #generateTestRequestPropertySetting($methodResource.paramBean, $propertyEntry, "param")
+#else
+            //${propertyEntry.key} = ... // out of targetField (as root)
+#end
 #end
 #end
         };
@@ -250,13 +260,23 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
         list.forEach(returnBean -> {
 #foreach($propertyEntry in $methodResource.returnBean.properties.entrySet())
 #set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $methodResource.returnBean, $propertyEntry.key)})
+#set ($isTargetBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.returnBean, $propertyEntry.key)})
+#if ($isTargetBeanProperty)
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
             logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
+#set ($isTargetNestBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.returnBean, $nestPropertyEntry.key)})
+#if ($isTargetNestBeanProperty)
             logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName});
+#else
+            //logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName}); // out of targetField (in array, as nest)
+#end
 #end
 #else
             logger.debug("$fieldName={}", returnBean.$fieldName);
+#end
+#else
+            //logger.debug("$fieldName={}", returnBean.$fieldName); // out of targetField (in array, as root)
 #end
 #end
         });
@@ -265,13 +285,23 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
 #else
 #foreach($propertyEntry in $methodResource.returnBean.properties.entrySet())
 #set ($fieldName = ${scriptEngine.invokeMethod($rule, 'fieldName', $data.api, $methodResource.returnBean, $propertyEntry.key)})
+#set ($isTargetBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.returnBean, $propertyEntry.key)})
+#if ($isTargetBeanProperty)
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
         logger.debug("$fieldName={}", returnBean.$fieldName);
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
+#set ($isTargetNestBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.returnBean, $nestPropertyEntry.key)})
+#if ($isTargetNestBeanProperty)
         logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName});
+#else
+        //logger.debug("$fieldName.${nestPropertyEntry.fieldName}={}", returnBean.$fieldName.${nestPropertyEntry.fieldName}); // out of targetField (as nest)
+#end
 #end
 #else
         logger.debug("$fieldName={}", returnBean.$fieldName);
+#end
+#else
+        //logger.debug("$fieldName={}", returnBean.$fieldName); // out of targetField (as root)
 #end
 #end
 #end

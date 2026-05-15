@@ -155,8 +155,7 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("productId={}", returnBean.productId);
         logger.debug("productName={}", returnBean.productName);
         logger.debug("categoryName={}", returnBean.categoryName);
-        // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
-        //logger.debug("regularPrice={}", returnBean.regularPrice);
+        //logger.debug("regularPrice={}", returnBean.regularPrice); // out of targetField (as root)
         logger.debug("productHandleCode={}", returnBean.productHandleCode);
     }
 

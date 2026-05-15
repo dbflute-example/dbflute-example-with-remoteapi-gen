@@ -59,8 +59,7 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosBhvTest extends U
         Long purchaseId = 1L;
 
         // ## Act ##
-        RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn returnBean =
-                createBhv("{}").requestGet(productId, purchaseId);
+        RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn returnBean = createBhv("{}").requestGet(productId, purchaseId);
 
         // ## Assert ##
         logger.debug("purchaseId={}", returnBean.purchaseId);
