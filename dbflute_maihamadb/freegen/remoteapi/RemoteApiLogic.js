@@ -139,6 +139,7 @@ var remoteApiLogic = {
             var preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
             var currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
             importCategolizedPackageOrderList.forEach(function(importCategolizedPackageOrder, importCategolizedPackageOrderIndex) {
+                // packageなしクラスを取り扱うことは想定の必要もないくらいありえないので、indexOf()の-1の可能性はチェックなし (2026/05/16)
                 if (importCategolizedPackageOrder === preImportClass.substring(0, preImportClass.indexOf('.'))) {
                     preImportCategolizedPackageOrderIndex = importCategolizedPackageOrderIndex;
                 }
