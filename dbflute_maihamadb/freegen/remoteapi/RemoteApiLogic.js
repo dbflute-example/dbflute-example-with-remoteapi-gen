@@ -136,8 +136,8 @@ var remoteApiLogic = {
         uniqueImportClassList.sort(function(preImportClass, currentImportClass) {
             // Sort at the categolized of the importClass package name.
             // Use importCategolizedPackageOrderList. e.g. java, javax, junit, org, com ...
-            preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
-            currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            var preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            var currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
             importCategolizedPackageOrderList.forEach(function(importCategolizedPackageOrder, importCategolizedPackageOrderIndex) {
                 if (importCategolizedPackageOrder === preImportClass.substring(0, preImportClass.indexOf('.'))) {
                     preImportCategolizedPackageOrderIndex = importCategolizedPackageOrderIndex;
