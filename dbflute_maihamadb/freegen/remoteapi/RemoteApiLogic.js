@@ -273,7 +273,7 @@ var remoteApiLogic = {
             });
 
             if (behaviorMethod.moreUrl) {
-                behaviorMethod.moreUrl = behaviorMethod.moreUrl.replaceAll('^(.+), $', 'moreUrl($1)');
+                behaviorMethod.moreUrl = behaviorMethod.moreUrl.replace(/^(.+), $/, 'moreUrl($1)');
             } else {
                 behaviorMethod.moreUrl = 'noMoreUrl()';
             }
@@ -296,7 +296,7 @@ var remoteApiLogic = {
             }
 
             if (behaviorMethod.parameterDefinition) {
-                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition.replaceAll(', $', '');
+                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition.replace(/, $/, '');
             }
 
             behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinition;
@@ -540,7 +540,7 @@ var remoteApiLogic = {
                 //      => WxRequestJsonBodyBody$ToscanaPart
                 nestType = nestType.substring(index + 1);
             }
-            var pureNestClassName = nestType.replaceAll('^.*\\$', ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
+            var pureNestClassName = nestType.replace(/^.*[\$]/, ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
             return rule.nestClassName(topLevelBean.api, pureNestClassName); // e.g. ProductRowBean => ProductRowPart
         };
 
