@@ -33,8 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhvTest extends UnitRemoteapigenTestCase {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhvTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhvTest.class);
 
     @Resource
     private RequestManager requestManager;
@@ -51,13 +50,6 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhvTe
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);
-        if (returnBean.rows != null) {
-            returnBean.rows.forEach(row -> {
-                logger.debug("row.purchaseId={}", row.purchaseId);
-                logger.debug("row.memberName={}", row.memberName);
-                logger.debug("row.productName={}", row.productName);
-            });
-        }
     }
 
     private RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhv createBhv(String json) {
@@ -69,8 +61,7 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhvTe
             }
         });
         registerMock(client);
-        RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhv bhv =
-                new RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhv(requestManager);
+        RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhv bhv = new RemoteFortressBalletdancersGreatestfavoritestudiosHangarmysticBhv(requestManager);
         inject(bhv);
         return bhv;
     }

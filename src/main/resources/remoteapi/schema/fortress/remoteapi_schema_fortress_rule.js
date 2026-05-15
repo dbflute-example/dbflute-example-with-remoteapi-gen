@@ -185,6 +185,17 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
 
 
 // =======================================================================================
+//                                                                                   Test
+//                                                                                  ======
+// @Override
+remoteApiRule.testClassGeneration = true;
+
+// @Override
+remoteApiRule.behaviorTestSuperClass = "org.docksidestage.unit.UnitRemoteapigenTestCase";
+
+
+
+// =======================================================================================
 //                                                                                  Option
 //                                                                                  ======
 // @Override

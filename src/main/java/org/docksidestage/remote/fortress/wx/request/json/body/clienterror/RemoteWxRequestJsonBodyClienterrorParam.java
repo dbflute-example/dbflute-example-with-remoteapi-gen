@@ -78,7 +78,7 @@ public class RemoteWxRequestJsonBodyClienterrorParam {
      */
     public static class DohotelPart {
 
-        /** The property of formatBodying. (enumValue=[SEA, LAN]) ( * `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
+        /** The property of formatBodying. (enumValue=[SEA, LAN]) (* `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
         public String formatBodying;
     }
 

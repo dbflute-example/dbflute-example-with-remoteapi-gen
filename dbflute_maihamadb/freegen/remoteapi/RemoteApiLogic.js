@@ -136,8 +136,8 @@ var remoteApiLogic = {
         uniqueImportClassList.sort(function(preImportClass, currentImportClass) {
             // Sort at the categolized of the importClass package name.
             // Use importCategolizedPackageOrderList. e.g. java, javax, junit, org, com ...
-            preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
-            currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            var preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            var currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
             importCategolizedPackageOrderList.forEach(function(importCategolizedPackageOrder, importCategolizedPackageOrderIndex) {
                 if (importCategolizedPackageOrder === preImportClass.substring(0, preImportClass.indexOf('.'))) {
                     preImportCategolizedPackageOrderIndex = importCategolizedPackageOrderIndex;
@@ -152,9 +152,9 @@ var remoteApiLogic = {
             }
 
             // Sort at the importClass package name.
-            var prePackage = preImportClass.substring(0, preImportClass.lastIndexOf('.'));
-            var currentPackage = currentImportClass.substring(0, currentImportClass.lastIndexOf('.'));
-            var packageCompare = prePackage.localeCompare(currentPackage);
+            var preImportPackage = preImportClass.substring(0, preImportClass.lastIndexOf('.'));
+            var currentImportPackage = currentImportClass.substring(0, currentImportClass.lastIndexOf('.'));
+            var packageCompare = preImportPackage.localeCompare(currentImportPackage);
             if (packageCompare !== 0) {
                 return packageCompare;
             }
@@ -273,7 +273,7 @@ var remoteApiLogic = {
             });
 
             if (behaviorMethod.moreUrl) {
-                behaviorMethod.moreUrl = behaviorMethod.moreUrl.replaceAll('^(.+), $', 'moreUrl($1)');
+                behaviorMethod.moreUrl = behaviorMethod.moreUrl.replace(/^(.+), $/, 'moreUrl($1)');
             } else {
                 behaviorMethod.moreUrl = 'noMoreUrl()';
             }
@@ -296,7 +296,7 @@ var remoteApiLogic = {
             }
 
             if (behaviorMethod.parameterDefinition) {
-                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition.replaceAll(', $', '');
+                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition.replace(/, $/, '');
             }
 
             behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinition;
@@ -517,6 +517,9 @@ var remoteApiLogic = {
         if (rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property)) {
             description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
+        if (description) {
+            description = description.replace(/\n+/g, ' ').trim();
+        }
         beanProperty.javadocComment = '/** The property of ' + beanProperty.fieldName + '. ' + enumValueComment
                                       + (description ? '(' + description + ') ' : '')
                                       + (property.required ? '' : '(NullAllowed) ') + '*/';
@@ -540,7 +543,7 @@ var remoteApiLogic = {
                 //      => WxRequestJsonBodyBody$ToscanaPart
                 nestType = nestType.substring(index + 1);
             }
-            var pureNestClassName = nestType.replaceAll('^.*\\$', ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
+            var pureNestClassName = nestType.replace(/^.*[\$]/, ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
             return rule.nestClassName(topLevelBean.api, pureNestClassName); // e.g. ProductRowBean => ProductRowPart
         };
 

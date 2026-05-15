@@ -25,6 +25,8 @@ import org.docksidestage.remote.fortress.members.index.RemoteMembersPostParam;
 import org.docksidestage.remote.fortress.members.index.RemoteMembersPutParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of members.
@@ -32,12 +34,17 @@ import org.lastaflute.web.servlet.request.RequestManager;
  */
 public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
 
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressMembersBhvTest.class);
+
     @Resource
     private RequestManager requestManager;
 
     public void test_request() {
         // ## Act ##
-        createBhv("mysticOneman").request();
+        String returnBean = createBhv("mysticOneman").request();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestGet() {
@@ -45,7 +52,10 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv("mysticOneman").requestGet(memberId);
+        String returnBean = createBhv("mysticOneman").requestGet(memberId);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestPut() {
@@ -65,7 +75,10 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestPut(memberId, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestPut(memberId, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestDelete() {
@@ -85,7 +98,10 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestDelete(memberId, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestDelete(memberId, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestPost() {
@@ -98,7 +114,10 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestPost(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestPost(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressMembersBhv createBhv(String json) {

@@ -28,21 +28,24 @@ ${manager.allClassCopyright}package ${data.package};
 
 #set ($importList = [])
 #set($added = $importList.add('org.lastaflute.web.servlet.request.RequestManager'))
-#set ($parameterFlg = false)
-#set ($returnFlg = false)
+#set ($hasParameter = false)
+#set ($hasReturn = false)
 #if ($rule['behaviorMethodGeneration'])
 #foreach($methodResource in $data.bsBehavior.methodResourceList)
 #if (${methodResource.paramBean.className} && ${methodResource.paramBean.className} != '')
 #set($added = $importList.add("${methodResource.paramBean.package}.${methodResource.paramBean.className}"))
-#set ($parameterFlg = true)
+#set ($hasParameter = true)
 #end
 #if (${methodResource.returnBean.package} && ${methodResource.returnBean.package} != '' && ${methodResource.returnBean.className} && ${methodResource.returnBean.className} != '')
 #set($added = $importList.add("${methodResource.returnBean.package}.${methodResource.returnBean.className}"))
-#set ($returnFlg = true)
+#end
+## hasReturn の判定、String の returnBean のこともあり得るのでシンプルに (2026/05/15)
+#if ($methodResource.returnBean)
+#set ($hasReturn = true)
 #end
 #end
 #end
-#if ($parameterFlg)
+#if ($hasParameter)
 #set($added = $importList.add('java.util.function.Consumer'))
 #end
 #set ($testSuperClass = "")
@@ -54,7 +57,7 @@ ${manager.allClassCopyright}package ${data.package};
 #end
 #set($added = $importList.add(${testSuperClass}))
 #set($added = $importList.add("javax.annotation.Resource"))
-#if ($returnFlg)
+#if ($hasReturn)
 #set($added = $importList.add("org.slf4j.Logger"))
 #set($added = $importList.add("org.slf4j.LoggerFactory"))
 #end
@@ -80,7 +83,7 @@ public class ${data.className}Test extends $superSimpleClassName {
 ##### Property definition.
 ##########################################################################################
 
-#if ($returnFlg)
+#if ($hasReturn)
     private static final Logger logger = LoggerFactory.getLogger(${data.className}Test.class);
 
 #end

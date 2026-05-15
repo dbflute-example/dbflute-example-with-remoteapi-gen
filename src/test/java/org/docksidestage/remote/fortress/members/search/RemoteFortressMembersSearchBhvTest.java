@@ -23,12 +23,16 @@ import org.dbflute.remoteapi.mock.MockHttpClient;
 import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchGetParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of members.search.
  * @author FreeGen
  */
 public class RemoteFortressMembersSearchBhvTest extends UnitRemoteapigenTestCase {
+
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressMembersSearchBhvTest.class);
 
     @Resource
     private RequestManager requestManager;
@@ -46,7 +50,10 @@ public class RemoteFortressMembersSearchBhvTest extends UnitRemoteapigenTestCase
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestGet(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestGet(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressMembersSearchBhv createBhv(String json) {

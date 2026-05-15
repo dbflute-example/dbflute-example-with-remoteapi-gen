@@ -51,13 +51,6 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosBhvTest extends U
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);
-        if (returnBean.rows != null) {
-            returnBean.rows.forEach(row -> {
-                logger.debug("row.purchaseId={}", row.purchaseId);
-                logger.debug("row.memberName={}", row.memberName);
-                logger.debug("row.productName={}", row.productName);
-            });
-        }
     }
 
     public void test_requestGetPurchaseIdPurchaseId() {
@@ -84,8 +77,7 @@ public class RemoteFortressBalletdancersGreatestfavoritestudiosBhvTest extends U
             }
         });
         registerMock(client);
-        RemoteFortressBalletdancersGreatestfavoritestudiosBhv bhv =
-                new RemoteFortressBalletdancersGreatestfavoritestudiosBhv(requestManager);
+        RemoteFortressBalletdancersGreatestfavoritestudiosBhv bhv = new RemoteFortressBalletdancersGreatestfavoritestudiosBhv(requestManager);
         inject(bhv);
         return bhv;
     }

@@ -19,11 +19,19 @@ import java.util.function.Consumer;
 
 import javax.annotation.Resource;
 
-import org.dbflute.remoteapi.exception.RemoteApiResponseParseFailureException;
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.dbflute.util.DfCollectionUtil;
 import org.docksidestage.remote.fortress.wx.lastadoc.RemoteWxLastadocParam;
 import org.docksidestage.remote.fortress.wx.lastadoc.apiemptybody.RemoteWxLastadocApiemptybodyParam;
+import org.docksidestage.remote.fortress.wx.lastameta.fieldoc.RemoteWxLastametaFieldocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.fieldoc.RemoteWxLastametaFieldocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.RemoteWxLastametaHascladocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.RemoteWxLastametaHascladocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.nomedoc.RemoteWxLastametaHascladocNomedocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.hascladoc.nomedoc.RemoteWxLastametaHascladocNomedocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.RemoteWxLastametaNocladocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.RemoteWxLastametaNocladocReturn;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.nomedoc.RemoteWxLastametaNocladocNomedocParam;
+import org.docksidestage.remote.fortress.wx.lastameta.nocladoc.nomedoc.RemoteWxLastametaNocladocNomedocReturn;
 import org.docksidestage.remote.fortress.wx.login.surprised.signin.RemoteWxLoginSurprisedSigninParam;
 import org.docksidestage.remote.fortress.wx.message.RemoteWxMessagePagenumberParam;
 import org.docksidestage.remote.fortress.wx.message.RemoteWxMessageParam;
@@ -175,6 +183,14 @@ import org.docksidestage.remote.fortress.wx.routing.wording.RemoteWxRoutingWordi
 import org.docksidestage.remote.fortress.wx.routing.wording.land.RemoteWxRoutingWordingLandReturn;
 import org.docksidestage.remote.fortress.wx.routing.wording.piari.plaza.RemoteWxRoutingWordingPiariPlazaReturn;
 import org.docksidestage.remote.fortress.wx.routing.wording.sea.RemoteWxRoutingWordingSeaReturn;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.RemoteWxSecurityRequestJsonbodyParam;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.RemoteWxSecurityRequestJsonbodyReturn;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.error.RemoteWxSecurityRequestJsonbodyErrorParam;
+import org.docksidestage.remote.fortress.wx.security.request.jsonbody.error.RemoteWxSecurityRequestJsonbodyErrorReturn;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.RemoteWxSecurityRequestParameterParam;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.RemoteWxSecurityRequestParameterReturn;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.error.RemoteWxSecurityRequestParameterErrorParam;
+import org.docksidestage.remote.fortress.wx.security.request.parameter.error.RemoteWxSecurityRequestParameterErrorReturn;
 import org.docksidestage.remote.fortress.wx.thymeleaf.parade.RemoteWxThymeleafParadePagenumberParam;
 import org.docksidestage.remote.fortress.wx.thymeleaf.parade.RemoteWxThymeleafParadeParam;
 import org.docksidestage.remote.fortress.wx.transaction.memories.fail.RemoteWxTransactionMemoriesFailParam;
@@ -191,7 +207,6 @@ import org.docksidestage.remote.fortress.wx.validator.listjson.RemoteWxValidator
 import org.docksidestage.remote.fortress.wx.validator.wholejson.RemoteWxValidatorWholejsonParam;
 import org.docksidestage.remote.fortress.wx.validator.wholejson.RemoteWxValidatorWholejsonReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
-import org.eclipse.collections.api.factory.Lists;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -209,27 +224,42 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestAppexBasic() {
         // ## Act ##
-        createBhv("mysticOneman").requestAppexBasic();
+        String returnBean = createBhv("mysticOneman").requestAppexBasic();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestAppexBasicWithoutinfo() {
         // ## Act ##
-        createBhv("mysticOneman").requestAppexBasicWithoutinfo();
+        String returnBean = createBhv("mysticOneman").requestAppexBasicWithoutinfo();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestAppexBasicLoginfailure() {
         // ## Act ##
-        createBhv("mysticOneman").requestAppexBasicLoginfailure();
+        String returnBean = createBhv("mysticOneman").requestAppexBasicLoginfailure();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestAppexBasicAlreadydeleted() {
         // ## Act ##
-        createBhv("mysticOneman").requestAppexBasicAlreadydeleted();
+        String returnBean = createBhv("mysticOneman").requestAppexBasicAlreadydeleted();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestAppexHandlerAlreadydeleted() {
         // ## Act ##
-        createBhv("mysticOneman").requestAppexHandlerAlreadydeleted();
+        String returnBean = createBhv("mysticOneman").requestAppexHandlerAlreadydeleted();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestAppexHandlerJson() {
@@ -296,6 +326,14 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         createBhv(null).requestJobAmba(first);
     }
 
+    public void test_requestLastadiEnhance() {
+        // ## Act ##
+        String returnBean = createBhv("mysticOneman").requestLastadiEnhance();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
+    }
+
     public void test_requestLastadoc() {
         // ## Arrange ##
         Consumer<RemoteWxLastadocParam> paramLambda = param -> {
@@ -322,9 +360,217 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         createBhv(null).requestLastadocApiemptybody(paramLambda);
     }
 
+    public void test_requestLastametaFieldoc() {
+        // ## Arrange ##
+        Consumer<RemoteWxLastametaFieldocParam> paramLambda = param -> {
+            param.seaStringBasic = "seaStringBasic";
+            param.seaStringQuoted = "seaStringQuoted";
+            param.seaStringNonSpace = "seaStringNonSpace";
+            param.seaListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaListBasic");
+            param.seaImmutableListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaImmutableListBasic");
+            param.seaMapBasic = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapQuoted = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceDelimiter = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceValue = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonGeneric = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonTyped = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapInteger = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapIntegerMismatched = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNestBean = new java.util.LinkedHashMap<String, Object>();
+            param.seaClsBasic = "seaClsBasic";
+        };
+
+        // ## Act ##
+        RemoteWxLastametaFieldocReturn returnBean = createBhv("{}").requestLastametaFieldoc(paramLambda);
+
+        // ## Assert ##
+        logger.debug("seaStringBasic={}", returnBean.seaStringBasic);
+        logger.debug("seaStringQuoted={}", returnBean.seaStringQuoted);
+        logger.debug("seaStringNonSpace={}", returnBean.seaStringNonSpace);
+        logger.debug("seaListBasic={}", returnBean.seaListBasic);
+        logger.debug("seaImmutableListBasic={}", returnBean.seaImmutableListBasic);
+        logger.debug("seaMapBasic={}", returnBean.seaMapBasic);
+        logger.debug("seaMapQuoted={}", returnBean.seaMapQuoted);
+        logger.debug("seaMapSpaceDelimiter={}", returnBean.seaMapSpaceDelimiter);
+        logger.debug("seaMapSpaceValue={}", returnBean.seaMapSpaceValue);
+        logger.debug("seaMapNonGeneric={}", returnBean.seaMapNonGeneric);
+        logger.debug("seaMapNonTyped={}", returnBean.seaMapNonTyped);
+        logger.debug("seaMapInteger={}", returnBean.seaMapInteger);
+        logger.debug("seaMapIntegerMismatched={}", returnBean.seaMapIntegerMismatched);
+        logger.debug("seaMapNestBean={}", returnBean.seaMapNestBean);
+        logger.debug("seaClsBasic={}", returnBean.seaClsBasic);
+    }
+
+    public void test_requestLastametaHascladoc() {
+        // ## Arrange ##
+        Consumer<RemoteWxLastametaHascladocParam> paramLambda = param -> {
+            param.seaStringBasic = "seaStringBasic";
+            param.seaStringQuoted = "seaStringQuoted";
+            param.seaStringNonSpace = "seaStringNonSpace";
+            param.seaListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaListBasic");
+            param.seaImmutableListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaImmutableListBasic");
+            param.seaMapBasic = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapQuoted = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceDelimiter = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceValue = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonGeneric = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonTyped = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapInteger = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapIntegerMismatched = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNestBean = new java.util.LinkedHashMap<String, Object>();
+            param.seaClsBasic = "seaClsBasic";
+        };
+
+        // ## Act ##
+        RemoteWxLastametaHascladocReturn returnBean = createBhv("{}").requestLastametaHascladoc(paramLambda);
+
+        // ## Assert ##
+        logger.debug("seaStringBasic={}", returnBean.seaStringBasic);
+        logger.debug("seaStringQuoted={}", returnBean.seaStringQuoted);
+        logger.debug("seaStringNonSpace={}", returnBean.seaStringNonSpace);
+        logger.debug("seaListBasic={}", returnBean.seaListBasic);
+        logger.debug("seaImmutableListBasic={}", returnBean.seaImmutableListBasic);
+        logger.debug("seaMapBasic={}", returnBean.seaMapBasic);
+        logger.debug("seaMapQuoted={}", returnBean.seaMapQuoted);
+        logger.debug("seaMapSpaceDelimiter={}", returnBean.seaMapSpaceDelimiter);
+        logger.debug("seaMapSpaceValue={}", returnBean.seaMapSpaceValue);
+        logger.debug("seaMapNonGeneric={}", returnBean.seaMapNonGeneric);
+        logger.debug("seaMapNonTyped={}", returnBean.seaMapNonTyped);
+        logger.debug("seaMapInteger={}", returnBean.seaMapInteger);
+        logger.debug("seaMapIntegerMismatched={}", returnBean.seaMapIntegerMismatched);
+        logger.debug("seaMapNestBean={}", returnBean.seaMapNestBean);
+        logger.debug("seaClsBasic={}", returnBean.seaClsBasic);
+    }
+
+    public void test_requestLastametaHascladocNomedoc() {
+        // ## Arrange ##
+        Consumer<RemoteWxLastametaHascladocNomedocParam> paramLambda = param -> {
+            param.seaStringBasic = "seaStringBasic";
+            param.seaStringQuoted = "seaStringQuoted";
+            param.seaStringNonSpace = "seaStringNonSpace";
+            param.seaListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaListBasic");
+            param.seaImmutableListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaImmutableListBasic");
+            param.seaMapBasic = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapQuoted = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceDelimiter = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceValue = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonGeneric = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonTyped = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapInteger = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapIntegerMismatched = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNestBean = new java.util.LinkedHashMap<String, Object>();
+            param.seaClsBasic = "seaClsBasic";
+        };
+
+        // ## Act ##
+        RemoteWxLastametaHascladocNomedocReturn returnBean = createBhv("{}").requestLastametaHascladocNomedoc(paramLambda);
+
+        // ## Assert ##
+        logger.debug("seaStringBasic={}", returnBean.seaStringBasic);
+        logger.debug("seaStringQuoted={}", returnBean.seaStringQuoted);
+        logger.debug("seaStringNonSpace={}", returnBean.seaStringNonSpace);
+        logger.debug("seaListBasic={}", returnBean.seaListBasic);
+        logger.debug("seaImmutableListBasic={}", returnBean.seaImmutableListBasic);
+        logger.debug("seaMapBasic={}", returnBean.seaMapBasic);
+        logger.debug("seaMapQuoted={}", returnBean.seaMapQuoted);
+        logger.debug("seaMapSpaceDelimiter={}", returnBean.seaMapSpaceDelimiter);
+        logger.debug("seaMapSpaceValue={}", returnBean.seaMapSpaceValue);
+        logger.debug("seaMapNonGeneric={}", returnBean.seaMapNonGeneric);
+        logger.debug("seaMapNonTyped={}", returnBean.seaMapNonTyped);
+        logger.debug("seaMapInteger={}", returnBean.seaMapInteger);
+        logger.debug("seaMapIntegerMismatched={}", returnBean.seaMapIntegerMismatched);
+        logger.debug("seaMapNestBean={}", returnBean.seaMapNestBean);
+        logger.debug("seaClsBasic={}", returnBean.seaClsBasic);
+    }
+
+    public void test_requestLastametaNocladoc() {
+        // ## Arrange ##
+        Consumer<RemoteWxLastametaNocladocParam> paramLambda = param -> {
+            param.seaStringBasic = "seaStringBasic";
+            param.seaStringQuoted = "seaStringQuoted";
+            param.seaStringNonSpace = "seaStringNonSpace";
+            param.seaListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaListBasic");
+            param.seaImmutableListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaImmutableListBasic");
+            param.seaMapBasic = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapQuoted = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceDelimiter = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceValue = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonGeneric = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonTyped = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapInteger = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapIntegerMismatched = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNestBean = new java.util.LinkedHashMap<String, Object>();
+            param.seaClsBasic = "seaClsBasic";
+        };
+
+        // ## Act ##
+        RemoteWxLastametaNocladocReturn returnBean = createBhv("{}").requestLastametaNocladoc(paramLambda);
+
+        // ## Assert ##
+        logger.debug("seaStringBasic={}", returnBean.seaStringBasic);
+        logger.debug("seaStringQuoted={}", returnBean.seaStringQuoted);
+        logger.debug("seaStringNonSpace={}", returnBean.seaStringNonSpace);
+        logger.debug("seaListBasic={}", returnBean.seaListBasic);
+        logger.debug("seaImmutableListBasic={}", returnBean.seaImmutableListBasic);
+        logger.debug("seaMapBasic={}", returnBean.seaMapBasic);
+        logger.debug("seaMapQuoted={}", returnBean.seaMapQuoted);
+        logger.debug("seaMapSpaceDelimiter={}", returnBean.seaMapSpaceDelimiter);
+        logger.debug("seaMapSpaceValue={}", returnBean.seaMapSpaceValue);
+        logger.debug("seaMapNonGeneric={}", returnBean.seaMapNonGeneric);
+        logger.debug("seaMapNonTyped={}", returnBean.seaMapNonTyped);
+        logger.debug("seaMapInteger={}", returnBean.seaMapInteger);
+        logger.debug("seaMapIntegerMismatched={}", returnBean.seaMapIntegerMismatched);
+        logger.debug("seaMapNestBean={}", returnBean.seaMapNestBean);
+        logger.debug("seaClsBasic={}", returnBean.seaClsBasic);
+    }
+
+    public void test_requestLastametaNocladocNomedoc() {
+        // ## Arrange ##
+        Consumer<RemoteWxLastametaNocladocNomedocParam> paramLambda = param -> {
+            param.seaStringBasic = "seaStringBasic";
+            param.seaStringQuoted = "seaStringQuoted";
+            param.seaStringNonSpace = "seaStringNonSpace";
+            param.seaListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaListBasic");
+            param.seaImmutableListBasic = org.eclipse.collections.impl.factory.Lists.immutable.of("seaImmutableListBasic");
+            param.seaMapBasic = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapQuoted = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceDelimiter = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapSpaceValue = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonGeneric = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNonTyped = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapInteger = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapIntegerMismatched = new java.util.LinkedHashMap<String, Object>();
+            param.seaMapNestBean = new java.util.LinkedHashMap<String, Object>();
+            param.seaClsBasic = "seaClsBasic";
+        };
+
+        // ## Act ##
+        RemoteWxLastametaNocladocNomedocReturn returnBean = createBhv("{}").requestLastametaNocladocNomedoc(paramLambda);
+
+        // ## Assert ##
+        logger.debug("seaStringBasic={}", returnBean.seaStringBasic);
+        logger.debug("seaStringQuoted={}", returnBean.seaStringQuoted);
+        logger.debug("seaStringNonSpace={}", returnBean.seaStringNonSpace);
+        logger.debug("seaListBasic={}", returnBean.seaListBasic);
+        logger.debug("seaImmutableListBasic={}", returnBean.seaImmutableListBasic);
+        logger.debug("seaMapBasic={}", returnBean.seaMapBasic);
+        logger.debug("seaMapQuoted={}", returnBean.seaMapQuoted);
+        logger.debug("seaMapSpaceDelimiter={}", returnBean.seaMapSpaceDelimiter);
+        logger.debug("seaMapSpaceValue={}", returnBean.seaMapSpaceValue);
+        logger.debug("seaMapNonGeneric={}", returnBean.seaMapNonGeneric);
+        logger.debug("seaMapNonTyped={}", returnBean.seaMapNonTyped);
+        logger.debug("seaMapInteger={}", returnBean.seaMapInteger);
+        logger.debug("seaMapIntegerMismatched={}", returnBean.seaMapIntegerMismatched);
+        logger.debug("seaMapNestBean={}", returnBean.seaMapNestBean);
+        logger.debug("seaClsBasic={}", returnBean.seaClsBasic);
+    }
+
     public void test_requestLoginSurprised() {
         // ## Act ##
-        createBhv("mysticOneman").requestLoginSurprised();
+        String returnBean = createBhv("mysticOneman").requestLoginSurprised();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestLoginSurprisedSignin() {
@@ -336,12 +582,18 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestLoginSurprisedSignin(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestLoginSurprisedSignin(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestLoginSurprisedRequired() {
         // ## Act ##
-        createBhv("mysticOneman").requestLoginSurprisedRequired();
+        String returnBean = createBhv("mysticOneman").requestLoginSurprisedRequired();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestMail() {
@@ -401,7 +653,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestMessage(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestMessage(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestMessagePageNumber() {
@@ -414,7 +669,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestMessage(pageNumber, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestMessage(pageNumber, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestNamedcls() {
@@ -437,13 +695,12 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestRemogenBodyBasic() {
         // ## Arrange ##
         Consumer<RemoteWxRemogenBodyBasicParam> paramLambda = param -> {
-            // rule.js にて対象外フィールドに (2026/03/11)
+            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
             //param.sea = "sea";
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = "dstore";
-            // rule.js にて対象外フィールドに (2026/03/11)
             //param.amba = Boolean.TRUE;
             param.miraco = "miraco";
             param.dohotel = 1L;
@@ -458,7 +715,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         org.eclipse.collections.api.list.ImmutableList<java.util.Map<String, Object>> bodyList =
                 org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRemogenBodyListParam> paramLambda = param -> {
-            // rule.js にて対象外フィールドに (2026/03/11)
+            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
             //param.sea = "sea";
             param.land = 1;
             param.piari = java.time.LocalDate.now();
@@ -973,15 +1230,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("resortName={}", returnBean.resortName);
         logger.debug("resortPark={}", returnBean.resortPark);
-        if (returnBean.resortPark != null) {
-            logger.debug("resortPark.parkName={}", returnBean.resortPark.parkName);
-            logger.debug("resortPark.showStages={}", returnBean.resortPark.showStages);
-            if (returnBean.resortPark.showStages != null) {
-                returnBean.resortPark.showStages.forEach(showStage -> {
-                    logger.debug("resortPark.showStages[].stageName={}", showStage.stageName);
-                });
-            }
-        }
     }
 
     public void test_requestRemogenSuffixNosuffix() {
@@ -1000,15 +1248,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("resortName={}", returnBean.resortName);
         logger.debug("resortPark={}", returnBean.resortPark);
-        if (returnBean.resortPark != null) {
-            logger.debug("resortPark.parkName={}", returnBean.resortPark.parkName);
-            logger.debug("resortPark.showStages={}", returnBean.resortPark.showStages);
-            if (returnBean.resortPark.showStages != null) {
-                returnBean.resortPark.showStages.forEach(showStage -> {
-                    logger.debug("resortPark.showStages[].stageName={}", showStage.stageName);
-                });
-            }
-        }
     }
 
     public void test_requestRemogenSuffixToponly() {
@@ -1018,15 +1257,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("resortName={}", returnBean.resortName);
         logger.debug("resortPark={}", returnBean.resortPark);
-        if (returnBean.resortPark != null) {
-            logger.debug("resortPark.parkName={}", returnBean.resortPark.parkName);
-            logger.debug("resortPark.showStages={}", returnBean.resortPark.showStages);
-            if (returnBean.resortPark.showStages != null) {
-                returnBean.resortPark.showStages.forEach(showStage -> {
-                    logger.debug("resortPark.showStages[].stageName={}", showStage.stageName);
-                });
-            }
-        }
     }
 
     public void test_requestRemogenTrickyAllnone() {
@@ -1050,7 +1280,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("seaResult={}", returnBean.seaResult);
         logger.debug("landBeanCount={}", returnBean.landBeanCount);
-        // #thinking p1us2er0 lasta-metaでネストしたプロパティが自動生成されてない可能性がある (2022/03/21)
         logger.debug("normalEntry={}", returnBean.normalEntry);
         logger.debug("beanEntry={}", returnBean.beanEntry);
         logger.debug("plainGenericEntry={}", returnBean.plainGenericEntry);
@@ -1064,90 +1293,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("resortName={}", returnBean.resortName);
         logger.debug("firstPark={}", returnBean.firstPark);
-        logger.debug("firstPark={}", returnBean.firstPark);
-        if (returnBean.firstPark != null) {
-            logger.debug("firstPark.parkName={}", returnBean.firstPark.parkName);
-            logger.debug("firstPark.showStages={}", returnBean.firstPark.showStages);
-            if (returnBean.firstPark.showStages != null) {
-                returnBean.firstPark.showStages.forEach(showStage -> {
-                    logger.debug("firstPark.showStages[].stageName={}", showStage.stageName);
-                });
-            }
-            logger.debug("firstPark.themeColor={}", returnBean.firstPark.themeColor);
-            if (returnBean.firstPark.themeColor != null) {
-                logger.debug("firstPark.themeColor.colorName={}", returnBean.firstPark.themeColor.colorName);
-                logger.debug("firstPark.themeColor.rgb={}", returnBean.firstPark.themeColor.rgb);
-            }
-        }
         logger.debug("extendedAreas={}", returnBean.extendedAreas);
-        if (returnBean.extendedAreas != null) {
-            returnBean.extendedAreas.forEach(extendedArea -> {
-                logger.debug("extendedAreas[].direction={}", extendedArea.direction);
-                logger.debug("extendedAreas[].nextPark={}", extendedArea.nextPark);
-                if (extendedArea.nextPark != null) {
-                    logger.debug("extendedAreas[].nextPark.showStages={}", extendedArea.nextPark.showStages);
-                    if (extendedArea.nextPark.showStages != null) {
-                        extendedArea.nextPark.showStages.forEach(showStage -> {
-                            logger.debug("extendedAreas[].nextPark.showStages[].stageName={}", showStage.stageName);
-                        });
-                    }
-                    logger.debug("extendedAreas[].nextPark.themeColor={}", extendedArea.nextPark.themeColor);
-                    if (extendedArea.nextPark.themeColor != null) {
-                        logger.debug("extendedAreas[].nextPark.themeColor.colorName={}", extendedArea.nextPark.themeColor.colorName);
-                        logger.debug("extendedAreas[].nextPark.themeColor.rgb={}", extendedArea.nextPark.themeColor.rgb);
-                    }
-                }
-            });
-        }
         logger.debug("departmentStore={}", returnBean.departmentStore);
-        if (returnBean.departmentStore != null) {
-            logger.debug("departmentStore.storeName={}", returnBean.departmentStore.storeName);
-            logger.debug("departmentStore.shopCount={}", returnBean.departmentStore.shopCount);
-            logger.debug("departmentStore.officialShop={}", returnBean.departmentStore.officialShop);
-            if (returnBean.departmentStore.officialShop != null) {
-                logger.debug("departmentStore.officialShop.shopName={}", returnBean.departmentStore.officialShop.shopName);
-            }
-            logger.debug("departmentStore.showStage={}", returnBean.departmentStore.showStage);
-            if (returnBean.departmentStore.showStage != null) {
-                logger.debug("departmentStore.showStage.stageName={}", returnBean.departmentStore.showStage.stageName);
-            }
-        }
         logger.debug("bigHotels={}", returnBean.bigHotels);
-        if (returnBean.bigHotels != null) {
-            returnBean.bigHotels.forEach(bigHotel -> {
-                logger.debug("bigHotel[].hotelName={}", bigHotel.hotelName);
-                logger.debug("bigHotel[].correspondingPark={}", bigHotel.correspondingPark);
-                if (bigHotel.correspondingPark != null) {
-                    logger.debug("bigHotel[].correspondingPark.parkName={}", bigHotel.correspondingPark.parkName);
-                    logger.debug("bigHotel[].correspondingPark.showStages={}", bigHotel.correspondingPark.showStages);
-                    if (bigHotel.correspondingPark.showStages != null) {
-                        bigHotel.correspondingPark.showStages.forEach(showStage -> {
-                            logger.debug("bigHotel[].correspondingPark.showStages[].stageName={}", showStage.stageName);
-                        });
-                    }
-                    logger.debug("bigHotel[].correspondingPark.themeColor={}", bigHotel.correspondingPark.themeColor);
-                    if (bigHotel.correspondingPark.themeColor != null) {
-                        logger.debug("bigHotel[].correspondingPark.themeColor.colorName={}",
-                                bigHotel.correspondingPark.themeColor.colorName);
-                        logger.debug("bigHotel[].correspondingPark.themeColor.rgb={}", bigHotel.correspondingPark.themeColor.rgb);
-                    }
-                }
-                logger.debug("bigHotel[].officialShop={}", bigHotel.officialShop);
-                if (bigHotel.officialShop != null) {
-                    logger.debug("bigHotel[].officialShop.shopName={}", bigHotel.officialShop.shopName);
-                }
-                logger.debug("bigHotel[].showStage={}", bigHotel.showStage);
-                if (bigHotel.showStage != null) {
-                    logger.debug("bigHotel[].showStage.stageName={}", bigHotel.showStage.stageName);
-                }
-                logger.debug("bigHotel[].themeColor={}", bigHotel.themeColor);
-                if (bigHotel.themeColor != null) {
-                    logger.debug("bigHotel[].themeColor.colorName={}", bigHotel.themeColor.colorName);
-                    logger.debug("bigHotel[].themeColor.rgb={}", bigHotel.themeColor.rgb);
-
-                }
-            });
-        }
     }
 
     public void test_requestRemogenTrickySelfref() {
@@ -1157,29 +1305,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("resortName={}", returnBean.resortName);
         logger.debug("resortPark={}", returnBean.resortPark);
-        if (returnBean.resortPark != null) {
-            logger.debug("resortPark.parkName={}", returnBean.resortPark.parkName);
-            logger.debug("resortPark.parentPark={}", returnBean.resortPark.parentPark);
-            if (returnBean.resortPark.parentPark != null) {
-                logger.debug("resortPark.parentPark.parkName={}", returnBean.resortPark.parentPark.parkName);
-                logger.debug("resortPark.parentPark.parentPark={}", returnBean.resortPark.parentPark.parentPark);
-            }
-        }
         logger.debug("extendedArea={}", returnBean.extendedArea);
-        if (returnBean.extendedArea != null) {
-            logger.debug("resortPark.extendedArea.areaName={}", returnBean.extendedArea.areaName);
-            logger.debug("resortPark.extendedArea.parkingArea={}", returnBean.extendedArea.parkingArea);
-            if (returnBean.extendedArea.parkingArea != null) {
-                logger.debug("resortPark.extendedArea.parkingArea.areaName={}", returnBean.extendedArea.parkingArea.areaName);
-                logger.debug("resortPark.extendedArea.parkingArea.internalArea={}", returnBean.extendedArea.parkingArea.internalArea);
-                if (returnBean.extendedArea.parkingArea.internalArea != null) {
-                    logger.debug("resortPark.extendedArea.parkingArea.internalArea.areaName={}",
-                            returnBean.extendedArea.parkingArea.internalArea.areaName);
-                    logger.debug("resortPark.extendedArea.parkingArea.internalArea.parkingArea={}",
-                            returnBean.extendedArea.parkingArea.internalArea.parkingArea);
-                }
-            }
-        }
     }
 
     public void test_requestRemogenTrickySuffixhell() {
@@ -1189,23 +1315,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         // ## Assert ##
         logger.debug("resortName={}", returnBean.resortName);
         logger.debug("hellSea={}", returnBean.hellSea);
-        if (returnBean.hellSea != null) {
-            logger.debug("hellSea.parkName={}", returnBean.hellSea.parkName);
-            logger.debug("hellSea.hellSeaResult={}", returnBean.hellSea.hellSeaResult);
-            if (returnBean.hellSea.hellSeaResult != null) {
-                returnBean.hellSea.hellSeaResult.forEach(row -> {
-                    logger.debug("hellSea.hellSeaResult[].stageName={}", row.stageName);
-                });
-            }
-        }
         logger.debug("hellLand={}", returnBean.hellLand);
-        if (returnBean.hellLand != null) {
-            logger.debug("hellLandparkName.={}", returnBean.hellLand.parkName);
-            logger.debug("hellLand.hellLandPart={}", returnBean.hellLand.hellLandPart);
-            if (returnBean.hellLand.hellLandPart != null) {
-                logger.debug("hellLand.hellLandPart.stageName={}", returnBean.hellLand.hellLandPart.stageName);
-            }
-        }
     }
 
     public void test_requestRemoteapiRmhangarMypage() {
@@ -1214,19 +1324,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("recentProducts={}", returnBean.recentProducts);
-        if (returnBean.recentProducts != null) {
-            returnBean.recentProducts.forEach(recentProduct -> {
-                logger.debug("recentProduct.productName={}", recentProduct.productName);
-                logger.debug("recentProduct.regularPrice={}", recentProduct.regularPrice);
-            });
-        }
         logger.debug("highPriceProducts={}", returnBean.highPriceProducts);
-        if (returnBean.highPriceProducts != null) {
-            returnBean.highPriceProducts.forEach(highPriceProduct -> {
-                logger.debug("highPriceProduct.productName={}", highPriceProduct.productName);
-                logger.debug("highPriceProduct.regularPrice={}", highPriceProduct.regularPrice);
-            });
-        }
     }
 
     public void test_requestRemoteapiRmhangarTranslate() {
@@ -1238,7 +1336,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestRemoteapiRmhangarTranslate(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestRemoteapiRmhangarTranslate(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestRemoteapiRmharborLidoSignin() {
@@ -1274,7 +1375,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestRemoteapiRmharborSerhProduct(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestRemoteapiRmharborSerhProduct(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestRemoteapiRmharborSerhSignin() {
@@ -1303,19 +1407,13 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRemoteapiRmshowbaseRemogenResola() {
         // ## Act ##
-        // #thinking p1us2er0 Returnクラスに継承クラスがある場合で、 Returnクラスと継承クラスで同名のフィールドが存在するとgsonでエラーになる。 (2022/03/21)
-        try {
-            RemoteWxRemoteapiRmshowbaseRemogenResolaReturn returnBean = createBhv("{}").requestRemoteapiRmshowbaseRemogenResola();
-            // ## Assert ##
-            logger.debug("method={}", returnBean.method);
-            logger.debug("first={}", returnBean.first);
-            logger.debug("second={}", returnBean.second);
-            logger.debug("headerMap={}", returnBean.headerMap);
-        } catch (RemoteApiResponseParseFailureException e) {
-            if (!e.getCause().getMessage().contains("declares multiple JSON fields named headerMap")) {
-                throw e;
-            }
-        }
+        RemoteWxRemoteapiRmshowbaseRemogenResolaReturn returnBean = createBhv("{}").requestRemoteapiRmshowbaseRemogenResola();
+
+        // ## Assert ##
+        logger.debug("method={}", returnBean.method);
+        logger.debug("first={}", returnBean.first);
+        logger.debug("second={}", returnBean.second);
+        logger.debug("headerMap={}", returnBean.headerMap);
     }
 
     public void test_requestRmshowbaseRemogenMethodDelete() {
@@ -1335,8 +1433,9 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
-            param.dstore = "sea";
+            param.dstore = "dstore";
             param.amba = Boolean.TRUE;
+            param.miraco = org.eclipse.collections.impl.factory.Lists.immutable.of("miraco");
         };
 
         // ## Act ##
@@ -1348,6 +1447,8 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("piari={}", returnBean.piari);
         logger.debug("bonvo={}", returnBean.bonvo);
         logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
     }
 
     public void test_requestRequestFormEccolle() {
@@ -1366,41 +1467,11 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("sea={}", returnBean.sea);
-        if (returnBean.sea != null) {
-            returnBean.sea.forEach(row -> {
-                logger.debug("sea[]={}", row);
-            });
-        }
         logger.debug("land={}", returnBean.land);
-        if (returnBean.land != null) {
-            returnBean.land.forEach(row -> {
-                logger.debug("land[]={}", row);
-            });
-        }
         logger.debug("piari={}", returnBean.piari);
-        if (returnBean.piari != null) {
-            returnBean.piari.forEach(row -> {
-                logger.debug("piari[]={}", row);
-            });
-        }
         logger.debug("bonvo={}", returnBean.bonvo);
-        if (returnBean.bonvo != null) {
-            returnBean.bonvo.forEach(row -> {
-                logger.debug("bonvo[]={}", row);
-            });
-        }
         logger.debug("dstore={}", returnBean.dstore);
-        if (returnBean.dstore != null) {
-            returnBean.dstore.forEach(row -> {
-                logger.debug("dstore[].walt={}", row.walt);
-            });
-        }
         logger.debug("amba={}", returnBean.amba);
-        if (returnBean.amba != null) {
-            returnBean.amba.forEach(row -> {
-                logger.debug("amba[].chef={}", row.chef);
-            });
-        }
     }
 
     public void test_requestRequestFormSwagger() {
@@ -1455,40 +1526,40 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("dstore={}", returnBean.dstore);
         logger.debug("amba={}", returnBean.amba);
         logger.debug("miraco={}", returnBean.miraco);
-        if (returnBean.miraco != null) {
-            logger.debug("miraco.sta={}", returnBean.miraco.sta);
-        }
         logger.debug("white={}", returnBean.white);
-        if (returnBean.white != null) {
-            logger.debug("white.formatBodying={}", returnBean.white.formatBodying);
-        }
     }
 
     public void test_requestRequestJsonBody() {
         // ## Arrange ##
         Consumer<RemoteWxRequestJsonBodyParam> paramLambda = param -> {
             param.sea = "sea";
+            param.seaDockside = "seaDockside";
+            param.seaHangar = org.eclipse.collections.impl.factory.Lists.immutable.of("seaHangar");
+            param.seaMagiclamp = org.eclipse.collections.impl.factory.Lists.immutable.of("seaMagiclamp");
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyParam.MiracoPart();
-            param.miraco.toscana = new RemoteWxRequestJsonBodyParam.MiracoPart.ToscanaPart();
-            param.miraco.toscana.parkEntranceView = "sea";
-            param.miraco.toscana.hotelEntranceView = "sea";
-            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyParam.MiracoPart.VeneziaPart());
-            param.miraco.veneziaList.get(0).canalView = "sea";
-            param.miraco.veneziaList.get(0).riverView = "sea";
             param.dohotel = new RemoteWxRequestJsonBodyParam.DohotelPart();
-            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
         RemoteWxRequestJsonBodyReturn returnBean = createBhv("{}").requestRequestJsonBody(paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodyList() {
@@ -1497,86 +1568,102 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
                 org.eclipse.collections.impl.factory.Lists.immutable.empty();
         Consumer<RemoteWxRequestJsonBodyListParam> paramLambda = param -> {
             param.sea = "sea";
+            param.seaDockside = "seaDockside";
+            param.seaHangar = org.eclipse.collections.impl.factory.Lists.immutable.of("seaHangar");
+            param.seaMagiclamp = org.eclipse.collections.impl.factory.Lists.immutable.of("seaMagiclamp");
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyListParam.MiracoPart();
-            param.miraco = new RemoteWxRequestJsonBodyListParam.MiracoPart();
-            param.miraco.toscana = new RemoteWxRequestJsonBodyListParam.MiracoPart.ToscanaPart();
-            param.miraco.toscana.parkEntranceView = "sea";
-            param.miraco.toscana.hotelEntranceView = "sea";
-            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyListParam.MiracoPart.VeneziaPart());
-            param.miraco.veneziaList.get(0).canalView = "sea";
-            param.miraco.veneziaList.get(0).riverView = "sea";
             param.dohotel = new RemoteWxRequestJsonBodyListParam.DohotelPart();
-            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
         RemoteWxRequestJsonBodyListReturn returnBean = createBhv("{}").requestRequestJsonBodyList(body, paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodyClienterror() {
         // ## Arrange ##
         Consumer<RemoteWxRequestJsonBodyClienterrorParam> paramLambda = param -> {
-            // targetField() で @Required のものを除外している (2026/03/11)
             param.sea = "sea";
+            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
+            //param.seaDockside = "seaDockside";
+            param.seaHangar = org.eclipse.collections.impl.factory.Lists.immutable.of("seaHangar");
+            param.seaMagiclamp = org.eclipse.collections.impl.factory.Lists.immutable.of("seaMagiclamp");
             //param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             //param.dstore = Boolean.TRUE;
             //param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
-            param.miraco = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart();
-            //param.miraco.toscana = new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.ToscanaPart();
-            //param.miraco.toscana.parkEntranceView = "sea";
-            //param.miraco.toscana.hotelEntranceView = "sea";
-            param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodyClienterrorParam.MiracoPart.VeneziaPart());
-            param.miraco.veneziaList.get(0).canalView = "sea";
-            //param.miraco.veneziaList.get(0).riverView = "sea";
             param.dohotel = new RemoteWxRequestJsonBodyClienterrorParam.DohotelPart();
-            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
         RemoteWxRequestJsonBodyClienterrorReturn returnBean = createBhv("{}").requestRequestJsonBodyClienterror(paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
+        //logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        //logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        //logger.debug("dstore={}", returnBean.dstore);
+        //// #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodySystemerror() {
         // ## Arrange ##
         Consumer<RemoteWxRequestJsonBodySystemerrorParam> paramLambda = param -> {
             param.sea = "sea";
+            param.seaDockside = "seaDockside";
+            // #for_now jflute targetFieldの対応がまだなので手動でコメントアウト (2026/05/15)
+            //param.seaHangar = org.eclipse.collections.impl.factory.Lists.immutable.of("seaHangar");
+            //param.seaMagiclamp = org.eclipse.collections.impl.factory.Lists.immutable.of("seaMagiclamp");
             param.land = 1;
             param.piari = java.time.LocalDate.now();
             param.bonvo = java.time.LocalDateTime.now();
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart();
-            param.miraco = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart();
-            param.miraco.toscana = new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.ToscanaPart();
-            param.miraco.toscana.parkEntranceView = "sea";
-            param.miraco.toscana.hotelEntranceView = "sea";
-            // targetFieldのテストで除外している (2026/03/12)
-            //param.miraco.veneziaList = Lists.immutable.of(new RemoteWxRequestJsonBodySystemerrorParam.MiracoPart.VeneziaPart());
-            //param.miraco.veneziaList.get(0).canalView = "sea";
-            //param.miraco.veneziaList.get(0).riverView = "sea";
             param.dohotel = new RemoteWxRequestJsonBodySystemerrorParam.DohotelPart();
-            param.dohotel.formatBodying = "formatBodying";
         };
 
         // ## Act ##
         RemoteWxRequestJsonBodySystemerrorReturn returnBean = createBhv("{}").requestRequestJsonBodySystemerror(paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodyValidated() {
@@ -1589,14 +1676,23 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyValidatedParam.MiracoPart();
-            param.miraco.sta = "sta";
         };
 
         // ## Act ##
         RemoteWxRequestJsonBodyValidatedReturn returnBean = createBhv("{}").requestRequestJsonBodyValidated(paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodyValidatedlonely() {
@@ -1609,14 +1705,23 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyValidatedlonelyParam.MiracoPart();
-            param.miraco.sta = "sta";
         };
 
         // ## Act ##
         RemoteWxRequestJsonBodyValidatedlonelyReturn returnBean = createBhv("{}").requestRequestJsonBodyValidatedlonely(paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodyValidatedlonelylist() {
@@ -1631,7 +1736,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodyValidatedlonelylistParam.MiracoPart();
-            param.miraco.sta = "sta";
         };
 
         // ## Act ##
@@ -1639,7 +1743,17 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
                 createBhv("{}").requestRequestJsonBodyValidatedlonelylist(bodyList, paramLambda);
 
         // ## Assert ##
-        logger.debug("returnBean={}", returnBean);
+        logger.debug("sea={}", returnBean.sea);
+        logger.debug("seaDockside={}", returnBean.seaDockside);
+        logger.debug("seaHangar={}", returnBean.seaHangar);
+        logger.debug("seaMagiclamp={}", returnBean.seaMagiclamp);
+        logger.debug("land={}", returnBean.land);
+        logger.debug("piari={}", returnBean.piari);
+        logger.debug("bonvo={}", returnBean.bonvo);
+        logger.debug("dstore={}", returnBean.dstore);
+        logger.debug("amba={}", returnBean.amba);
+        logger.debug("miraco={}", returnBean.miraco);
+        logger.debug("dohotel={}", returnBean.dohotel);
     }
 
     public void test_requestRequestJsonBodySwagger() {
@@ -1666,9 +1780,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.dstore = Boolean.TRUE;
             param.amba = "amba";
             param.miraco = new RemoteWxRequestJsonBodySwaggerParam.MiracoPart();
-            param.miraco.sta = "sta";
             param.white = new RemoteWxRequestJsonBodySwaggerParam.WhitePart();
-            param.white.formatBodying = "formatBodying";
         };
 
         // ## Act ##
@@ -1707,7 +1819,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestRequestMultipart() {
         // ## Act ##
-        createBhv("mysticOneman").requestRequestMultipart();
+        String returnBean = createBhv("mysticOneman").requestRequestMultipart();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestRequestMultipartUpload() {
@@ -1748,7 +1863,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestRequestMultipartUpload(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestRequestMultipartUpload(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestRequestPathvarString() {
@@ -1850,19 +1968,36 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("third={}", returnBean.third);
     }
 
+    public void test_requestRequestXmlBody() {
+        // ## Act ##
+        java.util.Map<String, Object> returnBean = createBhv("{}").requestRequestXmlBody();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
+    }
+
     public void test_requestResponseHtmlEmpty() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlEmpty();
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlEmpty();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlEmptyCommitted() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlEmptyCommitted();
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlEmptyCommitted();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlAdd() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlAdd();
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlAdd();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlAddRegister() {
@@ -1875,7 +2010,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlAddRegister(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlAddRegister(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlEdit() {
@@ -1883,7 +2021,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlEdit(memberId);
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlEdit(memberId);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlEditUpdate() {
@@ -1902,7 +2043,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlEditUpdate(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlEditUpdate(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlEditWithdrawal() {
@@ -1921,7 +2065,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlEditWithdrawal(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlEditWithdrawal(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlList() {
@@ -1936,7 +2083,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlList(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlList(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseHtmlListPageNumber() {
@@ -1952,7 +2102,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestResponseHtmlList(pageNumber, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestResponseHtmlList(pageNumber, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseJson() {
@@ -1967,7 +2120,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonEmptybody() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseJsonEmptybody();
+        createBhv(null).requestResponseJsonEmptybody();
     }
 
     public void test_requestResponseJsonStrval() {
@@ -1980,7 +2133,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestResponseJsonIntval() {
         // ## Act ##
-        Integer returnBean = createBhv("1").requestResponseJsonIntval();
+        Integer returnBean = createBhv("88888888").requestResponseJsonIntval();
 
         // ## Assert ##
         logger.debug("returnBean={}", returnBean);
@@ -2000,11 +2153,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("list={}", returnBean.list);
-        if (returnBean.list != null) {
-            returnBean.list.forEach(row -> {
-                logger.debug("list[]={}", row);
-            });
-        }
     }
 
     public void test_requestResponseJsonEccolleListempty() {
@@ -2013,11 +2161,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("list={}", returnBean.list);
-        if (returnBean.list != null) {
-            returnBean.list.forEach(row -> {
-                logger.debug("list[]={}", row);
-            });
-        }
     }
 
     public void test_requestResponseJsonEccolleMap() {
@@ -2026,11 +2169,6 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("map={}", returnBean.map);
-        if (returnBean.map != null) {
-            returnBean.map.forEach(row -> {
-                logger.debug("map[]={}", row);
-            });
-        }
     }
 
     public void test_requestResponseJsonJustified() {
@@ -2088,40 +2226,60 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("showbaseNow={}", returnBean.showbaseNow);
     }
 
-    // #for_now jflute multipartのレスポンスは、テストの仕方をそもそも変えないといけないけど、とりあえず例外アサート (2026/03/14)
     public void test_requestResponseStreamSmall() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamSmall());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamSmall();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamLarge() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamLarge());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamLarge();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamOutput() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamOutput());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamOutput();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamCursortsv() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamCursortsv());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamCursortsv();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamUpdateplain() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamUpdateplain());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamUpdateplain();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamUpdatetx() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamUpdatetx());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamUpdatetx();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamJapanese() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamJapanese());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamJapanese();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamValidationerror() {
@@ -2131,18 +2289,26 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class,
-                () -> createBhv(null).requestResponseStreamValidationerror(paramLambda));
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamValidationerror(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamWithbizex() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamWithbizex());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamWithbizex();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamWithbizexapi() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamWithbizexapi());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamWithbizexapi();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamApiValidationerror() {
@@ -2152,38 +2318,59 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class,
-                () -> createBhv(null).requestResponseStreamApiValidationerror(paramLambda));
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean =
+                createBhv("{}").requestResponseStreamApiValidationerror(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseStreamApiWithbizex() {
         // ## Act ##
-        assertException(RemoteApiResponseParseFailureException.class, () -> createBhv(null).requestResponseStreamApiWithbizex());
+        org.lastaflute.web.ruts.multipart.MultipartFormFile returnBean = createBhv("{}").requestResponseStreamApiWithbizex();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseTransitionForward() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseTransitionForward();
+        String returnBean = createBhv("mysticOneman").requestResponseTransitionForward();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseTransitionRedirect() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseTransitionRedirect();
+        String returnBean = createBhv("mysticOneman").requestResponseTransitionRedirect();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseTransitionRedirectPermanently() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseTransitionRedirectPermanently();
+        String returnBean = createBhv("mysticOneman").requestResponseTransitionRedirectPermanently();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseTransitionRedirectPermanentlySsl() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseTransitionRedirectPermanentlySsl();
+        String returnBean = createBhv("mysticOneman").requestResponseTransitionRedirectPermanentlySsl();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestResponseTransitionRedirectTemporary() {
         // ## Act ##
-        createBhv("mysticOneman").requestResponseTransitionRedirectTemporary();
+        String returnBean = createBhv("mysticOneman").requestResponseTransitionRedirectTemporary();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestRouting() {
@@ -3006,6 +3193,90 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         createBhv(null).requestRoutingRestfulDummy();
     }
 
+    public void test_requestSecurityRequestJsonbody() {
+        // ## Arrange ##
+        Consumer<RemoteWxSecurityRequestJsonbodyParam> paramLambda = param -> {
+            param.secureSea = "secureSea";
+            param.secureLand = 1;
+            param.openPiari = java.time.LocalDate.now();
+            param.secureMiraco = org.eclipse.collections.impl.factory.Lists.immutable.of("secureMiraco");
+            param.secureAmba = new RemoteWxSecurityRequestJsonbodyParam.MapPart();
+            param.ssador = new RemoteWxSecurityRequestJsonbodyParam.MapPart();
+        };
+
+        // ## Act ##
+        RemoteWxSecurityRequestJsonbodyReturn returnBean = createBhv("{}").requestSecurityRequestJsonbody(paramLambda);
+
+        // ## Assert ##
+        logger.debug("secureSea={}", returnBean.secureSea);
+        logger.debug("secureLand={}", returnBean.secureLand);
+        logger.debug("openPiari={}", returnBean.openPiari);
+        logger.debug("secureMiraco={}", returnBean.secureMiraco);
+        logger.debug("secureAmba={}", returnBean.secureAmba);
+        logger.debug("ssador={}", returnBean.ssador);
+    }
+
+    public void test_requestSecurityRequestJsonbodyError() {
+        // ## Arrange ##
+        Consumer<RemoteWxSecurityRequestJsonbodyErrorParam> paramLambda = param -> {
+            param.secureSea = "secureSea";
+            param.secureLand = 1;
+            param.openPiari = java.time.LocalDate.now();
+            param.secureMiraco = org.eclipse.collections.impl.factory.Lists.immutable.of("secureMiraco");
+            param.secureAmba = new RemoteWxSecurityRequestJsonbodyErrorParam.MapPart();
+            param.ssador = new RemoteWxSecurityRequestJsonbodyErrorParam.MapPart();
+        };
+
+        // ## Act ##
+        RemoteWxSecurityRequestJsonbodyErrorReturn returnBean = createBhv("{}").requestSecurityRequestJsonbodyError(paramLambda);
+
+        // ## Assert ##
+        logger.debug("secureSea={}", returnBean.secureSea);
+        logger.debug("secureLand={}", returnBean.secureLand);
+        logger.debug("openPiari={}", returnBean.openPiari);
+        logger.debug("secureMiraco={}", returnBean.secureMiraco);
+        logger.debug("secureAmba={}", returnBean.secureAmba);
+        logger.debug("ssador={}", returnBean.ssador);
+    }
+
+    public void test_requestSecurityRequestParameter() {
+        // ## Arrange ##
+        Consumer<RemoteWxSecurityRequestParameterParam> paramLambda = param -> {
+            param.secureSea = "secureSea";
+            param.secureLand = 1;
+            param.openPiari = java.time.LocalDate.now();
+            param.secureMiraco = org.eclipse.collections.impl.factory.Lists.immutable.of("secureMiraco");
+        };
+
+        // ## Act ##
+        RemoteWxSecurityRequestParameterReturn returnBean = createBhv("{}").requestSecurityRequestParameter(paramLambda);
+
+        // ## Assert ##
+        logger.debug("secureSea={}", returnBean.secureSea);
+        logger.debug("secureLand={}", returnBean.secureLand);
+        logger.debug("openPiari={}", returnBean.openPiari);
+        logger.debug("secureMiraco={}", returnBean.secureMiraco);
+    }
+
+    public void test_requestSecurityRequestParameterError() {
+        // ## Arrange ##
+        Consumer<RemoteWxSecurityRequestParameterErrorParam> paramLambda = param -> {
+            param.secureSea = "secureSea";
+            param.secureLand = 1;
+            param.openPiari = java.time.LocalDate.now();
+            param.secureMiraco = org.eclipse.collections.impl.factory.Lists.immutable.of("secureMiraco");
+        };
+
+        // ## Act ##
+        RemoteWxSecurityRequestParameterErrorReturn returnBean = createBhv("{}").requestSecurityRequestParameterError(paramLambda);
+
+        // ## Assert ##
+        logger.debug("secureSea={}", returnBean.secureSea);
+        logger.debug("secureLand={}", returnBean.secureLand);
+        logger.debug("openPiari={}", returnBean.openPiari);
+        logger.debug("secureMiraco={}", returnBean.secureMiraco);
+    }
+
     public void test_requestThymeleafParade() {
         // ## Arrange ##
         Consumer<RemoteWxThymeleafParadeParam> paramLambda = param -> {
@@ -3017,7 +3288,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestThymeleafParade(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestThymeleafParade(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestThymeleafParadePageNumber() {
@@ -3032,7 +3306,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestThymeleafParade(pageNumber, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestThymeleafParade(pageNumber, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestTransactionMemoriesFail() {
@@ -3044,7 +3321,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestTransactionMemoriesFail(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestTransactionMemoriesFail(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestTransactionMemoriesFailasync() {
@@ -3056,7 +3336,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestTransactionMemoriesFailasync(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestTransactionMemoriesFailasync(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestValidator() {
@@ -3077,7 +3360,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piariWrapBool = Boolean.TRUE;
             param.bonvoStatus = "bonvoStatus";
             param.dstoreStringList = org.eclipse.collections.impl.factory.Lists.immutable.of("dstoreStringList");
-            param.dstoreIntegerList = org.eclipse.collections.impl.factory.Lists.immutable.of(1);
+            param.dstoreIntegerList = org.eclipse.collections.impl.factory.Lists.immutable.of();
             param.dstoreImmutableList = org.eclipse.collections.impl.factory.Lists.immutable.of("dstoreImmutableList");
             param.seaBean = "seaBean";
             param.seaBeanList = org.eclipse.collections.impl.factory.Lists.immutable.of("seaBeanList");
@@ -3087,7 +3370,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestValidator(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestValidator(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestValidatorGenericform() {
@@ -3099,7 +3385,10 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestValidatorGenericform(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestValidatorGenericform(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestValidatorGroupingjson() {
@@ -3133,36 +3422,13 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piariWrapBool = Boolean.TRUE;
             param.bonvoStatus = "bonvoStatus";
             param.dstoreStringList = org.eclipse.collections.impl.factory.Lists.immutable.of("dstoreStringList");
-            param.dstoreIntegerList = org.eclipse.collections.impl.factory.Lists.immutable.of(1);
+            param.dstoreIntegerList = org.eclipse.collections.impl.factory.Lists.immutable.of();
             param.dstoreImmutableList = org.eclipse.collections.impl.factory.Lists.immutable.of("dstoreImmutableList");
             param.seaBean = new RemoteWxValidatorListjsonParam.SeaPart();
-            param.seaBean.over = 1;
-            param.seaBean.mystic = Boolean.TRUE;
-            RemoteWxValidatorListjsonParam.SeaPart.RestaurantPart restaurantPart =
-                    new RemoteWxValidatorListjsonParam.SeaPart.RestaurantPart();
-            restaurantPart.restaurantName = "restaurantName";
-            restaurantPart.genreList = org.eclipse.collections.impl.factory.Lists.immutable.of("genreList");
-            RemoteWxValidatorListjsonParam.SeaPart.RestaurantPart.MenuPart menuPart =
-                    new RemoteWxValidatorListjsonParam.SeaPart.RestaurantPart.MenuPart();
-            menuPart.menuName = "menuName";
-            restaurantPart.menuList = org.eclipse.collections.impl.factory.Lists.immutable.of(menuPart);
-            param.seaBean.restaurantList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantImmutableInstanceList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantImmutableTypeList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantIterableArrayList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantIterableImmutableList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBeanList = org.eclipse.collections.impl.factory.Lists.immutable.of(param.seaBean);
+            param.seaBeanList = org.eclipse.collections.impl.factory.Lists.immutable.of();
             param.landBean = new RemoteWxValidatorListjsonParam.LandPart();
-            param.landBean.oneman = 1;
-            param.landBean.minio = 1;
-            param.landBean.haunted = DfCollectionUtil.newHashMap();
-            param.landBean.bonvoBean = new RemoteWxValidatorListjsonParam.LandPart.BonvoPart();
-            param.landBean.bonvoBean.yage = 1;
             param.dstoreBean = new RemoteWxValidatorListjsonParam.DstorePart();
-            param.dstoreBean.goods = DfCollectionUtil.newHashMap();
             param.ambaBean = new RemoteWxValidatorListjsonParam.AmbaPart();
-            param.ambaBean.ssador = 1;
-            param.ambaBean.roomList = org.eclipse.collections.impl.factory.Lists.immutable.of(DfCollectionUtil.newHashMap());
         };
 
         // ## Act ##
@@ -3174,27 +3440,7 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             logger.debug("seaId={}", returnBean.seaId);
             logger.debug("landName={}", returnBean.landName);
             logger.debug("nestedBean={}", returnBean.nestedBean);
-            if (returnBean.nestedBean != null) {
-                logger.debug("nestedBean.piariId={}", returnBean.nestedBean.piariId);
-                logger.debug("nestedBean.bonvo={}", returnBean.nestedBean.bonvo);
-            }
             logger.debug("recursiveBean={}", returnBean.recursiveBean);
-            if (returnBean.recursiveBean != null) {
-                logger.debug("recursiveBean.seaId={}", returnBean.recursiveBean.seaId);
-                logger.debug("recursiveBean.landName={}", returnBean.recursiveBean.landName);
-                logger.debug("recursiveBean.nestedBean={}", returnBean.recursiveBean.nestedBean);
-                if (returnBean.recursiveBean.nestedBean != null) {
-                    logger.debug("recursiveBean.nestedBean.piariId={}", returnBean.recursiveBean.nestedBean.piariId);
-                    logger.debug("recursiveBean.nestedBean.bonvo={}", returnBean.recursiveBean.nestedBean.bonvo);
-                }
-                logger.debug("recursiveBean.recursiveBean={}", returnBean.recursiveBean.recursiveBean);
-                if (returnBean.recursiveBean.recursiveBean != null) {
-                    logger.debug("recursiveBean.recursiveBean.seaId={}", returnBean.recursiveBean.recursiveBean.seaId);
-                    logger.debug("recursiveBean.recursiveBean.landName={}", returnBean.recursiveBean.recursiveBean.landName);
-                    logger.debug("recursiveBean.recursiveBean.nestedBean={}", returnBean.recursiveBean.recursiveBean.nestedBean);
-                    logger.debug("recursiveBean.recursiveBean.recursiveBean={}", returnBean.recursiveBean.recursiveBean.recursiveBean);
-                }
-            }
         });
     }
 
@@ -3216,36 +3462,13 @@ public class RemoteFortressWxBhvTest extends UnitRemoteapigenTestCase {
             param.piariWrapBool = Boolean.TRUE;
             param.bonvoStatus = "bonvoStatus";
             param.dstoreStringList = org.eclipse.collections.impl.factory.Lists.immutable.of("dstoreStringList");
-            param.dstoreIntegerList = org.eclipse.collections.impl.factory.Lists.immutable.of(1);
+            param.dstoreIntegerList = org.eclipse.collections.impl.factory.Lists.immutable.of();
             param.dstoreImmutableList = org.eclipse.collections.impl.factory.Lists.immutable.of("dstoreImmutableList");
             param.seaBean = new RemoteWxValidatorWholejsonParam.SeaPart();
-            param.seaBean.over = 1;
-            param.seaBean.mystic = Boolean.TRUE;
-            RemoteWxValidatorWholejsonParam.SeaPart.RestaurantPart restaurantPart =
-                    new RemoteWxValidatorWholejsonParam.SeaPart.RestaurantPart();
-            restaurantPart.restaurantName = "restaurantName";
-            restaurantPart.genreList = org.eclipse.collections.impl.factory.Lists.immutable.of("genreList");
-            RemoteWxValidatorWholejsonParam.SeaPart.RestaurantPart.MenuPart menuPart =
-                    new RemoteWxValidatorWholejsonParam.SeaPart.RestaurantPart.MenuPart();
-            menuPart.menuName = "menuName";
-            restaurantPart.menuList = org.eclipse.collections.impl.factory.Lists.immutable.of(menuPart);
-            param.seaBean.restaurantList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantImmutableInstanceList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantImmutableTypeList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantIterableArrayList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBean.restaurantIterableImmutableList = org.eclipse.collections.impl.factory.Lists.immutable.of(restaurantPart);
-            param.seaBeanList = org.eclipse.collections.impl.factory.Lists.immutable.of(param.seaBean);
+            param.seaBeanList = org.eclipse.collections.impl.factory.Lists.immutable.of();
             param.landBean = new RemoteWxValidatorWholejsonParam.LandPart();
-            param.landBean.oneman = 1;
-            param.landBean.minio = 1;
-            param.landBean.haunted = DfCollectionUtil.newHashMap();
-            param.landBean.bonvoBean = new RemoteWxValidatorWholejsonParam.LandPart.BonvoPart();
-            param.landBean.bonvoBean.yage = 1;
             param.dstoreBean = new RemoteWxValidatorWholejsonParam.DstorePart();
-            param.dstoreBean.goods = DfCollectionUtil.newHashMap();
             param.ambaBean = new RemoteWxValidatorWholejsonParam.AmbaPart();
-            param.ambaBean.ssador = 1;
-            param.ambaBean.roomList = org.eclipse.collections.impl.factory.Lists.immutable.of(DfCollectionUtil.newHashMap());
         };
 
         // ## Act ##

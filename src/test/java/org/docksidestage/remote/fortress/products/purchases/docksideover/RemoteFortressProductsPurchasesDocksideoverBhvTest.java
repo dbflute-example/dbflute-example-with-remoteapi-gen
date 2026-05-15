@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.products.purchases.docksideover.index.RemoteProductsPurchasesDocksideoverParam;
-import org.docksidestage.remote.fortress.products.purchases.docksideover.index.RemoteProductsPurchasesDocksideoverReturn;
+import org.docksidestage.remote.fortress.products.purchases.docksideover.index.RemoteProductsPurchasesDocksideoverGetParam;
+import org.docksidestage.remote.fortress.products.purchases.docksideover.index.RemoteProductsPurchasesDocksideoverGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -41,22 +41,15 @@ public class RemoteFortressProductsPurchasesDocksideoverBhvTest extends UnitRemo
     public void test_requestGet() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteProductsPurchasesDocksideoverParam> paramLambda = param -> {
+        Consumer<RemoteProductsPurchasesDocksideoverGetParam> paramLambda = param -> {
             param.memberName = "memberName";
         };
 
         // ## Act ##
-        RemoteProductsPurchasesDocksideoverReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
+        RemoteProductsPurchasesDocksideoverGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);
-        if (returnBean.rows != null) {
-            returnBean.rows.forEach(row -> {
-                logger.debug("row.purchaseId={}", row.purchaseId);
-                logger.debug("row.memberName={}", row.memberName);
-                logger.debug("row.productName={}", row.productName);
-            });
-        }
     }
 
     private RemoteFortressProductsPurchasesDocksideoverBhv createBhv(String json) {

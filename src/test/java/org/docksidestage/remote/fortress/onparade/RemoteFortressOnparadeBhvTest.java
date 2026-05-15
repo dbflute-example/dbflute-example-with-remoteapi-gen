@@ -24,12 +24,16 @@ import org.docksidestage.remote.fortress.onparade.index.RemoteOnparadePagenumber
 import org.docksidestage.remote.fortress.onparade.index.RemoteOnparadeParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of onparade.
  * @author FreeGen
  */
 public class RemoteFortressOnparadeBhvTest extends UnitRemoteapigenTestCase {
+
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressOnparadeBhvTest.class);
 
     @Resource
     private RequestManager requestManager;
@@ -46,7 +50,10 @@ public class RemoteFortressOnparadeBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").request(paramLambda);
+        String returnBean = createBhv("mysticOneman").request(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestPageNumber() {
@@ -62,7 +69,10 @@ public class RemoteFortressOnparadeBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").request(pageNumber, paramLambda);
+        String returnBean = createBhv("mysticOneman").request(pageNumber, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressOnparadeBhv createBhv(String json) {

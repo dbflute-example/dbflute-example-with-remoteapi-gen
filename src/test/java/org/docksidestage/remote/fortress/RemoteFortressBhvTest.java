@@ -20,6 +20,8 @@ import javax.annotation.Resource;
 import org.dbflute.remoteapi.mock.MockHttpClient;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of .
@@ -27,12 +29,17 @@ import org.lastaflute.web.servlet.request.RequestManager;
  */
 public class RemoteFortressBhvTest extends UnitRemoteapigenTestCase {
 
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressBhvTest.class);
+
     @Resource
     private RequestManager requestManager;
 
     public void test_request() {
         // ## Act ##
-        createBhv("mysticOneman").request();
+        String returnBean = createBhv("mysticOneman").request();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressBhv createBhv(String json) {
