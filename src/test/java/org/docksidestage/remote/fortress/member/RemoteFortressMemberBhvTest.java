@@ -27,6 +27,8 @@ import org.docksidestage.remote.fortress.member.list.RemoteMemberListPagenumberP
 import org.docksidestage.remote.fortress.member.list.RemoteMemberListParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of member.
@@ -34,12 +36,17 @@ import org.lastaflute.web.servlet.request.RequestManager;
  */
 public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
 
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressMemberBhvTest.class);
+
     @Resource
     private RequestManager requestManager;
 
     public void test_requestAdd() {
         // ## Act ##
-        createBhv("mysticOneman").requestAdd();
+        String returnBean = createBhv("mysticOneman").requestAdd();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestAddRegister() {
@@ -52,7 +59,10 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestAddRegister(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestAddRegister(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestEdit() {
@@ -60,7 +70,10 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         Integer memberId = 1;
 
         // ## Act ##
-        createBhv("mysticOneman").requestEdit(memberId);
+        String returnBean = createBhv("mysticOneman").requestEdit(memberId);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestEditUpdate() {
@@ -79,7 +92,10 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestEditUpdate(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestEditUpdate(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestEditWithdrawal() {
@@ -98,7 +114,10 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestEditWithdrawal(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestEditWithdrawal(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestList() {
@@ -113,7 +132,10 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestList(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestList(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestListPageNumber() {
@@ -129,7 +151,10 @@ public class RemoteFortressMemberBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestList(pageNumber, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestList(pageNumber, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressMemberBhv createBhv(String json) {

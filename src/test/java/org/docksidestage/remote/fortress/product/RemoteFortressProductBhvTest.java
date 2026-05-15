@@ -24,12 +24,16 @@ import org.docksidestage.remote.fortress.product.list.RemoteProductListPagenumbe
 import org.docksidestage.remote.fortress.product.list.RemoteProductListParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of product.
  * @author FreeGen
  */
 public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
+
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressProductBhvTest.class);
 
     @Resource
     private RequestManager requestManager;
@@ -39,7 +43,10 @@ public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
         Integer productId = 1;
 
         // ## Act ##
-        createBhv("mysticOneman").requestDetail(productId);
+        String returnBean = createBhv("mysticOneman").requestDetail(productId);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestList() {
@@ -51,7 +58,10 @@ public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestList(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestList(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestListPageNumber() {
@@ -64,7 +74,10 @@ public class RemoteFortressProductBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestList(pageNumber, paramLambda);
+        String returnBean = createBhv("mysticOneman").requestList(pageNumber, paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressProductBhv createBhv(String json) {
