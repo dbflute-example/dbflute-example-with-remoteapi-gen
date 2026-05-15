@@ -152,9 +152,9 @@ var remoteApiLogic = {
             }
 
             // Sort at the importClass package name.
-            var prePackage = preImportClass.substring(0, preImportClass.lastIndexOf('.'));
-            var currentPackage = currentImportClass.substring(0, currentImportClass.lastIndexOf('.'));
-            var packageCompare = prePackage.localeCompare(currentPackage);
+            var preImportPackage = preImportClass.substring(0, preImportClass.lastIndexOf('.'));
+            var currentImportPackage = currentImportClass.substring(0, currentImportClass.lastIndexOf('.'));
+            var packageCompare = preImportPackage.localeCompare(currentImportPackage);
             if (packageCompare !== 0) {
                 return packageCompare;
             }
