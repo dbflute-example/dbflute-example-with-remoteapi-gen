@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverParam;
-import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverReturn;
+import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverGetParam;
+import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -40,14 +40,14 @@ public class RemoteFortressProductsDocksideoverBhvTest extends UnitRemoteapigenT
 
     public void test_requestGet() {
         // ## Arrange ##
-        Consumer<RemoteProductsDocksideoverParam> paramLambda = param -> {
+        Consumer<RemoteProductsDocksideoverGetParam> paramLambda = param -> {
             param.productName = "productName";
             param.productStatus = org.docksidestage.dbflute.allcommon.CDef.ProductStatus.codeOf("ONS");
             param.purchaseMemberName = "purchaseMemberName";
         };
 
         // ## Act ##
-        org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverReturn> list = createBhv("[]").requestGet(paramLambda);
+        org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverGetReturn> list = createBhv("[]").requestGet(paramLambda);
 
         // ## Assert ##
         list.forEach(returnBean -> {

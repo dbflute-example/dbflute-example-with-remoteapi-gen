@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.showbaseoneman.index.RemoteProductsShowbaseonemanReturn;
+import org.docksidestage.remote.fortress.products.showbaseoneman.index.RemoteProductsShowbaseonemanGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,7 +50,7 @@ public abstract class BsRemoteFortressProductsShowbaseonemanBhv extends Abstract
      * @param productId The value of path variable for productId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsShowbaseonemanReturn requestGet(Integer productId) {
+    public RemoteProductsShowbaseonemanGetReturn requestGet(Integer productId) {
         return doRequestGet(productId, rule -> {});
     }
 
@@ -64,8 +64,8 @@ public abstract class BsRemoteFortressProductsShowbaseonemanBhv extends Abstract
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsShowbaseonemanReturn doRequestGet(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteProductsShowbaseonemanReturn.class, "/products/{productId}/showbase-oneman/", moreUrl(productId), noQuery(), rule -> {
+    protected RemoteProductsShowbaseonemanGetReturn doRequestGet(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteProductsShowbaseonemanGetReturn.class, "/products/{productId}/showbase-oneman/", moreUrl(productId), noQuery(), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });

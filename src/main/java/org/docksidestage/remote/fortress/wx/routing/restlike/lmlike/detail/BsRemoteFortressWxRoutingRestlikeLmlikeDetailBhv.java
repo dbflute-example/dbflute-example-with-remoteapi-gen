@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.wx.routing.restlike.lmlike.detail.index.RemoteWxRoutingRestlikeLmlikeDetailReturn;
+import org.docksidestage.remote.fortress.wx.routing.restlike.lmlike.detail.index.RemoteWxRoutingRestlikeLmlikeDetailGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,7 +50,7 @@ public abstract class BsRemoteFortressWxRoutingRestlikeLmlikeDetailBhv extends A
      * @param productId The value of path variable for productId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeLmlikeDetailReturn requestGet(Integer productId) {
+    public RemoteWxRoutingRestlikeLmlikeDetailGetReturn requestGet(Integer productId) {
         return doRequestGet(productId, rule -> {});
     }
 
@@ -64,8 +64,8 @@ public abstract class BsRemoteFortressWxRoutingRestlikeLmlikeDetailBhv extends A
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeLmlikeDetailReturn doRequestGet(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteWxRoutingRestlikeLmlikeDetailReturn.class, "/wx/routing/restlike/lmlike/{productId}/detail", moreUrl(productId), noQuery(), rule -> {
+    protected RemoteWxRoutingRestlikeLmlikeDetailGetReturn doRequestGet(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteWxRoutingRestlikeLmlikeDetailGetReturn.class, "/wx/routing/restlike/lmlike/{productId}/detail", moreUrl(productId), noQuery(), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });

@@ -45,26 +45,10 @@ remoteApiRule.behaviorSubPackage = function(api) {
     }
 }
 
-// always HTTP Method on request method
+// always HTTP Method if Restful
 // @Override
-remoteApiRule.behaviorRequestMethodName = function(api) {
-    if (canBeRestful(api)) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
-        return 'request' + manager.initCap(methodPart) + (api.httpMethod ? manager.initCap(api.httpMethod) : '');
-    } else {
-        return baseRule.behaviorRequestMethodName(api);
-    }
-}
-
-// always HTTP Method on rule method
-// @Override
-remoteApiRule.behaviorRuleMethodName = function(api) {
-    if (canBeRestful(api)) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
-        return 'ruleOf' + manager.initCap(methodPart) + (api.httpMethod ? manager.initCap(api.httpMethod) : '');
-    } else {
-        return baseRule.behaviorRuleMethodName(api);
-    }
+remoteApiRule.isAvailableFixedHttpMethodSuffixOfIdentityName = function(api, option) {
+    return canBeRestful(api);
 }
 
 
@@ -197,6 +181,22 @@ remoteApiRule.targetField = function(api, topLevelBean, jsonFieldName) {
     }
     return true; // デフォルトではすべて対象
 }
+
+
+
+// =======================================================================================
+//                                                                                   Test
+//                                                                                  ======
+// _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+// 実際にテストクラスを自動生成するには、環境変数 FREE_GEN_REMOTEAPI_TEST=true を入れる必要あり。 (2026/05/15)
+// テストクラスを常に自動生成していくか？ってのがまだ未確定なので、環境変数で狙って自動生成してもらう。
+// ただ、上書きしないスタイルになっているので、別に毎回自動生成はしても良いような気もする。要検討。
+// _/_/_/_/_/_/_/_/
+// @Override
+remoteApiRule.testClassGeneration = true;
+
+// @Override
+remoteApiRule.behaviorTestSuperClass = "org.docksidestage.unit.UnitRemoteapigenTestCase";
 
 
 

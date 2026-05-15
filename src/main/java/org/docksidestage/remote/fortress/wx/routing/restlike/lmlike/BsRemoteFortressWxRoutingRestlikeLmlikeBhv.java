@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.wx.routing.restlike.lmlike.index.RemoteWxRoutingRestlikeLmlikeReturn;
+import org.docksidestage.remote.fortress.wx.routing.restlike.lmlike.index.RemoteWxRoutingRestlikeLmlikeGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,7 +50,7 @@ public abstract class BsRemoteFortressWxRoutingRestlikeLmlikeBhv extends Abstrac
      * @param memberStatus The value of path variable for memberStatus. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeLmlikeReturn requestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus) {
+    public RemoteWxRoutingRestlikeLmlikeGetReturn requestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus) {
         return doRequestGet(memberStatus, rule -> {});
     }
 
@@ -64,8 +64,8 @@ public abstract class BsRemoteFortressWxRoutingRestlikeLmlikeBhv extends Abstrac
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeLmlikeReturn doRequestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteWxRoutingRestlikeLmlikeReturn.class, "/wx/routing/restlike/lmlike/{memberStatus}", moreUrl(memberStatus), noQuery(), rule -> {
+    protected RemoteWxRoutingRestlikeLmlikeGetReturn doRequestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteWxRoutingRestlikeLmlikeGetReturn.class, "/wx/routing/restlike/lmlike/{memberStatus}", moreUrl(memberStatus), noQuery(), rule -> {
             ruleOfGetMemberStatus(rule);
             ruleLambda.accept(rule);
         });

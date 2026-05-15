@@ -23,6 +23,8 @@ import org.dbflute.remoteapi.mock.MockHttpClient;
 import org.docksidestage.remote.fortress.signup.signup.RemoteSignupSignupParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of signup.
@@ -30,12 +32,17 @@ import org.lastaflute.web.servlet.request.RequestManager;
  */
 public class RemoteFortressSignupBhvTest extends UnitRemoteapigenTestCase {
 
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressSignupBhvTest.class);
+
     @Resource
     private RequestManager requestManager;
 
     public void test_request() {
         // ## Act ##
-        createBhv("mysticOneman").request();
+        String returnBean = createBhv("mysticOneman").request();
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestSignup() {
@@ -49,7 +56,10 @@ public class RemoteFortressSignupBhvTest extends UnitRemoteapigenTestCase {
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestSignup(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestSignup(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     public void test_requestRegister() {
@@ -58,7 +68,10 @@ public class RemoteFortressSignupBhvTest extends UnitRemoteapigenTestCase {
         String token = "token";
 
         // ## Act ##
-        createBhv("mysticOneman").requestRegister(account, token);
+        String returnBean = createBhv("mysticOneman").requestRegister(account, token);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressSignupBhv createBhv(String json) {

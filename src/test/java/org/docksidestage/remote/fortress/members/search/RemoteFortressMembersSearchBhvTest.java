@@ -20,9 +20,11 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchParam;
+import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchGetParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The behavior test for remote API of members.search.
@@ -30,12 +32,14 @@ import org.lastaflute.web.servlet.request.RequestManager;
  */
 public class RemoteFortressMembersSearchBhvTest extends UnitRemoteapigenTestCase {
 
+    private static final Logger logger = LoggerFactory.getLogger(RemoteFortressMembersSearchBhvTest.class);
+
     @Resource
     private RequestManager requestManager;
 
     public void test_requestGet() {
         // ## Arrange ##
-        Consumer<RemoteMembersSearchParam> paramLambda = param -> {
+        Consumer<RemoteMembersSearchGetParam> paramLambda = param -> {
             param.memberName = "memberName";
             param.memberStatus = org.docksidestage.dbflute.allcommon.CDef.MemberStatus.codeOf("FML");
             param.purchaseProductName = "purchaseProductName";
@@ -46,7 +50,10 @@ public class RemoteFortressMembersSearchBhvTest extends UnitRemoteapigenTestCase
         };
 
         // ## Act ##
-        createBhv("mysticOneman").requestGet(paramLambda);
+        String returnBean = createBhv("mysticOneman").requestGet(paramLambda);
+
+        // ## Assert ##
+        logger.debug("returnBean={}", returnBean);
     }
 
     private RemoteFortressMembersSearchBhv createBhv(String json) {

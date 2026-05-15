@@ -23,10 +23,10 @@ import org.dbflute.remoteapi.mock.MockHttpClient;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeDeleteParam;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeDeleteReturn;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeGetReturn;
-import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeParam;
+import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePostParam;
+import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePostReturn;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePutParam;
 import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikePutReturn;
-import org.docksidestage.remote.fortress.wx.routing.restlike.index.RemoteWxRoutingRestlikeReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class RemoteFortressWxRoutingRestlikeBhvTest extends UnitRemoteapigenTest
 
     public void test_requestGet() {
         // ## Act ##
-        RemoteWxRoutingRestlikeReturn returnBean = createBhv("{}").requestGet();
+        RemoteWxRoutingRestlikeGetReturn returnBean = createBhv("{}").requestGet();
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
@@ -104,12 +104,12 @@ public class RemoteFortressWxRoutingRestlikeBhvTest extends UnitRemoteapigenTest
 
     public void test_requestPost() {
         // ## Arrange ##
-        Consumer<RemoteWxRoutingRestlikeParam> paramLambda = param -> {
+        Consumer<RemoteWxRoutingRestlikePostParam> paramLambda = param -> {
             param.maihamaId = 1;
         };
 
         // ## Act ##
-        RemoteWxRoutingRestlikeReturn returnBean = createBhv("{}").requestPost(paramLambda);
+        RemoteWxRoutingRestlikePostReturn returnBean = createBhv("{}").requestPost(paramLambda);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);

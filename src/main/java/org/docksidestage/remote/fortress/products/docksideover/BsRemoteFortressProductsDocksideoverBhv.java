@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverParam;
-import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverReturn;
+import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverGetParam;
+import org.docksidestage.remote.fortress.products.docksideover.index.RemoteProductsDocksideoverGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -48,10 +48,10 @@ public abstract class BsRemoteFortressProductsDocksideoverBhv extends AbstractRe
      * url: /products/docksideOver/
      * httpMethod: GET
      * </pre>
-     * @param paramLambda The callback for RemoteProductsDocksideoverParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsDocksideoverGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverReturn> requestGet(Consumer<RemoteProductsDocksideoverParam> paramLambda) {
+    public org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverGetReturn> requestGet(Consumer<RemoteProductsDocksideoverGetParam> paramLambda) {
         return doRequestGet(paramLambda, rule -> {});
     }
 
@@ -61,14 +61,14 @@ public abstract class BsRemoteFortressProductsDocksideoverBhv extends AbstractRe
      * url: /products/docksideOver/
      * httpMethod: GET
      * </pre>
-     * @param paramLambda The callback for RemoteProductsDocksideoverParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsDocksideoverGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverReturn> doRequestGet(Consumer<RemoteProductsDocksideoverParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteProductsDocksideoverParam param = new RemoteProductsDocksideoverParam();
+    protected org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverGetReturn> doRequestGet(Consumer<RemoteProductsDocksideoverGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteProductsDocksideoverGetParam param = new RemoteProductsDocksideoverGetParam();
         paramLambda.accept(param);
-        return doRequestGet(new org.lastaflute.di.helper.misc.ParameterizedRef<org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverReturn>>() {
+        return doRequestGet(new org.lastaflute.di.helper.misc.ParameterizedRef<org.eclipse.collections.api.list.ImmutableList<RemoteProductsDocksideoverGetReturn>>() {
         }.getType(), "/products/docksideOver/", noMoreUrl(), query(param), rule -> {
             ruleOfGet(rule);
             ruleLambda.accept(rule);

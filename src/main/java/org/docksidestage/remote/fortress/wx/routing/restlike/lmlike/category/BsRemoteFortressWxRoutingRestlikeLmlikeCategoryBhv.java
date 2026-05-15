@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.wx.routing.restlike.lmlike.category.index.RemoteWxRoutingRestlikeLmlikeCategoryReturn;
+import org.docksidestage.remote.fortress.wx.routing.restlike.lmlike.category.index.RemoteWxRoutingRestlikeLmlikeCategoryGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -51,7 +51,7 @@ public abstract class BsRemoteFortressWxRoutingRestlikeLmlikeCategoryBhv extends
      * @param memberId The value of path variable for memberId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeLmlikeCategoryReturn requestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus, Integer memberId) {
+    public RemoteWxRoutingRestlikeLmlikeCategoryGetReturn requestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus, Integer memberId) {
         return doRequestGet(memberStatus, memberId, rule -> {});
     }
 
@@ -66,8 +66,8 @@ public abstract class BsRemoteFortressWxRoutingRestlikeLmlikeCategoryBhv extends
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeLmlikeCategoryReturn doRequestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus, Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteWxRoutingRestlikeLmlikeCategoryReturn.class, "/wx/routing/restlike/lmlike/category/{memberStatus}/{memberId}", moreUrl(memberStatus, memberId), noQuery(), rule -> {
+    protected RemoteWxRoutingRestlikeLmlikeCategoryGetReturn doRequestGet(org.docksidestage.dbflute.allcommon.CDef.MemberStatus memberStatus, Integer memberId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteWxRoutingRestlikeLmlikeCategoryGetReturn.class, "/wx/routing/restlike/lmlike/category/{memberStatus}/{memberId}", moreUrl(memberStatus, memberId), noQuery(), rule -> {
             ruleOfGetMemberStatusMemberId(rule);
             ruleLambda.accept(rule);
         });

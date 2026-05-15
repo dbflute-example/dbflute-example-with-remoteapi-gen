@@ -136,8 +136,8 @@ var remoteApiLogic = {
         uniqueImportClassList.sort(function(preImportClass, currentImportClass) {
             // Sort at the categolized of the importClass package name.
             // Use importCategolizedPackageOrderList. e.g. java, javax, junit, org, com ...
-            preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
-            currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            var preImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
+            var currentImportCategolizedPackageOrderIndex = Number.MAX_VALUE;
             importCategolizedPackageOrderList.forEach(function(importCategolizedPackageOrder, importCategolizedPackageOrderIndex) {
                 if (importCategolizedPackageOrder === preImportClass.substring(0, preImportClass.indexOf('.'))) {
                     preImportCategolizedPackageOrderIndex = importCategolizedPackageOrderIndex;
@@ -152,9 +152,9 @@ var remoteApiLogic = {
             }
 
             // Sort at the importClass package name.
-            var prePackage = preImportClass.substring(0, preImportClass.lastIndexOf('.'));
-            var currentPackage = currentImportClass.substring(0, currentImportClass.lastIndexOf('.'));
-            var packageCompare = prePackage.localeCompare(currentPackage);
+            var preImportPackage = preImportClass.substring(0, preImportClass.lastIndexOf('.'));
+            var currentImportPackage = currentImportClass.substring(0, currentImportClass.lastIndexOf('.'));
+            var packageCompare = preImportPackage.localeCompare(currentImportPackage);
             if (packageCompare !== 0) {
                 return packageCompare;
             }
@@ -273,7 +273,7 @@ var remoteApiLogic = {
             });
 
             if (behaviorMethod.moreUrl) {
-                behaviorMethod.moreUrl = behaviorMethod.moreUrl.replaceAll('^(.+), $', 'moreUrl($1)');
+                behaviorMethod.moreUrl = behaviorMethod.moreUrl.replace(/^(.+), $/, 'moreUrl($1)');
             } else {
                 behaviorMethod.moreUrl = 'noMoreUrl()';
             }
@@ -296,7 +296,7 @@ var remoteApiLogic = {
             }
 
             if (behaviorMethod.parameterDefinition) {
-                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition.replaceAll(', $', '');
+                behaviorMethod.parameterDefinition = behaviorMethod.parameterDefinition.replace(/, $/, '');
             }
 
             behaviorMethod.parameterDefinitionRule = behaviorMethod.parameterDefinition;
@@ -400,7 +400,7 @@ var remoteApiLogic = {
 
         var serializedNameTargetList = ['query', 'formData', 'json'];
         properties.entrySet().forEach(function(propertyEntry) {
-            if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
+            if (!remoteApiLogic.determineTargetBeanProperty(rule, topLevelBean, propertyEntry.key)) {
                 return; // to avoid unused import statement (2026/03/12)
             }
             var property = propertyEntry.value; // #{ApiProperty}
@@ -445,7 +445,7 @@ var remoteApiLogic = {
                     // #thinking jflute このrequiredの導出/反映、その後の処理に影響してるだろうか？ (2026/03/12)
                     // #for_now jflute targetField()でスキップで良いか迷ったので、ひとまずtargetField()は後にした (2026/03/12)
                     nestPropertyEntry.value.required = nestDefinition.required && nestDefinition.required.contains(nestPropertyEntry.key);
-                    if (!rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                    if (!remoteApiLogic.determineTargetBeanProperty(rule, topLevelBean, nestPropertyEntry.key)) {
                         return; // to avoid unused import statement (2026/03/12)
                     }
                     var nestProperty = nestPropertyEntry.value;
@@ -477,6 +477,7 @@ var remoteApiLogic = {
     // {ApiProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
     /**
      * Derive the bean property metadata for the specified property.
+     * targetFieldの判定は含んでいる。対象外の場合は空オブジェクトが戻される。
      * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
      * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
      * @param {string} beanClassName The class name without package for the top level or nest bean. (NotNull)
@@ -486,7 +487,7 @@ var remoteApiLogic = {
      * @return {BeanProperty} The metadata of the property, having e.g. fieldName, fieldClass. (NotNull, EmptyAllowed: if no target)
      */
     deriveBeanProperty: function(rule, topLevelBean, beanClassName, propertyEntry, nestTypeFullNameList, nestTypeList) {
-        if (!rule.targetField(topLevelBean.api, topLevelBean, propertyEntry.key)) {
+        if (!remoteApiLogic.determineTargetBeanProperty(rule, topLevelBean, propertyEntry.key)) {
             // #for_now jflute nullだとvm側でうまく判定できなかったので、fieldName の有無などで判定してもらう (2026/03/09)
             return {};
         }
@@ -517,8 +518,12 @@ var remoteApiLogic = {
         if (rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property)) {
             description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
+        if (description) {
+            // enumのプロパティの不要な空白 e.g. "( *" が "(*" になる。(2026/05/15) 
+            description = description.replace(/\n+/g, ' ').trim();
+        }
         beanProperty.javadocComment = '/** The property of ' + beanProperty.fieldName + '. ' + enumValueComment
-                                      + (property.description ? '(' + property.description + ') ' : '')
+                                      + (description ? '(' + description + ') ' : '')
                                       + (property.required ? '' : '(NullAllowed) ') + '*/';
 
         // annotation
@@ -540,7 +545,7 @@ var remoteApiLogic = {
                 //      => WxRequestJsonBodyBody$ToscanaPart
                 nestType = nestType.substring(index + 1);
             }
-            var pureNestClassName = nestType.replaceAll('^.*\\$', ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
+            var pureNestClassName = nestType.replace(/^.*[\$]/, ''); // e.g. WxRequestJsonBodyBody$ToscanaPart => ToscanaPart
             return rule.nestClassName(topLevelBean.api, pureNestClassName); // e.g. ProductRowBean => ProductRowPart
         };
 
@@ -609,7 +614,7 @@ var remoteApiLogic = {
                 var nestProperties = nestDefinition.properties; // may be no properties case
                 if (nestProperties && nestProperties.size() !== 0) {
                     nestProperties.entrySet().forEach(function(nestPropertyEntry) {
-                        if (rule.targetField(topLevelBean.api, topLevelBean, nestPropertyEntry.key)) {
+                        if (remoteApiLogic.determineTargetBeanProperty(rule, topLevelBean, nestPropertyEntry.key)) {
                             // recursive call here
                             var nestBeanProperty = remoteApiLogic.deriveBeanProperty(rule // #{BeanProperty}
                                                                                    , topLevelBean
@@ -628,6 +633,21 @@ var remoteApiLogic = {
         beanProperty.nestBean = deriveNestBean(rule, topLevelBean, nestType, nestTypeFullNameList, nestTypeList);
 
         return beanProperty;
+    },
+
+    // {ApiProperty}, {TopLevelBean} types are defined on RemoteApiRule.js
+    /**
+     * Determine whether the bean property is target field.
+     * targetFieldの呼び出しを一元管理するために作った関数。
+     * 将来、ruleのtargetField()をリファクタリングするかもしれないというのもあるし、
+     * 重要な関数なので何かとあれこれしたいかもしれないのでラップしておく。
+     * @param {RemoteApiRule} rule - RemoteApiRule.js object. (NotNull)
+     * @param {TopLevelBean} topLevelBean そのプロパティたち(properties)を定義しているbeanだが、ネストのときも常にtop(root)のBeanになる (NotNull)
+     * @param {string} propertyName The name of the bean property. (NotNull)
+     * @return {boolean} true if target. (NotNull)
+     */
+    determineTargetBeanProperty: function(rule, topLevelBean, propertyName) {
+        return rule.targetField(topLevelBean.api, topLevelBean, propertyName);
     },
 
     // ===================================================================================

@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.showbaseoneman.index.RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.showbaseoneman.index.RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -51,7 +51,7 @@ public abstract class BsRemoteFortressBalletdancersGreatestfavoritestudiosShowba
      * @param purchaseId The value of path variable for purchaseId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanReturn requestGet(Integer productId, Long purchaseId) {
+    public RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanGetReturn requestGet(Integer productId, Long purchaseId) {
         return doRequestGet(productId, purchaseId, rule -> {});
     }
 
@@ -66,8 +66,8 @@ public abstract class BsRemoteFortressBalletdancersGreatestfavoritestudiosShowba
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanReturn.class, "/ballet-dancers/{productId}/greatest-favorite-studios/{purchaseId}/showbase-oneman/", moreUrl(productId, purchaseId), noQuery(), rule -> {
+    protected RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanGetReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteBalletdancersGreatestfavoritestudiosShowbaseonemanGetReturn.class, "/ballet-dancers/{productId}/greatest-favorite-studios/{purchaseId}/showbase-oneman/", moreUrl(productId, purchaseId), noQuery(), rule -> {
             ruleOfGetProductIdPurchaseId(rule);
             ruleLambda.accept(rule);
         });

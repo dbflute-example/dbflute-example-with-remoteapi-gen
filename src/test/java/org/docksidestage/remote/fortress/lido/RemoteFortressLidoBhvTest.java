@@ -102,21 +102,7 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
 
         // ## Assert ##
         logger.debug("followings={}", returnBean.followings);
-        if (returnBean.followings != null) {
-            returnBean.followings.forEach(following -> {
-                logger.debug("followings.memberId={}", following.memberId);
-                logger.debug("followings.memberName={}", following.memberName);
-                logger.debug("followings.memberStatusCode={}", following.memberStatusCode);
-            });
-        }
         logger.debug("followers={}", returnBean.followers);
-        if (returnBean.followers != null) {
-            returnBean.followers.forEach(follower -> {
-                logger.debug("follower.memberId={}", follower.memberId);
-                logger.debug("follower.memberName={}", follower.memberName);
-                logger.debug("follower.memberStatusCode={}", follower.memberStatusCode);
-            });
-        }
     }
 
     public void test_requestFollowingRegister() {
@@ -169,8 +155,7 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("productId={}", returnBean.productId);
         logger.debug("productName={}", returnBean.productName);
         logger.debug("categoryName={}", returnBean.categoryName);
-        // targetFieldのテストで定価を対象外にしたため (2026/03/09)
-        //logger.debug("regularPrice={}", returnBean.regularPrice);
+        //logger.debug("regularPrice={}", returnBean.regularPrice); // out of targetField (as root)
         logger.debug("productHandleCode={}", returnBean.productHandleCode);
     }
 
@@ -191,16 +176,6 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("allRecordCount={}", returnBean.allRecordCount);
         logger.debug("allPageCount={}", returnBean.allPageCount);
         logger.debug("rows={}", returnBean.rows);
-        if (returnBean.rows != null) {
-            returnBean.rows.forEach(row -> {
-                logger.debug("row.productId={}", row.productId);
-                logger.debug("row.productName={}", row.productName);
-                logger.debug("row.productStatusName={}", row.productStatusName);
-                logger.debug("row.regularPrice={}", row.regularPrice);
-                logger.debug("row.popular={}", row.popular);
-                logger.debug("row.purchaseDate={}", row.purchaseDate);
-            });
-        }
     }
 
     public void test_requestProductListPageNumber() {
@@ -221,16 +196,6 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         logger.debug("allRecordCount={}", returnBean.allRecordCount);
         logger.debug("allPageCount={}", returnBean.allPageCount);
         logger.debug("rows={}", returnBean.rows);
-        if (returnBean.rows != null) {
-            returnBean.rows.forEach(row -> {
-                logger.debug("row.productId={}", row.productId);
-                logger.debug("row.productName={}", row.productName);
-                logger.debug("row.productStatusName={}", row.productStatusName);
-                logger.debug("row.regularPrice={}", row.regularPrice);
-                logger.debug("row.popular={}", row.popular);
-                logger.debug("row.purchaseDate={}", row.purchaseDate);
-            });
-        }
     }
 
     public void test_requestProductPriceUpdate() {

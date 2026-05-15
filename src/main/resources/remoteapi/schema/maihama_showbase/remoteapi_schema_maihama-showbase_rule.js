@@ -95,6 +95,18 @@ remoteApiRule.returnExtendsClass = function(api, properties) {
 }
 
 
+
+// =======================================================================================
+//                                                                                   Test
+//                                                                                  ======
+// @Override
+remoteApiRule.testClassGeneration = true;
+
+// @Override
+remoteApiRule.behaviorTestSuperClass = "org.docksidestage.unit.UnitRemoteapigenTestCase";
+
+
+
 // =======================================================================================
 //                                                                                  Option
 //                                                                                  ======

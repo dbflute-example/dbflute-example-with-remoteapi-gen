@@ -19,9 +19,9 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsProductidPurchasesPurchaseidReturn;
-import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesParam;
-import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesReturn;
+import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsProductidPurchasesPurchaseidGetReturn;
+import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesGetParam;
+import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,10 +50,10 @@ public abstract class BsRemoteFortressProductsPurchasesBhv extends AbstractRemot
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPurchasesParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsPurchasesGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsPurchasesReturn requestGet(Integer productId, Consumer<RemoteProductsPurchasesParam> paramLambda) {
+    public RemoteProductsPurchasesGetReturn requestGet(Integer productId, Consumer<RemoteProductsPurchasesGetParam> paramLambda) {
         return doRequestGet(productId, paramLambda, rule -> {});
     }
 
@@ -64,14 +64,14 @@ public abstract class BsRemoteFortressProductsPurchasesBhv extends AbstractRemot
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPurchasesParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsPurchasesGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsPurchasesReturn doRequestGet(Integer productId, Consumer<RemoteProductsPurchasesParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteProductsPurchasesParam param = new RemoteProductsPurchasesParam();
+    protected RemoteProductsPurchasesGetReturn doRequestGet(Integer productId, Consumer<RemoteProductsPurchasesGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteProductsPurchasesGetParam param = new RemoteProductsPurchasesGetParam();
         paramLambda.accept(param);
-        return doRequestGet(RemoteProductsPurchasesReturn.class, "/products/{productId}/purchases/", moreUrl(productId), query(param), rule -> {
+        return doRequestGet(RemoteProductsPurchasesGetReturn.class, "/products/{productId}/purchases/", moreUrl(productId), query(param), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });
@@ -94,7 +94,7 @@ public abstract class BsRemoteFortressProductsPurchasesBhv extends AbstractRemot
      * @param purchaseId The value of path variable for purchaseId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsProductidPurchasesPurchaseidReturn requestGet(Integer productId, Long purchaseId) {
+    public RemoteProductsProductidPurchasesPurchaseidGetReturn requestGet(Integer productId, Long purchaseId) {
         return doRequestGet(productId, purchaseId, rule -> {});
     }
 
@@ -109,8 +109,8 @@ public abstract class BsRemoteFortressProductsPurchasesBhv extends AbstractRemot
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsProductidPurchasesPurchaseidReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteProductsProductidPurchasesPurchaseidReturn.class, "/products/{productId}/purchases/{purchaseId}/", moreUrl(productId, purchaseId), noQuery(), rule -> {
+    protected RemoteProductsProductidPurchasesPurchaseidGetReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteProductsProductidPurchasesPurchaseidGetReturn.class, "/products/{productId}/purchases/{purchaseId}/", moreUrl(productId, purchaseId), noQuery(), rule -> {
             ruleOfGetProductIdPurchaseId(rule);
             ruleLambda.accept(rule);
         });

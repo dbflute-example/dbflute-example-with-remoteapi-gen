@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.wx.routing.restlike.next.nextnext.index.RemoteWxRoutingRestlikeNextNextnextReturn;
+import org.docksidestage.remote.fortress.wx.routing.restlike.next.nextnext.index.RemoteWxRoutingRestlikeNextNextnextGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -52,7 +52,7 @@ public abstract class BsRemoteFortressWxRoutingRestlikeNextNextnextBhv extends A
      * @param third The value of path variable for third. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteWxRoutingRestlikeNextNextnextReturn requestGet(String first, String second, String third) {
+    public RemoteWxRoutingRestlikeNextNextnextGetReturn requestGet(String first, String second, String third) {
         return doRequestGet(first, second, third, rule -> {});
     }
 
@@ -68,8 +68,8 @@ public abstract class BsRemoteFortressWxRoutingRestlikeNextNextnextBhv extends A
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteWxRoutingRestlikeNextNextnextReturn doRequestGet(String first, String second, String third, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteWxRoutingRestlikeNextNextnextReturn.class, "/wx/routing/restlike/{first}/next/{second}/nextnext/{third}", moreUrl(first, second, third), noQuery(), rule -> {
+    protected RemoteWxRoutingRestlikeNextNextnextGetReturn doRequestGet(String first, String second, String third, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteWxRoutingRestlikeNextNextnextGetReturn.class, "/wx/routing/restlike/{first}/next/{second}/nextnext/{third}", moreUrl(first, second, third), noQuery(), rule -> {
             ruleOfGetFirstSecondThird(rule);
             ruleLambda.accept(rule);
         });
