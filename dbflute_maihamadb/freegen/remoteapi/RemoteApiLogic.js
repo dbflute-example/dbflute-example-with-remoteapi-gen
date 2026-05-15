@@ -518,6 +518,7 @@ var remoteApiLogic = {
             description = rule.beanPropertyManualMappingDescription(topLevelBean.api, beanClassName, property);
         }
         if (description) {
+            // enumのプロパティの不要な空白 e.g. "( *" が "(*" になる。(2026/05/15) 
             description = description.replace(/\n+/g, ' ').trim();
         }
         beanProperty.javadocComment = '/** The property of ' + beanProperty.fieldName + '. ' + enumValueComment
