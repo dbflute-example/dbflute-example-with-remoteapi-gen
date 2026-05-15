@@ -52,7 +52,10 @@ ${manager.allClassCopyright}package ${data.package};
 #if ($rule['behaviorTestSuperClass'])
 #set ($testSuperClass = $rule['behaviorTestSuperClass'])
 #else
+## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 ## テストの自動生成はするけど、スーパークラス名が指定されていない状態 here
+## ここはあえてコメント形式にしてコンパイルエラーにさせて、メッセージを読んでもらうやり方に。
+## _/_/_/_/_/_/_/_/
 #set ($testSuperClass = "/*you should set super class name on your rule.js*/")
 #end
 #set($added = $importList.add(${testSuperClass}))
