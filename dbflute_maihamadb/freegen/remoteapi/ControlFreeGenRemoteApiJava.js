@@ -150,7 +150,7 @@ function processHull(request) {
     // _/_/_/_/_/_/_/_/_/_/
     var remoteApiBeanList = []; // all beans (e.g. Param, Return) in the current request, Array<Map>
     var exBehaviorMap = new java.util.LinkedHashMap(); // all behaviors in the current request
-    for (apiIndex in apiList) {
+    for (var apiIndex in apiList) {
         var api = apiList[apiIndex];
 
         // +------------------------+
