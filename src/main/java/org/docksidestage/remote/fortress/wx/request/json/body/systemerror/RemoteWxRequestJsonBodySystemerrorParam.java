@@ -45,7 +45,7 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
     @Required
     public Boolean dstore;
 
-    /** The property of amba. (enumValue=[FML, WDL, PRV]) ( * `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) */
+    /** The property of amba. (enumValue=[FML, WDL, PRV]) (* `FML` - Formalized. * `WDL` - Withdrawal. * `PRV` - Provisional. :: fromCls(CDef$MemberStatus)) */
     @Required
     public String amba;
 
@@ -93,7 +93,7 @@ public class RemoteWxRequestJsonBodySystemerrorParam {
      */
     public static class DohotelPart {
 
-        /** The property of formatBodying. (enumValue=[SEA, LAN]) ( * `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
+        /** The property of formatBodying. (enumValue=[SEA, LAN]) (* `SEA` - Sea, sea. * `LAN` - Land, land. :: fromCls(CDef$WhiteConfusingFormatBodying)) (NullAllowed) */
         public String formatBodying;
     }
 
