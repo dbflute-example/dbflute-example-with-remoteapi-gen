@@ -264,6 +264,13 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
 #if ($isTargetBeanProperty)
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
             logger.debug("$fieldName={}", returnBean.$fieldName);
+## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+## #for_now jflute $propertyEntry.value.properties は間違い。definition定義からnestBeanを持ってきてpropertiesが必要。 (2026/05/16)
+## $propertyEntry.value: e.g. {$ref=#/definitions/org.docks...ator.WxValidatorListElementBean, required=false, name=recursiveBean}
+##
+## #hope jflute ただ、そもそもこのテストクラス全体、RemoteApiLogic.js の deriveBeanProperty() とかを使って、書き直した方が良い。 (2026/05/16)
+## ただ、parameterの方もnestBeanの項目列挙はできてないのもあって、優先度は低いのでいったんこのループは回らないままで保留。
+## _/_/_/_/_/_/_/_/
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
 #set ($isTargetNestBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.returnBean, $nestPropertyEntry.key)})
 #if ($isTargetNestBeanProperty)
@@ -289,6 +296,9 @@ createBhv($json).$behaviorRequestMethodName(#foreach($parameter in $parameterLis
 #if ($isTargetBeanProperty)
 #if ($propertyEntry.value['$ref'] || $propertyEntry.value.type == 'array')
         logger.debug("$fieldName={}", returnBean.$fieldName);
+## _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+## $propertyEntry.value.properties は間違いであることについて、先の似たコードのところで詳しく解説している。 (2026/05/16)
+## _/_/_/_/_/_/_/_/
 #foreach($nestPropertyEntry in $propertyEntry.value.properties.entrySet())
 #set ($isTargetNestBeanProperty = ${scriptEngine.invokeMethod($remoteApiLogic, 'determineTargetBeanProperty', $rule, $methodResource.returnBean, $nestPropertyEntry.key)})
 #if ($isTargetNestBeanProperty)
