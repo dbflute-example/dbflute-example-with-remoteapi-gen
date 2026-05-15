@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsPurchasesSeaParam;
-import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsPurchasesSeaReturn;
+import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsPurchasesSeaGetParam;
+import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsPurchasesSeaGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -41,12 +41,12 @@ public class RemoteFortressProductsPurchasesSeaBhvTest extends UnitRemoteapigenT
     public void test_requestGet() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteProductsPurchasesSeaParam> paramLambda = param -> {
+        Consumer<RemoteProductsPurchasesSeaGetParam> paramLambda = param -> {
             param.memberName = "memberName";
         };
 
         // ## Act ##
-        RemoteProductsPurchasesSeaReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
+        RemoteProductsPurchasesSeaGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);

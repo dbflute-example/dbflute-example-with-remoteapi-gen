@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.sea.index.RemoteProductsSeaParam;
-import org.docksidestage.remote.fortress.products.sea.index.RemoteProductsSeaReturn;
+import org.docksidestage.remote.fortress.products.sea.index.RemoteProductsSeaGetParam;
+import org.docksidestage.remote.fortress.products.sea.index.RemoteProductsSeaGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -48,10 +48,10 @@ public abstract class BsRemoteFortressProductsSeaBhv extends AbstractRemoteFortr
      * url: /products/sea/
      * httpMethod: GET
      * </pre>
-     * @param paramLambda The callback for RemoteProductsSeaParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsSeaGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public org.eclipse.collections.api.list.ImmutableList<RemoteProductsSeaReturn> requestGet(Consumer<RemoteProductsSeaParam> paramLambda) {
+    public org.eclipse.collections.api.list.ImmutableList<RemoteProductsSeaGetReturn> requestGet(Consumer<RemoteProductsSeaGetParam> paramLambda) {
         return doRequestGet(paramLambda, rule -> {});
     }
 
@@ -61,14 +61,14 @@ public abstract class BsRemoteFortressProductsSeaBhv extends AbstractRemoteFortr
      * url: /products/sea/
      * httpMethod: GET
      * </pre>
-     * @param paramLambda The callback for RemoteProductsSeaParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsSeaGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected org.eclipse.collections.api.list.ImmutableList<RemoteProductsSeaReturn> doRequestGet(Consumer<RemoteProductsSeaParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteProductsSeaParam param = new RemoteProductsSeaParam();
+    protected org.eclipse.collections.api.list.ImmutableList<RemoteProductsSeaGetReturn> doRequestGet(Consumer<RemoteProductsSeaGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteProductsSeaGetParam param = new RemoteProductsSeaGetParam();
         paramLambda.accept(param);
-        return doRequestGet(new org.lastaflute.di.helper.misc.ParameterizedRef<org.eclipse.collections.api.list.ImmutableList<RemoteProductsSeaReturn>>() {
+        return doRequestGet(new org.lastaflute.di.helper.misc.ParameterizedRef<org.eclipse.collections.api.list.ImmutableList<RemoteProductsSeaGetReturn>>() {
         }.getType(), "/products/sea/", noMoreUrl(), query(param), rule -> {
             ruleOfGet(rule);
             ruleLambda.accept(rule);

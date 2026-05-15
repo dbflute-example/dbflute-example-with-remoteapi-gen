@@ -45,26 +45,10 @@ remoteApiRule.behaviorSubPackage = function(api) {
     }
 }
 
-// always HTTP Method on request method
+// always HTTP Method if Restful
 // @Override
-remoteApiRule.behaviorRequestMethodName = function(api) {
-    if (canBeRestful(api)) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
-        return 'request' + manager.initCap(methodPart) + (api.httpMethod ? manager.initCap(api.httpMethod) : '');
-    } else {
-        return baseRule.behaviorRequestMethodName(api);
-    }
-}
-
-// always HTTP Method on rule method
-// @Override
-remoteApiRule.behaviorRuleMethodName = function(api) {
-    if (canBeRestful(api)) {
-        var methodPart = manager.camelize(this.subPackage(api).replace(this.behaviorSubPackage(api), '').replace(/\./g, '_'));
-        return 'ruleOf' + manager.initCap(methodPart) + (api.httpMethod ? manager.initCap(api.httpMethod) : '');
-    } else {
-        return baseRule.behaviorRuleMethodName(api);
-    }
+remoteApiRule.isAvailableFixedHttpMethodSuffixOfIdentityName = function(api, option) {
+    return canBeRestful(api);
 }
 
 

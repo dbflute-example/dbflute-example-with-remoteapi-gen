@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
 import org.docksidestage.remote.fortress.members.index.RemoteMembersDeleteParam;
-import org.docksidestage.remote.fortress.members.index.RemoteMembersParam;
+import org.docksidestage.remote.fortress.members.index.RemoteMembersPostParam;
 import org.docksidestage.remote.fortress.members.index.RemoteMembersPutParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
@@ -106,7 +106,7 @@ public class RemoteFortressMembersBhvTest extends UnitRemoteapigenTestCase {
 
     public void test_requestPost() {
         // ## Arrange ##
-        Consumer<RemoteMembersParam> paramLambda = param -> {
+        Consumer<RemoteMembersPostParam> paramLambda = param -> {
             param.memberName = "memberName";
             param.memberAccount = "memberAccount";
             param.birthdate = java.time.LocalDate.now();

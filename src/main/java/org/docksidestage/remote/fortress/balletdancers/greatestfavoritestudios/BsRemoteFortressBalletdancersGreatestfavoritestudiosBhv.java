@@ -19,9 +19,9 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosParam;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosReturn;
-import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosGetParam;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersGreatestfavoritestudiosGetReturn;
+import org.docksidestage.remote.fortress.balletdancers.greatestfavoritestudios.index.RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,10 +50,10 @@ public abstract class BsRemoteFortressBalletdancersGreatestfavoritestudiosBhv ex
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteBalletdancersGreatestfavoritestudiosParam. (NotNull)
+     * @param paramLambda The callback for RemoteBalletdancersGreatestfavoritestudiosGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteBalletdancersGreatestfavoritestudiosReturn requestGet(Integer productId, Consumer<RemoteBalletdancersGreatestfavoritestudiosParam> paramLambda) {
+    public RemoteBalletdancersGreatestfavoritestudiosGetReturn requestGet(Integer productId, Consumer<RemoteBalletdancersGreatestfavoritestudiosGetParam> paramLambda) {
         return doRequestGet(productId, paramLambda, rule -> {});
     }
 
@@ -64,14 +64,14 @@ public abstract class BsRemoteFortressBalletdancersGreatestfavoritestudiosBhv ex
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteBalletdancersGreatestfavoritestudiosParam. (NotNull)
+     * @param paramLambda The callback for RemoteBalletdancersGreatestfavoritestudiosGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteBalletdancersGreatestfavoritestudiosReturn doRequestGet(Integer productId, Consumer<RemoteBalletdancersGreatestfavoritestudiosParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteBalletdancersGreatestfavoritestudiosParam param = new RemoteBalletdancersGreatestfavoritestudiosParam();
+    protected RemoteBalletdancersGreatestfavoritestudiosGetReturn doRequestGet(Integer productId, Consumer<RemoteBalletdancersGreatestfavoritestudiosGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteBalletdancersGreatestfavoritestudiosGetParam param = new RemoteBalletdancersGreatestfavoritestudiosGetParam();
         paramLambda.accept(param);
-        return doRequestGet(RemoteBalletdancersGreatestfavoritestudiosReturn.class, "/ballet-dancers/{productId}/greatest-favorite-studios/", moreUrl(productId), query(param), rule -> {
+        return doRequestGet(RemoteBalletdancersGreatestfavoritestudiosGetReturn.class, "/ballet-dancers/{productId}/greatest-favorite-studios/", moreUrl(productId), query(param), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });
@@ -94,7 +94,7 @@ public abstract class BsRemoteFortressBalletdancersGreatestfavoritestudiosBhv ex
      * @param purchaseId The value of path variable for purchaseId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidReturn requestGet(Integer productId, Long purchaseId) {
+    public RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn requestGet(Integer productId, Long purchaseId) {
         return doRequestGet(productId, purchaseId, rule -> {});
     }
 
@@ -109,8 +109,8 @@ public abstract class BsRemoteFortressBalletdancersGreatestfavoritestudiosBhv ex
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidReturn.class, "/ballet-dancers/{productId}/greatest-favorite-studios/{purchaseId}/", moreUrl(productId, purchaseId), noQuery(), rule -> {
+    protected RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteBalletdancersProductidGreatestfavoritestudiosPurchaseidGetReturn.class, "/ballet-dancers/{productId}/greatest-favorite-studios/{purchaseId}/", moreUrl(productId, purchaseId), noQuery(), rule -> {
             ruleOfGetProductIdPurchaseId(rule);
             ruleLambda.accept(rule);
         });

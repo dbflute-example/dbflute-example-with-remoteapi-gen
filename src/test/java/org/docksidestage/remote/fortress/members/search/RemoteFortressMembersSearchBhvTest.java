@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchParam;
+import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchGetParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class RemoteFortressMembersSearchBhvTest extends UnitRemoteapigenTestCase
 
     public void test_requestGet() {
         // ## Arrange ##
-        Consumer<RemoteMembersSearchParam> paramLambda = param -> {
+        Consumer<RemoteMembersSearchGetParam> paramLambda = param -> {
             param.memberName = "memberName";
             param.memberStatus = org.docksidestage.dbflute.allcommon.CDef.MemberStatus.codeOf("FML");
             param.purchaseProductName = "purchaseProductName";

@@ -20,9 +20,9 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsProductidPurchasesPurchaseidReturn;
-import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesParam;
-import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesReturn;
+import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsProductidPurchasesPurchaseidGetReturn;
+import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesGetParam;
+import org.docksidestage.remote.fortress.products.purchases.index.RemoteProductsPurchasesGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -42,12 +42,12 @@ public class RemoteFortressProductsPurchasesBhvTest extends UnitRemoteapigenTest
     public void test_requestGet() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteProductsPurchasesParam> paramLambda = param -> {
+        Consumer<RemoteProductsPurchasesGetParam> paramLambda = param -> {
             param.memberName = "memberName";
         };
 
         // ## Act ##
-        RemoteProductsPurchasesReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
+        RemoteProductsPurchasesGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);
@@ -59,7 +59,7 @@ public class RemoteFortressProductsPurchasesBhvTest extends UnitRemoteapigenTest
         Long purchaseId = 1L;
 
         // ## Act ##
-        RemoteProductsProductidPurchasesPurchaseidReturn returnBean = createBhv("{}").requestGet(productId, purchaseId);
+        RemoteProductsProductidPurchasesPurchaseidGetReturn returnBean = createBhv("{}").requestGet(productId, purchaseId);
 
         // ## Assert ##
         logger.debug("purchaseId={}", returnBean.purchaseId);

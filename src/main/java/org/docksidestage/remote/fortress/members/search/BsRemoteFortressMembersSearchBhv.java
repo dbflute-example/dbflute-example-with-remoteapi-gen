@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchParam;
+import org.docksidestage.remote.fortress.members.search.index.RemoteMembersSearchGetParam;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -47,10 +47,10 @@ public abstract class BsRemoteFortressMembersSearchBhv extends AbstractRemoteFor
      * url: /members/search
      * httpMethod: GET
      * </pre>
-     * @param paramLambda The callback for RemoteMembersSearchParam. (NotNull)
+     * @param paramLambda The callback for RemoteMembersSearchGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public String requestGet(Consumer<RemoteMembersSearchParam> paramLambda) {
+    public String requestGet(Consumer<RemoteMembersSearchGetParam> paramLambda) {
         return doRequestGet(paramLambda, rule -> {});
     }
 
@@ -60,12 +60,12 @@ public abstract class BsRemoteFortressMembersSearchBhv extends AbstractRemoteFor
      * url: /members/search
      * httpMethod: GET
      * </pre>
-     * @param paramLambda The callback for RemoteMembersSearchParam. (NotNull)
+     * @param paramLambda The callback for RemoteMembersSearchGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected String doRequestGet(Consumer<RemoteMembersSearchParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteMembersSearchParam param = new RemoteMembersSearchParam();
+    protected String doRequestGet(Consumer<RemoteMembersSearchGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteMembersSearchGetParam param = new RemoteMembersSearchGetParam();
         paramLambda.accept(param);
         return doRequestGet(String.class, "/members/search", noMoreUrl(), query(param), rule -> {
             ruleOfGet(rule);

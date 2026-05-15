@@ -18,7 +18,7 @@ package org.docksidestage.remote.fortress.wx.routing.restlike.operation;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.wx.routing.restlike.operation.index.RemoteWxRoutingRestlikeOperationReturn;
+import org.docksidestage.remote.fortress.wx.routing.restlike.operation.index.RemoteWxRoutingRestlikeOperationGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class RemoteFortressWxRoutingRestlikeOperationBhvTest extends UnitRemotea
         String first = "first";
 
         // ## Act ##
-        RemoteWxRoutingRestlikeOperationReturn returnBean = createBhv("{}").requestGet(first);
+        RemoteWxRoutingRestlikeOperationGetReturn returnBean = createBhv("{}").requestGet(first);
 
         // ## Assert ##
         logger.debug("method={}", returnBean.method);
