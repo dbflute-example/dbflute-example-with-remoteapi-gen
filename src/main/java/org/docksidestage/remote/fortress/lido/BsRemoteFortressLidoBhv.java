@@ -28,10 +28,12 @@ import org.docksidestage.remote.fortress.lido.following.list.RemoteLidoFollowing
 import org.docksidestage.remote.fortress.lido.following.register.RemoteLidoFollowingRegisterParam;
 import org.docksidestage.remote.fortress.lido.following.register.RemoteLidoFollowingRegisterReturn;
 import org.docksidestage.remote.fortress.lido.mypage.RemoteLidoMypageReturn;
-import org.docksidestage.remote.fortress.lido.product.detail.RemoteLidoProductDetailReturn;
+import org.docksidestage.remote.fortress.lido.product.detail.RemoteLidoProductDetailProductidReturn;
+import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListPagenumberParam;
+import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListPagenumberReturn;
 import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListParam;
 import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListReturn;
-import org.docksidestage.remote.fortress.lido.product.price.update.RemoteLidoProductPriceUpdateParam;
+import org.docksidestage.remote.fortress.lido.product.price.update.RemoteLidoProductPriceUpdateProductidParam;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -359,7 +361,7 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * @param productId The value of path variable for productId. (The ID of selected product.) (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteLidoProductDetailReturn requestProductDetail(Integer productId) {
+    public RemoteLidoProductDetailProductidReturn requestProductDetail(Integer productId) {
         return doRequestProductDetail(productId, rule -> {});
     }
 
@@ -373,8 +375,8 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteLidoProductDetailReturn doRequestProductDetail(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteLidoProductDetailReturn.class, "/lido/product/detail/{productId}", moreUrl(productId), noQuery(), rule -> {
+    protected RemoteLidoProductDetailProductidReturn doRequestProductDetail(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteLidoProductDetailProductidReturn.class, "/lido/product/detail/{productId}", moreUrl(productId), noQuery(), rule -> {
             ruleOfProductDetailProductId(rule);
             ruleLambda.accept(rule);
         });
@@ -433,10 +435,10 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * httpMethod: POST
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (The current page number for paging select.) (NotNull)
-     * @param paramLambda The callback for RemoteLidoProductListParam. (NotNull)
+     * @param paramLambda The callback for RemoteLidoProductListPagenumberParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteLidoProductListReturn requestProductList(Integer pageNumber, Consumer<RemoteLidoProductListParam> paramLambda) {
+    public RemoteLidoProductListPagenumberReturn requestProductList(Integer pageNumber, Consumer<RemoteLidoProductListPagenumberParam> paramLambda) {
         return doRequestProductList(pageNumber, paramLambda, rule -> {});
     }
 
@@ -447,14 +449,14 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * httpMethod: POST
      * </pre>
      * @param pageNumber The value of path variable for pageNumber. (The current page number for paging select.) (NotNull)
-     * @param paramLambda The callback for RemoteLidoProductListParam. (NotNull)
+     * @param paramLambda The callback for RemoteLidoProductListPagenumberParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteLidoProductListReturn doRequestProductList(Integer pageNumber, Consumer<RemoteLidoProductListParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteLidoProductListParam param = new RemoteLidoProductListParam();
+    protected RemoteLidoProductListPagenumberReturn doRequestProductList(Integer pageNumber, Consumer<RemoteLidoProductListPagenumberParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteLidoProductListPagenumberParam param = new RemoteLidoProductListPagenumberParam();
         paramLambda.accept(param);
-        return doRequestPost(RemoteLidoProductListReturn.class, "/lido/product/list/{pageNumber}", moreUrl(pageNumber), param, rule -> {
+        return doRequestPost(RemoteLidoProductListPagenumberReturn.class, "/lido/product/list/{pageNumber}", moreUrl(pageNumber), param, rule -> {
             ruleOfProductListPageNumber(rule);
             ruleLambda.accept(rule);
         });
@@ -474,9 +476,9 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * httpMethod: POST
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteLidoProductPriceUpdateParam. (NotNull)
+     * @param paramLambda The callback for RemoteLidoProductPriceUpdateProductidParam. (NotNull)
      */
-    public void requestProductPriceUpdate(Integer productId, Consumer<RemoteLidoProductPriceUpdateParam> paramLambda) {
+    public void requestProductPriceUpdate(Integer productId, Consumer<RemoteLidoProductPriceUpdateProductidParam> paramLambda) {
         doRequestProductPriceUpdate(productId, paramLambda, rule -> {});
     }
 
@@ -487,11 +489,11 @@ public abstract class BsRemoteFortressLidoBhv extends AbstractRemoteFortressBhv 
      * httpMethod: POST
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteLidoProductPriceUpdateParam. (NotNull)
+     * @param paramLambda The callback for RemoteLidoProductPriceUpdateProductidParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      */
-    protected void doRequestProductPriceUpdate(Integer productId, Consumer<RemoteLidoProductPriceUpdateParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteLidoProductPriceUpdateParam param = new RemoteLidoProductPriceUpdateParam();
+    protected void doRequestProductPriceUpdate(Integer productId, Consumer<RemoteLidoProductPriceUpdateProductidParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteLidoProductPriceUpdateProductidParam param = new RemoteLidoProductPriceUpdateProductidParam();
         paramLambda.accept(param);
         doRequestPost(void.class, "/lido/product/price/update/{productId}", moreUrl(productId), param, rule -> {
             ruleOfProductPriceUpdateProductId(rule);

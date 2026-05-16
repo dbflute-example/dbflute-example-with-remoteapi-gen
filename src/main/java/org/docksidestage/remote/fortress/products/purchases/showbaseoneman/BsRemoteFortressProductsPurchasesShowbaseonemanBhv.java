@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.purchases.showbaseoneman.index.RemoteProductsPurchasesShowbaseonemanGetReturn;
+import org.docksidestage.remote.fortress.products.purchases.showbaseoneman.index.RemoteProductsProductidPurchasesPurchaseidShowbaseonemanGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -51,7 +51,7 @@ public abstract class BsRemoteFortressProductsPurchasesShowbaseonemanBhv extends
      * @param purchaseId The value of path variable for purchaseId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsPurchasesShowbaseonemanGetReturn requestGet(Integer productId, Long purchaseId) {
+    public RemoteProductsProductidPurchasesPurchaseidShowbaseonemanGetReturn requestGet(Integer productId, Long purchaseId) {
         return doRequestGet(productId, purchaseId, rule -> {});
     }
 
@@ -66,8 +66,8 @@ public abstract class BsRemoteFortressProductsPurchasesShowbaseonemanBhv extends
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsPurchasesShowbaseonemanGetReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteProductsPurchasesShowbaseonemanGetReturn.class, "/products/{productId}/purchases/{purchaseId}/showbase-oneman/", moreUrl(productId, purchaseId), noQuery(), rule -> {
+    protected RemoteProductsProductidPurchasesPurchaseidShowbaseonemanGetReturn doRequestGet(Integer productId, Long purchaseId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteProductsProductidPurchasesPurchaseidShowbaseonemanGetReturn.class, "/products/{productId}/purchases/{purchaseId}/showbase-oneman/", moreUrl(productId, purchaseId), noQuery(), rule -> {
             ruleOfGetProductIdPurchaseId(rule);
             ruleLambda.accept(rule);
         });

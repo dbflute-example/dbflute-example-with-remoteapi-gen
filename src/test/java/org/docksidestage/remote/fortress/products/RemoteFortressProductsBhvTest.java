@@ -24,7 +24,7 @@ import org.docksidestage.remote.fortress.products.index.RemoteProductsGetParam;
 import org.docksidestage.remote.fortress.products.index.RemoteProductsGetReturn;
 import org.docksidestage.remote.fortress.products.index.RemoteProductsPostParam;
 import org.docksidestage.remote.fortress.products.index.RemoteProductsProductidGetReturn;
-import org.docksidestage.remote.fortress.products.index.RemoteProductsPutParam;
+import org.docksidestage.remote.fortress.products.index.RemoteProductsProductidPutParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -95,7 +95,7 @@ public class RemoteFortressProductsBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestPut() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteProductsPutParam> paramLambda = param -> {
+        Consumer<RemoteProductsProductidPutParam> paramLambda = param -> {
             param.productId = 1;
             param.productName = "productName";
             param.productStatus = org.docksidestage.dbflute.allcommon.CDef.ProductStatus.values()[0];

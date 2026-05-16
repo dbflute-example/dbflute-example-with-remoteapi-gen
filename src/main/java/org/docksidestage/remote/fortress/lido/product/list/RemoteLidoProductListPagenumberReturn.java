@@ -21,10 +21,10 @@ import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as return for remote API of POST /lido/product/list.
+ * The bean class as return for remote API of POST /lido/product/list/{pageNumber}.
  * @author FreeGen
  */
-public class RemoteLidoProductListReturn {
+public class RemoteLidoProductListPagenumberReturn {
 
     /** The property of pageSize. (row count per one page) */
     @Required

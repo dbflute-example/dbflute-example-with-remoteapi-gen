@@ -13,28 +13,39 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.products.purchases.showbaseoneman.index;
+package org.docksidestage.remote.fortress.products.showbaseoneman.index;
 
 import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as return for remote API of GET /products/{productId}/purchases/{purchaseId}/showbase-oneman/.
+ * The bean class as return for remote API of GET /products/{productId}/showbase-oneman/.
  * @author FreeGen
  */
-public class RemoteProductsPurchasesShowbaseonemanGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
+public class RemoteProductsProductidShowbaseonemanGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
-    /** The property of purchaseId. */
+    /** The property of productId. */
     @Required
-    public Long purchaseId;
-
-    /** The property of memberName. */
-    @Required
-    public String memberName;
+    public Integer productId;
 
     /** The property of productName. */
     @Required
     public String productName;
+
+    /** The property of productStatus. */
+    @Required
+    public org.docksidestage.dbflute.allcommon.CDef.ProductStatus productStatus;
+
+    /** The property of productCategory. */
+    @Required
+    public String productCategory;
+
+    /** The property of regularPrice. */
+    @Required
+    public Integer regularPrice;
+
+    /** The property of latestPurchaseDate. (null if no purchase) (NullAllowed) */
+    public java.time.LocalDate latestPurchaseDate;
 
     @Override
     public String toString() {

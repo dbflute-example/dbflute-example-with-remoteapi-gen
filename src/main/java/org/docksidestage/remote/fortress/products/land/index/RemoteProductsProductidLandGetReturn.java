@@ -13,16 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.lido.product.detail;
+package org.docksidestage.remote.fortress.products.land.index;
 
 import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as return for remote API of GET /lido/product/detail/{productId}.
+ * The bean class as return for remote API of GET /products/{productId}/land/.
  * @author FreeGen
  */
-public class RemoteLidoProductDetailReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
+public class RemoteProductsProductidLandGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
     /** The property of productId. */
     @Required
@@ -32,13 +32,20 @@ public class RemoteLidoProductDetailReturn extends org.docksidestage.bizfw.remot
     @Required
     public String productName;
 
-    /** The property of categoryName. */
+    /** The property of productStatus. */
     @Required
-    public String categoryName;
+    public org.docksidestage.dbflute.allcommon.CDef.ProductStatus productStatus;
 
-    /** The property of productHandleCode. */
+    /** The property of productCategory. */
     @Required
-    public String productHandleCode;
+    public String productCategory;
+
+    /** The property of regularPrice. */
+    @Required
+    public Integer regularPrice;
+
+    /** The property of latestPurchaseDate. (null if no purchase) (NullAllowed) */
+    public java.time.LocalDate latestPurchaseDate;
 
     @Override
     public String toString() {

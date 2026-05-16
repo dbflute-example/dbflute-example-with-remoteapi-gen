@@ -23,7 +23,7 @@ import org.docksidestage.remote.fortress.products.index.RemoteProductsGetParam;
 import org.docksidestage.remote.fortress.products.index.RemoteProductsGetReturn;
 import org.docksidestage.remote.fortress.products.index.RemoteProductsPostParam;
 import org.docksidestage.remote.fortress.products.index.RemoteProductsProductidGetReturn;
-import org.docksidestage.remote.fortress.products.index.RemoteProductsPutParam;
+import org.docksidestage.remote.fortress.products.index.RemoteProductsProductidPutParam;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -166,9 +166,9 @@ public abstract class BsRemoteFortressProductsBhv extends AbstractRemoteFortress
      * httpMethod: PUT
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPutParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsProductidPutParam. (NotNull)
      */
-    public void requestPut(Integer productId, Consumer<RemoteProductsPutParam> paramLambda) {
+    public void requestPut(Integer productId, Consumer<RemoteProductsProductidPutParam> paramLambda) {
         doRequestPut(productId, paramLambda, rule -> {});
     }
 
@@ -179,11 +179,11 @@ public abstract class BsRemoteFortressProductsBhv extends AbstractRemoteFortress
      * httpMethod: PUT
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPutParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsProductidPutParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      */
-    protected void doRequestPut(Integer productId, Consumer<RemoteProductsPutParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteProductsPutParam param = new RemoteProductsPutParam();
+    protected void doRequestPut(Integer productId, Consumer<RemoteProductsProductidPutParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteProductsProductidPutParam param = new RemoteProductsProductidPutParam();
         paramLambda.accept(param);
         doRequestPut(void.class, "/products/{productId}/", moreUrl(productId), param, rule -> {
             ruleOfPutProductId(rule);

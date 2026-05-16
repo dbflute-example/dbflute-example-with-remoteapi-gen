@@ -13,18 +13,36 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.products.purchases.docksideover.index;
+package org.docksidestage.remote.fortress.lido.product.detail;
 
 import org.lastaflute.core.util.Lato;
+import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as param for remote API of GET /products/{productId}/purchases/docksideOver/.
+ * The bean class as return for remote API of GET /lido/product/detail/{productId}.
  * @author FreeGen
  */
-public class RemoteProductsPurchasesDocksideoverGetParam {
+public class RemoteLidoProductDetailProductidReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
-    /** The property of memberName. (NullAllowed) */
-    public String memberName;
+    /** The property of productId. */
+    @Required
+    public Integer productId;
+
+    /** The property of productName. */
+    @Required
+    public String productName;
+
+    /** The property of categoryName. */
+    @Required
+    public String categoryName;
+
+    /** The property of regularPrice. */
+    @Required
+    public Integer regularPrice;
+
+    /** The property of productHandleCode. */
+    @Required
+    public String productHandleCode;
 
     @Override
     public String toString() {

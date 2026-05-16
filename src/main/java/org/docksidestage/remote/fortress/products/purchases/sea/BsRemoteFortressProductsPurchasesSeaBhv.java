@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsPurchasesSeaGetParam;
-import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsPurchasesSeaGetReturn;
+import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsProductidPurchasesSeaGetParam;
+import org.docksidestage.remote.fortress.products.purchases.sea.index.RemoteProductsProductidPurchasesSeaGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -49,10 +49,10 @@ public abstract class BsRemoteFortressProductsPurchasesSeaBhv extends AbstractRe
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPurchasesSeaGetParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsProductidPurchasesSeaGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsPurchasesSeaGetReturn requestGet(Integer productId, Consumer<RemoteProductsPurchasesSeaGetParam> paramLambda) {
+    public RemoteProductsProductidPurchasesSeaGetReturn requestGet(Integer productId, Consumer<RemoteProductsProductidPurchasesSeaGetParam> paramLambda) {
         return doRequestGet(productId, paramLambda, rule -> {});
     }
 
@@ -63,14 +63,14 @@ public abstract class BsRemoteFortressProductsPurchasesSeaBhv extends AbstractRe
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPurchasesSeaGetParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsProductidPurchasesSeaGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsPurchasesSeaGetReturn doRequestGet(Integer productId, Consumer<RemoteProductsPurchasesSeaGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteProductsPurchasesSeaGetParam param = new RemoteProductsPurchasesSeaGetParam();
+    protected RemoteProductsProductidPurchasesSeaGetReturn doRequestGet(Integer productId, Consumer<RemoteProductsProductidPurchasesSeaGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteProductsProductidPurchasesSeaGetParam param = new RemoteProductsProductidPurchasesSeaGetParam();
         paramLambda.accept(param);
-        return doRequestGet(RemoteProductsPurchasesSeaGetReturn.class, "/products/{productId}/purchases/sea/", moreUrl(productId), query(param), rule -> {
+        return doRequestGet(RemoteProductsProductidPurchasesSeaGetReturn.class, "/products/{productId}/purchases/sea/", moreUrl(productId), query(param), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });

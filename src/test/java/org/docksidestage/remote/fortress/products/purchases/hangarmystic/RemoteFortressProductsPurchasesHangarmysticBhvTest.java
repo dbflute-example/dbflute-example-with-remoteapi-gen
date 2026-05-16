@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsPurchasesHangarmysticGetParam;
-import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsPurchasesHangarmysticGetReturn;
+import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsProductidPurchasesHangarmysticGetParam;
+import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsProductidPurchasesHangarmysticGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -41,12 +41,12 @@ public class RemoteFortressProductsPurchasesHangarmysticBhvTest extends UnitRemo
     public void test_requestGet() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteProductsPurchasesHangarmysticGetParam> paramLambda = param -> {
+        Consumer<RemoteProductsProductidPurchasesHangarmysticGetParam> paramLambda = param -> {
             param.memberName = "memberName";
         };
 
         // ## Act ##
-        RemoteProductsPurchasesHangarmysticGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
+        RemoteProductsProductidPurchasesHangarmysticGetReturn returnBean = createBhv("{}").requestGet(productId, paramLambda);
 
         // ## Assert ##
         logger.debug("rows={}", returnBean.rows);

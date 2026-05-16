@@ -13,15 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.products.purchases.index;
+package org.docksidestage.remote.fortress.products.purchases.sea.index;
 
 import org.lastaflute.core.util.Lato;
 
 /**
- * The bean class as param for remote API of GET /products/{productId}/purchases/.
+ * The bean class as param for remote API of GET /products/{productId}/purchases/sea/.
  * @author FreeGen
  */
-public class RemoteProductsPurchasesGetParam {
+public class RemoteProductsProductidPurchasesSeaGetParam {
 
     /** The property of memberName. (NullAllowed) */
     public String memberName;

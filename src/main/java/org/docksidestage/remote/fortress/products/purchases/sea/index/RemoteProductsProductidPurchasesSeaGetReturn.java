@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.products.purchases.docksideover.index;
+package org.docksidestage.remote.fortress.products.purchases.sea.index;
 
 import javax.validation.constraints.NotNull;
 
@@ -21,10 +21,10 @@ import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as return for remote API of GET /products/{productId}/purchases/docksideOver/.
+ * The bean class as return for remote API of GET /products/{productId}/purchases/sea/.
  * @author FreeGen
  */
-public class RemoteProductsPurchasesDocksideoverGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
+public class RemoteProductsProductidPurchasesSeaGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
     /** The property of rows. */
     @NotNull

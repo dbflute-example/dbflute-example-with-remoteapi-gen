@@ -29,10 +29,12 @@ import org.docksidestage.remote.fortress.lido.following.list.RemoteLidoFollowing
 import org.docksidestage.remote.fortress.lido.following.register.RemoteLidoFollowingRegisterParam;
 import org.docksidestage.remote.fortress.lido.following.register.RemoteLidoFollowingRegisterReturn;
 import org.docksidestage.remote.fortress.lido.mypage.RemoteLidoMypageReturn;
-import org.docksidestage.remote.fortress.lido.product.detail.RemoteLidoProductDetailReturn;
+import org.docksidestage.remote.fortress.lido.product.detail.RemoteLidoProductDetailProductidReturn;
+import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListPagenumberParam;
+import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListPagenumberReturn;
 import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListParam;
 import org.docksidestage.remote.fortress.lido.product.list.RemoteLidoProductListReturn;
-import org.docksidestage.remote.fortress.lido.product.price.update.RemoteLidoProductPriceUpdateParam;
+import org.docksidestage.remote.fortress.lido.product.price.update.RemoteLidoProductPriceUpdateProductidParam;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -149,13 +151,13 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
         Integer productId = 1;
 
         // ## Act ##
-        RemoteLidoProductDetailReturn returnBean = createBhv("{}").requestProductDetail(productId);
+        RemoteLidoProductDetailProductidReturn returnBean = createBhv("{}").requestProductDetail(productId);
 
         // ## Assert ##
         logger.debug("productId={}", returnBean.productId);
         logger.debug("productName={}", returnBean.productName);
         logger.debug("categoryName={}", returnBean.categoryName);
-        //logger.debug("regularPrice={}", returnBean.regularPrice); // out of targetField (as root)
+        logger.debug("regularPrice={}", returnBean.regularPrice);
         logger.debug("productHandleCode={}", returnBean.productHandleCode);
     }
 
@@ -181,14 +183,14 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestProductListPageNumber() {
         // ## Arrange ##
         Integer pageNumber = 1;
-        Consumer<RemoteLidoProductListParam> paramLambda = param -> {
+        Consumer<RemoteLidoProductListPagenumberParam> paramLambda = param -> {
             param.productName = "productName";
             param.productStatus = org.docksidestage.dbflute.allcommon.CDef.ProductStatus.codeOf("ONS");
             param.purchaseMemberName = "purchaseMemberName";
         };
 
         // ## Act ##
-        RemoteLidoProductListReturn returnBean = createBhv("{}").requestProductList(pageNumber, paramLambda);
+        RemoteLidoProductListPagenumberReturn returnBean = createBhv("{}").requestProductList(pageNumber, paramLambda);
 
         // ## Assert ##
         logger.debug("pageSize={}", returnBean.pageSize);
@@ -201,7 +203,7 @@ public class RemoteFortressLidoBhvTest extends UnitRemoteapigenTestCase {
     public void test_requestProductPriceUpdate() {
         // ## Arrange ##
         Integer productId = 1;
-        Consumer<RemoteLidoProductPriceUpdateParam> paramLambda = param -> {
+        Consumer<RemoteLidoProductPriceUpdateProductidParam> paramLambda = param -> {
             param.regularPrice = 1;
         };
 

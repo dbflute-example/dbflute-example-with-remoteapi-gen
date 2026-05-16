@@ -18,7 +18,7 @@ package org.docksidestage.remote.fortress.products.showbaseoneman;
 import javax.annotation.Resource;
 
 import org.dbflute.remoteapi.mock.MockHttpClient;
-import org.docksidestage.remote.fortress.products.showbaseoneman.index.RemoteProductsShowbaseonemanGetReturn;
+import org.docksidestage.remote.fortress.products.showbaseoneman.index.RemoteProductsProductidShowbaseonemanGetReturn;
 import org.docksidestage.unit.UnitRemoteapigenTestCase;
 import org.lastaflute.web.servlet.request.RequestManager;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class RemoteFortressProductsShowbaseonemanBhvTest extends UnitRemoteapige
         Integer productId = 1;
 
         // ## Act ##
-        RemoteProductsShowbaseonemanGetReturn returnBean = createBhv("{}").requestGet(productId);
+        RemoteProductsProductidShowbaseonemanGetReturn returnBean = createBhv("{}").requestGet(productId);
 
         // ## Assert ##
         logger.debug("productId={}", returnBean.productId);

@@ -13,39 +13,20 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.products.showbaseoneman.index;
+package org.docksidestage.remote.fortress.lido.product.price.update;
 
 import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as return for remote API of GET /products/{productId}/showbase-oneman/.
+ * The bean class as param for remote API of POST /lido/product/price/update/{productId}.
  * @author FreeGen
  */
-public class RemoteProductsShowbaseonemanGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
-
-    /** The property of productId. */
-    @Required
-    public Integer productId;
-
-    /** The property of productName. */
-    @Required
-    public String productName;
-
-    /** The property of productStatus. */
-    @Required
-    public org.docksidestage.dbflute.allcommon.CDef.ProductStatus productStatus;
-
-    /** The property of productCategory. */
-    @Required
-    public String productCategory;
+public class RemoteLidoProductPriceUpdateProductidParam {
 
     /** The property of regularPrice. */
     @Required
     public Integer regularPrice;
-
-    /** The property of latestPurchaseDate. (null if no purchase) (NullAllowed) */
-    public java.time.LocalDate latestPurchaseDate;
 
     @Override
     public String toString() {

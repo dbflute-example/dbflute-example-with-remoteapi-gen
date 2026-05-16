@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsPurchasesHangarmysticGetParam;
-import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsPurchasesHangarmysticGetReturn;
+import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsProductidPurchasesHangarmysticGetParam;
+import org.docksidestage.remote.fortress.products.purchases.hangarmystic.index.RemoteProductsProductidPurchasesHangarmysticGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -49,10 +49,10 @@ public abstract class BsRemoteFortressProductsPurchasesHangarmysticBhv extends A
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPurchasesHangarmysticGetParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsProductidPurchasesHangarmysticGetParam. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsPurchasesHangarmysticGetReturn requestGet(Integer productId, Consumer<RemoteProductsPurchasesHangarmysticGetParam> paramLambda) {
+    public RemoteProductsProductidPurchasesHangarmysticGetReturn requestGet(Integer productId, Consumer<RemoteProductsProductidPurchasesHangarmysticGetParam> paramLambda) {
         return doRequestGet(productId, paramLambda, rule -> {});
     }
 
@@ -63,14 +63,14 @@ public abstract class BsRemoteFortressProductsPurchasesHangarmysticBhv extends A
      * httpMethod: GET
      * </pre>
      * @param productId The value of path variable for productId. (NotNull)
-     * @param paramLambda The callback for RemoteProductsPurchasesHangarmysticGetParam. (NotNull)
+     * @param paramLambda The callback for RemoteProductsProductidPurchasesHangarmysticGetParam. (NotNull)
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsPurchasesHangarmysticGetReturn doRequestGet(Integer productId, Consumer<RemoteProductsPurchasesHangarmysticGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        RemoteProductsPurchasesHangarmysticGetParam param = new RemoteProductsPurchasesHangarmysticGetParam();
+    protected RemoteProductsProductidPurchasesHangarmysticGetReturn doRequestGet(Integer productId, Consumer<RemoteProductsProductidPurchasesHangarmysticGetParam> paramLambda, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        RemoteProductsProductidPurchasesHangarmysticGetParam param = new RemoteProductsProductidPurchasesHangarmysticGetParam();
         paramLambda.accept(param);
-        return doRequestGet(RemoteProductsPurchasesHangarmysticGetReturn.class, "/products/{productId}/purchases/hangar-mystic/", moreUrl(productId), query(param), rule -> {
+        return doRequestGet(RemoteProductsProductidPurchasesHangarmysticGetReturn.class, "/products/{productId}/purchases/hangar-mystic/", moreUrl(productId), query(param), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });

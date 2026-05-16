@@ -67,6 +67,13 @@ remoteApiRule.returnExtendsClass = function(api, properties) {
 }
 
 
+// always detail naming if test target
+// @Override
+remoteApiRule.isAvailableFixedDetailNamingOfBeanClassName = function(api, option) {
+    return api.url.indexOf('/lido/product/') >= 0 // simple case
+        || api.url.indexOf('/products/') >= 0; // restful case
+}
+
 
 // test: 対象フィールドを絞ったケース
 // @Override

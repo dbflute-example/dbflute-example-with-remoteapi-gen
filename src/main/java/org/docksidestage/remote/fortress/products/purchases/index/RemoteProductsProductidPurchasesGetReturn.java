@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.products.purchases.hangarmystic.index;
+package org.docksidestage.remote.fortress.products.purchases.index;
 
 import javax.validation.constraints.NotNull;
 
@@ -21,10 +21,10 @@ import org.lastaflute.core.util.Lato;
 import org.lastaflute.web.validation.Required;
 
 /**
- * The bean class as return for remote API of GET /products/{productId}/purchases/hangar-mystic/.
+ * The bean class as return for remote API of GET /products/{productId}/purchases/.
  * @author FreeGen
  */
-public class RemoteProductsPurchasesHangarmysticGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
+public class RemoteProductsProductidPurchasesGetReturn extends org.docksidestage.bizfw.remoteapi.AbstractListGetReturn {
 
     /** The property of rows. */
     @NotNull

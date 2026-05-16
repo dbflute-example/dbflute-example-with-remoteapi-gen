@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 import org.dbflute.remoteapi.FlutyRemoteApiRule;
 import org.docksidestage.remote.fortress.AbstractRemoteFortressBhv;
-import org.docksidestage.remote.fortress.products.land.index.RemoteProductsLandGetReturn;
+import org.docksidestage.remote.fortress.products.land.index.RemoteProductsProductidLandGetReturn;
 import org.lastaflute.web.servlet.request.RequestManager;
 
 /**
@@ -50,7 +50,7 @@ public abstract class BsRemoteFortressProductsLandBhv extends AbstractRemoteFort
      * @param productId The value of path variable for productId. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    public RemoteProductsLandGetReturn requestGet(Integer productId) {
+    public RemoteProductsProductidLandGetReturn requestGet(Integer productId) {
         return doRequestGet(productId, rule -> {});
     }
 
@@ -64,8 +64,8 @@ public abstract class BsRemoteFortressProductsLandBhv extends AbstractRemoteFort
      * @param ruleLambda The callback for setting rule as dynamic requirement. (NotNull)
      * @return The bean object as return type, receiving response body. (NotNull)
      */
-    protected RemoteProductsLandGetReturn doRequestGet(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
-        return doRequestGet(RemoteProductsLandGetReturn.class, "/products/{productId}/land/", moreUrl(productId), noQuery(), rule -> {
+    protected RemoteProductsProductidLandGetReturn doRequestGet(Integer productId, Consumer<FlutyRemoteApiRule> ruleLambda) {
+        return doRequestGet(RemoteProductsProductidLandGetReturn.class, "/products/{productId}/land/", moreUrl(productId), noQuery(), rule -> {
             ruleOfGetProductId(rule);
             ruleLambda.accept(rule);
         });

@@ -13,24 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.remote.fortress.lido.product.list;
+package org.docksidestage.remote.fortress.products.purchases.index;
 
 import org.lastaflute.core.util.Lato;
 
 /**
- * The bean class as param for remote API of POST /lido/product/list.
+ * The bean class as param for remote API of GET /products/{productId}/purchases/.
  * @author FreeGen
  */
-public class RemoteLidoProductListParam {
+public class RemoteProductsProductidPurchasesGetParam {
 
-    /** The property of productName. (keyword of product name e.g. Stranger) (NullAllowed) */
-    public String productName;
-
-    /** The property of productStatus. (enumValue=[ONS, PST, SST]) (status of product e.g. ONS: * `ONS` - OnSaleProduction. * `PST` - ProductionStop. * `SST` - SaleStop. :: fromCls(CDef$ProductStatus)) (NullAllowed) */
-    public org.docksidestage.dbflute.allcommon.CDef.ProductStatus productStatus;
-
-    /** The property of purchaseMemberName. (keyword of member name that purchases e.g. S) (NullAllowed) */
-    public String purchaseMemberName;
+    /** The property of memberName. (NullAllowed) */
+    public String memberName;
 
     @Override
     public String toString() {
