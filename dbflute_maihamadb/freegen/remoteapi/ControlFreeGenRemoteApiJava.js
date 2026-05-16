@@ -352,8 +352,16 @@ function createBean(rule, beanPurposeType, api, properties, definitionMap, defin
     remoteApiBean.api = api;
     remoteApiBean.package = package;
 
+    // detailモードの制御: detailの場合、/lido/product/list/{pagenumber} のとき、pagenumber もクラス名に入る。
+    // デフォルト false だが、ruleで固定化することもできる。(五月雨追加による既存コード差分防止のため) (2026/05/16)
+    var defaultDetail = false;
+    var beanNamingOption = { detail: defaultDetail }; // option増えたら追加していく想定
+    var fixedDetail = rule['isAvailableFixedDetailNamingOfBeanClassName'](api, beanNamingOption);
+
     // call e.g. rule.paramClassName(), rule.returnClassName()
-    remoteApiBean.className = rule[beanPurposeType + 'ClassName'](api, /*detail*/false);
+    // #hope jflute 現場でオーバーライドがなくなったら、第二引数をoptionに変更したい (2026/05/16)
+    var finalDetail = fixedDetail || defaultDetail;
+    remoteApiBean.className = rule[beanPurposeType + 'ClassName'](api, /*detail*/finalDetail);
 
     remoteApiBean.definitionKey = definitionKey;
 

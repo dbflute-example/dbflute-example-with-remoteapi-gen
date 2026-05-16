@@ -288,6 +288,7 @@ var baseRule = {
     /**
      * Build resource name of the behavior method. (camelized, initUncap)
      * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - The option of behavior naming. e.g. { detail: false } (NotNull)
      * @return {string} e.g. ruleOfProductList (for /lido/product/list) (NotNull, NotEmpty)
      */
     resourceNameOfBehaviorMethod: function(api, option) {
@@ -297,7 +298,7 @@ var baseRule = {
     /**
      * Build suffix (basically HTTP method keyword) of behavior method for e.g. request/ruleOf...().
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @param {Object} option - The option of behavior naming. e.g. { detail: false } (NotNull)
      * @return {string} e.g. '', 'Get', 'Post' (NotNull)
      */
     suffixOfBehaviorMethodName: function(api, option) {
@@ -309,7 +310,7 @@ var baseRule = {
     /**
      * Is available HTTP method suffix of behavior methods (e.g. request.../ruleOf...) ?
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. {} (NotNull)
+     * @param {Object} option - The option of behavior naming. e.g. {} (NotNull)
      * @return {boolean} true if always HTTP method as suffix e.g. requestLidoProductListGet (NotNull)
      */
     isAvailableFixedHttpMethodSuffixOfBehaviorMethodName: function(api, option) {
@@ -319,8 +320,8 @@ var baseRule = {
     /**
      * Is available HTTP method suffix of identity name (behavior methods/Param/Return) ?
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. {} (NotNull)
-     * @return {boolean} true if always HTTP method as suffix e.g. RemoteLidoProductListGet (NotNull)
+     * @param {Object} option - The option of behavior naming. e.g. {} (NotNull)
+     * @return {boolean} true if always HTTP method as suffix e.g. RemoteLidoProductListGet... (NotNull)
      */
     isAvailableFixedHttpMethodSuffixOfIdentityName: function(api, option) {
         return false; // as default
@@ -368,7 +369,7 @@ var baseRule = {
     /**
      * Build resource name of basic bean class without Remote/camel/package/ for e.g. Param/Return.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @param {Object} option - The option of bean naming. e.g. { detail: false } (NotNull)
      * @return {string} e.g. lido.product.list (NotNull)
      */
     resourceNameOfBasicBeanClassName: function(api, option) {
@@ -378,7 +379,7 @@ var baseRule = {
     /**
      * Build resource name of detail bean class without Remote/camel/package/ for e.g. Param/Return.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. { detail: true } (NotNull)
+     * @param {Object} option - The option of bean naming. e.g. { detail: true } (NotNull)
      * @return {string} e.g. lido_product_list_pagenumber (NotNull)
      */
     resourceNameOfDetailBeanClassName: function(api, option) {
@@ -392,7 +393,7 @@ var baseRule = {
     /**
      * Build suffix (basically HTTP method keyword) of bean class for e.g. Param/Return.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. { detail: false } (NotNull)
+     * @param {Object} option - The option of bean naming. e.g. { detail: false } (NotNull)
      * @return {string} e.g. '', 'Get', 'Post' (NotNull)
      */
     suffixOfBeanClassName: function(api, option) {
@@ -404,11 +405,21 @@ var baseRule = {
     /**
      * Is available fixed HTTP method suffix of bean class for e.g. Param/Return.
      * @param {Api} api - The API metadata as current. (NotNull)
-     * @param {Object} option - e.g. { detail: false } (NotNull)
-     * @return {boolean} true if always HTTP method as suffix e.g. RemoteLidoProductListGet (NotNull)
+     * @param {Object} option - The option of bean naming. e.g. { detail: false } (NotNull)
+     * @return {boolean} true if always HTTP method as suffix e.g. RemoteLidoProductListGet... (NotNull)
      */
     isAvailableFixedHttpMethodSuffixOfBeanClassName: function(api, option) {
         return this.isAvailableFixedHttpMethodSuffixOfIdentityName(api, option);
+    },
+
+    /**
+     * Is available fixed detail naming of bean class for e.g. Param/Return.
+     * @param {Api} api - The API metadata as current. (NotNull)
+     * @param {Object} option - The option of bean naming. e.g. { detail: false } (NotNull)
+     * @return {boolean} true if always detail e.g. RemoteLidoProductListPagenumber... (NotNull)
+     */
+    isAvailableFixedDetailNamingOfBeanClassName: function(api, option) {
+        return false; // as default
     },
 
     // -----------------------------------------------------
